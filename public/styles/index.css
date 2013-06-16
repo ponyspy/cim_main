@@ -1,7 +1,7 @@
 .content_block {
 	position: relative;
 	width: 930px;
-	/*border: 1px solid black;*/
+	/*float: left;*/
 }
 
 /*
@@ -49,13 +49,13 @@
 }
 
 .tag_navigator {
-	width: 100px;
+	width: 170px;
 	height: 200px;
+	float: right;
 	border: 1px solid black;
-	float: left;
-	/*position: fixed;*/
-	margin-top: 400px;
+	top: 720px;
 	margin-left: 950px;
+	position: relative;
 }
 
 
@@ -87,4 +87,8 @@
 }
 .infinite-item:nth-child(3n+1) {
 	background:#eae2f2;
+}
+
+.loader {
+	text-align: center;
 }
