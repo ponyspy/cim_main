@@ -1,0 +1,23 @@
+doctype 5
+html
+	head
+		include header
+	body
+		.maket
+			.main_block
+				.header_block
+					.line_block
+					.menu_block
+						.menu_item афиша
+						.menu_item цим
+						a.pay(href='#') БИЛЕТЫ ON-line
+						//- .locale eng
+						input.search(type='text')
+						.search_submit поиск
+					.head_title_block
+						a(href='/')
+							.head_logo logo img
+								//- .center_test logo img
+				.content_block
+					block content
+				.footer_block

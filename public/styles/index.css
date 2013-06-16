@@ -1,0 +1,82 @@
+.content_block {
+	position: relative;
+	width: 930px;
+	border: 1px solid black;
+}
+
+/*
+ Poster
+*/
+
+.main_poster_block {
+	width: 930px;
+	height: 700px;
+	border: 1px solid black;
+}
+
+.main_poster_img {
+	width: 930px;
+	height: 620px;
+	border: 1px solid black;
+}
+
+.main_poster_cal {
+	width: 930px;
+	height: 80px;
+	border: 1px solid black;
+}
+.cal_ticket {
+	width: 20px;
+	height: 80px;
+	float: left;
+	border: 1px solid black;
+}
+.cal_date {
+	width: 300px;
+	height: 80px;
+	float: left;
+	border: 1px solid black;
+}
+.cal_time_hall {
+	width: 110px;
+	height: 80px;
+	float: left;
+	border: 1px solid black;
+}
+.cal_title {
+	width: 615px;
+	height: 80px;
+	float: left;
+	border: 1px solid black;
+}
+
+
+/*
+	Infiniti
+*/
+
+.infinite-container {
+	width:930px;
+	overflow:hidden;
+	position:relative;
+}
+
+.infinite-item:last-child {
+	margin-right: 0px;
+}
+
+.infinite-item {
+	float:left;
+	width:300px;
+	height:440px;
+	background:#444a50;
+	margin-top: 20px;
+	margin-right: 10px;
+}
+
+.infinite-item:nth-child(3n) {
+	background:#6a6272;
+}
+.infinite-item:nth-child(3n+1) {
+	background:#eae2f2;
+}

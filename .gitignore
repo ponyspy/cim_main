@@ -1,0 +1,9 @@
+/node_modules*
+/db*
+/maket*
+/public/images/posts*
+/public/fonts*
+/doc*
+/subl*
+/go.txt
+/.DS_Store
