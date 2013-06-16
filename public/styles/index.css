@@ -1,7 +1,7 @@
 .content_block {
 	position: relative;
 	width: 930px;
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 }
 
 /*
@@ -11,43 +11,51 @@
 .main_poster_block {
 	width: 930px;
 	height: 700px;
-	border: 1px solid black;
 }
 
 .main_poster_img {
 	width: 930px;
 	height: 620px;
-	border: 1px solid black;
+	background-color: #e1ff95;
 }
 
 .main_poster_cal {
 	width: 930px;
 	height: 80px;
-	border: 1px solid black;
 }
 .cal_ticket {
 	width: 20px;
 	height: 80px;
 	float: left;
-	border: 1px solid black;
+	background-color: #232da7;
 }
 .cal_date {
 	width: 300px;
 	height: 80px;
 	float: left;
-	border: 1px solid black;
+	background-color: #a75c37;
 }
 .cal_time_hall {
 	width: 110px;
 	height: 80px;
 	float: left;
-	border: 1px solid black;
+	background-color: #57a743;
 }
 .cal_title {
-	width: 615px;
+	width: 500px;
 	height: 80px;
 	float: left;
+	background-color: #38a79d;
+}
+
+.tag_navigator {
+	width: 100px;
+	height: 200px;
 	border: 1px solid black;
+	float: left;
+	/*position: fixed;*/
+	margin-top: 400px;
+	margin-left: 950px;
 }
 
 
@@ -61,7 +69,7 @@
 	position:relative;
 }
 
-.infinite-item:last-child {
+.infinite-container div:nth-child(3n) {
 	margin-right: 0px;
 }
 
@@ -71,7 +79,7 @@
 	height:440px;
 	background:#444a50;
 	margin-top: 20px;
-	margin-right: 10px;
+	margin-right: 15px;
 }
 
 .infinite-item:nth-child(3n) {

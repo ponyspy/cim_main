@@ -7,15 +7,17 @@ block content_scripts
 	script(type='text/javascript', src='/scripts/main.js')
 
 block content
+	.tag_navigator tags
+		br
+		a.one(href='#') One
 	.main_poster_block
 		.main_poster_img
 		.main_poster_cal
-			.cal_ticket
-			.cal_date
-			.cal_time
-			.cal_time_hall
-			.cal_title
-	.infinite-container
+			.cal_ticket ticket
+			.cal_date date
+			.cal_time_hall time/hall
+			.cal_title title
+	.infinite-container			
 		.infinite-item
 			.title title
 			.date date
@@ -40,4 +42,4 @@ block content
 			.title title
 			.date date
 			.img img
-	.loader Loading...
+	.loader
