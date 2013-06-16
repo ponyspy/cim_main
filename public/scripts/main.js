@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	var offset = 0;
 	function AjaxLoader(event) {
-		if($(window).scrollTop() == $(document).height() - $(window).height()) {
+		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 			$('.loader').text('Loading...').show();
 			$.ajax({
 			url: "/",
@@ -41,7 +41,7 @@ $(document).ready(function() {
 	});
 
 
-$(window).scroll(function(){ 
+	function StickyTags() { 
 		var offset = 0;
 		var sticky = false;
 		var top = $(window).scrollTop();
@@ -53,6 +53,9 @@ $(window).scroll(function(){
 		} else {
 			$(".tag_navigator").css('position', 'relative').css('top', '720px');
 		}
-	});
+	};
+
+$(window).on('scroll', StickyTags);
+
 
 });
