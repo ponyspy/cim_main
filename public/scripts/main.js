@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	var offset = 0;
+	
 	function AjaxLoader(event) {
 		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 			$('.loader').text('Loading...').show();
@@ -30,12 +31,12 @@ $(document).ready(function() {
 	}
 
 
-	$('.one').click(function() {
-		$('.infinite-container').empty();
-		$(window).off('scroll');
+	$('.tag_item').click(function() {
+		$(window).off('scroll', AjaxLoader);
 		$('body').animate({
 			scrollTop: $(".infinite-container").offset().top
 		}, 400, function() {
+			// $('.infinite-container').empty();
 			$(window).on('scroll', {offset:0}, AjaxLoader);
 		});
 	});
@@ -47,8 +48,7 @@ $(document).ready(function() {
 		var top = $(window).scrollTop();
 		
 		if ($(".infinite-container").offset().top < top) {
-			$(window).off().on('scroll', {offset:6}, AjaxLoader);
-			$(".tag_navigator").css('position', 'fixed').css('top', '0px');
+			$(".tag_navigator").css('position', 'fixed').css('top', '15px');
 			sticky = true;
 		} else {
 			$(".tag_navigator").css('position', 'relative').css('top', '720px');
@@ -56,6 +56,6 @@ $(document).ready(function() {
 	};
 
 $(window).on('scroll', StickyTags);
-
+$(window).on('scroll', {offset:6}, AjaxLoader);
 
 });

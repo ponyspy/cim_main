@@ -1,7 +1,6 @@
 .content_block {
 	position: relative;
 	width: 930px;
-	/*float: left;*/
 }
 
 /*
@@ -52,10 +51,14 @@
 	width: 170px;
 	height: 200px;
 	float: right;
-	border: 1px solid black;
+	background-color: #9ea13b;
 	top: 720px;
 	margin-left: 950px;
 	position: relative;
+}
+
+.tag_item {
+	cursor: pointer;
 }
 
 

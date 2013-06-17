@@ -101,7 +101,7 @@ app.post('/', function (req, res) {
   if (post.offset == 18)
     res.send('exit');
   else
-    res.send(arr.slice(post.offset, post.offset*2));  
+    res.send(arr.slice(post.offset, post.offset*2 || 6));  
 });
 
 app.get('/error', function (req, res) {
