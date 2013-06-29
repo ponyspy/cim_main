@@ -1,15 +1,15 @@
 $(document).ready(function() {
-	var offset = 0;
-	
+	var skip = 6;
+
 	function AjaxLoader(event) {
 		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 			$('.loader').text('Loading...').show();
 			$.ajax({
 			url: "/",
-			data: {tag : 'cool', offset: offset},
+			data: {tag : event.data.tag, offset: skip},
 			type: "POST",
 			success: function(data) {
-				offset = event.data.offset + 6;
+				skip = skip + event.data.offset;
 				if (data != 'exit') {
 					for (var i in data) {
 						var item = $('<div />', {'class':'infinite-item'});
@@ -22,7 +22,7 @@ $(document).ready(function() {
 				}
 				else {
 					$('.loader').text('No more items to show.').show();
-					$(window).off('scroll');
+					$(window).off('scroll', AjaxLoader);
 					$('.footer_block').show();
 				}
 			}
@@ -36,8 +36,10 @@ $(document).ready(function() {
 		$('body').animate({
 			scrollTop: $(".infinite-container").offset().top
 		}, 400, function() {
-			// $('.infinite-container').empty();
-			$(window).on('scroll', {offset:0}, AjaxLoader);
+			skip = 0;
+			var items = $('.infinite-item').slice(6);
+			items.remove();
+			$(window).on('scroll', {tag:'zlo', offset:6}, AjaxLoader);
 		});
 	});
 
@@ -56,6 +58,6 @@ $(document).ready(function() {
 	};
 
 $(window).on('scroll', StickyTags);
-$(window).on('scroll', {offset:6}, AjaxLoader);
+$(window).on('scroll', {tag:'cool', offset:6}, AjaxLoader);
 
 });
