@@ -70,6 +70,7 @@
 	width:930px;
 	overflow:hidden;
 	position:relative;
+	min-height: 850px;
 }
 
 .infinite-container div:nth-child(3n) {

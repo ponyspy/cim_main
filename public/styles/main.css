@@ -50,6 +50,12 @@
  	background-color: black;
  }
 
+ .menu_drop {
+ 	width: 170px;
+ 	height: 300px;
+ 	background-color: black;
+ }
+
  .pay {
  	width: 120px;
  	height: 25px;
@@ -102,8 +108,7 @@
  .head_title_block {
 	width: 1120px;
 	height: 130px;
-	border: 1px solid black;
-	/*background-color: red;*/  /*Head Poster*/
+	background-color: #88413d;  /*Head Poster*/
  }
 
  .head_logo {
