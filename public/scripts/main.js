@@ -15,36 +15,38 @@ $(document).ready(function() {
 		}
 		else {
 			$('.loader').text('No more items to show.').show();
-			$(window).off('scroll', AjaxLoader);
+			$(window).off('scroll', ScrollLoader);
 			$('.footer_block').show();
 		}
 	}
 
-	function Loader(event) {
+	function TagLoader(event) {
 		var tag = this.className.slice(9);
 		skip = 0;
 
-		$(window).off('scroll', AjaxLoader);
+		$(window).off('scroll', ScrollLoader);
 		$('body').animate({
 			scrollTop: $(".infinite-container").offset().top
 		}, 400, function() {
-			$('.infinite-container').fadeOut('200', function() {
-				$(this).empty();
+			$('.infinite-item').fadeOut('200').promise().done(function() {
+				$('.infinite-container').empty();
 				$.ajax({
 					url: "/",
 					data: {tag : tag, offset: skip},
 					type: "POST"
 				}).done(function(data) {
+					skip = 6;
+
 					ItemConstructor(data, event);
-					$('.infinite-container').fadeIn('200', function() {
-						$(window).on('scroll', {tag: tag, offset: 6}, AjaxLoader);
+					$('.infinite-item').fadeIn('200', function() {
+						$(window).on('scroll', {tag: tag, offset: 6}, ScrollLoader);
 					});
-				});		
+				});
 			});
-		});		
+		});
 	}
 
-	function AjaxLoader(event) {
+	function ScrollLoader(event) {
 		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 			$('.loader').text('Loading...').show();
 			$.ajax({
@@ -71,6 +73,6 @@ $(document).ready(function() {
 	};
 
 $(window).on('scroll', StickyTags);
-$(window).on('scroll', {tag:'cool', offset: 6}, AjaxLoader);
-$('.tag_item').on('click', {offset: 0}, Loader);
+$(window).on('scroll', {tag:'cool', offset: 6}, ScrollLoader);
+$('.tag_item').on('click', {offset: 0}, TagLoader);
 });
