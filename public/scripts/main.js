@@ -24,12 +24,14 @@ $(document).ready(function() {
 		var tag = this.className.slice(9);
 		skip = 0;
 
+		$('.footer_block').hide();
 		$(window).off('scroll', ScrollLoader);
 		$('body').animate({
 			scrollTop: $(".infinite-container").offset().top
 		}, 400, function() {
 			$('.infinite-item').fadeOut('200').promise().done(function() {
 				$('.infinite-container').empty();
+				$('.loader').text('Loading...').show();
 				$.ajax({
 					url: "/",
 					data: {tag : tag, offset: skip},
