@@ -66,6 +66,10 @@
 	Infiniti
 */
 
+.item_img {
+	width: 300px;
+}
+
 .infinite-container {
 	width:930px;
 	overflow:hidden;
@@ -80,7 +84,7 @@
 .infinite-item {
 	float:left;
 	width:300px;
-	height:440px;
+	min-height:440px;
 	background:#444a50;
 	margin-top: 20px;
 	margin-right: 15px;

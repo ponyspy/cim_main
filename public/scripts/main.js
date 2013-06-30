@@ -1,15 +1,23 @@
 $(document).ready(function() {
 	var skip = 6;
 
+	function preload(arrayOfImages) {
+		$(arrayOfImages).each(function(){
+			$('<img />')[0].src = this;
+		});
+	}	
+
 	function ItemConstructor(data, event) {
 		skip = skip + event.data.offset;
 		if (data != 'exit') {
 			for (var i in data) {
 				var item = $('<div />', {'class':'infinite-item'});
+				var link = $('<a />', {'href':'/event'});
 				var title = $('<div />', {'class':'title', 'text': data[i].name});
 				var date = $('<div />', {'class':'date', 'text': data[i].tag});
-				var img = $('<div />', {'class':'img', 'text':'img'});
-				$('.infinite-container').append(item.append(title).append(date).append(img));
+				var img = $('<img />', {'class':'item_img', 'src': data[i].img});
+				// $('.infinite-container').append(item.append(link).append(title).append(date).append(img));
+				$('.infinite-container').append(item.append(link.append(title).append(date).append(img)));
 			}
 			$('.loader').hide();
 		}
