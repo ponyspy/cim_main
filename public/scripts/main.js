@@ -37,7 +37,7 @@ $(document).ready(function() {
 		$('body').animate({
 			scrollTop: $(".infinite-container").offset().top
 		}, 400, function() {
-			$('.infinite-item').fadeOut('200').promise().done(function() {
+			$('.infinite-item').fadeOut('100').promise().done(function() {
 				$('.infinite-container').empty();
 				$('.loader').text('Loading...').show();
 				$.ajax({
@@ -48,7 +48,7 @@ $(document).ready(function() {
 					skip = 6;
 
 					ItemConstructor(data, event);
-					$('.infinite-item').fadeIn('200', function() {
+					$('.infinite-item').fadeIn('100', function() {
 						$(window).on('scroll', {tag: tag, offset: 6}, ScrollLoader);
 					});
 				});
@@ -61,6 +61,7 @@ $(document).ready(function() {
 			$('.loader').text('Loading...').show();
 			$.ajax({
 				url: "/",
+				async: false,
 				data: {tag : event.data.tag, offset: skip},
 				type: "POST"
 			}).done(function(data) {
