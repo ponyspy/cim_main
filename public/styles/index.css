@@ -71,9 +71,9 @@
 }
 
 .infinite-container {
-	width:930px;
-	overflow:hidden;
-	position:relative;
+	width: 930px;
+	overflow: hidden;
+	position: relative;
 	min-height: 850px;
 }
 
@@ -82,10 +82,10 @@
 }
 
 .infinite-item {
-	float:left;
+	min-height: 440px;
 	width:300px;
-	min-height:440px;
-	background:#444a50;
+	float: left;
+	background-color: white;
 	margin-top: 20px;
 	margin-right: 15px;
 }
@@ -96,6 +96,28 @@
 .infinite-item:nth-child(3n+1) {
 	background:#eae2f2;
 }
+
+
+
+/*.infinite-container {
+	width:930px;
+	overflow:hidden;
+	position:relative;
+	-webkit-column-count: 3;
+  -webkit-column-gap: 3%;
+  -webkit-column-width: 30%;	
+}
+
+.infinite-item {
+	min-height: 200px;
+	min-width: 300px;
+	margin-top: 20px;
+	background-color: white;
+	display: inline-block;
+}*/
+
+
+
 
 .loader {
 	text-align: center;

@@ -1,0 +1,14 @@
+extends ../layout
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/styles/index.css')
+
+block content_scripts
+	script(type='text/javascript', src='/scripts/main.js')
+	script(type='text/javascript', src='/scripts/masonry.pkgd.min.js')
+
+block content_right
+
+block content
+	h1 cool!
+	b= event

@@ -1,0 +1,43 @@
+extends ../layout
+
+block content_scripts
+	script(type='text/javascript', src='/scripts/add.js')
+
+block content
+	h2 Добавить событие
+	form(action="/auth/add", method="post", enctype="multipart/form-data")
+		|Заголовок:
+		br
+		input(type="text", name="ru[title]", size='84px')
+		input(type="text", name="en[title]", size='84px')
+		br
+		|Подзаголовок:
+		br
+		input(type="text", name="ru[s_title]", size='84px')
+		input(type="text", name="en[s_title]", size='84px')
+		br				
+		|Описание:
+		br
+		textarea(name="ru[body]", cols="60", rows="8")
+		textarea(name="en[body]", cols="60", rows="8")	
+		br
+		br
+		|Категория:
+		br
+		select(name='tag')
+			option(value='One') Один
+			option(value='Two') Два
+			option(value='Three') Три
+		br
+		br	
+		|Постер:
+		br
+		input(type="file", name="img1")
+		br
+		br
+		b Подсобытия
+		br
+		a(href='#') добавить
+		br
+		br
+		input(type="submit", value="Add")
