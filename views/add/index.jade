@@ -1,25 +1,23 @@
 extends ../layout
 
+block content_style
+	link(rel='stylesheet', type='text/css', href='/styles/add.css')
+
 block content_scripts
 	script(type='text/javascript', src='/scripts/add.js')
 
 block content
 	h2 Добавить событие
-	form(action="/auth/add", method="post", enctype="multipart/form-data")
-		|Заголовок:
-		br
-		input(type="text", name="ru[title]", size='84px')
-		input(type="text", name="en[title]", size='84px')
-		br
-		|Подзаголовок:
-		br
-		input(type="text", name="ru[s_title]", size='84px')
-		input(type="text", name="en[s_title]", size='84px')
-		br				
-		|Описание:
-		br
-		textarea(name="ru[body]", cols="60", rows="8")
-		textarea(name="en[body]", cols="60", rows="8")	
+	form(action="/auth", method="post", enctype="multipart/form-data")
+		.form_title Заголовок:
+		input.ru(type="text", name="ru[title]")
+		input.en(type="text", name="en[title]")
+		.form_title Подзаголовок:
+		input.ru(type="text", name="ru[s_title]")
+		input.en(type="text", name="en[s_title]")
+		.form_title Описание:
+		textarea.ru(name="ru[body]", rows="8")
+		textarea.en(name="en[body]", rows="8")	
 		br
 		br
 		|Категория:
@@ -37,7 +35,8 @@ block content
 		br
 		b Подсобытия
 		br
-		a(href='#') добавить
+		.children
+		a(href='#').add_child добавить			
 		br
 		br
-		input(type="submit", value="Add")
+		input(type="submit", value="Добавить")

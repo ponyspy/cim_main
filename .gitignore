@@ -1,5 +1,6 @@
 /node_modules*
 /db*
+/uploads*
 /maket*
 /public/images/posts*
 /public/fonts*

@@ -1,0 +1,15 @@
+.content_block {
+	height: 850px;
+}
+
+.ru {
+	width: 400px;
+	display: block;
+	float: left;
+	margin-right: 10px; 
+}
+
+.en {
+	width: 400px;
+	display: block;
+}

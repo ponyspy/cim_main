@@ -147,14 +147,14 @@ app.post('/auth/add', function(req, res) {
     tag: post.tag,
   });
 
-  var locale = new Locale ({
-    title: post.title,
-    body: post.body
+  var localeRU = new Locale ({
+    title: post.ru.title,
+    body: post.ru.body
   });
 
 
   event.save(function(err, event) {
-    locale.save(function(err, locale) {
+    localeRU.save(function(err, locale) {
       Event.findById(event._id, function(err, data) {
         data._locale.push(locale._id);
         data.save();
