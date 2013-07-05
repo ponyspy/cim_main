@@ -131,6 +131,7 @@ app.get('/auth', checkAuth, function (req, res) {
 
 app.post('/auth', checkAuth, function (req, res) {
   console.log(req.body);
+  console.log(req.body.children[0].ru.title);
   res.redirect('back');
 });
 

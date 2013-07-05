@@ -1,15 +1,55 @@
 .content_block {
-	height: 850px;
+	min-height: 850px;
+	width: 930px;
+	background-color: white;
+}
+
+.form_block {
+	position: relative;
 }
 
 .ru {
-	width: 400px;
+	width: 450px;
 	display: block;
 	float: left;
 	margin-right: 10px; 
 }
 
 .en {
-	width: 400px;
+	width: 450px;
 	display: block;
+}
+
+/*
+	Event
+*/
+
+.form_block_event {
+	display: none;
+}
+
+/*
+	Navigator
+*/
+
+.navigator {
+	width: 170px;
+	/*height: 200px;*/
+	float: right;
+	background-color: #9ea13b;
+	top: 120px;
+	margin-left: 950px;
+	position: relative;
+}
+
+.nav_item {
+	cursor: pointer;
+}
+
+.form_submit {
+	cursor: pointer;
+}
+
+.toggle_eng {
+	cursor: pointer;
 }

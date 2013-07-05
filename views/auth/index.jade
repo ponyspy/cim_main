@@ -2,11 +2,3 @@ extends ../layout
 
 block content
 	a(href='/auth/add') добавить событие
-	form(action='/auth', method='post')
-		input(type='text', name='children[0][title]', value='john')
-		input(type='text', name='children[0][title2]', value='pass')
-		input(type='text', name='children[1][title]', value='john')
-		input(type='text', name='children[1][title2]', value='pass')
-		br
-		br
-		input(type='submit', value='Отправить!')

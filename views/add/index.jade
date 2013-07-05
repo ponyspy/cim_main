@@ -6,37 +6,79 @@ block content_style
 block content_scripts
 	script(type='text/javascript', src='/scripts/add.js')
 
+block content_right
+	.navigator Навигатор
+		br
+		b.toggle_eng перевод	
+		br
+		br
+		b.nav_item.one One
+		br
+		b.nav_item.two Two
+		br
+		br
+		b.form_submit ОТПРАВИТЬ	
+
 block content
-	h2 Добавить событие
-	form(action="/auth", method="post", enctype="multipart/form-data")
-		.form_title Заголовок:
-		input.ru(type="text", name="ru[title]")
-		input.en(type="text", name="en[title]")
-		.form_title Подзаголовок:
-		input.ru(type="text", name="ru[s_title]")
-		input.en(type="text", name="en[s_title]")
-		.form_title Описание:
-		textarea.ru(name="ru[body]", rows="8")
-		textarea.en(name="en[body]", rows="8")	
-		br
-		br
-		|Категория:
-		br
-		select(name='tag')
-			option(value='One') Один
-			option(value='Two') Два
-			option(value='Three') Три
-		br
-		br	
-		|Постер:
-		br
-		input(type="file", name="img1")
-		br
-		br
-		b Подсобытия
-		br
-		.children
-		a(href='#').add_child добавить			
-		br
-		br
-		input(type="submit", value="Добавить")
+	.form_block
+		h2 Добавить событие
+		form(action="/auth", method="post", enctype="multipart/form-data")
+			.form_title Заголовок:
+			input.ru(type="text", name="ru[title]")
+			input.en(type="text", name="en[title]", disabled)
+			.form_title Подзаголовок:
+			input.ru(type="text", name="ru[s_title]")
+			input.en(type="text", name="en[s_title]", disabled)
+			.form_title Описание:
+			textarea.ru(name="ru[body]", rows="8")
+			textarea.en(name="en[body]", rows="8", disabled)
+			br
+			br
+			.form_title Дата:
+			br
+			select(name='cal[date]')
+				option(value='') Дата
+				option(value='1') 01
+				option(value='2') 02	
+			select(name='cal[month]')
+				option(value='') Месяц
+				option(value='0') Январь
+				option(value='1') Февраль
+			select(name='cal[year]')
+				option(value='') Год
+				option(value='2013') 2013
+				option(value='2014') 2014									
+			br
+			br
+			.form_title Категория:
+			br
+			select(name='tag')
+				option(value='One') Один
+				option(value='Two') Два
+				option(value='Three') Три
+			br
+			br	
+			.form_title Постер:
+			br
+			input(type="file", name="img1")
+			br
+			br
+			a(href='#').event_convert Событие
+			br
+			br
+			.form_block_event
+				.form_title Режисер:
+				input.ru(type="text", name="ru[director]", disabled)
+				input.en(type="text", name="en[director]", disabled)
+				.form_title Художественный руководитель:
+				input.ru(type="text", name="ru[art_director]", disabled)
+				input.en(type="text", name="en[art_director]", disabled)
+				br			
+				.form_title Спецпроект:
+				br
+				.form_block_project
+					.children
+					a(href='#').add_child добавить
+					br
+					br
+				br
