@@ -7,7 +7,8 @@ block content_scripts
 	script(type='text/javascript', src='/scripts/add.js')
 
 block content_right
-	.navigator Навигатор
+	.navigator
+		.nav_title НОВОСТЬ
 		br
 		b.toggle_eng перевод	
 		br
@@ -32,24 +33,6 @@ block content
 			.form_title Описание:
 			textarea.ru(name="ru[body]", rows="8")
 			textarea.en(name="en[body]", rows="8", disabled)
-			br
-			br
-			.form_title Дата:
-			br
-			select(name='cal[date]')
-				option(value='') Дата
-				option(value='1') 01
-				option(value='2') 02	
-			select(name='cal[month]')
-				option(value='') Месяц
-				option(value='0') Январь
-				option(value='1') Февраль
-			select(name='cal[year]')
-				option(value='') Год
-				option(value='2013') 2013
-				option(value='2014') 2014									
-			br
-			br
 			.form_title Категория:
 			br
 			select(name='tag')
@@ -68,13 +51,30 @@ block content
 			br
 			.form_block_event
 				.form_title Режисер:
-				input.ru(type="text", name="ru[director]", disabled)
-				input.en(type="text", name="en[director]", disabled)
+				input.ru(type="text", name="event[ru][director]", disabled)
+				input.en(type="text", name="event[en][director]", disabled)
 				.form_title Художественный руководитель:
-				input.ru(type="text", name="ru[art_director]", disabled)
-				input.en(type="text", name="en[art_director]", disabled)
-				br			
-				.form_title Спецпроект:
+				input.ru(type="text", name="event[ru][art_director]", disabled)
+				input.en(type="text", name="event[en][art_director]", disabled)
+				br
+				br
+				.form_title Дата:
+				br
+				select(name='event[cal][date]')
+					option(value='') Дата
+					option(value='1') 01
+					option(value='2') 02	
+				select(name='event[cal][month]')
+					option(value='') Месяц
+					option(value='0') Январь
+					option(value='1') Февраль
+				select(name='event[cal][year]')
+					option(value='') Год
+					option(value='2013') 2013
+					option(value='2014') 2014									
+				br
+				br	
+				a(href='#').project_convert Спецпроект
 				br
 				.form_block_project
 					.children

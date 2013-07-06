@@ -10,14 +10,13 @@
 
 .ru {
 	width: 450px;
-	display: block;
-	float: left;
+	display: inline-block;
 	margin-right: 10px; 
 }
 
 .en {
 	width: 450px;
-	display: block;
+	display: none;
 }
 
 /*
@@ -28,19 +27,30 @@
 	display: none;
 }
 
+.form_block_project {
+	display: none;
+}
+
 /*
 	Navigator
 */
 
 .navigator {
 	width: 170px;
-	/*height: 200px;*/
 	float: right;
 	background-color: #9ea13b;
-	top: 120px;
-	margin-left: 950px;
 	position: relative;
+	margin-top: 15px;
 }
+
+/*.navigator {
+	width: 170px;
+	float: right;
+	background-color: #9ea13b;
+	position: fixed;
+	margin-left: 950px;
+	margin-top: 15px;
+}*/
 
 .nav_item {
 	cursor: pointer;
