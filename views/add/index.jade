@@ -34,15 +34,11 @@ block content
 			textarea.ru(name="ru[body]", rows="8")
 			textarea.en(name="en[body]", rows="8", disabled)
 			.form_title Категория:
-			br
 			select(name='tag')
 				option(value='One') Один
 				option(value='Two') Два
 				option(value='Three') Три
-			br
-			br	
 			.form_title Постер:
-			br
 			input(type="file", name="img1")
 			br
 			br
@@ -59,15 +55,15 @@ block content
 				br
 				br
 				.form_title Дата:
-				br
 				select(name='event[cal][date]')
 					option(value='') Дата
-					option(value='1') 01
-					option(value='2') 02	
+					- for (var i=1; i<32; i++)
+						option(value=i)= i
 				select(name='event[cal][month]')
 					option(value='') Месяц
-					option(value='0') Январь
-					option(value='1') Февраль
+					- var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+					each month, i in months
+						option(value=i)= month
 				select(name='event[cal][year]')
 					option(value='') Год
 					option(value='2013') 2013
@@ -78,6 +74,7 @@ block content
 				br
 				.form_block_project
 					.children
+					br
 					a(href='#').add_child добавить
 					br
 					br

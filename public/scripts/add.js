@@ -21,7 +21,7 @@ $(document).ready(function() {
 		if (event = !event) {
 			$('.nav_title').text('СОБЫТИЕ');
 			$('.form_block_event').toggle();
-			$('.form_block_event>input.ru').prop('disabled', false);
+			$('.form_block_event>input').prop('disabled', false);
 			$('.form_block_event>select').prop('disabled', false);
 		}
 		else {
@@ -50,22 +50,67 @@ $(document).ready(function() {
 	function projectConstructor () {
 		count = $('.child').size();
 
+		function title (text) {
+			var title = $('<div />', {'class':'form_title', 'text':text});
+			return title;
+		}
+
+		function form (lang, name) {
+			if (name == 'en')
+				var form = $('<input />', {'type':'text', 'class':lang, 'name':'children[' + count + '][' + lang + '][' + name + ']'});
+			else
+				var form = $('<input />', {'type':'text', 'class':lang, 'name':'children[' + count + '][' + lang + '][' + name + ']'});
+			return form;
+		}
+
+		function date (name) {
+			var select = $('<select />', {'name':'children[' + count + '][cal][' + name + ']'});
+			if (name == 'date') {
+				var o_title = $('<option />', {'value':'', 'text':'Дата'});
+				select.append(o_title);
+				for (var i=1; i < 32; i++) {
+					var option = $('<option />', {'value':i, 'text':i});
+					select.append(option)
+				}
+			}
+			else if (name == 'month') {
+				var o_title = $('<option />', {'value':'', 'text':'Месяц'});
+				select.append(o_title);
+				var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+				for (var i in months) {
+					var option = $('<option />', {'value':i, 'text':months[i]});
+					select.append(option)
+				}
+			}
+			else if (name == 'year') {
+				var o_title = $('<option />', {'value':'', 'text':'Год'});
+				select.append(o_title);				
+				var date = new Date();
+				var now = $('<option />', {'value':date.getFullYear(), 'text':date.getFullYear()});
+				var next = $('<option />', {'value':date.getFullYear()+1, 'text':date.getFullYear()+1});
+				select.append(now, next)
+			}
+			else return null;
+
+			return select;
+		}
+
+
+
 		var child = $('<div />', {'class':'child'});
 		var child_counter = $('<h2 />', {'class':'child_counter', 'text':'Событие ' + (count+1)});
-		var form_head_title = $('<div />', {'class':'form_title', 'text':'Заголовок'});
-		var form_head_s_title = $('<div />', {'class':'form_title', 'text':'Подзаголовок'});
-		var form_head_body = $('<div />', {'class':'form_title', 'text':'Описание'});
-
-		var title_ru = $('<input />', {'type':'text', 'class':'ru', 'name':'children[' + count + '][ru][title]'});
-		var s_title_ru = $('<input />', {'type':'text', 'class':'ru', 'name':'children[' + count + '][ru][s_title]'});
+		
 		var body_ru = $('<textarea />', {'rows':'8', 'class':'ru', 'name':'children[' + count + '][ru][body]'});
+		var body_en = $('<textarea />', {'rows':'8', 'class':'en', 'name':'children[' + count + '][en][body]'});
 
-		var title_en = $('<input />', {'type':'text', 'class':'en', 'disabled':'disabled', 'name':'children[' + count + '][en][title]'});
-		var s_title_en = $('<input />', {'type':'text', 'class':'en', 'disabled':'disabled', 'name':'children[' + count + '][en][s_title]'});
-		var body_en = $('<textarea />', {'rows':'8', 'class':'en', 'disabled':'disabled', 'name':'children[' + count + '][en][body]'});
-
-		$('.children').append(child.append(child_counter, form_head_title, title_ru, title_en, 
-																			 form_head_s_title, s_title_ru, s_title_en, form_head_body, body_ru, body_en));
+		$('.children').append(child.append(child_counter, title('Заголовок'), form('ru','title'), form('en','title'), 
+																			 								title('Подзаголовок'), form('ru','s_title'), form('en','s_title'), 
+																			 								title('Описание'), body_ru, body_en, 
+																			 								title('Дата'), date('date'), date('month'), date('year')));
+		if (eng == true)
+			$('.en').prop('disabled', true);
+		else
+			$('.en').prop('disabled', false).show();
 	}
 
 	function StickyTags() { 
