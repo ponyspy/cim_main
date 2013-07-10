@@ -8,6 +8,16 @@
 	position: relative;
 }
 
+input {
+	font-size: 16px;
+	margin-left: 3px;
+}
+
+textarea {
+	font-size: 16px;
+	margin-left: 3px;
+}
+
 .ru {
 	width: 450px;
 	display: inline-block;
@@ -20,20 +30,57 @@
 }
 
 .form_title	{
-	margin-top: 10px;
-	margin-bottom: 10px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	font-size: 16px;
+	margin-left: 3px;
 }
 
 /*
 	Event
 */
 
+.news_convert {
+	margin-top: 15px;
+	margin-left: 3px;
+	width: 115px;
+	cursor: pointer;
+	font-size: 24px;
+	border-bottom: 2px solid black;
+}
+
 .form_block_event {
 	display: none;
 }
 
+.event_convert {
+	margin-top: 15px;
+	margin-left: 3px;
+	width: 120px;
+	cursor: pointer;
+	font-size: 24px;
+	border-bottom: 2px solid black;
+}
+
 .form_block_project {
 	display: none;
+}
+
+.project_convert {
+	margin-top: 15px;
+	margin-left: 3px;
+	width: 160px;
+	cursor: pointer;
+	font-size: 24px;
+	border-bottom: 2px solid black;
+}
+
+.add_child {
+	margin-left: 3px;
+	width: 190px;
+	cursor: pointer;
+	font-size: 24px;
+	border-bottom: 2px solid black;	
 }
 
 /*

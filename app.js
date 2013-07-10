@@ -133,6 +133,7 @@ app.post('/auth', checkAuth, function (req, res) {
   console.log(req.body);
   console.log(req.body.children[0].ru.title);
   console.log(req.body.children[0].cal);
+  console.log(req.body.event.ru.actors);
   res.redirect('back');
 });
 

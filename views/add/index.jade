@@ -9,29 +9,32 @@ block content_scripts
 block content_right
 	.navigator
 		.nav_title НОВОСТЬ
-		br
-		b.toggle_eng перевод	
-		br
-		br
-		b.nav_item.one One
-		br
-		b.nav_item.two Two
-		br
+		.nav_project_children
+		br		
+		b.nav_settings_title настройки
+		.toggle_eng перевод
+		.studies этюды
+		.draft черновик
 		br
 		b.form_submit ОТПРАВИТЬ	
 
 block content
 	.form_block
-		h2 Добавить событие
+		h2 Конструктор
+		br
+		br
+		.news_convert НОВОСТЬ
+		br
+		br
 		form(action="/auth", method="post", enctype="multipart/form-data")
 			.form_title Заголовок:
-			input.ru(type="text", name="ru[title]")
+			input.ru(type="text", name="ru[title]", placeholder='«Вы живы?.. Я очень рада... ')
 			input.en(type="text", name="en[title]", disabled)
 			.form_title Подзаголовок:
-			input.ru(type="text", name="ru[s_title]")
+			input.ru(type="text", name="ru[s_title]", placeholder='Я тоже, как вы, жива. ')
 			input.en(type="text", name="en[s_title]", disabled)
 			.form_title Описание:
-			textarea.ru(name="ru[body]", rows="8")
+			textarea.ru(name="ru[body]", rows="8", placeholder='Так часто мне снится ограда, ')
 			textarea.en(name="en[body]", rows="8", disabled)
 			.form_title Категория:
 			select(name='tag')
@@ -39,10 +42,10 @@ block content
 				option(value='Two') Два
 				option(value='Three') Три
 			.form_title Постер:
-			input(type="file", name="img1")
+			input(type="file", name="poster")
 			br
 			br
-			a(href='#').event_convert Событие
+			.event_convert СОБЫТИЕ
 			br
 			br
 			.form_block_event
@@ -52,8 +55,16 @@ block content
 				.form_title Художественный руководитель:
 				input.ru(type="text", name="event[ru][art_director]", disabled)
 				input.en(type="text", name="event[en][art_director]", disabled)
-				br
-				br
+				.form_title Актеры:
+				.form_actors_list
+					input.ru(type="text", name="event[ru][actors]", disabled)
+					input.en(type="text", name="event[en][actors]", disabled)
+					.add_actor добавить актера
+				.form_title Зал:
+				select(name='hall')
+					option(value='One') Один
+					option(value='Two') Два
+					option(value='Three') Три				
 				.form_title Дата:
 				select(name='event[cal][date]')
 					option(value='') Дата
@@ -70,12 +81,13 @@ block content
 					option(value='2014') 2014									
 				br
 				br	
-				a(href='#').project_convert Спецпроект
+				.project_convert СПЕЦПРОЕКТ
+				br
 				br
 				.form_block_project
 					.children
 					br
-					a(href='#').add_child добавить
+					.add_child добавить событие
 					br
 					br
 				br

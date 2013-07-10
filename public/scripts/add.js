@@ -3,6 +3,7 @@ $(document).ready(function() {
 	var eng = true;
 	var event = false;
 	var project = false;
+	var news = false;
 
 	function toggleEnglish () {
 		if (eng = !eng) {
@@ -14,6 +15,17 @@ $(document).ready(function() {
 			eng = false;
 			$('.en').prop('disabled', eng).show();
 			$('.ru').css('float','left');			
+		}
+	}
+
+	function toggleNews () {
+		if (news = !news) {
+			$('.nav_title').text('НОВОСТЬ');
+			$('.form_block_event').toggle();
+			$('.form_block_project').toggle();
+			$('.nav_project_children').hide();
+			project = false;
+			event = false;
 		}
 	}
 
@@ -35,12 +47,14 @@ $(document).ready(function() {
 	function toggleProject () {
 		if (project = !project) {
 			$('.nav_title').text('СПЕЦПРОЕКТ');
+			$('.nav_project_children').show();
 			if (count == 0) projectConstructor();
 			$('.form_block_project').toggle();
 			$('.form_block_event>select').prop('disabled', true);
 		}
 		else {
 			$('.nav_title').text('СОБЫТИЕ');
+			$('.nav_project_children').hide();
 			$('.form_block_project').toggle();
 			$('.form_block_event>select').prop('disabled', false);
 			count = $('.child').size();
@@ -49,6 +63,9 @@ $(document).ready(function() {
 
 	function projectConstructor () {
 		count = $('.child').size();
+
+		var nav_project_child = $('<div />', {'class':'nav_project_child', 'text':'Событие ' + (count+1)});
+		$('.nav_project_children').append(nav_project_child);
 
 		function title (text) {
 			var title = $('<div />', {'class':'form_title', 'text':text});
@@ -131,6 +148,13 @@ $(document).ready(function() {
 	$('.toggle_eng').on('click', toggleEnglish);
 	$('.event_convert').on('click', toggleEvent);
 	$('.project_convert').on('click', toggleProject);
+	$('.news_convert').on('click', toggleNews);
+	var nav_children = $('.nav_project_child');
+	nav_children.each(function() {
+		this.click(function() {
+			alert(nav_children.size())
+		});
+	});
 
 	$('.form_submit').click(function() {
 		$('form').submit();
