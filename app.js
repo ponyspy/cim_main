@@ -26,20 +26,8 @@ app.use(app.router);
 // -------------------
 
 
-var eventSchema = new Schema({
-   _parent: { type: Schema.Types.ObjectId, ref: 'Event' },
-   _locale: [{ type: Schema.Types.ObjectId, ref: 'Locale' }],
-       img: {
-          path: String,
-        author: String
-       },
-       tag: String,
-      date: {type: Date, default: Date.now},
-  children: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
-});
-
-var localeSchema = new Schema({
-    locale: {type: String, default: 'RU'},
+var eventSchemaRU = new Schema({
+      fields: {
      title: String,
    s_title: String,
       body: String,
@@ -47,18 +35,46 @@ var localeSchema = new Schema({
   art_director: String,
       hall: String,
     actors: [String]
+      },
+       img: {
+          path: String,
+        author: String
+       },
+       tag: String,
+      date: {type: Date, default: Date.now},
+  children: [eventSchemaRU]
+});
+
+var eventSchemaEN = new Schema({
+      fields: {
+     title: String,
+   s_title: String,
+      body: String,
+  director: String,
+  art_director: String,
+      hall: String,
+    actors: [String]
+      },
+       img: {
+          path: String,
+        author: String
+       },
+       tag: String,
+      date: {type: Date, default: Date.now},
+  children: [eventSchemaEN]
 });
 
 var userSchema = new Schema({
    login: String,
     pass: String,
+    email: String,
   status: {type: String, default: 'User'},
     date: {type: Date, default: Date.now},
 });
 
 var User = mongoose.model('User', userSchema);
-var Event = mongoose.model('Event', eventSchema);
-var Locale = mongoose.model('Locale', localeSchema);
+var EventRU = mongoose.model('EventRU', eventSchemaRU);
+var EventEN = mongoose.model('EventEN', eventSchemaEN);
 
 
 // ------------------------
@@ -146,25 +162,39 @@ app.post('/auth/add', function(req, res) {
   var user = req.session.user;
   var pass = req.session.pass;
 
-  var event = new Event ({
+var date = new Date(post.event.cal.year, post.event.cal.month, post.event.cal.date);
+console.log(date);
+
+  var event_ru = new EventRU ({
     tag: post.tag,
+    date: date,
+    fields: {
+      title: post['ru'].title,
+      s_title: post['ru'].s_title,
+      body: post['ru'].body,
+      actors: post.event['ru'].actors
+    }
   });
 
-  var localeRU = new Locale ({
-    title: post.ru.title,
-    body: post.ru.body
+  event_ru.save(function() {
+    res.redirect('back');
   });
 
+  // var localeRU = new Locale ({
+  //   title: post.ru.title,
+  //   body: post.ru.body
+  // });
 
-  event.save(function(err, event) {
-    localeRU.save(function(err, locale) {
-      Event.findById(event._id, function(err, data) {
-        data._locale.push(locale._id);
-        data.save();
-        res.redirect('back');
-      });
-    });    
-  });
+
+  // event.save(function(err, event) {
+  //   localeRU.save(function(err, locale) {
+  //     Event.findById(event._id, function(err, data) {
+  //       data._locale.push(locale._id);
+  //       data.save();
+  //       res.redirect('back');
+  //     });
+  //   });    
+  // });
 
 
 });
