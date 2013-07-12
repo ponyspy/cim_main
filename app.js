@@ -26,55 +26,55 @@ app.use(app.router);
 // -------------------
 
 
-var eventSchemaRU = new Schema({
-      fields: {
-     title: String,
-   s_title: String,
-      body: String,
-  director: String,
-  art_director: String,
-      hall: String,
-    actors: [String]
-      },
-       img: {
-          path: String,
+var eventSchema = new Schema({
+    title: {
+      ru: String,
+      en: String
+     },
+    s_title: {
+      ru: String,
+      en: String
+     },
+    body: {
+      ru: String,
+      en: String
+    },
+    hall: String,
+    img: {
+        path: String,
         author: String
-       },
+    },
        tag: String,
       date: {type: Date, default: Date.now},
-  children: [eventSchemaRU]
-});
-
-var eventSchemaEN = new Schema({
-      fields: {
-     title: String,
-   s_title: String,
-      body: String,
-  director: String,
-  art_director: String,
-      hall: String,
-    actors: [String]
-      },
-       img: {
-          path: String,
-        author: String
-       },
-       tag: String,
-      date: {type: Date, default: Date.now},
-  children: [eventSchemaEN]
+   members: [{ type: Schema.Types.ObjectId, ref: 'Member' }],
+  children: [eventSchema]
 });
 
 var userSchema = new Schema({
    login: String,
     pass: String,
-    email: String,
+   email: String,
   status: {type: String, default: 'User'},
     date: {type: Date, default: Date.now},
 });
 
+var memberSchema = new Schema({
+    name: {
+      ru: String, 
+      en: String
+    },
+    description: {
+      ru: String, 
+      en: String
+    },
+    img: String,
+    status: String,
+    events: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
+});
+
 var User = mongoose.model('User', userSchema);
-var EventRU = mongoose.model('EventRU', eventSchemaRU);
-var EventEN = mongoose.model('EventEN', eventSchemaEN);
+var Member = mongoose.model('Member', memberSchema);
+var EventRU = mongoose.model('Event', eventSchema);
 
 
 // ------------------------
@@ -153,48 +153,41 @@ app.post('/auth', checkAuth, function (req, res) {
   res.redirect('back');
 });
 
-app.get('/auth/add', checkAuth, function (req, res) {
-  res.render('add');
+app.get('/auth/add/event', checkAuth, function (req, res) {
+  res.render('add_event');
 });
 
-app.post('/auth/add', function(req, res) {
+app.post('/auth/add/event', function(req, res) {
   var post = req.body;
-  var user = req.session.user;
-  var pass = req.session.pass;
 
-var date = new Date(post.event.cal.year, post.event.cal.month, post.event.cal.date);
-console.log(date);
+  if (post.event.cal)
+    var date = new Date(post.event.cal.year, post.event.cal.month, post.event.cal.date);
+  else
+    var date = new Date();
 
-  var event_ru = new EventRU ({
-    tag: post.tag,
+  var event_ru = new EventRU({
     date: date,
+    tag: post.event.tag,
     fields: {
-      title: post['ru'].title,
-      s_title: post['ru'].s_title,
-      body: post['ru'].body,
-      actors: post.event['ru'].actors
+      title: post.ru.title,
+      s_title: post.ru.s_title
     }
   });
+
+  for (var i in post.children) {
+    var ch_date = new Date(post.children[i].cal.year, post.children[i].cal.month, post.children[i].cal.date);
+    event_ru.children.push({
+      fields: {
+        title: post.children[i].ru.title,
+        s_title: post.children[i].ru.s_title
+      },
+      date: ch_date
+    })
+  }
 
   event_ru.save(function() {
     res.redirect('back');
   });
-
-  // var localeRU = new Locale ({
-  //   title: post.ru.title,
-  //   body: post.ru.body
-  // });
-
-
-  // event.save(function(err, event) {
-  //   localeRU.save(function(err, locale) {
-  //     Event.findById(event._id, function(err, data) {
-  //       data._locale.push(locale._id);
-  //       data.save();
-  //       res.redirect('back');
-  //     });
-  //   });    
-  // });
 
 
 });

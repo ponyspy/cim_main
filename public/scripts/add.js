@@ -5,6 +5,17 @@ $(document).ready(function() {
 	var project = false;
 	var news = false;
 
+	/*
+	Toggles Block
+	*/
+
+	function checkEnglish () {
+		if (eng == true)
+			$('.en').prop('disabled', true);
+		else
+			$('.en').prop('disabled', false).show();		
+	}
+
 	function toggleEnglish () {
 		if (eng = !eng) {
 			eng = true;
@@ -24,6 +35,7 @@ $(document).ready(function() {
 			$('.form_block_event').toggle();
 			$('.form_block_project').toggle();
 			$('.nav_project_children').hide();
+			$('.news_tag').prop('disabled', false);
 			project = false;
 			event = false;
 		}
@@ -35,12 +47,14 @@ $(document).ready(function() {
 			$('.form_block_event').toggle();
 			$('.form_block_event>input').prop('disabled', false);
 			$('.form_block_event>select').prop('disabled', false);
+			$('.news_tag').prop('disabled', true);
 		}
 		else {
 			$('.nav_title').text('НОВОСТЬ');
 			$('.form_block_event').toggle();
 			$('.form_block_event>input').prop('disabled', true);
-			$('.form_block_event>select').prop('disabled', true);		
+			$('.form_block_event>select').prop('disabled', true);
+			$('.news_tag').prop('disabled', false);
 		}
 	}
 
@@ -50,15 +64,31 @@ $(document).ready(function() {
 			$('.nav_project_children').show();
 			if (count == 0) projectConstructor();
 			$('.form_block_project').toggle();
-			$('.form_block_event>select').prop('disabled', true);
+			$('.form_block_event>select').slice(1).prop('disabled', true);
 		}
 		else {
 			$('.nav_title').text('СОБЫТИЕ');
 			$('.nav_project_children').hide();
 			$('.form_block_project').toggle();
-			$('.form_block_event>select').prop('disabled', false);
+			$('.form_block_event>select').slice(1).prop('disabled', false);
 			count = $('.child').size();
 		}
+	}
+
+		/*
+	Constructors Block
+	*/
+
+	function actorConstructor () {
+		var ru = $('<input />', {'type':'text', 'class':'ru', 'name':'event[ru][actors]'});
+		var en = $('<input />', {'type':'text', 'class':'en', 'name':'event[en][actors]'});
+		$(this).before(ru,en);
+
+		checkEnglish();
+	}
+
+	function actorDelete () {
+		$(this).before().remove();
 	}
 
 	function projectConstructor () {
@@ -122,12 +152,12 @@ $(document).ready(function() {
 
 		$('.children').append(child.append(child_counter, title('Заголовок'), form('ru','title'), form('en','title'), 
 																			 								title('Подзаголовок'), form('ru','s_title'), form('en','s_title'), 
-																			 								title('Описание'), body_ru, body_en, 
+																			 								title('Описание'), body_ru, body_en,
+																			 								title('Художественный руководитель'), form('ru','art_director'), form('en','art_director'),
+																			 								title('Актеры'),
+																			 								title('Зал'), 
 																			 								title('Дата'), date('date'), date('month'), date('year')));
-		if (eng == true)
-			$('.en').prop('disabled', true);
-		else
-			$('.en').prop('disabled', false).show();
+		checkEnglish();
 	}
 
 	function StickyTags() { 
@@ -149,12 +179,8 @@ $(document).ready(function() {
 	$('.event_convert').on('click', toggleEvent);
 	$('.project_convert').on('click', toggleProject);
 	$('.news_convert').on('click', toggleNews);
-	var nav_children = $('.nav_project_child');
-	nav_children.each(function() {
-		this.click(function() {
-			alert(nav_children.size())
-		});
-	});
+	$('.add_actor').on('click', actorConstructor);
+	$('.delete_actor').on('click', actorDelete);
 
 	$('.form_submit').click(function() {
 		$('form').submit();
