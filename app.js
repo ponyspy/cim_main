@@ -27,23 +27,21 @@ app.use(app.router);
 
 
 var eventSchema = new Schema({
-    title: {
-      ru: String,
-      en: String
-     },
-    s_title: {
-      ru: String,
-      en: String
-     },
-    body: {
-      ru: String,
-      en: String
-    },
-    hall: String,
-    img: {
-        path: String,
-        author: String
-    },
+      ru: {
+        title: String,
+        s_title: String,
+        body: String
+      },
+      en: {
+        title: String,
+        s_title: String,
+        body: String    
+      },
+      hall: String,
+      img: {
+      path: String,
+      author: String
+      },
        tag: String,
       date: {type: Date, default: Date.now},
    members: [{ type: Schema.Types.ObjectId, ref: 'Member' }],
@@ -89,10 +87,19 @@ function checkAuth (req, res, next) {
     res.redirect('/login');
 }
 
+function memberSplit (members) {
+  var results = [];
+  for (var i in members)
+    if (members[i] != '') results.push(members[i]);
+  
+  return results; 
+}
+
 
 // ------------------------
 // *** Main Block ***
 // ------------------------
+
 
 app.get('/', function(req, res) {
   res.render('index');
@@ -146,51 +153,106 @@ app.get('/auth', checkAuth, function (req, res) {
 });
 
 app.post('/auth', checkAuth, function (req, res) {
+  var post = req.body;
   console.log(req.body);
-  console.log(req.body.children[0].ru.title);
-  console.log(req.body.children[0].cal);
-  console.log(req.body.event.ru.actors);
+  // console.log(req.body.children[0].ru.title);
+  // console.log(req.body.children[0].cal);
+  // console.log(req.body.event.ru.actors);
+  // console.log(results);
+
   res.redirect('back');
 });
 
 app.get('/auth/add/event', checkAuth, function (req, res) {
-  res.render('add_event');
+  Member.find(function(err, members) {
+    res.render('add_event', {members: members});
+  });
 });
 
 app.post('/auth/add/event', function(req, res) {
   var post = req.body;
+  var members = post.event.members;
 
   if (post.event.cal)
     var date = new Date(post.event.cal.year, post.event.cal.month, post.event.cal.date);
   else
     var date = new Date();
 
-  var event_ru = new EventRU({
-    date: date,
-    tag: post.event.tag,
-    fields: {
+  var event = new Event({
+    ru: {
       title: post.ru.title,
-      s_title: post.ru.s_title
-    }
+      s_title: post.ru.s_title,
+      body: post.ru.body
+    },
+    en: {
+      title: post.en.title,
+      s_title: post.en.s_title,
+      body: post.en.body
+    },
+    members: memberSplit(members),
+    date: date,
+    tag: post.tag,
+    hall: post.event.hall
   });
 
   for (var i in post.children) {
     var ch_date = new Date(post.children[i].cal.year, post.children[i].cal.month, post.children[i].cal.date);
-    event_ru.children.push({
-      fields: {
+    event.children.push({
+      ru: {
         title: post.children[i].ru.title,
-        s_title: post.children[i].ru.s_title
+        s_title: post.children[i].ru.s_title,
+        body: post.children[i].ru.body
       },
       date: ch_date
     })
   }
 
-  event_ru.save(function() {
+  event.save(function() {
     res.redirect('back');
   });
 
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+app.get('/auth/add/member', checkAuth, function (req, res) {
+  res.render('add_member');
+});
+
+app.post('/auth/add/member', function (req, res) {
+  var post = req.body;
+  var ru = post.ru;
+  var en = post.en;
+
+  var member = new Member({
+    name:{
+      ru: ru.name
+    },
+    description: {
+      ru: ru.description
+    },
+    status: post.status
+  });
+
+  member.save(function() {
+    res.redirect('back');
+  });
+});
+
+
+
+
 
 app.get('/login', function (req, res) {
   res.render('login');

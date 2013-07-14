@@ -1,0 +1,20 @@
+input {
+	font-size: 16px;
+	margin-left: 3px;
+}
+
+textarea {
+	font-size: 16px;
+	margin-left: 3px;
+}
+
+.ru {
+	width: 450px;
+	display: inline-block;
+	margin-right: 10px; 
+}
+
+.en {
+	width: 450px;
+	display: none;
+}

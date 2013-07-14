@@ -22,22 +22,22 @@ block content_right
 
 block content
 	.form_block
-		h2 Конструктор
+		h2 Конструктор событий
 		br
 		br
 		.news_convert НОВОСТЬ
 		br
 		br
-		form(action="/auth/add/event", method="post", enctype="multipart/form-data")
-			input.news_tag(type="hidden", name="event[tag]", value="news")
+		form(action="/auth", method="post", enctype="multipart/form-data")
+			input.news_tag(type="hidden", name="tag", value="news")
 			.form_title Заголовок:
-			input.ru(type="text", name="ru[title]", placeholder='«Вы живы?.. Я очень рада... ')
+			input.ru(type="text", name="ru[title]",)
 			input.en(type="text", name="en[title]", disabled)
 			.form_title Подзаголовок:
-			input.ru(type="text", name="ru[s_title]", placeholder='Я тоже, как вы, жива. ')
+			input.ru(type="text", name="ru[s_title]",)
 			input.en(type="text", name="en[s_title]", disabled)
 			.form_title Описание:
-			textarea.ru(name="ru[body]", rows="8", placeholder='Так часто мне снится ограда, ')
+			textarea.ru(name="ru[body]", rows="8",)
 			textarea.en(name="en[body]", rows="8", disabled)
 			.form_title Постер:
 			input(type="file", name="poster")
@@ -48,37 +48,88 @@ block content
 			br
 			.form_block_event
 				.form_title Режисер:
-				input.ru(type="text", name="event[ru][director]", disabled)
-				input.en(type="text", name="event[en][director]", disabled)
+				select(name='event[members]', disabled)
+					option(value='') нет
+					each member in members
+						if (member.status == 'director')
+							option(value=member._id)= member.name.ru
+				.form_title Драмматург:
+				select(name='event[members]', disabled)
+					option(value='') нет
+					each member in members
+						if (member.status == 'playwright')
+							option(value=member._id)= member.name.ru							
 				.form_title Художественный руководитель:
-				input.ru(type="text", name="event[ru][art_director]", disabled)
-				input.en(type="text", name="event[en][art_director]", disabled)
+				select(name='event[members]', disabled)
+					option(value='') нет
+					each member in members
+						if (member.status == 'art_director')
+							option(value=member._id)= member.name.ru
+				.form_title Куратор:
+				select(name='event[members]', disabled)
+					option(value='') нет
+					each member in members
+						if (member.status == 'curator')
+							option(value=member._id)= member.name.ru							
+				.form_title Фотограф:
+				select(name='event[members]', disabled)
+					option(value='') нет
+					each member in members
+						if (member.status == 'photographer')
+							option(value=member._id)= member.name.ru
+				.form_title Художник:
+				select(name='event[members]', disabled)
+					option(value='') нет
+					each member in members
+						if (member.status == 'artist')
+							option(value=member._id)= member.name.ru
+				.form_title Композитор:
+				select(name='event[members]', disabled)
+					option(value='') нет
+					each member in members
+						if (member.status == 'composer')
+							option(value=member._id)= member.name.ru									
+				.form_title Хореограф:
+				select(name='event[members]', disabled)
+					option(value='') нет
+					each member in members
+						if (member.status == 'choreographer')							
+							option(value=member._id)= member.name.ru
+				.form_title Продюссер:
+				select(name='event[members]', disabled)
+					option(value='') нет
+					each member in members
+						if (member.status == 'producer')
+							option(value=member._id)= member.name.ru												
 				.form_title Актеры:
-				input.ru(type="text", name="event[ru][actors]", disabled)
-				input.en(type="text", name="event[en][actors]", disabled)
-				.add_actor добавить 
-				.delete_actor удалить
+				.actors
+					select(name='event[members]', disabled)
+						each member in members
+							if (member.status == 'actor')
+								option(value=member._id)= member.name.ru				
+					input.delete_actor(type="button", value="-")
+					input.add_actor(type="button", value="+")
 				.form_title Категория:
-				select(name='event[tag]')
+				select(name='tag', disabled)
 					option(value='One') Один
 					option(value='Two') Два
 					option(value='Three') Три					
 				.form_title Зал:
-				select(name='event[hall]')
+				select(name='event[hall]', disabled)
 					option(value='One') Один
 					option(value='Two') Два
 					option(value='Three') Три					
 				.form_title Дата:
-				select(name='event[cal][date]')
+				select(name='event[cal][date]', disabled)
 					option(value='') Дата
 					- for (var i=1; i<32; i++)
 						option(value=i)= i
-				select(name='event[cal][month]')
+				select(name='event[cal][month]', disabled)
 					option(value='') Месяц
 					- var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
 					each month, i in months
 						option(value=i)= month
-				select(name='event[cal][year]')
+				select(name='event[cal][year]', disabled)
 					option(value='') Год
 					option(value='2013') 2013
 					option(value='2014') 2014									
@@ -89,6 +140,101 @@ block content
 				br
 				.form_block_project
 					.children
+						.child
+							h2.child_counter Событие 1
+							.form_title Заголовок:
+							input.ru(type="text", name="children[0][ru][title]", disabled)
+							input.en(type="text", name="children[0][en][title]", disabled)
+							.form_title Подзаголовок:
+							input.ru(type="text", name="children[0][ru][s_title]", disabled)
+							input.en(type="text", name="children[0][en][s_title]", disabled)
+							.form_title Описание:
+							textarea.ru(name="children[0][ru][body]", rows="8", disabled)
+							textarea.en(name="children[0][en][body]", rows="8", disabled)
+							.form_title Постер:
+							input(type="file", name="children[0][poster]", disabled)							
+							.form_title Режисер:
+							select(name='children[0][members]', disabled)
+								option(value='') нет
+								each member in members
+									if (member.status == 'director')
+										option(value=member._id)= member.name.ru
+							.form_title Драмматург:
+							select(name='children[0][members]', disabled)
+								option(value='') нет
+								each member in members
+									if (member.status == 'playwright')
+										option(value=member._id)= member.name.ru							
+							.form_title Художественный руководитель:
+							select(name='children[0][members]', disabled)
+								option(value='') нет
+								each member in members
+									if (member.status == 'art_director')
+										option(value=member._id)= member.name.ru
+							.form_title Куратор:
+							select(name='children[0][members]', disabled)
+								option(value='') нет
+								each member in members
+									if (member.status == 'curator')
+										option(value=member._id)= member.name.ru							
+							.form_title Фотограф:
+							select(name='children[0][members]', disabled)
+								option(value='') нет
+								each member in members
+									if (member.status == 'photographer')
+										option(value=member._id)= member.name.ru
+							.form_title Художник:
+							select(name='children[0][members]', disabled)
+								option(value='') нет
+								each member in members
+									if (member.status == 'artist')
+										option(value=member._id)= member.name.ru
+							.form_title Композитор:
+							select(name='children[0][members]', disabled)
+								option(value='') нет
+								each member in members
+									if (member.status == 'composer')
+										option(value=member._id)= member.name.ru									
+							.form_title Хореограф:
+							select(name='children[0][members]', disabled)
+								option(value='') нет
+								each member in members
+									if (member.status == 'choreographer')							
+										option(value=member._id)= member.name.ru
+							.form_title Продюссер:
+							select(name='children[0][members]', disabled)
+								option(value='') нет
+								each member in members
+									if (member.status == 'producer')
+										option(value=member._id)= member.name.ru		
+							.form_title Актеры:
+							.actors
+								select(name='children[0][members]', disabled)
+									each member in members
+										if (member.status == 'actor')
+											option(value=member._id)= member.name.ru				
+								input.delete_actor(type="button", value="-")
+								input.add_actor(type="button", value="+")																						
+							.form_title Зал:
+							select(name='children[0][hall]', disabled)
+								option(value='One') Один
+								option(value='Two') Два
+								option(value='Three') Три					
+							.form_title Дата:
+							select(name='children[0][cal][date]', disabled)
+								option(value='') Дата
+								- for (var i=1; i<32; i++)
+									option(value=i)= i
+							select(name='children[0][cal][month]', disabled)
+								option(value='') Месяц
+								- var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+								each month, i in months
+									option(value=i)= month
+							select(name='children[0][cal][year]', disabled)
+								option(value='') Год
+								option(value='2013') 2013
+								option(value='2014') 2014												
+					br
 					br
 					.add_child добавить событие
 					br

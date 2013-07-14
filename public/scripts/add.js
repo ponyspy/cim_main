@@ -45,15 +45,15 @@ $(document).ready(function() {
 		if (event = !event) {
 			$('.nav_title').text('СОБЫТИЕ');
 			$('.form_block_event').toggle();
-			$('.form_block_event>input').prop('disabled', false);
-			$('.form_block_event>select').prop('disabled', false);
+			$('.form_block_event > select').prop('disabled', false);
+			$('.form_block_event >.actors > select').prop('disabled', false);
 			$('.news_tag').prop('disabled', true);
 		}
 		else {
 			$('.nav_title').text('НОВОСТЬ');
 			$('.form_block_event').toggle();
-			$('.form_block_event>input').prop('disabled', true);
-			$('.form_block_event>select').prop('disabled', true);
+			$('.form_block_event > select').prop('disabled', true);
+			$('.form_block_event >.actors > select').prop('disabled', true);
 			$('.news_tag').prop('disabled', false);
 		}
 	}
@@ -61,16 +61,28 @@ $(document).ready(function() {
 	function toggleProject () {
 		if (project = !project) {
 			$('.nav_title').text('СПЕЦПРОЕКТ');
+			if (count == 1) {
+				var nav_project_child = $('<div />', {'class':'nav_project_child', 'text':'Событие ' + (count)});
+				$('.nav_project_children').append(nav_project_child);
+			}
 			$('.nav_project_children').show();
 			if (count == 0) projectConstructor();
 			$('.form_block_project').toggle();
-			$('.form_block_event>select').slice(1).prop('disabled', true);
+			$('.form_block_event > select').slice(-4).prop('disabled', true);
+			$('.child > select').prop('disabled', false);
+			$('.child > .actors > select').prop('disabled', false);
+			$('.child > input').prop('disabled', false);
+			$('.child > textarea').prop('disabled', false);
 		}
 		else {
 			$('.nav_title').text('СОБЫТИЕ');
 			$('.nav_project_children').hide();
 			$('.form_block_project').toggle();
-			$('.form_block_event>select').slice(1).prop('disabled', false);
+			$('.form_block_event > select').slice(-4).prop('disabled', false);
+			$('.child > select').prop('disabled', true);
+			$('.child > .actors > select').prop('disabled', true);
+			$('.child > input').prop('disabled', true);
+			$('.child > textarea').prop('disabled', true);			
 			count = $('.child').size();
 		}
 	}
@@ -80,83 +92,36 @@ $(document).ready(function() {
 	*/
 
 	function actorConstructor () {
-		var ru = $('<input />', {'type':'text', 'class':'ru', 'name':'event[ru][actors]'});
-		var en = $('<input />', {'type':'text', 'class':'en', 'name':'event[en][actors]'});
-		$(this).before(ru,en);
-
-		checkEnglish();
+		var elem = $(this).parent().find('select');
+		elem.first().clone().insertAfter(elem.last())
 	}
 
 	function actorDelete () {
-		$(this).before().remove();
+		var elem = $(this).parent().find('select :last').remove();
 	}
 
 	function projectConstructor () {
 		count = $('.child').size();
 
 		var nav_project_child = $('<div />', {'class':'nav_project_child', 'text':'Событие ' + (count+1)});
-		$('.nav_project_children').append(nav_project_child);
+		$('.nav_project_children').append(nav_project_child);		
 
-		function title (text) {
-			var title = $('<div />', {'class':'form_title', 'text':text});
-			return title;
-		}
+		$('.child :first').clone(true, true).insertAfter('.child :last');
 
-		function form (lang, name) {
-			if (name == 'en')
-				var form = $('<input />', {'type':'text', 'class':lang, 'name':'children[' + count + '][' + lang + '][' + name + ']'});
-			else
-				var form = $('<input />', {'type':'text', 'class':lang, 'name':'children[' + count + '][' + lang + '][' + name + ']'});
-			return form;
-		}
+		$('.child').eq(count).children('.child_counter').text('Событие ' + (count+1));
 
-		function date (name) {
-			var select = $('<select />', {'name':'children[' + count + '][cal][' + name + ']'});
-			if (name == 'date') {
-				var o_title = $('<option />', {'value':'', 'text':'Дата'});
-				select.append(o_title);
-				for (var i=1; i < 32; i++) {
-					var option = $('<option />', {'value':i, 'text':i});
-					select.append(option)
-				}
-			}
-			else if (name == 'month') {
-				var o_title = $('<option />', {'value':'', 'text':'Месяц'});
-				select.append(o_title);
-				var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
-				for (var i in months) {
-					var option = $('<option />', {'value':i, 'text':months[i]});
-					select.append(option)
-				}
-			}
-			else if (name == 'year') {
-				var o_title = $('<option />', {'value':'', 'text':'Год'});
-				select.append(o_title);				
-				var date = new Date();
-				var now = $('<option />', {'value':date.getFullYear(), 'text':date.getFullYear()});
-				var next = $('<option />', {'value':date.getFullYear()+1, 'text':date.getFullYear()+1});
-				select.append(now, next)
-			}
-			else return null;
+		var forms = $('.child').eq(count).children('select, input, textarea');
+		forms.each(function() {
+			var value = $(this).attr('name');
+			value = value.replace('0', count);
+			$(this).attr('name', value);
+		});
 
-			return select;
-		}
+		var snakes = $('.child').eq(count).find('.actors > select');
+		var value = snakes.attr('name');
+		value = value.replace('0', count);
+		snakes.attr('name', value);
 
-
-
-		var child = $('<div />', {'class':'child'});
-		var child_counter = $('<h2 />', {'class':'child_counter', 'text':'Событие ' + (count+1)});
-		
-		var body_ru = $('<textarea />', {'rows':'8', 'class':'ru', 'name':'children[' + count + '][ru][body]'});
-		var body_en = $('<textarea />', {'rows':'8', 'class':'en', 'name':'children[' + count + '][en][body]'});
-
-		$('.children').append(child.append(child_counter, title('Заголовок'), form('ru','title'), form('en','title'), 
-																			 								title('Подзаголовок'), form('ru','s_title'), form('en','s_title'), 
-																			 								title('Описание'), body_ru, body_en,
-																			 								title('Художественный руководитель'), form('ru','art_director'), form('en','art_director'),
-																			 								title('Актеры'),
-																			 								title('Зал'), 
-																			 								title('Дата'), date('date'), date('month'), date('year')));
 		checkEnglish();
 	}
 
