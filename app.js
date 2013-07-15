@@ -29,19 +29,19 @@ app.use(app.router);
 var eventSchema = new Schema({
       ru: {
         title: String,
-        s_title: String,
-        body: String
+      s_title: String,
+         body: String
       },
       en: {
         title: String,
-        s_title: String,
-        body: String    
+      s_title: String,
+         body: String    
+      },
+      img: {
+          path: String,
+        author: String
       },
       hall: String,
-      img: {
-      path: String,
-      author: String
-      },
        tag: String,
       date: {type: Date, default: Date.now},
    members: [{ type: Schema.Types.ObjectId, ref: 'Member' }],
@@ -50,20 +50,20 @@ var eventSchema = new Schema({
 
 var userSchema = new Schema({
    login: String,
-    pass: String,
+    password: String,
    email: String,
   status: {type: String, default: 'User'},
     date: {type: Date, default: Date.now},
 });
 
 var memberSchema = new Schema({
-    name: {
-      ru: String, 
-      en: String
+    ru: {
+      name: String, 
+      description: String
     },
-    description: {
-      ru: String, 
-      en: String
+    en: {
+      name: String, 
+      description: String
     },
     img: String,
     status: String,
@@ -72,7 +72,7 @@ var memberSchema = new Schema({
 
 var User = mongoose.model('User', userSchema);
 var Member = mongoose.model('Member', memberSchema);
-var EventRU = mongoose.model('Event', eventSchema);
+var Event = mongoose.model('Event', eventSchema);
 
 
 // ------------------------
@@ -171,12 +171,6 @@ app.get('/auth/add/event', checkAuth, function (req, res) {
 
 app.post('/auth/add/event', function(req, res) {
   var post = req.body;
-  var members = post.event.members;
-
-  if (post.event.cal)
-    var date = new Date(post.event.cal.year, post.event.cal.month, post.event.cal.date);
-  else
-    var date = new Date();
 
   var event = new Event({
     ru: {
@@ -184,34 +178,48 @@ app.post('/auth/add/event', function(req, res) {
       s_title: post.ru.s_title,
       body: post.ru.body
     },
-    en: {
-      title: post.en.title,
-      s_title: post.en.s_title,
-      body: post.en.body
-    },
-    members: memberSplit(members),
-    date: date,
     tag: post.tag,
-    hall: post.event.hall
   });
 
-  for (var i in post.children) {
-    var ch_date = new Date(post.children[i].cal.year, post.children[i].cal.month, post.children[i].cal.date);
-    event.children.push({
-      ru: {
-        title: post.children[i].ru.title,
-        s_title: post.children[i].ru.s_title,
-        body: post.children[i].ru.body
-      },
-      date: ch_date
-    })
+  if (post.en) {
+    event.en.title = post.en.title;
+    event.en.s_title = post.en.s_title;
+    event.en.body = post.en.body;
+  };
+
+  if (post.event) {
+    event.members = memberSplit(post.event.members);
+    event.hall = post.event.hall;
+    if (post.event.cal)
+      event.date = new Date(post.event.cal.year, post.event.cal.month, post.event.cal.date);
+  };
+
+
+  if (post.children) {
+    for (var i in post.children) {
+      var ch_date = new Date(post.children[i].cal.year, post.children[i].cal.month, post.children[i].cal.date);
+
+      event.children.push({
+        ru: {
+          title: post.children[i].ru.title,
+          s_title: post.children[i].ru.s_title,
+          body: post.children[i].ru.body
+        },
+        en: {
+          title: post.children[i].en.title,
+          s_title: post.children[i].en.s_title,
+          body: post.children[i].en.body        
+        },
+        date: ch_date,
+        hall: post.children[i].hall,
+        members: memberSplit(post.children[i].members)
+      });
+    }
   }
 
   event.save(function() {
     res.redirect('back');
   });
-
-
 });
 
 
@@ -236,11 +244,9 @@ app.post('/auth/add/member', function (req, res) {
   var en = post.en;
 
   var member = new Member({
-    name:{
-      ru: ru.name
-    },
-    description: {
-      ru: ru.description
+    ru:{
+      name: ru.name,
+      description: ru.description
     },
     status: post.status
   });
@@ -261,7 +267,7 @@ app.get('/login', function (req, res) {
 app.post('/login', function(req, res) {
   var post = req.body;
 
-  User.findOne({ 'login': post.login, 'pass': post.password }, function (err, person) {
+  User.findOne({ 'login': post.login, 'password': post.password }, function (err, person) {
     if (!person) return res.redirect('back');
     req.session.user_id = person._id;
     req.session.status = person.status;
@@ -289,22 +295,20 @@ app.get('/registr', function(req, res) {
 
 app.post('/registr', function (req, res) {
   var post = req.body;
-  var user = new User();
 
+  var user = new User({
+    login: post.login,
+    password: post.password,
+    email: post.email
+  });
 
-  user.login = post.login;
-  user.pass = post.password;
-
-
-  user.save(function(err) {
+  user.save(function(err, user) {
     if(err) {throw err;}
     console.log('New User created');
-    User.findOne({ 'login': post.login, 'pass': post.password }, function (err, person) {
-      req.session.user_id = person._id;
-      req.session.login = person.login;
-      req.session.status = person.status;
-      res.redirect('/login');
-    });
+    req.session.user_id = user._id;
+    req.session.login = user.login;
+    req.session.status = user.status;
+    res.redirect('/login');
   });
 });
 

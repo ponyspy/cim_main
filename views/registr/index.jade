@@ -3,6 +3,10 @@ extends ../layout
 block content
 	h1 Регистрация
 	form(action='/registr', method='post')
+		|Email:
+		br
+		input(type='text', name='email', value='john@appleseed.com')
+		br		
 		|Логин:
 		br
 		input(type='text', name='login', value='john')

@@ -15,9 +15,6 @@ block content_right
 		.draft черновик
 		.toggle_eng перевод
 		br
-		.evr  эвристика
-		.studies этюды
-		br
 		b.form_submit ОТПРАВИТЬ	
 
 block content
@@ -28,7 +25,7 @@ block content
 		.news_convert НОВОСТЬ
 		br
 		br
-		form(action="/auth", method="post", enctype="multipart/form-data")
+		form(action="/auth/add/event", method="post", enctype="multipart/form-data")
 			input.news_tag(type="hidden", name="tag", value="news")
 			.form_title Заголовок:
 			input.ru(type="text", name="ru[title]",)
@@ -52,61 +49,61 @@ block content
 					option(value='') нет
 					each member in members
 						if (member.status == 'director')
-							option(value=member._id)= member.name.ru
+							option(value=member._id)= member.ru.name
 				.form_title Драмматург:
 				select(name='event[members]', disabled)
 					option(value='') нет
 					each member in members
 						if (member.status == 'playwright')
-							option(value=member._id)= member.name.ru							
+							option(value=member._id)= member.ru.name							
 				.form_title Художественный руководитель:
 				select(name='event[members]', disabled)
 					option(value='') нет
 					each member in members
 						if (member.status == 'art_director')
-							option(value=member._id)= member.name.ru
+							option(value=member._id)= member.ru.name
 				.form_title Куратор:
 				select(name='event[members]', disabled)
 					option(value='') нет
 					each member in members
 						if (member.status == 'curator')
-							option(value=member._id)= member.name.ru							
+							option(value=member._id)= member.ru.name							
 				.form_title Фотограф:
 				select(name='event[members]', disabled)
 					option(value='') нет
 					each member in members
 						if (member.status == 'photographer')
-							option(value=member._id)= member.name.ru
+							option(value=member._id)= member.ru.name
 				.form_title Художник:
 				select(name='event[members]', disabled)
 					option(value='') нет
 					each member in members
 						if (member.status == 'artist')
-							option(value=member._id)= member.name.ru
+							option(value=member._id)= member.ru.name
 				.form_title Композитор:
 				select(name='event[members]', disabled)
 					option(value='') нет
 					each member in members
 						if (member.status == 'composer')
-							option(value=member._id)= member.name.ru									
+							option(value=member._id)= member.ru.name									
 				.form_title Хореограф:
 				select(name='event[members]', disabled)
 					option(value='') нет
 					each member in members
 						if (member.status == 'choreographer')							
-							option(value=member._id)= member.name.ru
+							option(value=member._id)= member.ru.name
 				.form_title Продюссер:
 				select(name='event[members]', disabled)
 					option(value='') нет
 					each member in members
 						if (member.status == 'producer')
-							option(value=member._id)= member.name.ru												
+							option(value=member._id)= member.ru.name												
 				.form_title Актеры:
 				.actors
 					select(name='event[members]', disabled)
 						each member in members
 							if (member.status == 'actor')
-								option(value=member._id)= member.name.ru				
+								option(value=member._id)= member.ru.name				
 					input.delete_actor(type="button", value="-")
 					input.add_actor(type="button", value="+")
 				.form_title Категория:
@@ -158,61 +155,61 @@ block content
 								option(value='') нет
 								each member in members
 									if (member.status == 'director')
-										option(value=member._id)= member.name.ru
+										option(value=member._id)= member.ru.name
 							.form_title Драмматург:
 							select(name='children[0][members]', disabled)
 								option(value='') нет
 								each member in members
 									if (member.status == 'playwright')
-										option(value=member._id)= member.name.ru							
+										option(value=member._id)= member.ru.name							
 							.form_title Художественный руководитель:
 							select(name='children[0][members]', disabled)
 								option(value='') нет
 								each member in members
 									if (member.status == 'art_director')
-										option(value=member._id)= member.name.ru
+										option(value=member._id)= member.ru.name
 							.form_title Куратор:
 							select(name='children[0][members]', disabled)
 								option(value='') нет
 								each member in members
 									if (member.status == 'curator')
-										option(value=member._id)= member.name.ru							
+										option(value=member._id)= member.ru.name							
 							.form_title Фотограф:
 							select(name='children[0][members]', disabled)
 								option(value='') нет
 								each member in members
 									if (member.status == 'photographer')
-										option(value=member._id)= member.name.ru
+										option(value=member._id)= member.ru.name
 							.form_title Художник:
 							select(name='children[0][members]', disabled)
 								option(value='') нет
 								each member in members
 									if (member.status == 'artist')
-										option(value=member._id)= member.name.ru
+										option(value=member._id)= member.ru.name
 							.form_title Композитор:
 							select(name='children[0][members]', disabled)
 								option(value='') нет
 								each member in members
 									if (member.status == 'composer')
-										option(value=member._id)= member.name.ru									
+										option(value=member._id)= member.ru.name									
 							.form_title Хореограф:
 							select(name='children[0][members]', disabled)
 								option(value='') нет
 								each member in members
 									if (member.status == 'choreographer')							
-										option(value=member._id)= member.name.ru
+										option(value=member._id)= member.ru.name
 							.form_title Продюссер:
 							select(name='children[0][members]', disabled)
 								option(value='') нет
 								each member in members
 									if (member.status == 'producer')
-										option(value=member._id)= member.name.ru		
+										option(value=member._id)= member.ru.name		
 							.form_title Актеры:
 							.actors
 								select(name='children[0][members]', disabled)
 									each member in members
 										if (member.status == 'actor')
-											option(value=member._id)= member.name.ru				
+											option(value=member._id)= member.ru.name				
 								input.delete_actor(type="button", value="-")
 								input.add_actor(type="button", value="+")																						
 							.form_title Зал:
