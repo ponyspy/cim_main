@@ -143,7 +143,7 @@ app.post('/', function (req, res) {
 
 
 app.get('/event', function (req, res) {
-  Event.find().populate({ path: '_locale', match: { locale: 'RU' }}).exec(function(err, event) {
+  Event.find(function(err, event) {
     res.render('event', {event: event});
   });
 });

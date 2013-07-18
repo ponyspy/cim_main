@@ -101,6 +101,7 @@ block content
 				.form_title Актеры:
 				.actors
 					select(name='event[members]', disabled)
+						option(value='') нет
 						each member in members
 							if (member.status == 'actor')
 								option(value=member._id)= member.ru.name				
@@ -108,9 +109,14 @@ block content
 					input.add_actor(type="button", value="+")
 				.form_title Категория:
 				select(name='tag', disabled)
-					option(value='One') Один
-					option(value='Two') Два
-					option(value='Three') Три					
+					option(value='performance') спектакль
+					option(value='lecture') лекция
+					option(value='masterclass') мастер-класс
+					option(value='exhibition') выставка
+					option(value='concert') концерт
+					option(value='education') институт театра
+					option(value='blackbox') blackbox
+					option(value='children') детская программа			
 				.form_title Зал:
 				select(name='event[hall]', disabled)
 					option(value='One') Один
@@ -207,6 +213,7 @@ block content
 							.form_title Актеры:
 							.actors
 								select(name='children[0][members]', disabled)
+									option(value='') нет
 									each member in members
 										if (member.status == 'actor')
 											option(value=member._id)= member.ru.name				
