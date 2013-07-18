@@ -46,14 +46,14 @@ $(document).ready(function() {
 			$('.nav_title').text('СОБЫТИЕ');
 			$('.form_block_event').toggle();
 			$('.form_block_event > select').prop('disabled', false);
-			$('.form_block_event >.actors > select').prop('disabled', false);
+			$('.form_block_event >.snake > select').prop('disabled', false);
 			$('.news_tag').prop('disabled', true);
 		}
 		else {
 			$('.nav_title').text('НОВОСТЬ');
 			$('.form_block_event').toggle();
 			$('.form_block_event > select').prop('disabled', true);
-			$('.form_block_event >.actors > select').prop('disabled', true);
+			$('.form_block_event >.snake > select').prop('disabled', true);
 			$('.news_tag').prop('disabled', false);
 		}
 	}
@@ -70,7 +70,7 @@ $(document).ready(function() {
 			$('.form_block_project').toggle();
 			$('.form_block_event > select').slice(-4).prop('disabled', true);
 			$('.child > select').prop('disabled', false);
-			$('.child > .actors > select').prop('disabled', false);
+			$('.child > .snake > select').prop('disabled', false);
 			$('.child > input').prop('disabled', false);
 			$('.child > textarea').prop('disabled', false);
 		}
@@ -80,7 +80,7 @@ $(document).ready(function() {
 			$('.form_block_project').toggle();
 			$('.form_block_event > select').slice(-4).prop('disabled', false);
 			$('.child > select').prop('disabled', true);
-			$('.child > .actors > select').prop('disabled', true);
+			$('.child > .snake > select').prop('disabled', true);
 			$('.child > input').prop('disabled', true);
 			$('.child > textarea').prop('disabled', true);			
 			count = $('.child').size();
@@ -91,13 +91,14 @@ $(document).ready(function() {
 	Constructors Block
 	*/
 
-	function actorConstructor () {
+	function snakeForward () {
 		var elem = $(this).parent().find('select');
 		elem.first().clone().insertAfter(elem.last())
 	}
 
-	function actorDelete () {
-		var elem = $(this).parent().find('select :last').remove();
+	function snakeBack () {
+		if ($(this).parent().find('select').size() == 1) return null;
+		$(this).parent().find('select :last').remove();
 	}
 
 	function projectConstructor () {
@@ -117,7 +118,7 @@ $(document).ready(function() {
 			$(this).attr('name', value);
 		});
 
-		var snakes = $('.child').eq(count).find('.actors > select');
+		var snakes = $('.child').eq(count).find('.snake > select');
 		var value = snakes.attr('name');
 		value = value.replace('0', count);
 		snakes.attr('name', value);
@@ -144,8 +145,8 @@ $(document).ready(function() {
 	$('.event_convert').on('click', toggleEvent);
 	$('.project_convert').on('click', toggleProject);
 	$('.news_convert').on('click', toggleNews);
-	$('.add_actor').on('click', actorConstructor);
-	$('.delete_actor').on('click', actorDelete);
+	$('.back').on('click', snakeBack);
+	$('.forward').on('click', snakeForward);
 
 	$('.form_submit').click(function() {
 		$('form').submit();

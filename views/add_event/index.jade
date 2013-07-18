@@ -12,7 +12,7 @@ block content_right
 		.nav_project_children
 		br		
 		b.nav_settings_title настройки
-		.draft черновик
+		//- .draft черновик
 		.toggle_eng перевод
 		br
 		b.form_submit ОТПРАВИТЬ	
@@ -45,68 +45,95 @@ block content
 			br
 			.form_block_event
 				.form_title Режисер:
-				select(name='event[members]', disabled)
-					option(value='') нет
-					each member in members
-						if (member.status == 'director')
-							option(value=member._id)= member.ru.name
-				.form_title Драмматург:
-				select(name='event[members]', disabled)
-					option(value='') нет
-					each member in members
-						if (member.status == 'playwright')
-							option(value=member._id)= member.ru.name							
+				.snake
+					input.back(type="button", value="<")
+					select(name='event[members]', disabled)
+						option(value='') нет
+						each member in members
+							if (member.status == 'director')
+								option(value=member._id)= member.ru.name
+					input.forward(type="button", value=">")									
+				.form_title Драматург:
+				.snake
+					input.back(type="button", value="<")
+					select(name='event[members]', disabled)
+						option(value='') нет
+						each member in members
+							if (member.status == 'playwright')
+								option(value=member._id)= member.ru.name		
+					input.forward(type="button", value=">")															
 				.form_title Художественный руководитель:
-				select(name='event[members]', disabled)
-					option(value='') нет
-					each member in members
-						if (member.status == 'art_director')
-							option(value=member._id)= member.ru.name
+				.snake
+					input.back(type="button", value="<")
+					select(name='event[members]', disabled)
+						option(value='') нет
+						each member in members
+							if (member.status == 'art_director')
+								option(value=member._id)= member.ru.name
+					input.forward(type="button", value=">")									
 				.form_title Куратор:
-				select(name='event[members]', disabled)
-					option(value='') нет
-					each member in members
-						if (member.status == 'curator')
-							option(value=member._id)= member.ru.name							
+				.snake
+					input.back(type="button", value="<")
+					select(name='event[members]', disabled)
+						option(value='') нет
+						each member in members
+							if (member.status == 'curator')
+								option(value=member._id)= member.ru.name
+					input.forward(type="button", value=">")													
 				.form_title Фотограф:
-				select(name='event[members]', disabled)
-					option(value='') нет
-					each member in members
-						if (member.status == 'photographer')
-							option(value=member._id)= member.ru.name
+				.snake
+					input.back(type="button", value="<")
+					select(name='event[members]', disabled)
+						option(value='') нет
+						each member in members
+							if (member.status == 'photographer')
+								option(value=member._id)= member.ru.name
+					input.forward(type="button", value=">")									
 				.form_title Художник:
-				select(name='event[members]', disabled)
-					option(value='') нет
-					each member in members
-						if (member.status == 'artist')
-							option(value=member._id)= member.ru.name
+				.snake
+					input.back(type="button", value="<")
+					select(name='event[members]', disabled)
+						option(value='') нет
+						each member in members
+							if (member.status == 'artist')
+								option(value=member._id)= member.ru.name
+					input.forward(type="button", value=">")									
 				.form_title Композитор:
-				select(name='event[members]', disabled)
-					option(value='') нет
-					each member in members
-						if (member.status == 'composer')
-							option(value=member._id)= member.ru.name									
+				.snake
+					input.back(type="button", value="<")
+					select(name='event[members]', disabled)
+						option(value='') нет
+						each member in members
+							if (member.status == 'composer')
+								option(value=member._id)= member.ru.name
+					input.forward(type="button", value=">")															
 				.form_title Хореограф:
-				select(name='event[members]', disabled)
-					option(value='') нет
-					each member in members
-						if (member.status == 'choreographer')							
-							option(value=member._id)= member.ru.name
+				.snake
+					input.back(type="button", value="<")
+					select(name='event[members]', disabled)
+						option(value='') нет
+						each member in members
+							if (member.status == 'choreographer')							
+								option(value=member._id)= member.ru.name
+					input.forward(type="button", value=">")									
 				.form_title Продюссер:
-				select(name='event[members]', disabled)
-					option(value='') нет
-					each member in members
-						if (member.status == 'producer')
-							option(value=member._id)= member.ru.name												
+				.snake
+					input.back(type="button", value="<")
+					select(name='event[members]', disabled)
+						option(value='') нет
+						each member in members
+							if (member.status == 'producer')
+								option(value=member._id)= member.ru.name
+					input.forward(type="button", value=">")																		
 				.form_title Актеры:
-				.actors
+				.snake
+					input.back(type="button", value="<")
 					select(name='event[members]', disabled)
 						option(value='') нет
 						each member in members
 							if (member.status == 'actor')
-								option(value=member._id)= member.ru.name				
-					input.delete_actor(type="button", value="-")
-					input.add_actor(type="button", value="+")
+								option(value=member._id)= member.ru.name
+					input.forward(type="button", value=">")
 				.form_title Категория:
 				select(name='tag', disabled)
 					option(value='performance') спектакль
@@ -157,68 +184,95 @@ block content
 							.form_title Постер:
 							input(type="file", name="children[0][poster]", disabled)							
 							.form_title Режисер:
-							select(name='children[0][members]', disabled)
-								option(value='') нет
-								each member in members
-									if (member.status == 'director')
-										option(value=member._id)= member.ru.name
+							.snake
+								select(name='children[0][members]', disabled)
+									option(value='') нет
+									each member in members
+										if (member.status == 'director')
+											option(value=member._id)= member.ru.name
+								input.back(type="button", value="-")
+								input.forward(type="button", value="+")												
 							.form_title Драмматург:
-							select(name='children[0][members]', disabled)
-								option(value='') нет
-								each member in members
-									if (member.status == 'playwright')
-										option(value=member._id)= member.ru.name							
+							.snake
+								select(name='children[0][members]', disabled)
+									option(value='') нет
+									each member in members
+										if (member.status == 'playwright')
+											option(value=member._id)= member.ru.name
+								input.back(type="button", value="-")
+								input.forward(type="button", value="+")																	
 							.form_title Художественный руководитель:
-							select(name='children[0][members]', disabled)
-								option(value='') нет
-								each member in members
-									if (member.status == 'art_director')
-										option(value=member._id)= member.ru.name
+							.snake
+								select(name='children[0][members]', disabled)
+									option(value='') нет
+									each member in members
+										if (member.status == 'art_director')
+											option(value=member._id)= member.ru.name
+								input.back(type="button", value="-")
+								input.forward(type="button", value="+")												
 							.form_title Куратор:
-							select(name='children[0][members]', disabled)
-								option(value='') нет
-								each member in members
-									if (member.status == 'curator')
-										option(value=member._id)= member.ru.name							
+							.snake
+								select(name='children[0][members]', disabled)
+									option(value='') нет
+									each member in members
+										if (member.status == 'curator')
+											option(value=member._id)= member.ru.name
+								input.back(type="button", value="-")
+								input.forward(type="button", value="+")																
 							.form_title Фотограф:
-							select(name='children[0][members]', disabled)
-								option(value='') нет
-								each member in members
-									if (member.status == 'photographer')
-										option(value=member._id)= member.ru.name
+							.snake
+								select(name='children[0][members]', disabled)
+									option(value='') нет
+									each member in members
+										if (member.status == 'photographer')
+											option(value=member._id)= member.ru.name
+								input.back(type="button", value="-")
+								input.forward(type="button", value="+")											
 							.form_title Художник:
-							select(name='children[0][members]', disabled)
-								option(value='') нет
-								each member in members
-									if (member.status == 'artist')
-										option(value=member._id)= member.ru.name
+							.snake
+								select(name='children[0][members]', disabled)
+									option(value='') нет
+									each member in members
+										if (member.status == 'artist')
+											option(value=member._id)= member.ru.name
+								input.back(type="button", value="-")
+								input.forward(type="button", value="+")												
 							.form_title Композитор:
-							select(name='children[0][members]', disabled)
-								option(value='') нет
-								each member in members
-									if (member.status == 'composer')
-										option(value=member._id)= member.ru.name									
+							.snake
+								select(name='children[0][members]', disabled)
+									option(value='') нет
+									each member in members
+										if (member.status == 'composer')
+											option(value=member._id)= member.ru.name
+								input.back(type="button", value="-")
+								input.forward(type="button", value="+")																		
 							.form_title Хореограф:
-							select(name='children[0][members]', disabled)
-								option(value='') нет
-								each member in members
-									if (member.status == 'choreographer')							
-										option(value=member._id)= member.ru.name
+							.snake
+								select(name='children[0][members]', disabled)
+									option(value='') нет
+									each member in members
+										if (member.status == 'choreographer')							
+											option(value=member._id)= member.ru.name
+								input.back(type="button", value="-")
+								input.forward(type="button", value="+")												
 							.form_title Продюссер:
-							select(name='children[0][members]', disabled)
-								option(value='') нет
-								each member in members
-									if (member.status == 'producer')
-										option(value=member._id)= member.ru.name		
+							.snake
+								select(name='children[0][members]', disabled)
+									option(value='') нет
+									each member in members
+										if (member.status == 'producer')
+											option(value=member._id)= member.ru.name
+								input.back(type="button", value="-")
+								input.forward(type="button", value="+")											
 							.form_title Актеры:
-							.actors
+							.snake
 								select(name='children[0][members]', disabled)
 									option(value='') нет
 									each member in members
 										if (member.status == 'actor')
 											option(value=member._id)= member.ru.name				
-								input.delete_actor(type="button", value="-")
-								input.add_actor(type="button", value="+")																						
+								input.back(type="button", value="-")
+								input.forward(type="button", value="+")																						
 							.form_title Зал:
 							select(name='children[0][hall]', disabled)
 								option(value='One') Один
