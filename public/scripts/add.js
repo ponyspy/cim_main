@@ -72,6 +72,7 @@ $(document).ready(function() {
 			$('.child > select').prop('disabled', false);
 			$('.child > .snake > select').prop('disabled', false);
 			$('.child > input').prop('disabled', false);
+			$('.child > file').prop('disabled', false);
 			$('.child > textarea').prop('disabled', false);
 		}
 		else {
@@ -82,6 +83,7 @@ $(document).ready(function() {
 			$('.child > select').prop('disabled', true);
 			$('.child > .snake > select').prop('disabled', true);
 			$('.child > input').prop('disabled', true);
+			$('.child > file').prop('disabled', true);
 			$('.child > textarea').prop('disabled', true);			
 			count = $('.child').size();
 		}

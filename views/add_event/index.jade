@@ -146,9 +146,13 @@ block content
 					option(value='children') детская программа			
 				.form_title Зал:
 				select(name='event[hall]', disabled)
-					option(value='One') Один
-					option(value='Two') Два
-					option(value='Three') Три					
+					option(value='main') основная сцена
+					option(value='black') черный зал
+					option(value='white') белый зал
+					option(value='cafe') кафе
+					option(value='lobby') фойе
+					option(value='301') комната 301
+					option(value='306') комната 306
 				.form_title Дата:
 				select(name='event[cal][date]', disabled)
 					option(value='') Дата
@@ -275,9 +279,13 @@ block content
 								input.forward(type="button", value="+")																						
 							.form_title Зал:
 							select(name='children[0][hall]', disabled)
-								option(value='One') Один
-								option(value='Two') Два
-								option(value='Three') Три					
+								option(value='main') основная сцена
+								option(value='black') черный зал
+								option(value='white') белый зал
+								option(value='cafe') кафе
+								option(value='lobby') фойе
+								option(value='301') комната 301
+								option(value='306') комната 306
 							.form_title Дата:
 							select(name='children[0][cal][date]', disabled)
 								option(value='') Дата

@@ -1,6 +1,7 @@
 var fs = require('fs');
 var express = require('express');
     var app = express();
+var async = require('async');
 
 var mongoose = require('mongoose');
   var Schema = mongoose.Schema;
@@ -171,6 +172,7 @@ app.get('/auth/add/event', checkAuth, function (req, res) {
 
 app.post('/auth/add/event', function(req, res) {
   var post = req.body;
+  var files = req.files;
 
   var event = new Event({
     ru: {
@@ -199,26 +201,93 @@ app.post('/auth/add/event', function(req, res) {
     for (var i in post.children) {
       var ch_date = new Date(post.children[i].cal.year, post.children[i].cal.month, post.children[i].cal.date);
 
+      if (post.children[i].en) {
+        event.children.push({
+          ru: {
+            title: post.children[i].ru.title,
+            s_title: post.children[i].ru.s_title,
+            body: post.children[i].ru.body
+          },
+          en: {
+            title: post.children[i].en.title,
+            s_title: post.children[i].en.s_title,
+            body: post.children[i].en.body
+          },
+          date: ch_date,
+          hall: post.children[i].hall,
+          members: memberSplit(post.children[i].members),
+          img: {
+            path: '',
+            author: ''
+          }
+        });
+      }
+
       event.children.push({
         ru: {
           title: post.children[i].ru.title,
           s_title: post.children[i].ru.s_title,
           body: post.children[i].ru.body
         },
-        en: {
-          title: post.children[i].en.title,
-          s_title: post.children[i].en.s_title,
-          body: post.children[i].en.body        
-        },
         date: ch_date,
         hall: post.children[i].hall,
-        members: memberSplit(post.children[i].members)
+        members: memberSplit(post.children[i].members),
+        img: {
+          path: '',
+          author: ''
+        }
       });
     }
   }
 
-  event.save(function() {
-    res.redirect('back');
+  event.save(function(err, event) {
+
+  async.series([
+      function(callback){
+        if (files) {
+          fs.readFile(files.poster.path, function (err, data) {
+            fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
+              var newPath = __dirname + '/public/images/events/' + event._id + '/poster.jpg';
+              fs.writeFile(newPath, data, function (err) {
+                Event.findById(event._id, function(err, ev) {
+                  ev.img.path = '/public/images/events/' + event._id + '/poster.jpg';
+                  ev.save(function() {
+                    callback(null, 'one');
+                  });
+                });
+              });
+            });
+          });
+        }
+        else callback(null, 'one');
+      },
+      function(callback){
+        if (files && files.children) {
+          fs.mkdir(__dirname + '/public/images/events/' + event._id + '/children', function() {
+            Event.findById(event._id, function(err, ev) {
+              for (var i in files.children) {
+                if (files.children[i].poster.size != 0) {
+                  fs.readFile(files.children[i].poster.path, function (err, data) {
+                    var newPath = __dirname + '/public/images/events/' + event._id + '/children/ch' + i + '.jpg';
+                    fs.writeFile(newPath, data, function(err) {
+                      ev.children[i].img.path = '/public/images/events/' + event._id + '/children/ch' + i + '.jpg';
+                    });
+                  });
+                }
+              }
+              ev.save(function() {
+                callback(null, 'two');
+              });
+            });
+          });
+        }
+        else callback(null, 'two');
+      }
+  ],
+  function(err, results){
+      res.redirect('back')
+  });
+
   });
 });
 
@@ -240,6 +309,7 @@ app.get('/auth/add/member', checkAuth, function (req, res) {
 
 app.post('/auth/add/member', function (req, res) {
   var post = req.body;
+  var files = req.files;
   var ru = post.ru;
   var en = post.en;
 
@@ -251,8 +321,18 @@ app.post('/auth/add/member', function (req, res) {
     status: post.status
   });
 
-  member.save(function() {
-    res.redirect('back');
+  member.save(function(err, member) {
+    fs.readFile(files.img.path, function (err, data) {
+      var newPath = __dirname + '/public/images/members/' + member._id + '.jpg';
+      fs.writeFile(newPath, data, function (err) {
+        Member.findById(member._id, function(err, mem) {
+          mem.img = '/public/images/members/' + member._id + '.jpg';
+          mem.save(function() {
+            res.redirect('back');
+          })
+        });
+      });
+    });
   });
 });
 
