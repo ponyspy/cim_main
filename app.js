@@ -226,12 +226,21 @@ app.post('/auth/add/event', function(req, res) {
       }
 
       child.save(function(err, result) {
+        Member.find({'_id': { $in: result.members} }, function(err, members) {
+          async.forEach(members, function(member, callback) {
+            member.events.push(result._id);
+            member.save();
+            callback();
+          });
+        });
+
         if (files.children[i].poster.size != 0) {
           Event.findById(result._id, function(err, child) {
             fs.readFile(files.children[i].poster.path, function (err, data) {
               var newPath = __dirname + '/public/images/events/children/' + child._id + '.jpg';
               fs.writeFile(newPath, data, function(err) {
                 child.img.path = '/public/images/events/children/' + child._id + '.jpg';
+                child.save()
                 event.children.push(child._id);
               });              
             });
@@ -244,11 +253,13 @@ app.post('/auth/add/event', function(req, res) {
 
   event.save(function(err, result) {
     Member.find({'_id': { $in: result.members} }, function(err, members) {
-      for (var i in members) {
-        members[i].events.push(result._id);
-      }
-      members.save();
+      async.forEach(members, function(member, callback) {
+        member.events.push(result._id);
+        member.save();
+        callback();
+      });
     });
+
     if (files) {
       Event.findById(result._id, function(err, event) {      
         fs.readFile(files.poster.path, function (err, data) {
