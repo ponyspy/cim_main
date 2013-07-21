@@ -40,7 +40,8 @@ var eventSchema = new Schema({
          body: String,
          p_author: String
       },
-      img: String,
+      photo: String,
+      poster: String,
       hall: String,
        tag: String,
       child: {type: Boolean, default: false},
@@ -170,6 +171,28 @@ app.get('/auth/add/event', checkAuth, function (req, res) {
   });
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.post('/auth/add/event', function(req, res) {
   var post = req.body;
   var files = req.files;
@@ -237,12 +260,12 @@ app.post('/auth/add/event', function(req, res) {
           });
         });
 
-        if (post_ch.files.poster.size != 0) {          
+        if (post_ch.files.photo.size != 0) {          
           Event.findById(result._id, function(err, child) {
-            fs.readFile(post_ch.files.poster.path, function (err, data) {
+            fs.readFile(post_ch.files.photo.path, function (err, data) {
               var newPath = __dirname + '/public/images/events/children/' + child._id + '.jpg';
               fs.writeFile(newPath, data, function(err) {
-                child.img = '/public/images/events/children/' + child._id + '.jpg';
+                child.photo = '/public/images/events/children/' + child._id + '.jpg';
                 callback(child);
               });              
             });
@@ -265,23 +288,54 @@ app.post('/auth/add/event', function(req, res) {
       });
     });
 
-    if (files) {
-      Event.findById(result._id, function(err, event) {      
-        fs.readFile(files.poster.path, function (err, data) {
-          fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
-            var newPath = __dirname + '/public/images/events/' + event._id + '/poster.jpg';
-            fs.writeFile(newPath, data, function (err) {
-              event.img = '/public/images/events/' + event._id + '/poster.jpg';
-              event.save(function() {
-                res.redirect('back');
-              })              
+    async.series([
+      function(callback){
+        if (files.photo) {
+          Event.findById(result._id, function(err, event) {      
+            fs.readFile(files.photo.path, function (err, data) {
+              fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
+                var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
+                fs.writeFile(newPath, data, function (err) {
+                  event.photo = '/public/images/events/' + event._id + '/photo.jpg';
+                  event.save(function() {
+                    callback(null, 'one');
+                  })              
+                });
+              });
             });
           });
-        });
-      });
-    }     
+        }           
+      },
+      function(callback){
+        if (files.poster) {
+          Event.findById(result._id, function(err, event) {      
+            fs.readFile(files.poster.path, function (err, data) {
+              fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
+                var newPath = __dirname + '/public/images/events/' + event._id + '/poster.jpg';
+                fs.writeFile(newPath, data, function (err) {
+                  event.poster = '/public/images/events/' + event._id + '/poster.jpg';
+                  event.save(function() {
+                    callback(null, 'two');
+                  })              
+                });
+              });
+            });
+          });
+        }   
+      }
+    ],
+    function(err, results){
+      res.redirect('back');
+    });  
   }); 
 });
+
+
+
+
+
+
+
 
 
 

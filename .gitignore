@@ -2,7 +2,8 @@
 /db*
 /uploads*
 /maket*
-/public/images/posts*
+/public/images/events*
+/public/images/members*
 /public/fonts*
 /doc*
 /subl*
