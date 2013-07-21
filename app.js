@@ -145,7 +145,7 @@ app.post('/', function (req, res) {
 
 
 app.get('/event', function (req, res) {
-  Event.find(function(err, event) {
+  Event.find().populate('children').exec(function(err, event) {
     res.render('event', {event: event});
   });
 });
@@ -181,7 +181,7 @@ app.post('/auth/add/event', function(req, res) {
       s_title: post.ru.s_title,
       body: post.ru.body
     },
-    tag: post.tag,
+    tag: post.tag
   });
 
   if (post.en) {
@@ -192,7 +192,8 @@ app.post('/auth/add/event', function(req, res) {
 
   if (post.event) {
     event.members = memberSplit(post.event.members);
-    event.hall = post.event.hall;
+    if (!post.children)
+      event.hall = post.event.hall;
     if (post.event.cal)
       event.date = new Date(post.event.cal.year, post.event.cal.month, post.event.cal.date);
   };
@@ -209,11 +210,7 @@ app.post('/auth/add/event', function(req, res) {
         date: ch_date,
         hall: post.children[i].hall,
         members: memberSplit(post.children[i].members),
-        child: true,
-        img: {
-          path: '',
-          author: ''
-        }
+        child: true
       });
 
       if (post.children[i].cal)
@@ -226,6 +223,8 @@ app.post('/auth/add/event', function(req, res) {
       }
 
       child.save(function(err, result) {
+        event.children.push(result._id);
+
         Member.find({'_id': { $in: result.members} }, function(err, members) {
           async.forEach(members, function(member, callback) {
             member.events.push(result._id);
@@ -233,19 +232,19 @@ app.post('/auth/add/event', function(req, res) {
             callback();
           });
         });
-
-        if (files.children[i].poster.size != 0) {
+        
+        if (files.children[i].poster.size != 0) {          
           Event.findById(result._id, function(err, child) {
             fs.readFile(files.children[i].poster.path, function (err, data) {
               var newPath = __dirname + '/public/images/events/children/' + child._id + '.jpg';
               fs.writeFile(newPath, data, function(err) {
                 child.img.path = '/public/images/events/children/' + child._id + '.jpg';
-                child.save()
-                event.children.push(child._id);
+                child.save();
               });              
             });
           });
         }
+        else child.save();
 
       });
     }
@@ -267,7 +266,9 @@ app.post('/auth/add/event', function(req, res) {
             var newPath = __dirname + '/public/images/events/' + event._id + '/poster.jpg';
             fs.writeFile(newPath, data, function (err) {
               event.img.path = '/public/images/events/' + event._id + '/poster.jpg';
-              res.redirect('back');
+              event.save(function() {
+                res.redirect('back');
+              })              
             });
           });
         });
