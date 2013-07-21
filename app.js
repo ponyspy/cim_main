@@ -31,17 +31,16 @@ var eventSchema = new Schema({
       ru: {
         title: String,
       s_title: String,
-         body: String
+         body: String,
+         p_author: String
       },
       en: {
         title: String,
       s_title: String,
-         body: String    
+         body: String,
+         p_author: String
       },
-      img: {
-          path: String,
-        author: String
-      },
+      img: String,
       hall: String,
        tag: String,
       child: {type: Boolean, default: false},
@@ -182,7 +181,8 @@ app.post('/auth/add/event', function(req, res) {
     ru: {
       title: post.ru.title,
       s_title: post.ru.s_title,
-      body: post.ru.body
+      body: post.ru.body,
+      p_author: post.ru.p_author
     },
     tag: post.tag
   });
@@ -191,6 +191,7 @@ app.post('/auth/add/event', function(req, res) {
     event.en.title = post.en.title;
     event.en.s_title = post.en.s_title;
     event.en.body = post.en.body;
+    event.en.p_author = post.en.p_author;
   };
 
   if (post.event) {
@@ -241,7 +242,7 @@ app.post('/auth/add/event', function(req, res) {
             fs.readFile(post_ch.files.poster.path, function (err, data) {
               var newPath = __dirname + '/public/images/events/children/' + child._id + '.jpg';
               fs.writeFile(newPath, data, function(err) {
-                child.img.path = '/public/images/events/children/' + child._id + '.jpg';
+                child.img = '/public/images/events/children/' + child._id + '.jpg';
                 callback(child);
               });              
             });
@@ -270,7 +271,7 @@ app.post('/auth/add/event', function(req, res) {
           fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
             var newPath = __dirname + '/public/images/events/' + event._id + '/poster.jpg';
             fs.writeFile(newPath, data, function (err) {
-              event.img.path = '/public/images/events/' + event._id + '/poster.jpg';
+              event.img = '/public/images/events/' + event._id + '/poster.jpg';
               event.save(function() {
                 res.redirect('back');
               })              
