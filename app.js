@@ -44,7 +44,7 @@ var eventSchema = new Schema({
       poster: String,
       hall: String,
        tag: String,
-      child: {type: Boolean, default: false},
+      _parent: { type: Schema.Types.ObjectId, ref: 'Event' },
       date: {type: Date, default: Date.now},
    members: [{ type: Schema.Types.ObjectId, ref: 'Member' }],
   children: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
@@ -237,7 +237,7 @@ app.post('/auth/add/event', function(req, res) {
         date: ch_date,
         hall: post_ch.hall,
         members: memberSplit(post_ch.members),
-        child: true
+        _parent: event._id
       });
 
       if (post_ch.cal)
@@ -249,8 +249,10 @@ app.post('/auth/add/event', function(req, res) {
         child.en.body = post_ch.en.body;
       }
 
+      event.children.push(child._id);
+      
       child.save(function(err, result) {
-        event.children.push(result._id);
+        
 
         Member.find({'_id': { $in: result.members} }, function(err, members) {
           async.forEach(members, function(member, callback) {

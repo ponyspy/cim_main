@@ -11,4 +11,18 @@ block content_right
 
 block content
 	h1 cool!
-	b= event
+	each e,i in event
+		h2 Событие #{i+1}
+		br
+		b Заголовок:
+		br
+		b= e.ru.title
+		br
+		b Подзаголовок:
+		br
+		b= e.ru.s_title
+		br
+		b Описание:
+		br
+		b
+			!= e.ru.body

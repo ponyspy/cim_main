@@ -130,7 +130,25 @@ block content
 						each member in members
 							if (member.status == 'producer')
 								option(value=member._id)= member.ru.name
-					input.forward(type="button", value=">")																		
+					input.forward(type="button", value=">")
+				.form_title Теоретик:
+				.snake
+					input.back(type="button", value="<")
+					select(name='event[members]', disabled)
+						option(value='') нет
+						each member in members
+							if (member.status == 'theoretician')
+								option(value=member._id)= member.ru.name
+					input.forward(type="button", value=">")
+				.form_title Лектор:
+				.snake
+					input.back(type="button", value="<")
+					select(name='event[members]', disabled)
+						option(value='') нет
+						each member in members
+							if (member.status == 'lecturer')
+								option(value=member._id)= member.ru.name
+					input.forward(type="button", value=">")								
 				.form_title Актеры:
 				.snake
 					input.back(type="button", value="<")

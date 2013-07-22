@@ -145,12 +145,15 @@ $(document).ready(function() {
 	$('.add_child').on('click', projectConstructor);
 	$('.toggle_eng').on('click', toggleEnglish);
 	$('.event_convert').on('click', toggleEvent);
-	// $('.project_convert').on('click', toggleProject);
+	$('.project_convert').on('click', toggleProject);
 	$('.news_convert').on('click', toggleNews);
 	$('.back').on('click', snakeBack);
 	$('.forward').on('click', snakeForward);
 
 	$('.form_submit').click(function() {
+		var newValue = $('textarea').val().replace(/\n/g, "<br />");
+		alert(newValue)
+		$('textarea').val(newValue);
 		$('form').submit();
 	});
 });
