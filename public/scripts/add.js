@@ -152,7 +152,7 @@ $(document).ready(function() {
 
 	$('.form_submit').click(function() {
 		var newValue = $('textarea').val().replace(/\n/g, "<br />");
-		alert(newValue)
+		// alert(newValue)
 		$('textarea').val(newValue);
 		$('form').submit();
 	});
