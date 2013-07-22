@@ -46,6 +46,7 @@ var eventSchema = new Schema({
        tag: String,
       _parent: { type: Schema.Types.ObjectId, ref: 'Event' },
       date: {type: Date, default: Date.now},
+      cal: {type: Date, default: Date.now},
    members: [{ type: Schema.Types.ObjectId, ref: 'Member' }],
   children: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
 });
@@ -222,7 +223,7 @@ app.post('/auth/add/event', function(req, res) {
     if (!post.children)
       event.hall = post.event.hall;
     if (post.event.cal)
-      event.date = new Date(post.event.cal.year, post.event.cal.month, post.event.cal.date);
+      event.cal = new Date(post.event.cal.year, post.event.cal.month, post.event.cal.date);
   };
 
 
@@ -234,7 +235,7 @@ app.post('/auth/add/event', function(req, res) {
           s_title: post_ch.ru.s_title,
           body: post_ch.ru.body
         },
-        date: ch_date,
+        cal: ch_date,
         hall: post_ch.hall,
         members: memberSplit(post_ch.members),
         _parent: event._id
