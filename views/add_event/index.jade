@@ -21,6 +21,7 @@ block content
 	.form_block
 		h2 Конструктор событий
 		br
+		a(href='/auth') назад
 		br
 		.news_convert НОВОСТЬ
 		br
@@ -148,7 +149,8 @@ block content
 					option(value='concert') концерт
 					option(value='education') институт театра
 					option(value='blackbox') blackbox
-					option(value='children') детская программа			
+					option(value='children') детская программа
+					option(value='storytallyng') сторителлинг
 				.form_title Зал:
 				select(name='event[hall]', disabled)
 					option(value='main') основная сцена
@@ -190,8 +192,11 @@ block content
 							.form_title Описание:
 							textarea.ru(name="children[0][ru][body]", rows="8", disabled)
 							textarea.en(name="children[0][en][body]", rows="8", disabled)
-							.form_title Постер:
-							input(type="file", name="children[0][poster]", disabled)							
+							.form_title Фото:
+							input(type="file", name="children[0][photo]", disabled)
+							.form_title Автор фото:
+							input.ru(type="text", name="children[0][ru][p_author]", disabled)
+							input.en(type="text", name="children[0][en][p_author]", disabled)												
 							.form_title Режисер:
 							.snake
 								select(name='children[0][members]', disabled)

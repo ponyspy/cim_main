@@ -11,6 +11,10 @@ block content_right
 
 block content
 	h2 Добавить участника
+	br
+	a(href='/auth') назад
+	br
+	br
 	form(action="/auth/add/member", method="post", enctype="multipart/form-data")
 		.form_title Имя:
 		input.ru(type="text", name="ru[name]",)

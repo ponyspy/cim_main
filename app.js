@@ -75,7 +75,7 @@ var memberSchema = new Schema({
 var User = mongoose.model('User', userSchema);
 var Member = mongoose.model('Member', memberSchema);
 var Event = mongoose.model('Event', eventSchema);
-
+var Child = mongoose.model('Child', eventSchema);
 
 // ------------------------
 // *** Midleware Block ***
@@ -228,7 +228,7 @@ app.post('/auth/add/event', function(req, res) {
 
   if (post.children) {
     async.forEach(post.children, function(post_ch, callback) {
-      var child = new Event({
+      var child = new Child({
         ru: {
           title: post_ch.ru.title,
           s_title: post_ch.ru.s_title,
@@ -250,7 +250,7 @@ app.post('/auth/add/event', function(req, res) {
       }
 
       child.save(function(err, result) {
-        // event.children.push(result._id);
+        event.children.push(result._id);
 
         Member.find({'_id': { $in: result.members} }, function(err, members) {
           async.forEach(members, function(member, callback) {
@@ -261,12 +261,12 @@ app.post('/auth/add/event', function(req, res) {
         });
 
         if (post_ch.files.photo.size != 0) {          
-          Event.findById(result._id, function(err, child) {
+          Child.findById(result._id, function(err, child) {
             fs.readFile(post_ch.files.photo.path, function (err, data) {
               var newPath = __dirname + '/public/images/events/children/' + child._id + '.jpg';
               fs.writeFile(newPath, data, function(err) {
                 child.photo = '/public/images/events/children/' + child._id + '.jpg';
-                callback(child);
+                child.save();
               });              
             });
           });
@@ -274,7 +274,7 @@ app.post('/auth/add/event', function(req, res) {
         else callback();
 
       });
-    }, function(child) {
+    }, function() {
       child.save();
     });
   }
@@ -289,8 +289,8 @@ app.post('/auth/add/event', function(req, res) {
     });
 
     async.series([
-      function(callback){
-        if (files.photo) {
+      function(callback) {
+        if (files.photo.size != 0) {
           Event.findById(result._id, function(err, event) {      
             fs.readFile(files.photo.path, function (err, data) {
               fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
@@ -304,10 +304,14 @@ app.post('/auth/add/event', function(req, res) {
               });
             });
           });
-        }           
+        }
+        else {
+          fs.unlink(files.photo.path);
+          callback(null, 'one');
+        }
       },
-      function(callback){
-        if (files.poster) {
+      function(callback) {
+        if (files.poster.size != 0) {
           Event.findById(result._id, function(err, event) {      
             fs.readFile(files.poster.path, function (err, data) {
               fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
@@ -321,7 +325,11 @@ app.post('/auth/add/event', function(req, res) {
               });
             });
           });
-        }   
+        }
+        else {
+          fs.unlink(files.poster.path);
+          callback(null, 'two');
+        }
       }
     ],
     function(err, results){
@@ -368,17 +376,23 @@ app.post('/auth/add/member', function (req, res) {
   });
 
   member.save(function(err, member) {
-    fs.readFile(files.img.path, function (err, data) {
-      var newPath = __dirname + '/public/images/members/' + member._id + '.jpg';
-      fs.writeFile(newPath, data, function (err) {
-        Member.findById(member._id, function(err, mem) {
-          mem.img = '/public/images/members/' + member._id + '.jpg';
-          mem.save(function() {
-            res.redirect('back');
-          })
+    if (files.img.size != 0) {
+      fs.readFile(files.img.path, function (err, data) {
+        var newPath = __dirname + '/public/images/members/' + member._id + '.jpg';
+        fs.writeFile(newPath, data, function (err) {
+          Member.findById(member._id, function(err, mem) {
+            mem.img = '/public/images/members/' + member._id + '.jpg';
+            mem.save(function() {
+              res.redirect('back');
+            })
+          });
         });
       });
-    });
+    }
+    else {
+      fs.unlink(files.img.path);
+      res.redirect('back');
+    }
   });
 });
 
