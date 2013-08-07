@@ -69,7 +69,7 @@ var memberSchema = new Schema({
       description: String
     },
     img: String,
-    status: String,
+    status: [String],
     events: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
 });
 
@@ -146,7 +146,7 @@ app.post('/', function (req, res) {
 
 
 app.get('/event', function (req, res) {
-  Event.find().populate('children').exec(function(err, event) {
+  Event.find().populate('children members').exec(function(err, event) {
     res.render('event', {event: event});
   });
 });

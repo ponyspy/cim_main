@@ -26,3 +26,10 @@ block content
 		br
 		b
 			!= e.ru.body
+		br
+		b режисер
+		br
+		each member in e.members
+			each status in member.status
+				if (status == 'director')
+					b= member.ru.name
