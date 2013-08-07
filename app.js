@@ -47,7 +47,10 @@ var eventSchema = new Schema({
       _parent: { type: Schema.Types.ObjectId, ref: 'Event' },
       date: {type: Date, default: Date.now},
       cal: {type: Date, default: Date.now},
-   members: [{ type: Schema.Types.ObjectId, ref: 'Member' }],
+   members: [{
+    c_status: String,
+    m_id: { type: Schema.Types.ObjectId, ref: 'Member' }
+   }],
   children: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
 });
 
@@ -146,7 +149,7 @@ app.post('/', function (req, res) {
 
 
 app.get('/event', function (req, res) {
-  Event.find().populate('children members').exec(function(err, event) {
+  Event.find().populate('children members.m_id').exec(function(err, event) {
     res.render('event', {event: event});
   });
 });
@@ -219,7 +222,19 @@ app.post('/auth/add/event', function(req, res) {
   };
 
   if (post.event) {
-    event.members = memberSplit(post.event.members);
+    var s;
+    var ress = [];
+    var mb = memberSplit(post.event.members);
+
+    for (var i in mb) {
+      s = mb[i].split('-');
+      ress.push({
+        m_id: s[0],
+        c_status: s[1]
+      })
+    }
+
+    event.members = ress;
     if (!post.children)
       event.hall = post.event.hall;
     if (post.event.cal)

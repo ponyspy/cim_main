@@ -58,7 +58,7 @@ block content
 						each member in members
 							each status in member.status
 								if (status == 'director')
-									option(value=member._id)= member.ru.name
+									option(value=member._id + '-director')= member.ru.name
 					input.forward(type="button", value=">")									
 				.form_title Драматург:
 				.snake
@@ -68,7 +68,7 @@ block content
 						each member in members
 							each status in member.status
 								if (status == 'playwright')
-									option(value=member._id)= member.ru.name		
+									option(value=member._id + '-playwright')= member.ru.name		
 					input.forward(type="button", value=">")															
 				.form_title Художественный руководитель:
 				.snake
@@ -78,7 +78,7 @@ block content
 						each member in members
 							each status in member.status
 								if (status == 'art_director')
-									option(value=member._id)= member.ru.name
+									option(value=member._id + '-art_director')= member.ru.name
 					input.forward(type="button", value=">")
 				//- .form_title Куратор:
 				//- .snake

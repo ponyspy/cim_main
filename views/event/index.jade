@@ -27,9 +27,14 @@ block content
 		b
 			!= e.ru.body
 		br
-		b режисер
-		br
 		each member in e.members
-			each status in member.status
-				if (status == 'director')
-					b= member.ru.name
+			if (member.c_status == 'director')
+				b режисер
+				br
+				a(href='/members/' + member.m_id._id)= member.m_id.ru.name
+				br
+			if (member.c_status == 'playwright')
+				b драматург
+				br
+				a(href='/members/' + member.m_id._id)= member.m_id.ru.name
+				br
