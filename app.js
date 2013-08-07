@@ -94,9 +94,20 @@ function checkAuth (req, res, next) {
 }
 
 function memberSplit (members) {
+  var split = [];
   var results = [];
+  var s;
+
   for (var i in members)
-    if (members[i] != '') results.push(members[i]);
+    if (members[i] != '') split.push(members[i]);
+
+  for (var i in split) {
+    s = split[i].split('-');
+    results.push({
+      m_id: s[0],
+      c_status: s[1]
+    });
+  } 
   
   return results; 
 }
@@ -222,19 +233,7 @@ app.post('/auth/add/event', function(req, res) {
   };
 
   if (post.event) {
-    var s;
-    var ress = [];
-    var mb = memberSplit(post.event.members);
-
-    for (var i in mb) {
-      s = mb[i].split('-');
-      ress.push({
-        m_id: s[0],
-        c_status: s[1]
-      })
-    }
-
-    event.members = ress;
+    event.members = memberSplit(post.event.members);
     if (!post.children)
       event.hall = post.event.hall;
     if (post.event.cal)
