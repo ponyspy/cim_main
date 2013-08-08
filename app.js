@@ -27,6 +27,26 @@ app.use(app.router);
 // -------------------
 
 
+var newsSchema = new Schema({
+      ru: {
+        title: String,
+      s_title: String,
+         body: String,
+     p_author: String
+      },
+      en: {
+        title: String,
+      s_title: String,
+         body: String,
+     p_author: String
+      },
+      photo: String,
+      poster: String,
+      tag: String,
+      date: {type: Date, default: Date.now}
+});
+
+
 var eventSchema = new Schema({
       ru: {
         title: String,
@@ -54,14 +74,6 @@ var eventSchema = new Schema({
   children: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
 });
 
-var userSchema = new Schema({
-   login: String,
-    password: String,
-   email: String,
-  status: {type: String, default: 'User'},
-    date: {type: Date, default: Date.now},
-});
-
 var memberSchema = new Schema({
     ru: {
       name: String, 
@@ -76,9 +88,18 @@ var memberSchema = new Schema({
     events: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
 });
 
+var userSchema = new Schema({
+   login: String,
+    password: String,
+   email: String,
+  status: {type: String, default: 'User'},
+    date: {type: Date, default: Date.now},
+});
+
 var User = mongoose.model('User', userSchema);
 var Member = mongoose.model('Member', memberSchema);
 var Event = mongoose.model('Event', eventSchema);
+var News = mongoose.model('News', newsSchema);
 var Child = mongoose.model('Child', eventSchema);
 
 // ------------------------
@@ -211,9 +232,6 @@ app.get('/auth/add/event', checkAuth, function (req, res) {
 app.post('/auth/add/event', function(req, res) {
   var post = req.body;
   var files = req.files;
-  for (var i in post.children) {
-    post.children[i].files = files.children[i];
-  }
 
   var event = new Event({
     ru: {
@@ -237,11 +255,16 @@ app.post('/auth/add/event', function(req, res) {
     if (!post.children)
       event.hall = post.event.hall;
     if (post.event.cal)
-      event.cal = new Date(post.event.cal.year, post.event.cal.month, post.event.cal.date);
+      event.cal = new Date(post.event.cal.year, post.event.cal.month, post.event.cal.date, post.event.cal.hours, post.event.cal.minutes);
   };
 
 
   if (post.children) {
+
+    for (var i in post.children) {
+      post.children[i].files = files.children[i];
+    } 
+
     async.forEach(post.children, function(post_ch, callback) {
       var child = new Child({
         ru: {
@@ -367,9 +390,82 @@ app.post('/auth/add/event', function(req, res) {
 
 
 
+app.get('/auth/add/news', checkAuth, function (req, res) {
+  res.render('add_news');
+});
 
+app.post('/auth/add/news', function (req, res) {
+  var post = req.body;
+  var files = req.files;
 
+  var news = new News({
+    ru: {
+      title: post.ru.title,
+      s_title: post.ru.s_title,
+      body: post.ru.body,
+      p_author: post.ru.p_author
+    }
+  });
 
+  if (post.en) {
+    news.en.title = post.en.title;
+    news.en.s_title = post.en.s_title;
+    news.en.body = post.en.body;
+    news.en.p_author = post.en.p_author;
+  };
+
+  news.tag = post.tag;
+
+  news.save(function(err, result) {
+    async.series([
+      function(callback) {
+        if (files.photo.size != 0) {
+          News.findById(result._id, function(err, news) {      
+            fs.readFile(files.photo.path, function (err, data) {
+              fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
+                var newPath = __dirname + '/public/images/news/' + news._id + '/photo.jpg';
+                fs.writeFile(newPath, data, function (err) {
+                  news.photo = '/public/images/news/' + news._id + '/photo.jpg';
+                  news.save(function() {
+                    callback(null, 'one');
+                  })              
+                });
+              });
+            });
+          });
+        }
+        else {
+          fs.unlink(files.photo.path);
+          callback(null, 'one');
+        }
+      },
+      function(callback) {
+        if (files.poster.size != 0) {
+          News.findById(result._id, function(err, news) {      
+            fs.readFile(files.poster.path, function (err, data) {
+              fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
+                var newPath = __dirname + '/public/images/news/' + news._id + '/poster.jpg';
+                fs.writeFile(newPath, data, function (err) {
+                  news.poster = '/public/images/news/' + news._id + '/poster.jpg';
+                  news.save(function() {
+                    callback(null, 'two');
+                  })              
+                });
+              });
+            });
+          });
+        }
+        else {
+          fs.unlink(files.poster.path);
+          callback(null, 'two');
+        }
+      }
+    ],
+    function(err, results){
+      res.redirect('back');
+    });  
+  });
+});
 
 
 
