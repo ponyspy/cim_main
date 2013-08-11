@@ -52,12 +52,14 @@ var eventSchema = new Schema({
         title: String,
       s_title: String,
          body: String,
+         ticket: String,
          p_author: String
       },
       en: {
         title: String,
       s_title: String,
          body: String,
+         ticket: String,
          p_author: String
       },
       photo: String,
@@ -256,6 +258,7 @@ app.post('/auth/add/event', function(req, res) {
       title: post.ru.title,
       s_title: post.ru.s_title,
       body: post.ru.body,
+      ticket: post.ru.ticket,
       p_author: post.ru.p_author
     },
     tag: post.tag
@@ -265,6 +268,7 @@ app.post('/auth/add/event', function(req, res) {
     event.en.title = post.en.title;
     event.en.s_title = post.en.s_title;
     event.en.body = post.en.body;
+    event.en.ticket = post.en.ticket;
     event.en.p_author = post.en.p_author;
   };
 

@@ -18,8 +18,10 @@ block content
 		br
 		form(action="", method="post", enctype="multipart/form-data")
 			.form_title События
+			br
 			each ev in date[0].events
 				b= ev.ru.title
+				br
 				br
 			.snake
 				input.back(type="button", value="<")

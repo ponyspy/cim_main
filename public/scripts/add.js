@@ -54,7 +54,7 @@ $(document).ready(function() {
 			$('.nav_project_children').show();
 			if (count == 0) projectConstructor();
 			$('.form_block_project').toggle();
-			$('.form_block_event > select').slice(-2).prop('disabled', true);
+			$('.form_block_event > select').slice(-1).prop('disabled', true);
 			$('.child > select').prop('disabled', false);
 			$('.child > .snake > select').prop('disabled', false);
 			$('.child > input').prop('disabled', false);
@@ -65,7 +65,7 @@ $(document).ready(function() {
 			$('.nav_title').text('СОБЫТИЕ');
 			$('.nav_project_children').hide();
 			$('.form_block_project').toggle();
-			$('.form_block_event > select').slice(-2).prop('disabled', false);
+			$('.form_block_event > select').slice(-1).prop('disabled', false);
 			$('.child > select').prop('disabled', true);
 			$('.child > .snake > select').prop('disabled', true);
 			$('.child > input').prop('disabled', true);
