@@ -66,12 +66,12 @@ var eventSchema = new Schema({
        tag: String,
       _parent: { type: Schema.Types.ObjectId, ref: 'Event' },
       date: {type: Date, default: Date.now},
-      cal: {type: Date, default: Date.now},
+      // cal: {type: Date, default: Date.now},
    members: [{
     c_status: String,
     m_id: { type: Schema.Types.ObjectId, ref: 'Member' }
    }],
-  children: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
+  children: [{ type: Schema.Types.ObjectId, ref: 'Child' }]
 });
 
 var memberSchema = new Schema({
@@ -96,11 +96,18 @@ var userSchema = new Schema({
     date: {type: Date, default: Date.now},
 });
 
+var scheduleSchema = new Schema({
+  events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
+  date: {type: Date, default: Date.now}
+});
+
 var User = mongoose.model('User', userSchema);
 var Member = mongoose.model('Member', memberSchema);
 var Event = mongoose.model('Event', eventSchema);
 var News = mongoose.model('News', newsSchema);
 var Child = mongoose.model('Child', eventSchema);
+var Schedule = mongoose.model('Schedule', scheduleSchema);
+
 
 // ------------------------
 // *** Midleware Block ***
@@ -179,6 +186,17 @@ app.post('/', function (req, res) {
     res.send(arr.slice(post.offset, post.offset*2 || 6));  
 });
 
+app.get('/afisha/current', function (req, res) {
+  var start = new Date();
+  var end = new Date();
+  start.setDate(1);
+  end.setFullYear(end.getFullYear(), end.getDate()+1, 0);
+
+  Schedule.find({"date": {"$gte": start, "$lt": end}}).sort('-date').populate('_event').exec(function(err, result) {
+    res.render('afisha', {result: result})
+  });
+});
+
 
 app.get('/event', function (req, res) {
   Event.find().populate('children members.m_id').exec(function(err, event) {
@@ -254,8 +272,8 @@ app.post('/auth/add/event', function(req, res) {
     event.members = memberSplit(post.event.members);
     if (!post.children)
       event.hall = post.event.hall;
-    if (post.event.cal)
-      event.cal = new Date(post.event.cal.year, post.event.cal.month, post.event.cal.date, post.event.cal.hours, post.event.cal.minutes);
+    // if (post.event.cal)
+    //   event.cal = new Date(post.event.cal.year, post.event.cal.month, post.event.cal.date);
   };
 
 
@@ -278,8 +296,8 @@ app.post('/auth/add/event', function(req, res) {
         _parent: event._id
       });
 
-      if (post_ch.cal)
-        var ch_date = new Date(post_ch.cal.year, post_ch.cal.month, post_ch.cal.date);
+      // if (post_ch.cal)
+      //   var ch_date = new Date(post_ch.cal.year, post_ch.cal.month, post_ch.cal.date);
 
       if (post_ch.en) {
         child.en.title = post_ch.en.title;
@@ -385,9 +403,67 @@ app.post('/auth/add/event', function(req, res) {
 
 
 
+/****************
+  Schedule Block
+****************/
 
 
+app.get('/auth/add/schedule', checkAuth, function (req, res) {
+  res.render('add_schedule');
+});
 
+
+app.get('/auth/add/schedule/:year', checkAuth, function (req, res) {
+  var year = req.params.year;
+  var start = new Date(year,0,1)
+  var end = new Date(year,11,31)
+
+  Schedule.find({"date": {"$gte": start, "$lt": end}}).sort('-date').populate('events').exec(function(err, schedule) {
+    res.render('add_schedule/add', {schedule: schedule, year: year});
+  });
+});
+
+app.post('/auth/add/schedule/:year', function (req, res) {
+  var post = req.body;
+
+  var schedule = new Schedule({
+    date: new Date(post.schedule.year, post.schedule.month, post.schedule.date)
+  });
+
+  schedule.save(function(err) {
+    res.redirect('back');
+  });
+
+});
+
+app.get('/auth/add/schedule/:year/:id', checkAuth, function (req, res) {
+  var id = req.params.id;
+
+  Event.find(function(err, events) {
+    Schedule.find({'_id':id}).populate('events').exec(function(err, date) {
+      res.render('add_schedule/date', {date: date, events: events});
+    });
+  });
+});
+
+app.post('/auth/add/schedule/:year/:id', function (req, res) {
+  var post = req.body;
+  var id = req.params.id;
+
+  Schedule.findById(id, function(err, date) {
+    date.events = post.events;
+
+    date.save(function(err) {
+      res.redirect('back');
+    });
+  });
+
+  // console.log(post);
+});
+
+/************
+  News Block
+************/
 
 
 app.get('/auth/add/news', checkAuth, function (req, res) {
@@ -468,6 +544,9 @@ app.post('/auth/add/news', function (req, res) {
 });
 
 
+/*************
+Members Block
+*************/
 
 
 app.get('/auth/add/member', checkAuth, function (req, res) {

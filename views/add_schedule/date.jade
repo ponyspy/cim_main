@@ -1,0 +1,33 @@
+extends ../layout
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/styles/add_member.css')
+
+block content_scripts
+	script(type='text/javascript', src='/scripts/add_member.js')
+
+block content_right
+
+
+block content
+	.form_block
+		h2 Добавить события
+		br
+		a(href='/auth/add/schedule/' + date[0].date.getFullYear()) назад
+		br
+		br
+		form(action="", method="post", enctype="multipart/form-data")
+			.form_title События
+			each ev in date[0].events
+				b= ev.ru.title
+				br
+			.snake
+				input.back(type="button", value="<")
+				select(name='events')
+					option(value='') нет
+					each event in events
+						option(value=event._id)= event.ru.title
+				input.forward(type="button", value=">")
+			br
+			br
+			input(type="submit", value="Добавить")
