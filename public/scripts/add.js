@@ -13,7 +13,7 @@ $(document).ready(function() {
 		if (eng == true)
 			$('.en').prop('disabled', true);
 		else
-			$('.en').prop('disabled', false).show();		
+			$('.en').prop('disabled', false).show();
 	}
 
 	function toggleEnglish () {
@@ -25,7 +25,7 @@ $(document).ready(function() {
 		else {
 			eng = false;
 			$('.en').prop('disabled', eng).show();
-			$('.ru').css('float','left');			
+			$('.ru').css('float','left');
 		}
 	}
 
@@ -70,7 +70,7 @@ $(document).ready(function() {
 			$('.child > .snake > select').prop('disabled', true);
 			$('.child > input').prop('disabled', true);
 			$('.child > file').prop('disabled', true);
-			$('.child > textarea').prop('disabled', true);			
+			$('.child > textarea').prop('disabled', true);
 			count = $('.child').size();
 		}
 	}
@@ -93,7 +93,7 @@ $(document).ready(function() {
 		count = $('.child').size();
 
 		var nav_project_child = $('<div />', {'class':'nav_project_child', 'text':'Событие ' + (count+1)});
-		$('.nav_project_children').append(nav_project_child);		
+		$('.nav_project_children').append(nav_project_child);
 
 		$('.child :first').clone(true, true).insertAfter('.child :last');
 
@@ -114,11 +114,11 @@ $(document).ready(function() {
 		checkEnglish();
 	}
 
-	function StickyTags() { 
+	function StickyTags() {
 		var offset = 0;
 		var sticky = false;
 		var top = $(window).scrollTop();
-		
+
 		if ($(".form_block").offset().top < top) {
 			$(".navigator").css('position', 'fixed').css('margin-left', '950px').css('top', '0px');
 			sticky = true;

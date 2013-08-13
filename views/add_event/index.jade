@@ -10,12 +10,12 @@ block content_right
 	.navigator
 		.nav_title СОБЫТИЕ
 		.nav_project_children
-		br		
+		br
 		b.nav_settings_title настройки
 		//- .draft черновик
 		.toggle_eng перевод
 		br
-		b.form_submit ОТПРАВИТЬ	
+		b.form_submit ОТПРАВИТЬ
 
 mixin eventField(st)
 	.snake
@@ -37,7 +37,7 @@ mixin projectField(st)
 				each status in member.status
 					if (status == st)
 						option(value=member._id + '-' + st)= member.ru.name
-		input.forward(type="button", value=">")			
+		input.forward(type="button", value=">")
 
 block content
 	.form_block
@@ -60,11 +60,11 @@ block content
 			textarea.en(name="en[body]", rows="8", disabled)
 			.form_title Тикет:
 			textarea.ru(name="ru[ticket]", rows="8",)
-			textarea.en(name="en[ticket]", rows="8", disabled)				
+			textarea.en(name="en[ticket]", rows="8", disabled)
 			.form_title Постер:
 			input(type="file", name="poster")
 			.form_title Фото:
-			input(type="file", name="photo")				
+			input(type="file", name="photo")
 			.form_title Автор фото:
 			input.ru(type="text", name="ru[p_author]",)
 			input.en(type="text", name="en[p_author]", disabled)
@@ -74,21 +74,21 @@ block content
 			br
 			.form_block_event
 				.form_title Режисер:
-				+eventField('director')							
+				+eventField('director')
 				.form_title Драматург:
 				+eventField('playwright')
 				.form_title Художественный руководитель:
 				+eventField('art_director')
 				.form_title Куратор:
-				+eventField('curator')										
+				+eventField('curator')
 				.form_title Фотограф:
-				+eventField('photographer')						
+				+eventField('photographer')
 				.form_title Художник:
 				+eventField('artist')
 				.form_title Композитор:
-				+eventField('composer')														
+				+eventField('composer')
 				.form_title Хореограф:
-				+eventField('choreographer')						
+				+eventField('choreographer')
 				.form_title Продюссер:
 				+eventField('producer')
 				.form_title Теоретик:
@@ -122,7 +122,7 @@ block content
 					option(value='301') комната 301
 					option(value='306') комната 306
 				br
-				br	
+				br
 				.project_convert СПЕЦПРОЕКТ
 				br
 				br
@@ -146,23 +146,23 @@ block content
 							input.en(type="text", name="children[0][en][p_author]", disabled)
 							br
 							br
-							h3 Участники																
+							h3 Участники
 							.form_title Режисер:
-							+projectField('director')							
+							+projectField('director')
 							.form_title Драматург:
 							+projectField('playwright')
 							.form_title Художественный руководитель:
 							+projectField('art_director')
 							.form_title Куратор:
-							+projectField('curator')										
+							+projectField('curator')
 							.form_title Фотограф:
-							+projectField('photographer')						
+							+projectField('photographer')
 							.form_title Художник:
 							+projectField('artist')
 							.form_title Композитор:
-							+projectField('composer')														
+							+projectField('composer')
 							.form_title Хореограф:
-							+projectField('choreographer')						
+							+projectField('choreographer')
 							.form_title Продюссер:
 							+projectField('producer')
 							.form_title Теоретик:
@@ -182,7 +182,7 @@ block content
 								option(value='cafe') кафе
 								option(value='lobby') фойе
 								option(value='301') комната 301
-								option(value='306') комната 306					
+								option(value='306') комната 306
 					br
 					br
 					.add_child добавить событие

@@ -4,7 +4,7 @@ block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/add_member.css')
 
 block content_scripts
-	script(type='text/javascript', src='/scripts/add_member.js')
+	script(type='text/javascript', src='/scripts/schedule.js')
 
 block content_right
 
@@ -20,16 +20,30 @@ block content
 			.form_title События
 			br
 			each ev in date[0].events
-				b= ev.ru.title
+				b= ev.time.hours + ':' + ev.time.minutes + ' '
+				if (ev.premiere)
+					b= '(премьера) '
+				b= ev.event.ru.title
 				br
 				br
 			.snake
-				input.back(type="button", value="<")
-				select(name='events')
-					option(value='') нет
+				input(type='checkbox', name='events[0][premiere]', value='true')
+				|премьера
+				select(name='events[0][time][hours]')
+					option(value='') Часы
+					- for (var i=0; i<24; i++)
+						option(value=i)= i
+				select(name='events[0][time][minutes]')
+					option(value='') Минуты
+					- for (var i=0; i<60; i+=10)
+						option(value=i)= i
+				select(name='events[0][event]')
+					option(value='') Событие
 					each event in events
 						option(value=event._id)= event.ru.title
-				input.forward(type="button", value=">")
+			br
+			input.plus(type="button", value="-")
+			input.minus(type="button", value="+")
 			br
 			br
 			input(type="submit", value="Добавить")

@@ -10,12 +10,12 @@ block content_right
 	.navigator
 		.nav_title НОВОСТЬ
 		.nav_project_children
-		br		
+		br
 		b.nav_settings_title настройки
 		//- .draft черновик
 		.toggle_eng перевод
 		br
-		b.form_submit ОТПРАВИТЬ	
+		b.form_submit ОТПРАВИТЬ
 
 mixin field(st)
 	.snake
@@ -48,10 +48,10 @@ block content
 			.form_title Постер:
 			input(type="file", name="poster")
 			.form_title Фото:
-			input(type="file", name="photo")				
+			input(type="file", name="photo")
 			.form_title Автор фото:
 			input.ru(type="text", name="ru[p_author]",)
-			input.en(type="text", name="en[p_author]", disabled)				
+			input.en(type="text", name="en[p_author]", disabled)
 			.form_title Категория:
 			select(name='tag')
 				option(value='performance') спектакль
@@ -62,4 +62,4 @@ block content
 				option(value='education') институт театра
 				option(value='blackbox') blackbox
 				option(value='children') детская программа
-				option(value='storytallyng') сторителлинг			
+				option(value='storytallyng') сторителлинг

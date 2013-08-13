@@ -78,11 +78,11 @@ var eventSchema = new Schema({
 
 var memberSchema = new Schema({
     ru: {
-      name: String, 
+      name: String,
       description: String
     },
     en: {
-      name: String, 
+      name: String,
       description: String
     },
     img: String,
@@ -99,7 +99,14 @@ var userSchema = new Schema({
 });
 
 var scheduleSchema = new Schema({
-  events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
+  events: [{
+    event: { type: Schema.Types.ObjectId, ref: 'Event' },
+    premiere: String,
+    time: {
+      hours: String,
+      minutes: String
+    }
+    }],
   date: {type: Date, default: Date.now}
 });
 
@@ -137,9 +144,9 @@ function memberSplit (members) {
       m_id: s[0],
       c_status: s[1]
     });
-  } 
-  
-  return results; 
+  }
+
+  return results;
 }
 
 
@@ -179,13 +186,13 @@ app.post('/', function (req, res) {
   {'name':'21','tag':post.tag, 'img':'/images/2.jpg'},
   {'name':'22','tag':post.tag, 'img':'/images/1.jpg'},
   {'name':'23','tag':post.tag},
-  {'name':'24','tag':post.tag}  
+  {'name':'24','tag':post.tag}
   ]
 
   if (post.offset == 18)
     res.send('exit');
   else
-    res.send(arr.slice(post.offset, post.offset*2 || 6));  
+    res.send(arr.slice(post.offset, post.offset*2 || 6));
 });
 
 app.get('/afisha/current', function (req, res) {
@@ -194,8 +201,8 @@ app.get('/afisha/current', function (req, res) {
   start.setDate(1);
   end.setFullYear(end.getFullYear(), end.getDate()+1, 0);
 
-  Schedule.find({"date": {"$gte": start, "$lt": end}}).sort('-date').populate('_event').exec(function(err, result) {
-    res.render('afisha', {result: result})
+  Schedule.find({"date": {"$gte": start, "$lt": end}}).sort('-date').populate('events.event').exec(function(err, schedule) {
+    res.render('afisha', {schedule: schedule})
   });
 });
 
@@ -285,7 +292,7 @@ app.post('/auth/add/event', function(req, res) {
 
     for (var i in post.children) {
       post.children[i].files = files.children[i];
-    } 
+    }
 
     async.forEach(post.children, function(post_ch, callback) {
       var child = new Child({
@@ -310,9 +317,9 @@ app.post('/auth/add/event', function(req, res) {
       }
 
       event.children.push(child._id);
-      
+
       child.save(function(err, result) {
-        
+
 
         Member.find({'_id': { $in: result.members} }, function(err, members) {
           async.forEach(members, function(member, callback) {
@@ -322,14 +329,14 @@ app.post('/auth/add/event', function(req, res) {
           });
         });
 
-        if (post_ch.files.photo.size != 0) {          
+        if (post_ch.files.photo.size != 0) {
           Child.findById(result._id, function(err, child) {
             fs.readFile(post_ch.files.photo.path, function (err, data) {
               var newPath = __dirname + '/public/images/events/children/' + child._id + '.jpg';
               fs.writeFile(newPath, data, function(err) {
                 child.photo = '/public/images/events/children/' + child._id + '.jpg';
                 child.save();
-              });              
+              });
             });
           });
         }
@@ -353,7 +360,7 @@ app.post('/auth/add/event', function(req, res) {
     async.series([
       function(callback) {
         if (files.photo.size != 0) {
-          Event.findById(result._id, function(err, event) {      
+          Event.findById(result._id, function(err, event) {
             fs.readFile(files.photo.path, function (err, data) {
               fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
                 var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
@@ -361,7 +368,7 @@ app.post('/auth/add/event', function(req, res) {
                   event.photo = '/public/images/events/' + event._id + '/photo.jpg';
                   event.save(function() {
                     callback(null, 'one');
-                  })              
+                  })
                 });
               });
             });
@@ -374,7 +381,7 @@ app.post('/auth/add/event', function(req, res) {
       },
       function(callback) {
         if (files.poster.size != 0) {
-          Event.findById(result._id, function(err, event) {      
+          Event.findById(result._id, function(err, event) {
             fs.readFile(files.poster.path, function (err, data) {
               fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
                 var newPath = __dirname + '/public/images/events/' + event._id + '/poster.jpg';
@@ -382,7 +389,7 @@ app.post('/auth/add/event', function(req, res) {
                   event.poster = '/public/images/events/' + event._id + '/poster.jpg';
                   event.save(function() {
                     callback(null, 'two');
-                  })              
+                  })
                 });
               });
             });
@@ -396,8 +403,8 @@ app.post('/auth/add/event', function(req, res) {
     ],
     function(err, results){
       res.redirect('back');
-    });  
-  }); 
+    });
+  });
 });
 
 
@@ -422,7 +429,7 @@ app.get('/auth/add/schedule/:year', checkAuth, function (req, res) {
   var start = new Date(year,0,1)
   var end = new Date(year,11,31)
 
-  Schedule.find({"date": {"$gte": start, "$lt": end}}).sort('-date').populate('events').exec(function(err, schedule) {
+  Schedule.find({"date": {"$gte": start, "$lt": end}}).sort('-date').populate('events.event').exec(function(err, schedule) {
     res.render('add_schedule/add', {schedule: schedule, year: year});
   });
 });
@@ -444,7 +451,7 @@ app.get('/auth/add/schedule/:year/:id', checkAuth, function (req, res) {
   var id = req.params.id;
 
   Event.find(function(err, events) {
-    Schedule.find({'_id':id}).populate('events').exec(function(err, date) {
+    Schedule.find({'_id':id}).populate('events.event').exec(function(err, date) {
       res.render('add_schedule/date', {date: date, events: events});
     });
   });
@@ -463,6 +470,7 @@ app.post('/auth/add/schedule/:year/:id', function (req, res) {
   });
 
   // console.log(post);
+  // res.redirect('back');
 });
 
 /************
@@ -500,7 +508,7 @@ app.post('/auth/add/news', function (req, res) {
     async.series([
       function(callback) {
         if (files.photo.size != 0) {
-          News.findById(result._id, function(err, news) {      
+          News.findById(result._id, function(err, news) {
             fs.readFile(files.photo.path, function (err, data) {
               fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
                 var newPath = __dirname + '/public/images/news/' + news._id + '/photo.jpg';
@@ -508,7 +516,7 @@ app.post('/auth/add/news', function (req, res) {
                   news.photo = '/public/images/news/' + news._id + '/photo.jpg';
                   news.save(function() {
                     callback(null, 'one');
-                  })              
+                  })
                 });
               });
             });
@@ -521,7 +529,7 @@ app.post('/auth/add/news', function (req, res) {
       },
       function(callback) {
         if (files.poster.size != 0) {
-          News.findById(result._id, function(err, news) {      
+          News.findById(result._id, function(err, news) {
             fs.readFile(files.poster.path, function (err, data) {
               fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
                 var newPath = __dirname + '/public/images/news/' + news._id + '/poster.jpg';
@@ -529,7 +537,7 @@ app.post('/auth/add/news', function (req, res) {
                   news.poster = '/public/images/news/' + news._id + '/poster.jpg';
                   news.save(function() {
                     callback(null, 'two');
-                  })              
+                  })
                 });
               });
             });
@@ -543,7 +551,7 @@ app.post('/auth/add/news', function (req, res) {
     ],
     function(err, results){
       res.redirect('back');
-    });  
+    });
   });
 });
 

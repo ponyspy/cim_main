@@ -15,7 +15,7 @@ block content_right
 		b февраль
 		br
 		b март
-	
+
 
 block content
 	.form_block
@@ -36,7 +36,7 @@ block content
 					each month, i in months
 						option(value=i)= month
 				input(type='hidden', name='schedule[year]', value=year)
-				input(type='submit', value='Добавить')				
+				input(type='submit', value='Добавить')
 			h3 Расписание
 			if (schedule)
 				each date in schedule
