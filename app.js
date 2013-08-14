@@ -53,6 +53,7 @@ var eventSchema = new Schema({
       s_title: String,
          body: String,
          ticket: String,
+         comment: String,
          p_author: String
       },
       en: {
@@ -60,6 +61,7 @@ var eventSchema = new Schema({
       s_title: String,
          body: String,
          ticket: String,
+         comment: String,
          p_author: String
       },
       photo: String,
@@ -266,6 +268,7 @@ app.post('/auth/add/event', function(req, res) {
       s_title: post.ru.s_title,
       body: post.ru.body,
       ticket: post.ru.ticket,
+      comment: post.ru.comment,
       p_author: post.ru.p_author
     },
     tag: post.tag
@@ -275,7 +278,7 @@ app.post('/auth/add/event', function(req, res) {
     event.en.title = post.en.title;
     event.en.s_title = post.en.s_title;
     event.en.body = post.en.body;
-    event.en.ticket = post.en.ticket;
+    event.en.comment = post.en.comment;
     event.en.p_author = post.en.p_author;
   };
 
@@ -299,9 +302,11 @@ app.post('/auth/add/event', function(req, res) {
         ru: {
           title: post_ch.ru.title,
           s_title: post_ch.ru.s_title,
-          body: post_ch.ru.body
+          body: post_ch.ru.body,
+          comment: post_ch.ru.comment,
+          p_author: post_ch.ru.p_author
         },
-        cal: ch_date,
+        // cal: ch_date,
         hall: post_ch.hall,
         members: memberSplit(post_ch.members),
         _parent: event._id
@@ -314,6 +319,8 @@ app.post('/auth/add/event', function(req, res) {
         child.en.title = post_ch.en.title;
         child.en.s_title = post_ch.en.s_title;
         child.en.body = post_ch.en.body;
+        child.en.comment = post_ch.en.comment;
+        child.en.p_author = post_ch.en.p_author;
       }
 
       event.children.push(child._id);
@@ -340,7 +347,7 @@ app.post('/auth/add/event', function(req, res) {
             });
           });
         }
-        else callback();
+        else callback(); // не работает исключение
 
       });
     }, function() {

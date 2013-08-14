@@ -61,6 +61,9 @@ block content
 			.form_title Тикет:
 			textarea.ru(name="ru[ticket]", rows="8",)
 			textarea.en(name="en[ticket]", rows="8", disabled)
+			.form_title Комментарий:
+			textarea.ru(name="ru[comment]", rows="8",)
+			textarea.en(name="en[comment]", rows="8", disabled)
 			.form_title Постер:
 			input(type="file", name="poster")
 			.form_title Фото:
@@ -139,6 +142,9 @@ block content
 							.form_title Описание:
 							textarea.ru(name="children[0][ru][body]", rows="8", disabled)
 							textarea.en(name="children[0][en][body]", rows="8", disabled)
+							.form_title Комментарий:
+							textarea.ru(name="children[0][ru][comment]", rows="8",)
+							textarea.en(name="children[0][en][comment]", rows="8", disabled)
 							.form_title Фото:
 							input(type="file", name="children[0][photo]", disabled)
 							.form_title Автор фото:
