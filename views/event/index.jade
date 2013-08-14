@@ -1,40 +1,26 @@
 extends ../layout
 
 block content_style
-	link(rel='stylesheet', type='text/css', href='/styles/index.css')
+	link(rel='stylesheet', type='text/css', href='/styles/event.css')
 
 block content_scripts
 	script(type='text/javascript', src='/scripts/main.js')
-	script(type='text/javascript', src='/scripts/masonry.pkgd.min.js')
+	//- script(type='text/javascript', src='/scripts/masonry.pkgd.min.js')
 
 block content_right
 
 block content
-	h1 cool!
-	each e,i in event
-		h2 Событие #{i+1}
-		br
-		b Заголовок:
-		br
-		b= e.ru.title
-		br
-		b Подзаголовок:
-		br
-		b= e.ru.s_title
-		br
-		b Описание:
-		br
-		b
-			!= e.ru.body
-		br
-		each member in e.members
-			if (member.c_status == 'director')
-				b режисер
-				br
-				a(href='/members/' + member.m_id._id)= member.m_id.ru.name
-				br
-			if (member.c_status == 'playwright')
-				b драматург
-				br
-				a(href='/members/' + member.m_id._id)= member.m_id.ru.name
-				br
+	img(src=event[0].photo)
+	.calendar
+		.date cool
+		each date in schedule
+			- var days = ['вс','пн','вт','ср','чт','пт','сб'];
+			- var d = date.date.getDate()
+			if (d < 10)
+				- d = '0' + d
+			.date2= days[date.date.getDay()] + '.' + d
+	h1= event[0].ru.title
+	if (event[0].ru.s_title)
+		h2= event[0].ru.s_title
+	p.description
+		!= event[0].ru.body

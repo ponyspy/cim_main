@@ -1,0 +1,39 @@
+.content_block {
+	background-color: white;
+	width: 930px;
+	min-height: 1200px;
+}
+
+.description {
+	width: 930px;
+}
+
+img {
+	width: 930px;
+	height: 620px;
+}
+
+.calendar {
+	margin-top: -4px;
+	width: 930;
+	height: 80px;
+	background-color: black;
+}
+
+.date {
+	width: 269px;
+	height: 80px;
+	color: white;
+	border-right: 1px solid white;
+	/*background-color: #ffe372;*/
+	float: left;
+}
+
+.date2 {
+	width: 134px;
+	height: 80px;
+	color: white;
+	border-right: 1px solid white;
+	/*background-color: #ffe372;*/
+	float: left;
+}

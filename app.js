@@ -70,7 +70,7 @@ var eventSchema = new Schema({
        tag: String,
       _parent: { type: Schema.Types.ObjectId, ref: 'Event' },
       date: {type: Date, default: Date.now},
-      // cal: {type: Date, default: Date.now},
+      // schedule: [{ type: Schema.Types.ObjectId, ref: 'Schedule' }],
    members: [{
     c_status: String,
     m_id: { type: Schema.Types.ObjectId, ref: 'Member' }
@@ -158,7 +158,9 @@ function memberSplit (members) {
 
 
 app.get('/', function(req, res) {
-  res.render('index');
+  News.find().sort('-date').limit(6).exec(function(err, news) {
+    res.render('index', {news: news});
+  });
 });
 
 app.post('/', function (req, res) {
@@ -197,6 +199,14 @@ app.post('/', function (req, res) {
     res.send(arr.slice(post.offset, post.offset*2 || 6));
 });
 
+app.get('/news/:id', function (req, res) {
+  var id = req.params.id;
+
+  News.findById(id, function(err, news) {
+    res.render('news', {news: news});
+  });
+});
+
 app.get('/afisha/current', function (req, res) {
   var start = new Date();
   var end = new Date();
@@ -209,9 +219,19 @@ app.get('/afisha/current', function (req, res) {
 });
 
 
-app.get('/event', function (req, res) {
+app.get('/events', function (req, res) {
   Event.find().populate('children members.m_id').exec(function(err, event) {
-    res.render('event', {event: event});
+    res.render('events', {event: event});
+  });
+});
+
+app.get('/event/:id', function (req, res) {
+  var id = req.params.id;
+
+  Schedule.find({'events.event': id}, {'events.$': 1}).select('date').sort('-date').exec(function(err, schedule) {
+    Event.find({'_id':id}).populate('children members.m_id').exec(function(err, event) {
+      res.render('event', {event: event, schedule: schedule});
+    });
   });
 });
 
@@ -341,7 +361,7 @@ app.post('/auth/add/event', function(req, res) {
             fs.readFile(post_ch.files.photo.path, function (err, data) {
               var newPath = __dirname + '/public/images/events/children/' + child._id + '.jpg';
               fs.writeFile(newPath, data, function(err) {
-                child.photo = '/public/images/events/children/' + child._id + '.jpg';
+                child.photo = '/images/events/children/' + child._id + '.jpg';
                 child.save();
               });
             });
@@ -372,7 +392,7 @@ app.post('/auth/add/event', function(req, res) {
               fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
                 var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
                 fs.writeFile(newPath, data, function (err) {
-                  event.photo = '/public/images/events/' + event._id + '/photo.jpg';
+                  event.photo = '/images/events/' + event._id + '/photo.jpg';
                   event.save(function() {
                     callback(null, 'one');
                   })
@@ -393,7 +413,7 @@ app.post('/auth/add/event', function(req, res) {
               fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
                 var newPath = __dirname + '/public/images/events/' + event._id + '/poster.jpg';
                 fs.writeFile(newPath, data, function (err) {
-                  event.poster = '/public/images/events/' + event._id + '/poster.jpg';
+                  event.poster = '/images/events/' + event._id + '/poster.jpg';
                   event.save(function() {
                     callback(null, 'two');
                   })
@@ -468,6 +488,13 @@ app.post('/auth/add/schedule/:year/:id', function (req, res) {
   var post = req.body;
   var id = req.params.id;
 
+  // async.forEach(post.events, function(event, callback) {
+  //   Event.findById(event.event, function(err, ev) {
+  //     ev.schedule.push(id);
+  //     ev.save();
+  //   });
+  // });
+
   Schedule.findById(id, function(err, date) {
     date.events = post.events;
 
@@ -520,7 +547,7 @@ app.post('/auth/add/news', function (req, res) {
               fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
                 var newPath = __dirname + '/public/images/news/' + news._id + '/photo.jpg';
                 fs.writeFile(newPath, data, function (err) {
-                  news.photo = '/public/images/news/' + news._id + '/photo.jpg';
+                  news.photo = '/images/news/' + news._id + '/photo.jpg';
                   news.save(function() {
                     callback(null, 'one');
                   })
@@ -541,7 +568,7 @@ app.post('/auth/add/news', function (req, res) {
               fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
                 var newPath = __dirname + '/public/images/news/' + news._id + '/poster.jpg';
                 fs.writeFile(newPath, data, function (err) {
-                  news.poster = '/public/images/news/' + news._id + '/poster.jpg';
+                  news.poster = '/images/news/' + news._id + '/poster.jpg';
                   news.save(function() {
                     callback(null, 'two');
                   })
@@ -592,7 +619,7 @@ app.post('/auth/add/member', function (req, res) {
         var newPath = __dirname + '/public/images/members/' + member._id + '.jpg';
         fs.writeFile(newPath, data, function (err) {
           Member.findById(member._id, function(err, mem) {
-            mem.img = '/public/images/members/' + member._id + '.jpg';
+            mem.img = '/images/members/' + member._id + '.jpg';
             mem.save(function() {
               res.redirect('back');
             })
