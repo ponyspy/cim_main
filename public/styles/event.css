@@ -1,0 +1,77 @@
+.content_block {
+	background-color: white;
+	width: 930px;
+	min-height: 1200px;
+}
+
+.description {
+	width: 930px;
+}
+
+img {
+	width: 930px;
+	height: 620px;
+}
+
+.calendar {
+	margin-top: -4px;
+	width: 930;
+	height: 80px;
+	background-color: black;
+}
+
+.date {
+	width: 269px;
+	height: 80px;
+	/*border-left: 1px solid white;*/
+	border-right: 1px solid white;
+	float: left;
+	color: white;
+	font-size: 32pt;
+	position: relative;
+	z-index: 0;
+}
+
+.date2 {
+	width: 134px;
+	height: 80px;
+	/*border-left: 1px solid white;*/
+	border-right: 1px solid white;
+	float: left;
+	color: white;
+	margin-left: 0px;
+	font-size: 16pt;
+	display: inline-block;
+}
+
+.event_body {
+	position: absolute;
+}
+
+.column {
+	width: 310px;
+	float: left;
+	background-color: #62ffb1;
+}
+
+.description {
+	clear: left;
+}
+
+/*.ticket {
+	width: 170px;
+	height: 200px;
+	float: right;
+	background-color: #9ea13b;
+	top: 720px;
+	margin-left: 950px;
+	position: relative;
+}*/
+
+.ticket {
+	width: 170px;
+	float: right;
+	background-color: #c7ff09;
+	position: relative;
+	margin-top: 15px;
+}

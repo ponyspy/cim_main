@@ -13,7 +13,7 @@ $(document).ready(function() {
 		if (eng == true)
 			$('.en').prop('disabled', true);
 		else
-			$('.en').prop('disabled', false).show();		
+			$('.en').prop('disabled', false).show();
 	}
 
 	function toggleEnglish () {
@@ -25,38 +25,24 @@ $(document).ready(function() {
 		else {
 			eng = false;
 			$('.en').prop('disabled', eng).show();
-			$('.ru').css('float','left');			
+			$('.ru').css('float','left');
 		}
 	}
 
-	function toggleNews () {
-		if (news = !news) {
-			$('.nav_title').text('НОВОСТЬ');
-			$('.form_block_event').toggle();
-			$('.form_block_project').toggle();
-			$('.nav_project_children').hide();
-			$('.news_tag').prop('disabled', false);
-			project = false;
-			event = false;
-		}
-	}
-
-	function toggleEvent () {
-		if (event = !event) {
-			$('.nav_title').text('СОБЫТИЕ');
-			$('.form_block_event').toggle();
-			$('.form_block_event > select').prop('disabled', false);
-			$('.form_block_event >.snake > select').prop('disabled', false);
-			$('.news_tag').prop('disabled', true);
-		}
-		else {
-			$('.nav_title').text('НОВОСТЬ');
-			$('.form_block_event').toggle();
-			$('.form_block_event > select').prop('disabled', true);
-			$('.form_block_event >.snake > select').prop('disabled', true);
-			$('.news_tag').prop('disabled', false);
-		}
-	}
+	// function toggleEvent () {
+	// 	if (event = !event) {
+	// 		$('.nav_title').text('СОБЫТИЕ');
+	// 		$('.form_block_event').toggle();
+	// 		$('.form_block_event > select').prop('disabled', false);
+	// 		$('.form_block_event >.snake > select').prop('disabled', false);
+	// 	}
+	// 	else {
+	// 		$('.nav_title').text('НОВОСТЬ');
+	// 		$('.form_block_event').toggle();
+	// 		$('.form_block_event > select').prop('disabled', true);
+	// 		$('.form_block_event >.snake > select').prop('disabled', true);
+	// 	}
+	// }
 
 	function toggleProject () {
 		if (project = !project) {
@@ -68,7 +54,7 @@ $(document).ready(function() {
 			$('.nav_project_children').show();
 			if (count == 0) projectConstructor();
 			$('.form_block_project').toggle();
-			$('.form_block_event > select').slice(-4).prop('disabled', true);
+			$('.form_block_event > select').slice(-1).prop('disabled', true);
 			$('.child > select').prop('disabled', false);
 			$('.child > .snake > select').prop('disabled', false);
 			$('.child > input').prop('disabled', false);
@@ -79,12 +65,12 @@ $(document).ready(function() {
 			$('.nav_title').text('СОБЫТИЕ');
 			$('.nav_project_children').hide();
 			$('.form_block_project').toggle();
-			$('.form_block_event > select').slice(-4).prop('disabled', false);
+			$('.form_block_event > select').slice(-1).prop('disabled', false);
 			$('.child > select').prop('disabled', true);
 			$('.child > .snake > select').prop('disabled', true);
 			$('.child > input').prop('disabled', true);
 			$('.child > file').prop('disabled', true);
-			$('.child > textarea').prop('disabled', true);			
+			$('.child > textarea').prop('disabled', true);
 			count = $('.child').size();
 		}
 	}
@@ -107,7 +93,7 @@ $(document).ready(function() {
 		count = $('.child').size();
 
 		var nav_project_child = $('<div />', {'class':'nav_project_child', 'text':'Событие ' + (count+1)});
-		$('.nav_project_children').append(nav_project_child);		
+		$('.nav_project_children').append(nav_project_child);
 
 		$('.child :first').clone(true, true).insertAfter('.child :last');
 
@@ -128,11 +114,11 @@ $(document).ready(function() {
 		checkEnglish();
 	}
 
-	function StickyTags() { 
+	function StickyTags() {
 		var offset = 0;
 		var sticky = false;
 		var top = $(window).scrollTop();
-		
+
 		if ($(".form_block").offset().top < top) {
 			$(".navigator").css('position', 'fixed').css('margin-left', '950px').css('top', '0px');
 			sticky = true;
@@ -144,9 +130,8 @@ $(document).ready(function() {
 	$(window).on('scroll', StickyTags);
 	$('.add_child').on('click', projectConstructor);
 	$('.toggle_eng').on('click', toggleEnglish);
-	$('.event_convert').on('click', toggleEvent);
-	// $('.project_convert').on('click', toggleProject);
-	$('.news_convert').on('click', toggleNews);
+	// $('.event_convert').on('click', toggleEvent);
+	$('.project_convert').on('click', toggleProject);
 	$('.back').on('click', snakeBack);
 	$('.forward').on('click', snakeForward);
 

@@ -1,0 +1,53 @@
+extends ../layout
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/styles/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/scripts/add.js')
+
+block content_right
+	.navigator
+		.nav_title РАСПИСАНИЕ
+		br
+		b январь
+		br
+		b февраль
+		br
+		b март
+
+
+block content
+	.form_block
+		h2 Расписание на #{year} год
+		br
+		a(href='/auth/add/schedule/') назад
+		br
+		h3 Добавить дату
+		form(action="/auth/add/schedule/" + year, method="post", enctype="multipart/form-data")
+			.cal_block
+				select(name='schedule[date]')
+					option(value='') Дата
+					- for (var i=1; i<32; i++)
+						option(value=i)= i
+				select(name='schedule[month]')
+					option(value='') Месяц
+					- var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+					each month, i in months
+						option(value=i)= month
+				input(type='hidden', name='schedule[year]', value=year)
+				input(type='submit', value='Добавить')
+			h3 Расписание
+			if (schedule)
+				each date in schedule
+					- var d = date.date.getDate()
+					- var m = date.date.getMonth()+1
+					if (d < 10)
+						- d = '0' + d
+					if (m < 10)
+						- m = '0' + m
+					a(href= year + '/' + date._id)= d + '.' + m
+					|&nbsp;
+					a(href='#') удалить
+					br
+					br

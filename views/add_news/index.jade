@@ -1,0 +1,65 @@
+extends ../layout
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/styles/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/scripts/add.js')
+
+block content_right
+	.navigator
+		.nav_title НОВОСТЬ
+		.nav_project_children
+		br
+		b.nav_settings_title настройки
+		//- .draft черновик
+		.toggle_eng перевод
+		br
+		b.form_submit ОТПРАВИТЬ
+
+mixin field(st)
+	.snake
+		input.back(type="button", value="<")
+		select(name='event[members]', disabled)
+			option(value='') нет
+			each member in members
+				each status in member.status
+					if (status == st)
+						option(value=member._id + '-' + st)= member.ru.name
+		input.forward(type="button", value=">")
+
+block content
+	.form_block
+		h2 Добавить новость
+		br
+		a(href='/auth') назад
+		br
+		br
+		form(action="/auth/add/news", method="post", enctype="multipart/form-data")
+			.form_title Заголовок:
+			input.ru(type="text", name="ru[title]",)
+			input.en(type="text", name="en[title]", disabled)
+			.form_title Подзаголовок:
+			input.ru(type="text", name="ru[s_title]",)
+			input.en(type="text", name="en[s_title]", disabled)
+			.form_title Описание:
+			textarea.ru(name="ru[body]", rows="8",)
+			textarea.en(name="en[body]", rows="8", disabled)
+			.form_title Постер:
+			input(type="file", name="poster")
+			.form_title Фото:
+			input(type="file", name="photo")
+			.form_title Автор фото:
+			input.ru(type="text", name="ru[p_author]",)
+			input.en(type="text", name="en[p_author]", disabled)
+			.form_title Категория:
+			select(name='tag')
+				option(value='performance') спектакль
+				option(value='lecture') лекция
+				option(value='masterclass') мастер-класс
+				option(value='exhibition') выставка
+				option(value='concert') концерт
+				option(value='education') институт театра
+				option(value='blackbox') blackbox
+				option(value='children') детская программа
+				option(value='storytallyng') сторителлинг

@@ -21,30 +21,41 @@ block content
 			.cal_date date
 			.cal_time_hall time/hall
 			.cal_title title
-	.infinite-container			
-		.infinite-item
-			a(href='/event')
-				.title title
-				.date date
-				img.item_img(src='/images/1.jpg')
-		.infinite-item
-			.title title
-			.date date
-			.img img
-		.infinite-item
-			.title title
-			.date date
-			.img img	
-		.infinite-item
-			.title title
-			.date date
-			.img img
-		.infinite-item
-			.title title
-			.date date
-			.img img
-		.infinite-item
-			.title title
-			.date date
-			.img img
+	.infinite-container
+		each item in news
+			.infinite-item
+				a.item_link(href='/news/' + item._id)
+					.item_title #{item.ru.title.toUpperCase()}
+					.item_date
+						b= item.date.getDate()
+						br
+						b= '.'
+						br
+						b= item.date.getMonth()
+					img.item_img(src=item.poster)
+		//- .infinite-item
+		//- 	a(href='/event')
+		//- 		.title title
+		//- 		.date date
+		//- 		img.item_img(src='/images/1.jpg')
+		//- .infinite-item
+		//- 	.title title
+		//- 	.date date
+		//- 	.img img
+		//- .infinite-item
+		//- 	.title title
+		//- 	.date date
+		//- 	.img img
+		//- .infinite-item
+		//- 	.title title
+		//- 	.date date
+		//- 	.img img
+		//- .infinite-item
+		//- 	.title title
+		//- 	.date date
+		//- 	.img img
+		//- .infinite-item
+		//- 	.title title
+		//- 	.date date
+		//- 	.img img
 	.loader
