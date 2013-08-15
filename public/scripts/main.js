@@ -5,16 +5,16 @@ $(document).ready(function() {
 		$(arrayOfImages).each(function(){
 			$('<img />')[0].src = this;
 		});
-	}	
+	}
 
 	function ItemConstructor(data, event) {
 		skip = skip + event.data.offset;
 		if (data != 'exit') {
 			for (var i in data) {
 				var item = $('<div />', {'class':'infinite-item'});
-				var link = $('<a />', {'href':'/event'});
-				var title = $('<div />', {'class':'title', 'text': data[i].name});
-				var date = $('<div />', {'class':'date', 'text': data[i].tag});
+				var link = $('<a />', {'class':'item_link', 'href':'/news/' + data[i]._id});
+				var title = $('<div />', {'class':'item_title', 'text': data[i].name});
+				var date = $('<div />', {'class':'item_date', 'text': data[i].tag});
 				var img = $('<img />', {'class':'item_img', 'src': data[i].img});
 				// $('.infinite-container').append(item.append(link).append(title).append(date).append(img));
 				$('.infinite-container').append(item.append(link.append(title).append(date).append(img)));
@@ -70,11 +70,11 @@ $(document).ready(function() {
 		}
 	}
 
-	function StickyTags() { 
+	function StickyTags() {
 		var offset = 0;
 		var sticky = false;
 		var top = $(window).scrollTop();
-		
+
 		if ($(".infinite-container").offset().top < top) {
 			$(".tag_navigator").css('position', 'fixed').css('top', '15px');
 			sticky = true;

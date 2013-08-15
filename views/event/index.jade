@@ -4,10 +4,21 @@ block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/event.css')
 
 block content_scripts
-	script(type='text/javascript', src='/scripts/main.js')
+	script(type='text/javascript', src='/scripts/event.js')
 	//- script(type='text/javascript', src='/scripts/masonry.pkgd.min.js')
 
 block content_right
+	if (event[0].ru.ticket)
+		.ticket
+			b
+				!= event[0].ru.ticket
+
+mixin memberList(marker, status)
+	.marker= marker + ':'
+	each member in event[0].members
+		if (member.c_status == status)
+			b= member.m_id.ru.name
+			br
 
 block content
 	img(src=event[0].photo)
@@ -19,8 +30,28 @@ block content
 			if (d < 10)
 				- d = '0' + d
 			.date2= days[date.date.getDay()] + '.' + d
-	h1= event[0].ru.title
-	if (event[0].ru.s_title)
-		h2= event[0].ru.s_title
-	p.description
-		!= event[0].ru.body
+		.date2 4
+		.date2 5
+		.date2 6
+		.date2 7
+		.date2 8
+	.event_body
+		.stat
+		h1= event[0].ru.title
+		if (event[0].ru.s_title)
+			h2= event[0].ru.s_title
+		.members
+			.column
+				+memberList('режисер', 'director')
+				+memberList('автор', 'author')
+				+memberList('драматург', 'playwright')
+			.column
+				+memberList('фотограф', 'photographer')
+				//- +memberList('драматург', 'playwright')
+				//- +memberList('драматург', 'playwright')
+			.column
+				if (event[0].ru.comment)
+					.desc
+						!= event[0].ru.comment
+		p.description
+			!= event[0].ru.body
