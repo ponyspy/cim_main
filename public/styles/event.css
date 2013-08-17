@@ -14,17 +14,19 @@ img {
 }
 
 .calendar {
-	margin-top: -4px;
-	width: 930;
+	width: 930px;
 	height: 80px;
 	background-color: black;
+	overflow: hidden;
+	margin-top: -3px;
 }
 
 .date {
-	width: 269px;
+	width: 219px;
 	height: 80px;
 	/*border-left: 1px solid white;*/
 	border-right: 1px solid white;
+	margin-left: 15px;
 	float: left;
 	color: white;
 	font-size: 32pt;
@@ -33,7 +35,7 @@ img {
 }
 
 .date2 {
-	width: 134px;
+	width: 110px;
 	height: 80px;
 	/*border-left: 1px solid white;*/
 	border-right: 1px solid white;
@@ -42,6 +44,20 @@ img {
 	margin-left: 0px;
 	font-size: 16pt;
 	display: inline-block;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.date:hover {
+	background-color: white;
+	color: black;
+	cursor: pointer;
+}
+
+.date2:hover {
+	background-color: white;
+	color: black;
+	cursor: pointer;
 }
 
 .event_body {

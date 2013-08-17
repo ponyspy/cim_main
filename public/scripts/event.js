@@ -1,8 +1,9 @@
 $(document).ready(function() {
 	$('.calendar').mousemove(function(event) {
-		var duration = event.pageX;
-		duration = duration - duration/2 - 200
-		$('.date').css('margin-left', '-' + duration + 'px')
-		$('.stat').text(duration)
+		var position = event.pageX;
+		position = position - 550;
+		if (position >= 178) position = 178;
+		if (position <= 0) $('.date').css('margin-left', '-' + (position - position) + 'px');
+		$('.date').css('margin-left', '-' + position + 'px');
 	});
 });

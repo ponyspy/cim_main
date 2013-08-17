@@ -27,12 +27,20 @@ block content
 				a.item_link(href='/news/' + item._id)
 					.item_title #{item.ru.title.toUpperCase()}
 					.item_date
-						b= item.date.getDate()
-						br
-						b= '.'
-						br
-						b= item.date.getMonth()
-					img.item_img(src=item.poster)
+						- var date = item.date.getDate()
+						- var month = item.date.getMonth()
+						if (date < 10)
+							- date = '0' + date
+						if (month < 10)
+							- month = '0' + month
+						p= date
+						p= '.'
+						p= month
+					if (item.poster)
+						img.item_img(src=item.poster)
+					else
+						.item_body
+							!= item.ru.body.substr(0,240)
 		//- .infinite-item
 		//- 	a(href='/event')
 		//- 		.title title

@@ -6,12 +6,32 @@ html
 		.maket
 			.main_block
 				.header_block
-					.line_block
+					//- .line_block
 					.menu_block
-						.menu_item афиша
-						.menu_item цим
+						.menu_item
+							.menu_item_title афиша
+							.menu_item_arrow ▼
+							.menu_drop
+								- var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+								- var date = new Date()
+								a.menu_link(href='/afisha/current')=  months[date.getMonth()]
+								br
+								a.menu_link(href='/afisha/next')= months[date.getMonth()+1]
+								br
+								a.menu_link(href='/afisha/archive')  Архив
+						.menu_item
+							.menu_item_title ЦИМ
+							.menu_item_arrow ▼
+							.menu_drop
+								a.menu_link(href='/')  Новости
+								br
+								br
+								a.menu_link(href='/events') events
+								br
+								br
+								a.menu_link(href='/event/520b9b699f29934eb500000c') test event
 						a.pay(href='#') БИЛЕТЫ ON-line
-						//- .locale eng
+						.locale eng
 						input.search(type='text')
 						.search_submit поиск
 					.head_title_block

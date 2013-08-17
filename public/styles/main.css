@@ -33,6 +33,7 @@
 */
 
 .menu_block {
+	margin-top: 10px;
 	width: 1120px;
 	height: 30px;
 	/*border: 1px solid black;*/
@@ -41,26 +42,49 @@
  .menu_item {
  	width: 170px;
  	height: 25px;
- 	margin-top: 5px;
+/* 	margin-top: 5px;*/
  	margin-right: 20px;
  	float: left;
  	color: white;
  	font: 12pt/10pt 'Pragmatica';
  	letter-spacing:1px;
  	background-color: black;
+ 	border: 1px solid white;
+ }
+
+.menu_item_title {
+	float: left;
+}
+
+.menu_item_arrow {
+ 	float: right;
  }
 
  .menu_drop {
  	width: 170px;
- 	height: 300px;
+ 	min-height: 160px;
+ 	margin-top: 12px;
+ 	margin-top: 25px;
+ 	margin-left: -1px;
  	background-color: black;
+ 	display: none;
+ 	text-decoration: none;
+ 	color: white;
+ 	border: 1px solid white;
+ }
+
+ .menu_link {
+ 	color: white;
+ 	text-decoration: none;
  }
 
  .pay {
- 	width: 120px;
+ 	width: 135px;
  	height: 25px;
- 	margin-top: 5px;
- 	margin-left: 170px;
+ 	/*margin-top: 5px;*/
+ 	background-color: white;
+ 	border: 1px solid white;
+ 	margin-left: 65px;
  	float: left;
   font: 12pt/10pt 'Pragmatica';
  	letter-spacing:0px;
@@ -69,12 +93,13 @@
  .locale {
  	width: 50px;
  	height: 25px;
- 	margin-top: 5px;
+ 	/*margin-top: 5px;*/
  	margin-left: 10px;
  	margin-right: 20px;
  	float: left;
  	color: white;
  	background-color: black;
+ 	border: 1px solid white;
  	cursor: pointer;
  	font: 12pt/10pt 'Pragmatica';
  	letter-spacing:1px;
@@ -84,9 +109,10 @@
 	width: 170px;
 	white-space: 25px;
 	margin-left: 30px;
+	margin-top: -0.5px;
 	float: left;
 	display: block;
-	font: 12pt/10pt 'Pragmatica';
+	font: 13pt/10pt 'Pragmatica';
  	letter-spacing:1px;
 }
 
@@ -94,11 +120,12 @@
  	width: 50px;
  	height: 25px;
  	float: left ;
- 	margin-top: 5px;
+ 	/*margin-top: 5px;*/
  	margin-left: 5px;
  	color: white;
  	background-color: black;
  	cursor: pointer;
+ 	border: 1px solid white;
  }
 
  /*
