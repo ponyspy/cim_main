@@ -166,37 +166,18 @@ app.get('/', function(req, res) {
 app.post('/', function (req, res) {
   var post = req.body;
 
-  var arr = [
-  {'name':'1','tag':post.tag, 'img':'/images/1.jpg'},
-  {'name':'2','tag':post.tag, 'img':'/images/1.jpg'},
-  {'name':'3','tag':post.tag, 'img':'/images/1.jpg'},
-  {'name':'4','tag':post.tag, 'img':'/images/1.jpg'},
-  {'name':'5','tag':post.tag, 'img':'/images/1.jpg'},
-  {'name':'6','tag':post.tag, 'img':'/images/1.jpg'},
-  {'name':'7','tag':post.tag, 'img':'/images/1.jpg'},
-  {'name':'8','tag':post.tag, 'img':'/images/1.jpg'},
-  {'name':'9','tag':post.tag, 'img':'/images/1.jpg'},
-  {'name':'10','tag':post.tag},
-  {'name':'11','tag':post.tag},
-  {'name':'12','tag':post.tag},
-  {'name':'13','tag':post.tag},
-  {'name':'14','tag':post.tag},
-  {'name':'15','tag':post.tag},
-  {'name':'16','tag':post.tag, 'img':'/images/1.jpg'},
-  {'name':'17','tag':post.tag, 'img':'/images/1.jpg'},
-  {'name':'18','tag':post.tag, 'img':'/images/2.jpg'},
-  {'name':'19','tag':post.tag, 'img':'/images/2.jpg'},
-  {'name':'20','tag':post.tag, 'img':'/images/1.jpg'},
-  {'name':'21','tag':post.tag, 'img':'/images/2.jpg'},
-  {'name':'22','tag':post.tag, 'img':'/images/1.jpg'},
-  {'name':'23','tag':post.tag},
-  {'name':'24','tag':post.tag}
-  ]
-
-  if (post.offset == 18)
-    res.send('exit');
-  else
-    res.send(arr.slice(post.offset, post.offset*2 || 6));
+  if (post.tag == 'all') {
+    News.find().skip(post.offset).limit(6).sort('-date').exec(function(err, news) {
+      if (news.length == 0) return res.send('exit')
+      res.send(news);
+    });
+  }
+  else {
+    News.find({'tag':post.tag}).skip(post.offset).limit(6).sort('-date').exec(function(err, news) {
+      if (news.length == 0) return res.send('exit')
+      res.send(news);
+    });
+  }
 });
 
 app.get('/news/:id', function (req, res) {
@@ -298,6 +279,7 @@ app.post('/auth/add/event', function(req, res) {
     event.en.title = post.en.title;
     event.en.s_title = post.en.s_title;
     event.en.body = post.en.body;
+    event.en.ticket = post.en.ticket;
     event.en.comment = post.en.comment;
     event.en.p_author = post.en.p_author;
   };
@@ -478,8 +460,8 @@ app.get('/auth/add/schedule/:year/:id', checkAuth, function (req, res) {
   var id = req.params.id;
 
   Event.find(function(err, events) {
-    Schedule.find({'_id':id}).populate('events.event').exec(function(err, date) {
-      res.render('add_schedule/date', {date: date, events: events});
+    Schedule.find({'_id':id}).populate('events.event').exec(function(err, result) {
+      res.render('add_schedule/date', {result: result, events: events});
     });
   });
 });

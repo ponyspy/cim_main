@@ -7,11 +7,31 @@ block content_scripts
 	script(type='text/javascript', src='/scripts/main.js')
 
 block content_right
-	.tag_navigator tags
+	.tag_navigator Категории
 		br
-		b.tag_item.one One
+		b.tag_item.all Все
 		br
-		b.tag_item.two Two
+		b.tag_item.performance Спектакль
+
+mixin infiniteItem(item)
+	.infinite-item
+		a.item_link(href='/news/' + item._id)
+			.item_title #{item.ru.title.toUpperCase()}
+			.item_date
+				- var date = item.date.getDate()
+				- var month = item.date.getMonth()
+				if (date < 10)
+					- date = '0' + date
+				if (month < 10)
+					- month = '0' + month
+				p= date
+				p= '.'
+				p= month
+			if (item.poster)
+				img.item_img(src=item.poster)
+			else
+				.item_body
+					!= item.ru.body.substr(0,240)
 
 block content
 	.main_poster_block
@@ -22,48 +42,13 @@ block content
 			.cal_time_hall time/hall
 			.cal_title title
 	.infinite-container
-		each item in news
-			.infinite-item
-				a.item_link(href='/news/' + item._id)
-					.item_title #{item.ru.title.toUpperCase()}
-					.item_date
-						- var date = item.date.getDate()
-						- var month = item.date.getMonth()
-						if (date < 10)
-							- date = '0' + date
-						if (month < 10)
-							- month = '0' + month
-						p= date
-						p= '.'
-						p= month
-					if (item.poster)
-						img.item_img(src=item.poster)
-					else
-						.item_body
-							!= item.ru.body.substr(0,240)
-		//- .infinite-item
-		//- 	a(href='/event')
-		//- 		.title title
-		//- 		.date date
-		//- 		img.item_img(src='/images/1.jpg')
-		//- .infinite-item
-		//- 	.title title
-		//- 	.date date
-		//- 	.img img
-		//- .infinite-item
-		//- 	.title title
-		//- 	.date date
-		//- 	.img img
-		//- .infinite-item
-		//- 	.title title
-		//- 	.date date
-		//- 	.img img
-		//- .infinite-item
-		//- 	.title title
-		//- 	.date date
-		//- 	.img img
-		//- .infinite-item
-		//- 	.title title
-		//- 	.date date
-		//- 	.img img
+		.infinite-column
+			+infiniteItem(news[0])
+			+infiniteItem(news[3])
+		.infinite-column
+			+infiniteItem(news[1])
+			+infiniteItem(news[4])
+		.infinite-column
+			+infiniteItem(news[2])
+			+infiniteItem(news[5])
 	.loader

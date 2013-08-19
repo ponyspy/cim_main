@@ -136,9 +136,11 @@ $(document).ready(function() {
 	$('.forward').on('click', snakeForward);
 
 	$('.form_submit').click(function() {
-		var newValue = $('textarea').val().replace(/\n/g, "<br />");
-		// alert(newValue)
-		$('textarea').val(newValue);
+		var areas = $('textarea');
+		areas.each(function() {
+			var newValue = $(this).val().replace(/\n/g, "<br />");
+			$(this).val(newValue);
+		});
 		$('form').submit();
 	});
 });

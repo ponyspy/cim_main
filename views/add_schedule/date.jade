@@ -12,14 +12,13 @@ block content_right
 block content
 	.form_block
 		h2 Добавить события
-		br
-		a(href='/auth/add/schedule/' + date[0].date.getFullYear()) назад
+		a(href='/auth/add/schedule/' + result[0].date.getFullYear()) назад
 		br
 		br
 		form(action="", method="post", enctype="multipart/form-data")
 			.form_title События
 			br
-			each ev in date[0].events
+			each ev in result[0].events
 				b= ev.time.hours + ':' + ev.time.minutes + ' '
 				if (ev.premiere)
 					b= '(премьера) '

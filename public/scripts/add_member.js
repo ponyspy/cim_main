@@ -10,7 +10,7 @@ $(document).ready(function() {
 		else {
 			eng = false;
 			$('.en').prop('disabled', eng).show();
-			$('.ru').css('float','left');			
+			$('.ru').css('float','left');
 		}
 	}
 
@@ -22,8 +22,8 @@ $(document).ready(function() {
 	function snakeBack () {
 		if ($(this).parent().find('select').size() == 1) return null;
 		$(this).parent().find('select :last').remove();
-	}	
-	
+	}
+
 	$('.back').on('click', snakeBack);
 	$('.forward').on('click', snakeForward);
 	$('.toggle_eng').on('click', toggleEnglish);

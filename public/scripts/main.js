@@ -9,15 +9,32 @@ $(document).ready(function() {
 
 	function ItemConstructor(data, event) {
 		skip = skip + event.data.offset;
+		var t = 0;
+
 		if (data != 'exit') {
 			for (var i in data) {
+				var d2 = new Date(data[i].date)
+						var d3 = d2.getDate();
+						var month = d2.getMonth()+1;
+
+
+				if (t == 3) t = 0;
 				var item = $('<div />', {'class':'infinite-item'});
 				var link = $('<a />', {'class':'item_link', 'href':'/news/' + data[i]._id});
-				var title = $('<div />', {'class':'item_title', 'text': data[i].name});
-				var date = $('<div />', {'class':'item_date', 'text': data[i].tag});
-				var img = $('<img />', {'class':'item_img', 'src': data[i].img});
+				var title = $('<div />', {'class':'item_title', 'text': data[i].ru.title});
+				// var tag = $('<div />', {'class':'item_date', 'text': data[i].tag});
+				var date = $('<div />', {'class':'item_date'});
+				var d = $('<p />', {'text': d3});
+				var dot = $('<p />', {'text': '.'});
+				var m = $('<p />', {'text': month});
+				if (!data[i].poster)
+					var img = $('<div />', {'class':'item_body', 'lang':'ru', 'text': data[i].ru.body});
+				else
+					var img = $('<img />', {'class':'item_img', 'src': data[i].poster});
 				// $('.infinite-container').append(item.append(link).append(title).append(date).append(img));
-				$('.infinite-container').append(item.append(link.append(title).append(date).append(img)));
+				$('.infinite-column').eq(t).append(item.append(link.append(title).append(date.append(d, dot, m)).append(img)));
+				// $('.infinite-column').eq(t).append(item.append(link.append(title, date, img)));
+				t++;
 			}
 			$('.loader').hide();
 		}
@@ -38,7 +55,7 @@ $(document).ready(function() {
 			scrollTop: $(".infinite-container").offset().top
 		}, 400, function() {
 			$('.infinite-item').fadeOut('100').promise().done(function() {
-				$('.infinite-container').empty();
+				$('.infinite-column').empty();
 				$('.loader').text('Loading...').show();
 				$.ajax({
 					url: "/",
@@ -84,6 +101,6 @@ $(document).ready(function() {
 	};
 
 $(window).on('scroll', StickyTags);
-$(window).on('scroll', {tag:'cool', offset: 6}, ScrollLoader);
+$(window).on('scroll', {tag:'all', offset: 6}, ScrollLoader);
 $('.tag_item').on('click', {offset: 0}, TagLoader);
 });

@@ -79,12 +79,12 @@
  }
 
  .pay {
- 	width: 135px;
+ 	width: 170px;
  	height: 25px;
  	/*margin-top: 5px;*/
  	background-color: white;
  	border: 1px solid white;
- 	margin-left: 65px;
+ 	margin-left: 0px;
  	float: left;
   font: 12pt/10pt 'Pragmatica';
  	letter-spacing:0px;
@@ -94,7 +94,7 @@
  	width: 50px;
  	height: 25px;
  	/*margin-top: 5px;*/
- 	margin-left: 10px;
+ 	margin-left: 40px;
  	margin-right: 20px;
  	float: left;
  	color: white;
@@ -135,6 +135,7 @@
  .head_title_block {
 	width: 1120px;
 	height: 130px;
+	margin-bottom: 20px;
 	background-color: #88413d;  /*Head Poster*/
  }
 
