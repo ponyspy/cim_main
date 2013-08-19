@@ -1,6 +1,7 @@
 .content_block {
 	position: relative;
 	width: 930px;
+	min-height: 400px;
 }
 
 /*
