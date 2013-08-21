@@ -1,15 +1,22 @@
 $(document).ready(function() {
 	var menu = $('.menu_item');
-	var drop = $('<div/>', {'class':'menu_drop'});
+	var flip = false;
 
-	$('document').click(function() {
-		$('.menu_drop').hide();
-	});
+	menu.each(function() {
+		$(this).click(function(event) {
+			t = event.target || event.srcElement;
 
-	menu.each(function(index) {
-		$(this).click(function() {
-			$(this).children('.menu_item_arrow').text('▲')
-			$(this).children('.menu_drop').toggle();
+			if (t.className == 'menu_item') {
+				if (flip = !flip) {
+					$(this).children('.menu_item_arrow').text('▲');
+					flip = true;
+				}
+				else {
+					$(this).children('.menu_item_arrow').text('▼');
+					flip = false;
+				}
+				$(this).children('.menu_drop').toggle();
+			}
 		});
 	});
 });

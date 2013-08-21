@@ -7,7 +7,7 @@ $(document).ready(function() {
 		var elem = $('.snake');
 		elem.first().clone().insertAfter(elem.last());
 
-		var forms = $('.snake').eq(count).children('select');
+		var forms = $('.snake').eq(count).children('select, input');
 		forms.each(function() {
 			var value = $(this).attr('name');
 			value = value.replace('0', count);

@@ -1,20 +1,56 @@
 extends ../layout
 
 block content_style
-	link(rel='stylesheet', type='text/css', href='/styles/index.css')
+	link(rel='stylesheet', type='text/css', href='/styles/afisha.css')
 
 block content_scripts
-	script(type='text/javascript', src='/scripts/main.js')
+	script(type='text/javascript', src='/scripts/afisha.js')
 	script(type='text/javascript', src='/scripts/masonry.pkgd.min.js')
 
 block content_right
 
 block content
-	h1 Afisha!
 	each date in schedule
-		b= date.date.getDate() + '.' + date.date.getMonth()
-		br
-		each event in date.events
-			b= event.time.hours + ':' + event.time.minutes + ' ' + event.event.ru.title + ' ' + event.event.ru.s_title
-			br
-		br
+		.afisha_item_block
+			.afisha_date_block= date.date.getDate() + '.' + (date.date.getMonth()+1)
+			.afisha_events_block
+				each event in date.events
+					.afisha_description_block
+						.afisha_schedule_block
+							.afisha_time= event.time.hours + ':' + event.time.minutes
+							.afisha_hall= event.event.hall
+						.afisha_event
+							if (event.premiere == 'true')
+								.premiere премьера
+							.title= event.event.ru.title.toUpperCase()
+							.s_title= event.event.ru.s_title.toUpperCase()
+							each member in event.event.members
+								if (member.c_status == 'director')
+									.director= member.m_id.ru.name
+								if (member.c_status == 'author')
+									.author= member.m_id.ru.name
+								if (member.c_status == 'playwright')
+									.author= member.m_id.ru.name
+						.actors
+							|actors
+							br
+							|actors
+							br
+							|actors
+							br
+							|actors
+							br
+							|actors
+						.comment
+							!= event.event.ru.comment
+						.clearfix
+
+	//- b= schedule[0].events[0].event.hall
+
+
+		//- b= date.date.getDate() + '.' + date.date.getMonth()
+		//- br
+		//- each event in date.events
+		//- 	b= event.time.hours + ':' + event.time.minutes + ' ' + event.event.ru.title + ' ' + event.event.ru.s_title
+		//- 	br
+		//- br
