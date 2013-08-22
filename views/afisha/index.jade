@@ -52,18 +52,8 @@ block content
 								if (member.c_status == 'actor')
 									if (!actors)
 										actors = true
-										|актеры:
+										|исполнители:
 									.actor= member.m_id.ru.name
 						.comment
 							!= event.event.ru.comment
-						.clearfix
-
-	//- b= schedule[0].events[0].event.hall
-
-
-		//- b= date.date.getDate() + '.' + date.date.getMonth()
-		//- br
-		//- each event in date.events
-		//- 	b= event.time.hours + ':' + event.time.minutes + ' ' + event.event.ru.title + ' ' + event.event.ru.s_title
-		//- 	br
-		//- br
+						//- .clearfix

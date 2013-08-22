@@ -23,14 +23,14 @@
 	width: 930px;
 	height: 80px;
 }
-.cal_ticket {
+/*.cal_ticket {
 	width: 20px;
 	height: 80px;
 	float: left;
 	background-color: #232da7;
-}
+}*/
 .cal_date {
-	width: 300px;
+	width: 220px;
 	height: 80px;
 	float: left;
 	background-color: #a75c37;
@@ -42,7 +42,7 @@
 	background-color: #57a743;
 }
 .cal_title {
-	width: 500px;
+	width: 600px;
 	height: 80px;
 	float: left;
 	background-color: #38a79d;
