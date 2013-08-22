@@ -7,6 +7,21 @@ $(document).ready(function() {
 		});
 	}
 
+	function trimString (str) {
+		for (var i = 150; i < str.length; i++) {
+			if (str[i] == '.' || str[i] == '?' || str[i] == '!') {
+				return str.substr(0, i+1); // ошибка если нет точки в конце
+			}
+		}
+	}
+
+	function zeroDate (date) {
+		if (date < 10)
+			return '0' + date;
+		else
+			return date;
+	}
+
 	function ItemConstructor(data, event) {
 		skip = skip + event.data.offset;
 		var t = 0;
@@ -21,14 +36,14 @@ $(document).ready(function() {
 				if (t == 3) t = 0;
 				var item = $('<div />', {'class':'infinite-item'});
 				var link = $('<a />', {'class':'item_link', 'href':'/news/' + data[i]._id});
-				var title = $('<div />', {'class':'item_title', 'text': data[i].ru.title});
+				var title = $('<div />', {'class':'item_title', 'text': data[i].ru.title.toUpperCase()});
 				// var tag = $('<div />', {'class':'item_date', 'text': data[i].tag});
 				var date = $('<div />', {'class':'item_date'});
-				var d = $('<p />', {'text': d3});
+				var d = $('<p />', {'text': zeroDate(d3)});
 				var dot = $('<p />', {'text': '.'});
-				var m = $('<p />', {'text': month});
+				var m = $('<p />', {'text': zeroDate(month)});
 				if (!data[i].poster)
-					var img = $('<div />', {'class':'item_body', 'lang':'ru', 'text': data[i].ru.body});
+					var img = $('<div />', {'class':'item_body', 'lang':'ru', 'text': trimString(data[i].ru.body)});
 				else
 					var img = $('<img />', {'class':'item_img', 'src': data[i].poster});
 				// $('.infinite-container').append(item.append(link).append(title).append(date).append(img));

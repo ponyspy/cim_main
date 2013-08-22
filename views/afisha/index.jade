@@ -9,6 +9,11 @@ block content_scripts
 
 block content_right
 
+- var director = false
+- var author = false
+- var playwright = false
+- var actors = false
+
 block content
 	each date in schedule
 		.afisha_item_block
@@ -26,21 +31,29 @@ block content
 							.s_title= event.event.ru.s_title.toUpperCase()
 							each member in event.event.members
 								if (member.c_status == 'director')
+									if (!director)
+										director = true
+										|режисер:
 									.director= member.m_id.ru.name
 								if (member.c_status == 'author')
+									if (!author)
+										author = true
+										|автор:
 									.author= member.m_id.ru.name
 								if (member.c_status == 'playwright')
-									.author= member.m_id.ru.name
+									if (!playwright)
+										playwright = true
+										|драматург:
+									.playwright= member.m_id.ru.name
+						each member in event.event.members
+							if (member.c_status == 'director')
 						.actors
-							|actors
-							br
-							|actors
-							br
-							|actors
-							br
-							|actors
-							br
-							|actors
+							each member in event.event.members
+								if (member.c_status == 'actor')
+									if (!actors)
+										actors = true
+										|актеры:
+									.actor= member.m_id.ru.name
 						.comment
 							!= event.event.ru.comment
 						.clearfix

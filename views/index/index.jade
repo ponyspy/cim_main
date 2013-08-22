@@ -7,31 +7,39 @@ block content_scripts
 	script(type='text/javascript', src='/scripts/main.js')
 
 block content_right
-	.tag_navigator Категории
+	.tag_navigator
+		b.tag_item.all все
 		br
-		b.tag_item.all Все
-		br
-		b.tag_item.performance Спектакль
+		b.tag_item.performance спектакль
+
+mixin trimString(str)
+	- for (var i = 150; i < str.length; i++) {
+		- if (str[i] == '.' || str[i] == '?' || str[i] == '!') {
+			str = str.substr(0, i+1)
+		- }
+	- }
+	!= str
 
 mixin infiniteItem(item)
 	.infinite-item
 		a.item_link(href='/news/' + item._id)
 			.item_title #{item.ru.title.toUpperCase()}
-			.item_date
-				- var date = item.date.getDate()
-				- var month = item.date.getMonth()
-				if (date < 10)
-					- date = '0' + date
-				if (month < 10)
-					- month = '0' + month
-				p= date
-				p= '.'
-				p= month
-			if (item.poster)
-				img.item_img(src=item.poster)
-			else
-				.item_body
-					!= item.ru.body.substr(0,240)
+		.item_date
+			- var date = item.date.getDate()
+			- var month = item.date.getMonth()+1
+			if (date < 10)
+				- date = '0' + date
+			if (month < 10)
+				- month = '0' + month
+			p= date
+			p.dot= '.'
+			p= month
+		if (item.poster)
+			img.item_img(src=item.poster)
+		else
+			.item_body
+				if (item.ru.title.length < 20)
+					+trimString(item.ru.body)
 
 block content
 	.main_poster_block

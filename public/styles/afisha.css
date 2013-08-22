@@ -1,7 +1,7 @@
 .content_block {
 width: 1120px;
-height: 800px;
-/*overflow: auto;*/
+min-height: 800px;
+overflow: auto;
 background-color: white;
 }
 
@@ -27,7 +27,7 @@ background-color: white;
 	margin-bottom: 15px;
 	/*margin-left: 60px;*/
 	border: 1px solid black;
-	overflow: auto;
+	/*overflow: auto;*/
 }
 
 .afisha_schedule_block {
