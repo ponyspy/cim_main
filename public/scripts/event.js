@@ -5,11 +5,14 @@ $(document).ready(function() {
 
 	// $('body').css('background-image','url(/images/' + rand + '.jpg)');
 
-	$('.calendar').mousemove(function(event) {
-		var position = event.pageX;
-		position = position - 550;
-		if (position >= 178) position = 178;
-		if (position <= 0) $('.date').css('margin-left', '-' + (position - position) + 'px');
-		$('.date').css('margin-left', '-' + position + 'px');
-	});
+		$('.calendar').mousemove(function(event) {
+			var duration = event.pageX;
+			var size = $('.date').size() * 110 / 2 - 70
+
+			duration = duration - 400;
+			if (duration >= size) duration = size;
+			if (duration <= 0) $('.inner').css('margin-left', '-' + (duration - duration) + 'px')
+			$('.inner').css('margin-left', '-' + duration + 'px')
+			$('.stat').text(size)
+		});
 });

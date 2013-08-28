@@ -1,0 +1,60 @@
+extends ../layout
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/styles/add_member.css')
+
+block content_scripts
+	script(type='text/javascript', src='/scripts/schedule.js')
+
+block content_right
+
+
+block content
+	.form_block
+		h2 Банер
+		a(href='/auth') назад
+		br
+		br
+		form(action="", method="post", enctype="multipart/form-data")
+			.form_title События на банере
+			br
+			each date in schedule
+				each event in date.events
+					if (event.premiere == 'true')
+						b= event.event.ru.title
+							br
+							br
+			.form_title добавить на баннер
+			br
+			each date in schedule
+				each event in date.events
+					b= event
+						br
+						br
+		//- 		b= ev.time.hours + ':' + ev.time.minutes + ' '
+		//- 		if (ev.premiere)
+		//- 			b= '(премьера) '
+		//- 		b= ev.event.ru.title
+		//- 		br
+		//- 		br
+		//- 	.snake
+		//- 		input(type='checkbox', name='events[0][premiere]', value='true')
+		//- 		|премьера
+		//- 		select(name='events[0][time][hours]')
+		//- 			option(value='') Часы
+		//- 			- for (var i=0; i<24; i++)
+		//- 				option(value=i)= i
+		//- 		select(name='events[0][time][minutes]')
+		//- 			option(value='') Минуты
+		//- 			- for (var i=0; i<60; i+=10)
+		//- 				option(value=i)= i
+		//- 		select(name='events[0][event]')
+		//- 			option(value='') Событие
+		//- 			each event in events
+		//- 				option(value=event._id)= event.ru.title
+		//- 	br
+		//- 	input.plus(type="button", value="-")
+		//- 	input.minus(type="button", value="+")
+		//- 	br
+			br
+			input(type="submit", value="Добавить")

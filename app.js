@@ -104,6 +104,7 @@ var scheduleSchema = new Schema({
   events: [{
     event: { type: Schema.Types.ObjectId, ref: 'Event' },
     premiere: String,
+    banner: String,
     time: {
       hours: String,
       minutes: String
@@ -221,7 +222,7 @@ app.get('/events', function (req, res) {
 app.get('/event/:id', function (req, res) {
   var id = req.params.id;
 
-  Schedule.find({'events.event': id}, {'events.$': 1}).select('date').sort('-date').exec(function(err, schedule) {
+  Schedule.find({'events.event': id}, {'events.$': 1}).limit(10).select('date').sort('-date').exec(function(err, schedule) {
     Event.find({'_id':id}).populate('children members.m_id').exec(function(err, event) {
       res.render('event', {event: event, schedule: schedule});
     });
@@ -429,9 +430,16 @@ app.post('/auth/add/event', function(req, res) {
 });
 
 
+/****************
+  Banner Block
+****************/
 
 
-
+app.get('/auth/add/banner', checkAuth, function (req, res) {
+  Schedule.find().populate('events.event').exec(function(err, schedule) {
+    res.render('add_banner', {schedule: schedule});
+  });
+});
 
 
 
@@ -500,6 +508,7 @@ app.post('/auth/add/schedule/:year/:id', function (req, res) {
   // console.log(post);
   // res.redirect('back');
 });
+
 
 /************
   News Block
@@ -686,13 +695,21 @@ app.post('/registr', function (req, res) {
 
 
 
+/************
+  Static Block
+************/
 
+app.get('/institute', function (req, res) {
+  res.render('static/institute.jade');
+});
 
+app.get('/now', function (req, res) {
+  res.render('static/now.jade');
+});
 
-
-
-
-
+app.get('/halls', function (req, res) {
+  res.render('static/halls.jade');
+});
 
 
 app.get('/error', function (req, res) {

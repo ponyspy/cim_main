@@ -1,7 +1,11 @@
 extends ../layout
 
+block title
+	title АФИША | АВГУСТ
+
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/afisha.css')
+	//- link(rel='stylesheet', type='text/css', href='/styles/afisha_colors.css')
 
 block content_scripts
 	script(type='text/javascript', src='/scripts/afisha.js')
@@ -17,34 +21,45 @@ block content_right
 block content
 	each date in schedule
 		.afisha_item_block
-			.afisha_date_block= date.date.getDate() + '.' + (date.date.getMonth()+1)
+			- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ']
+			- var d = date.date.getDate()
+			if (d < 10)
+				- d = '0' + d
+			.afisha_date_block= days[date.date.getDay()] + '.' + d
 			.afisha_events_block
 				each event in date.events
 					.afisha_description_block
+						//- if (event.premiere == 'true')
+							.premiere ПРЕМЬЕРА
 						.afisha_schedule_block
 							.afisha_time= event.time.hours + ':' + event.time.minutes
-							.afisha_hall= event.event.hall
+							- var hall = {main: 'основная сцена'}
+							.afisha_hall= hall[event.event.hall]
+						//- if (event.premiere == 'true')
+							.premiere ПРЕМЬЕРА
 						.afisha_event
 							if (event.premiere == 'true')
-								.premiere премьера
-							.title= event.event.ru.title.toUpperCase()
+								.premiere ПРЕМЬЕРА
+							a.title(href='/event/' + event.event._id)= event.event.ru.title.toUpperCase()
 							.s_title= event.event.ru.s_title.toUpperCase()
 							each member in event.event.members
 								if (member.c_status == 'director')
 									if (!director)
 										director = true
-										|режисер:
-									.director= member.m_id.ru.name
+										|режисер:&nbsp;
+									b.member= member.m_id.ru.name + ' '
+									br
 								if (member.c_status == 'author')
 									if (!author)
 										author = true
-										|автор:
-									.author= member.m_id.ru.name
+										|автор:&nbsp;
+									b.member= member.m_id.ru.name + ' '
+									br
 								if (member.c_status == 'playwright')
 									if (!playwright)
 										playwright = true
-										|драматург:
-									.playwright= member.m_id.ru.name
+										|драматург:&nbsp;
+									b.member= member.m_id.ru.name + ' '
 						each member in event.event.members
 							if (member.c_status == 'director')
 						.actors
@@ -53,7 +68,7 @@ block content
 									if (!actors)
 										actors = true
 										|исполнители:
-									.actor= member.m_id.ru.name
+									.member= member.m_id.ru.name
 						.comment
 							!= event.event.ru.comment
 						//- .clearfix

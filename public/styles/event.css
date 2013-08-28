@@ -1,3 +1,8 @@
+body {
+ 	font: 12pt/15pt 'Pragmatica';
+ 	/*letter-spacing: 0px;*/
+}
+
 .content_block {
 	background-color: white;
 	width: 930px;
@@ -11,6 +16,7 @@
 img {
 	width: 930px;
 	height: 620px;
+	display: block;
 }
 
 .calendar {
@@ -18,34 +24,58 @@ img {
 	height: 80px;
 	background-color: black;
 	overflow: hidden;
-	margin-top: -3px;
 }
 
-.date {
-	width: 219px;
+/*.date {
+	width: 230px;
 	height: 80px;
-	/*border-left: 1px solid white;*/
-	border-right: 1px solid white;
-	margin-left: 15px;
 	float: left;
 	color: white;
-	font-size: 32pt;
-	position: relative;
-	z-index: 0;
+ 	font: 60pt/53pt 'PragmaticaM';
+ 	letter-spacing: -1px;
+ 	padding: 5px;
 }
 
 .date2 {
 	width: 110px;
 	height: 80px;
-	/*border-left: 1px solid white;*/
-	border-right: 1px solid white;
 	float: left;
 	color: white;
 	margin-left: 0px;
-	font-size: 16pt;
+ 	font: 26pt/23pt 'PragmaticaM';
+ 	letter-spacing: 0px;
+ 	padding: 10px;
 	display: inline-block;
 	overflow: hidden;
 	white-space: nowrap;
+}*/
+
+.date {
+	width: 110px;
+	height: 80px;
+	float: left;
+	color: white;
+	margin-left: 0px;
+ 	font: 26pt/23pt 'PragmaticaM';
+ 	letter-spacing: 0px;
+ 	padding: 10px;
+	display: inline-block;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.big {
+	width: 230px;
+	height: 80px;
+	float: left;
+	color: white;
+ 	font: 60pt/53pt 'PragmaticaM';
+ 	letter-spacing: -1px;
+ 	padding: 5px;
+}
+
+.inner {
+	width: 1500px;
 }
 
 .date:hover {
@@ -65,13 +95,47 @@ img {
 }
 
 .column {
-	width: 310px;
+	width: 290px;
+	/*margin-left: 12px;*/
+	padding-left: 10px;
+	padding-right: 10px;
 	float: left;
-	background-color: #62ffb1;
+	/*background-color: #62ffb1;*/
+}
+
+.title {
+	width: 930px;
+ 	font: 60pt/50pt 'PragmaticaM';
+ 	/*letter-spacing: 0px;*/
+ 	padding-left: 5px;
+ 	padding-top: 30px;
+ 	font-weight: bold;
+/*	hyphens: auto;
+	-webkit-hyphens: auto;*/
+ 	/*white-space: pre-wrap;*/
+}
+
+.s_title {
+ 	font: 26pt/28pt 'PragmaticaM';
+ 	/*letter-spacing: 0px;*/
+ 	padding-left: 10px;
+ 	padding-bottom: 20px;
+ 	padding-top: 30px;
+ 	font-weight: bold;
 }
 
 .description {
 	clear: left;
+	width: 910px;
+ 	font: 12pt/13pt 'Pragmatica';
+ 	/*letter-spacing: 0px;*/
+	hyphens: auto;
+	-webkit-hyphens: auto;
+ 	padding-top: 20px;
+ 	padding-bottom: 20px;
+ 	padding-left: 10px;
+ 	padding-right: 10px;
+	/*border: 1px solid black;*/
 }
 
 /*.ticket {
@@ -85,8 +149,11 @@ img {
 }*/
 
 .ticket {
-	width: 170px;
+	width: 160px;
+	min-height: 60px;
+	font: 11pt/11pt 'Pragmatica';
 	float: right;
+	padding: 5px;
 	background-color: #c7ff09;
 	position: relative;
 }

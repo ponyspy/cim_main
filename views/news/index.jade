@@ -12,8 +12,8 @@ block content_right
 block content
 	if (news.photo)
 		img(src=news.photo)
-	h1= news.ru.title
-	if (news.s_title)
-		h2= news.ru.s_title
-	p.description
+	.title= news.ru.title.toUpperCase()
+	if (news.ru.s_title)
+		.s_title= news.ru.s_title.toUpperCase()
+	.description(lang='ru')
 		!= news.ru.body

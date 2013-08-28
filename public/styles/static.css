@@ -1,0 +1,99 @@
+.content_block {
+	width: 720px;
+	margin-left: 190px;
+	min-height: 400px;
+	background-color: white;
+	padding: 10px;
+}
+
+.right_block {
+	width: 170px;
+	min-height: 60px;
+	float: right;
+	background-color: white;
+}
+
+.left_block {
+	width: 170px;
+	min-height: 60px;
+	float: left;
+	color: white;
+	background-color: black;
+}
+
+.content_navigator {
+	padding: 10px;
+	font: 10pt/15pt 'Pragmatica';
+	font-weight: bold;
+}
+
+.right_block {
+	width: 150px;
+	padding: 10px;
+	font: 10pt/12pt 'Pragmatica';
+}
+
+.title {
+	font: 20pt/20pt 'PragmaticaM';
+	margin-top: 5px;
+	letter-spacing: 0px;
+	font-weight: bold;
+}
+
+.s_title {
+	font: 14pt/14pt 'Pragmatica';
+	letter-spacing: 0px;
+	font-weight: bold;
+	padding-top: 20px;
+}
+
+.description {
+	font: 12pt/13pt 'Pragmatica';
+	letter-spacing: 0px;
+	hyphens: auto;
+	-webkit-hyphens: auto;
+}
+
+.under_block {
+	width: 720px;
+	margin-left: 190px;
+	background-color: black;
+	font: 10pt/13pt 'Pragmatica';
+	color: white;
+	padding: 10px;
+}
+
+.content {
+	display: none;
+}
+
+.nav_item {
+	cursor: pointer;
+}
+
+.nav_item:hover {
+	text-decoration: underline;
+}
+
+ul {
+	padding: 0;
+	margin-left: 20px;
+}
+
+li {
+	padding-top: 10px;
+	list-style-type: none;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+li:before {
+	content: '– ';
+}

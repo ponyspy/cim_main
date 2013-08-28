@@ -23,11 +23,19 @@ html
 							.menu_item_title цим
 							.menu_item_arrow ▼
 							.menu_drop
-								a.menu_link(href='/')  новости
+								a.menu_link(href='/') новости
 								br
-								a.menu_link(href='/events') events
+								a.menu_link(href='/now') цим сегодня
 								br
-								a.menu_link(href='/event/520b9b699f29934eb500000c') test event
+								a.menu_link(href='/gogo') дирекция
+								br
+								a.menu_link(href='/institute') институт театра
+								br
+								a.menu_link(href='/magistr') магистратура
+								br
+								a.menu_link(href='/halls') площадки
+								//- a.menu_link(href='/events') events
+								//- a.menu_link(href='/event/520b9b699f29934eb500000c') test event
 								br
 								a.menu_link(href='/auth') авторизация
 						a.pay(href='#') БИЛЕТЫ ON-line
@@ -37,7 +45,9 @@ html
 					.head_title_block
 						a(href='/')
 							.head_logo logo img
+				block content_left
 				block content_right
 				.content_block
 					block content
+				block content_under
 				.footer_block footer

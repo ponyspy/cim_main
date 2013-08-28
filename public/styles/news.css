@@ -4,11 +4,42 @@
 	min-height: 400px;
 }
 
-.description {
-	width: 930px;
-}
-
 img {
 	width: 930px;
 	height: 620px;
+}
+
+.title {
+	width: 930px;
+ 	font: 60pt/55pt 'PragmaticaM';
+ 	/*letter-spacing: 0px;*/
+ 	padding-top: 20px;
+ 	padding-left: 5px;
+ 	font-weight: bold;
+/*	hyphens: auto;
+	-webkit-hyphens: auto;*/
+ 	/*white-space: nowrap;*/
+}
+
+.s_title {
+ 	font: 26pt/28pt 'PragmaticaM';
+ 	/*letter-spacing: 0px;*/
+ 	padding-left: 10px;
+ 	/*padding-bottom: 10px;*/
+ 	padding-top: 20px;
+ 	font-weight: bold;
+}
+
+.description {
+	clear: left;
+	width: 910px;
+ 	font: 13pt/15pt 'Pragmatica';
+ 	/*letter-spacing: 0px;*/
+	hyphens: auto;
+	-webkit-hyphens: auto;
+ 	padding-top: 10px;
+ 	padding-bottom: 20px;
+ 	padding-left: 10px;
+ 	padding-right: 10px;
+	/*border: 1px solid black;*/
 }
