@@ -70,7 +70,6 @@ var eventSchema = new Schema({
        tag: String,
       _parent: { type: Schema.Types.ObjectId, ref: 'Event' },
       date: {type: Date, default: Date.now},
-      // schedule: [{ type: Schema.Types.ObjectId, ref: 'Schedule' }],
    members: [{
     c_status: String,
     m_id: { type: Schema.Types.ObjectId, ref: 'Member' }
@@ -133,6 +132,17 @@ function checkAuth (req, res, next) {
     res.redirect('/login');
 }
 
+function trimID (members) {
+  var mid = []
+
+  for (var i in members) {
+    if (members[i].m_id != undefined)
+      mid.push(members[i].m_id)
+  }
+
+  return mid;
+}
+
 function memberSplit (members) {
   var split = [];
   var results = [];
@@ -159,8 +169,15 @@ function memberSplit (members) {
 
 
 app.get('/', function(req, res) {
-  News.find().sort('-date').limit(6).exec(function(err, news) {
-    res.render('index', {news: news});
+  var start = new Date();
+  var end = new Date();
+  start.setDate(1);
+  end.setFullYear(end.getFullYear(), (end.getMonth()+1), 0);
+
+  Schedule.find({"date": {"$gte": start, "$lt": end}}).populate('events.event').exec(function(err, schedule) {
+    News.find().sort('-date').limit(6).exec(function(err, news) {
+      res.render('index', {news: news, schedule: schedule});
+    });
   });
 });
 
@@ -343,7 +360,7 @@ app.post('/auth/add/event', function(req, res) {
       child.save(function(err, result) {
 
 
-        Member.find({'_id': { $in: result.members} }, function(err, members) {
+        Member.find({'_id': { $in: trimID(result.members)} }, function(err, members) {
           async.forEach(members, function(member, callback) {
             member.events.push(result._id);
             member.save();
@@ -371,7 +388,7 @@ app.post('/auth/add/event', function(req, res) {
   }
 
   event.save(function(err, result) {
-    Member.find({'_id': { $in: result.members} }, function(err, members) {
+    Member.find({'_id': { $in: trimID(result.members) } }, function(err, members) {
       async.forEach(members, function(member, callback) {
         member.events.push(result._id);
         member.save();
@@ -426,18 +443,6 @@ app.post('/auth/add/event', function(req, res) {
     function(err, results){
       res.redirect('back');
     });
-  });
-});
-
-
-/****************
-  Banner Block
-****************/
-
-
-app.get('/auth/add/banner', checkAuth, function (req, res) {
-  Schedule.find().populate('events.event').exec(function(err, schedule) {
-    res.render('add_banner', {schedule: schedule});
   });
 });
 

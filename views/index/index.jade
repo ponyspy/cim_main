@@ -45,13 +45,24 @@ mixin infiniteItem(item)
 					+trimString(item.ru.body)
 
 block content
-	.main_poster_block
-		.main_poster_img
-		.main_poster_cal
-			//- .cal_ticket ticket
-			.cal_date date
-			.cal_time_hall time/hall
-			.cal_title title
+	each date in schedule
+		each event in date.events
+			if (event.banner == 'true')
+				.main_poster_block
+					//- b= event.event
+					a(href='/event/' + event.event._id)
+						img.main_poster_img(src=event.event.photo)
+					.main_poster_cal
+						- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ']
+						- var d = date.date.getDate()
+						if (d < 10)
+							- d = '0' + d
+						.cal_date= days[date.date.getDay()] + '.' + d
+						- var hall = {'main': 'основная сцена', 'black': 'черный зал', 'white': 'белый зал', 'cafe': 'кафе', 'lobby': 'фойе', '301': 'комната 301', '306': 'комната 306'}
+						.cal_schedule
+							.cal_time= event.time.hours + ':' + event.time.minutes
+							.cal_hall= hall[event.event.hall]
+						.cal_title= event.event.ru.title.toUpperCase()
 	.infinite-container
 		.infinite-column
 			if (news[0])

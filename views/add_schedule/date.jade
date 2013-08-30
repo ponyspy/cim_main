@@ -20,12 +20,16 @@ block content
 			br
 			each ev in result[0].events
 				b= ev.time.hours + ':' + ev.time.minutes + ' '
+				if (ev.banner)
+					b= '(банер) '
 				if (ev.premiere)
 					b= '(премьера) '
 				b= ev.event.ru.title
 				br
 				br
 			.snake
+				input(type='checkbox', name='events[0][banner]', value='true')
+				|баннер
 				input(type='checkbox', name='events[0][premiere]', value='true')
 				|премьера
 				select(name='events[0][time][hours]')

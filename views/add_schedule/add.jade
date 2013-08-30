@@ -48,6 +48,13 @@ block content
 						- m = '0' + m
 					a(href= year + '/' + date._id)= d + '.' + m
 					|&nbsp;
+					each event in date.events
+						- var banner = false
+						if (event.banner == 'true')
+							if (!banner)
+								banner = true
+								b (банер)
+					|&nbsp;
 					a(href='#') удалить
 					br
 					br
