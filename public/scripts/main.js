@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	var skip = 6;
-	var last_tick = 1;
+	var last_rand = 0;
 
 	function preload(arrayOfImages) {
 		$(arrayOfImages).each(function(){
@@ -20,9 +20,18 @@ $(document).ready(function() {
 	}, {}, {xparallax: '600px', yparallax: '600px'});
 
 	$('.layer').click(function() {
-
-		var rand_items = getRandom(0, $('.hide').size() - 1);
+		var hide_items = $('.hide').size() - 1;
 		var rand_radius = getRandom(200, 600);
+		var rand_items = getRandom(0, hide_items);
+
+		if (rand_items == last_rand) {
+			rand_items = rand_items + 1;
+			if (rand_items > hide_items) rand_items = 0;
+			last_rand = rand_items;
+		}
+		else {
+			last_rand = rand_items;
+		}
 
 		var atr = $('.hide').eq(rand_items).attr('src');
 		$('.image').attr('src', atr);

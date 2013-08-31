@@ -1,7 +1,7 @@
 extends ../layout
 
 block title
-	title АФИША | АВГУСТ
+	title АФИША
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/afisha.css')
@@ -46,19 +46,19 @@ block content
 								if (member.c_status == 'director')
 									if (!director)
 										director = true
-										|режисер:&nbsp;
+										|Режисер:&nbsp;
 									b.member= member.m_id.ru.name + ' '
 									br
 								if (member.c_status == 'author')
 									if (!author)
 										author = true
-										|автор:&nbsp;
+										|Автор:&nbsp;
 									b.member= member.m_id.ru.name + ' '
 									br
 								if (member.c_status == 'playwright')
 									if (!playwright)
 										playwright = true
-										|драматург:&nbsp;
+										|Драматург:&nbsp;
 									b.member= member.m_id.ru.name + ' '
 						each member in event.event.members
 							if (member.c_status == 'director')
@@ -67,7 +67,7 @@ block content
 								if (member.c_status == 'actor')
 									if (!actors)
 										actors = true
-										|исполнители:
+										|Исполнители:
 									.member= member.m_id.ru.name
 						.comment
 							!= event.event.ru.ticket

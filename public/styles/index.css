@@ -78,6 +78,7 @@
 .cal_time {
 	font: 11pt/12pt 'Pragmatica';
  	letter-spacing: 0px;
+ 	margin-top: 1px;
  	padding: 5px;
  	font-weight: bold;
 }
@@ -109,7 +110,7 @@
 	float: right;
 	background-color: black;
 	color: white;
-	font: 10pt/15pt 'Pragmatica';
+	font: 11pt/12pt 'Pragmatica';
 	font-weight: bold;
 	padding: 10px;
 	top: 720px;

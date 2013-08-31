@@ -1,5 +1,5 @@
 body {
- 	font: 11pt/12pt 'Pragmatica';
+ 	font: 11pt/13pt 'Pragmatica';
  	/*letter-spacing: 0px;*/
 }
 
@@ -15,14 +15,14 @@ background-color: white;
 }
 
 .afisha_date_block {
-	width: 230px;
-	height: 80px;
+	width: 225px;
+	height: 70px;
 	float: left;
 	/*border: 1px solid black;*/
 	/*background-color: #df5f59;*/
  	font: 56pt/51pt 'PragmaticaM';
  	letter-spacing: -1px;
- 	padding-right: 5px;
+ 	padding: 5px;
  	/*text-align: right;*/
 }
 
@@ -42,24 +42,25 @@ background-color: white;
 }
 
 .afisha_schedule_block {
-	width: 110px;
-	height: 80px;
+	width: 90px;
+	height: 60px;
 	float: left;
+	padding: 10px;
 	/*border: 1px solid black;*/
 }
 
 .afisha_time {
  	font: 11pt/12pt 'Pragmatica';
  	letter-spacing: 0px;
- 	padding: 5px;
+ 	margin-top: 1px;
+ 	/*padding: 5px;*/
  	font-weight: bold;
 }
 
 .afisha_hall {
  	font: 11pt/12pt 'Pragmatica';
  	letter-spacing: 0px;
- 	margin-top: 1px;
- 	padding: 5px;
+ 	padding-top: 10px;
  	/*font-weight: bold;*/
 }
 
@@ -85,12 +86,12 @@ background-color: white;
 	/*border: 1px solid black;*/
 	float: left;
 	padding-left: 12px;
-	padding-top: 3px;
+	padding-top: 9px;
 	overflow: hidden;
 }
 
 .title {
- 	font: 21pt/22pt 'PragmaticaM';
+ 	font: 21pt/21pt 'PragmaticaM';
  	letter-spacing: 0px;
  	padding-top: 3px;
  	font-weight: bold;
@@ -116,28 +117,29 @@ background-color: white;
 	width: 185px;
 	min-height: 80px;
 	float: left;
-	padding-top: 3px;
+	padding-top: 10px;
 	padding-left: 23px;
 	padding-right: 5px;
 	/*border: 1px solid black;*/
 }
 
 .member {
- 	font: 11pt/12pt 'Pragmatica';
+ 	font: 11pt/13pt 'Pragmatica';
  	letter-spacing: 0px;
- 	padding-top: 3px;
+ 	/*padding-top: 3px;*/
  	font-weight: bold;
- 	margin-top: 1px;
+ 	/*margin-top: 1px;*/
+ 	/*border: 1px solid black;*/
 }
 
 .comment {
 	min-height: 68px;
 	float: left;
-	width: 190px;
- 	font: 10pt/15pt 'Pragmatica';
+	width: 170px;
+ 	font: 10pt/14pt 'Pragmatica';
  	letter-spacing: 0px;
- 	/*padding-top: 12px;*/
- 	/*padding-left: 5px;*/
+ 	padding-top: 9px;
+ 	padding-left: 20px;
  	font-weight: bold;
 	/*border: 1px solid black;*/
 }
