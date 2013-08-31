@@ -46,13 +46,17 @@ mixin infiniteItem(item)
 					+trimString(item.ru.body)
 
 block content
-	each date in schedule
-		each event in date.events
-			if (event.banner == 'true')
-				.main_poster_block
-					.main_poster_img
-						img.layer.image(src=event.event.photo)
-						.layer.round
+	.main_poster_block
+		.main_poster_img
+			img.layer.image(src=schedule[0].events[0].event.photo)
+			each date in schedule
+				each event in date.events
+					if (event.banner == 'true')
+						img.hide(src=event.event.photo)
+			.layer.round
+		each date in schedule
+			each event in date.events
+				if (event.banner == 'true')
 					.main_poster_cal
 						- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ']
 						- var d = date.date.getDate()
