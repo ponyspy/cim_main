@@ -8,6 +8,7 @@ block content_style
 
 block content_scripts
 	script(type='text/javascript', src='/scripts/main.js')
+	script(type='text/javascript', src='/scripts/jquery.parallax.js')
 
 block content_right
 	.tag_navigator
@@ -49,9 +50,9 @@ block content
 		each event in date.events
 			if (event.banner == 'true')
 				.main_poster_block
-					//- b= event.event
-					a(href='/event/' + event.event._id)
-						img.main_poster_img(src=event.event.photo)
+					.main_poster_img
+						img.layer.image(src=event.event.photo)
+						.layer.round
 					.main_poster_cal
 						- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ']
 						- var d = date.date.getDate()
@@ -62,7 +63,8 @@ block content
 						.cal_schedule
 							.cal_time= event.time.hours + ':' + event.time.minutes
 							.cal_hall= hall[event.event.hall]
-						.cal_title= event.event.ru.title.toUpperCase()
+						a(href='/event/' + event.event._id)
+							.cal_title= event.event.ru.title.toUpperCase()
 	.infinite-container
 		.infinite-column
 			if (news[0])

@@ -27,6 +27,11 @@
 	background-image: url('/images/gridinator.png');
 }
 
+.content_block {
+	z-index: 0;
+	position: relative;
+}
+
 .line_block {
 	width: 360px;
 	height: 10px;
@@ -39,6 +44,7 @@
 
 .menu_block {
 	margin-top: 10px;
+	margin-bottom: 6px;
 	width: 1120px;
 	height: 30px;
 	/*border: 1px solid black;*/
@@ -64,6 +70,7 @@
 
 .menu_item_arrow {
  	float: right;
+ 	font-size: 12px;
  }
 
  .menu_drop {
@@ -80,6 +87,8 @@
  	letter-spacing:0px;
  	padding: 5px;
  	border: 1px solid white;
+ 	position: relative;
+ 	z-index: 1;
  }
 
  .menu_link:hover {
@@ -94,10 +103,10 @@
  .pay {
  	width: 158px;
  	height: 14px;
- 	/*margin-top: 5px;*/
  	background-color: white;
  	border: 1px solid white;
- 	margin-left: 0px;
+ 	/*margin-left: 104px;*/
+ 	margin-right: 20px;
  	float: left;
  	color: black;
  	font: 12pt/10pt 'Times';
@@ -119,6 +128,7 @@
  	font: 11pt/10pt 'Pragmatica';
  	letter-spacing:0px;
  	padding: 5px;
+ 	display: none;
  }
 
 .search {
@@ -132,6 +142,7 @@
  	letter-spacing: 0px;
  	padding: 1px;
  	border: 1px solid black;
+ 	display: none;
 }
 
  .search_submit {
@@ -149,6 +160,7 @@
  	font: 11pt/10pt 'Pragmatica';
  	letter-spacing:0px;
  	padding: 5px;
+ 	display: none;
  }
 
  /*
@@ -156,10 +168,16 @@
  */
 
  .head_title_block {
-	width: 1120px;
-	height: 130px;
-	margin-bottom: 20px;
-	background-color: #88413d;  /*Head Poster*/
+	width: 350px;
+	height: 22px;
+	margin-right: 20px;
+	float: left;
+ 	cursor: pointer;
+ 	color: black;
+ 	padding-left: 10px;
+ 	font: 14pt/18pt 'Pragmatica';
+ 	letter-spacing: 0px;
+	/*border: 1px solid black;*/
  }
 
  .head_logo {

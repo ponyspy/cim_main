@@ -1,8 +1,9 @@
 $(document).ready(function() {
 	var menu = $('.menu_item');
-	var flip = false;
 
 	menu.each(function() {
+		var flip = false;
+
 		$(this).click(function(event) {
 			t = event.target || event.srcElement;
 

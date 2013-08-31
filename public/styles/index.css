@@ -21,7 +21,25 @@
 	width: 930px;
 	height: 620px;
 	display:block;
-	background-color: #e1ff95;
+	overflow: hidden;
+	position: relative;
+	background-color: white;
+}
+
+.layer {
+	position: absolute;
+}
+
+.image {
+	width: 1130px;
+	height: 820px;
+}
+
+.round {
+  width: 400px;
+  height: 400px;
+  background-color: black;
+  border-radius: 360px;
 }
 
 .main_poster_cal {
@@ -33,11 +51,11 @@
 	width: 230px;
 	height: 70px;
 	float: left;
- 	font: 60pt/53pt 'PragmaticaM';
+ 	font: 56pt/51pt 'PragmaticaM';
  	letter-spacing: -1px;
  	padding-top: 5px;
  	padding-bottom: 5px;
- 	padding-left: 15px;
+ 	padding-left: 5px;
  	padding-right: 15px;
  	color: white;
 	background-color: black;
@@ -53,7 +71,7 @@
 }
 
 .cal_time {
-	font: 13pt/12pt 'Pragmatica';
+	font: 11pt/12pt 'Pragmatica';
  	letter-spacing: 0px;
  	padding: 5px;
  	font-weight: bold;
@@ -66,13 +84,18 @@
 }
 
 .cal_title {
-	width: 560px;
-	height: 75px;
+	width: 570px;
+	height: 71px;
 	float: left;
-	padding-top: 5px;
-	font: 26pt/28pt 'PragmaticaM';
+	padding-top: 9px;
+	font: 21pt/22pt 'PragmaticaM';
 	color: white;
+	font-weight: bold;
 	background-color: black;
+}
+
+.cal_title:hover {
+	text-decoration: underline;
 }
 
 .tag_navigator {
@@ -101,14 +124,15 @@
 */
 
 .item_img {
-	width: 260px;
+	width: 280px;
 	height: 350px;
 	/*padding-left: 20px;*/
 	margin-top: 15px;
 }
 
 .item_title {
-	width: 230px;
+	width: 250px;
+	min-height: 50px;
 	/*white-space: pre-wrap;*/
 	word-wrap: break-word;
 	/*padding-left: 20px;*/
@@ -175,8 +199,8 @@ p {
 }
 
 .infinite-item  {
-  width: 260px;
-  padding: 20px;
+  width: 280px;
+  padding: 10px; /*20px*/
   margin-top: 20px;
   margin-right: 10px;
   /*border: 1px solid black;*/

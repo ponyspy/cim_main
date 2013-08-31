@@ -38,7 +38,8 @@ block content
 						option(value=i)= i
 				select(name='events[0][time][minutes]')
 					option(value='') Минуты
-					- for (var i=0; i<60; i+=10)
+					option(value='00') 00
+					- for (var i=10; i<60; i+=10)
 						option(value=i)= i
 				select(name='events[0][event]')
 					option(value='') Событие
