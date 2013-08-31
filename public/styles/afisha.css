@@ -11,7 +11,7 @@ background-color: white;
 }
 
 .afisha_item_block	{
-	/*border: 1px solid black;*/
+
 }
 
 .afisha_date_block {
@@ -37,7 +37,8 @@ background-color: white;
 	margin-bottom: 20px;
 	/*margin-left: 60px;*/
 	/*border: 1px solid black;*/
-	overflow: auto;
+	/*background-color: #68c5e2;*/
+	overflow: hidden;
 }
 
 .afisha_schedule_block {
