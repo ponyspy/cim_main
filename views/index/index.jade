@@ -48,7 +48,7 @@ mixin infiniteItem(item)
 block content
 	.main_poster_block
 		.main_poster_img
-			if (schedule[0].events[0].event.photo)
+			if (schedule[0])
 				img.layer.image(src=schedule[0].events[0].event.photo)
 			each date in schedule
 				each event in date.events
