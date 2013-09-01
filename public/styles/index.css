@@ -100,6 +100,12 @@
 	background-color: black;
 }
 
+.cal_title_big {
+	height: 75px;
+	padding-top: 5px;
+	font: 56pt/51pt 'PragmaticaM';
+}
+
 .cal_title:hover {
 	text-decoration: underline;
 }
