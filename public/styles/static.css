@@ -15,7 +15,7 @@
 
 .left_block {
 	width: 170px;
-	min-height: 60px;
+	min-height: 50px;
 	float: left;
 	color: white;
 	background-color: black;
@@ -23,7 +23,7 @@
 
 .content_navigator {
 	padding: 10px;
-	font: 10pt/15pt 'Pragmatica';
+	font: 10pt/12pt 'Pragmatica';
 	font-weight: bold;
 }
 
@@ -41,14 +41,14 @@
 }
 
 .s_title {
-	font: 14pt/14pt 'Pragmatica';
+	font: 14pt/15pt 'Pragmatica';
 	letter-spacing: 0px;
 	font-weight: bold;
-	padding-top: 20px;
+	padding-top: 10px;
 }
 
 .description {
-	font: 12pt/13pt 'Pragmatica';
+	font: 11pt/12pt 'Pragmatica';
 	letter-spacing: 0px;
 	hyphens: auto;
 	-webkit-hyphens: auto;
@@ -95,5 +95,9 @@ a:hover {
 }
 
 li:before {
-	content: '– ';
+	/*content: ' ';*/
+}
+
+p {
+	margin: 0;
 }

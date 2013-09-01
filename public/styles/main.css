@@ -194,3 +194,14 @@
 	background-color: #583786;
 }
 
+/*
+	Error
+*/
+
+.error_title {
+	font: 14pt/20pt 'PragmaticaM';
+}
+
+.error_s_title {
+	font: 14pt/20pt 'PragmaticaM';
+}

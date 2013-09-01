@@ -110,7 +110,7 @@
 	float: right;
 	background-color: black;
 	color: white;
-	font: 11pt/12pt 'Pragmatica';
+	font: 10pt/12pt 'Pragmatica';
 	font-weight: bold;
 	padding: 10px;
 	top: 720px;
@@ -182,7 +182,7 @@ p {
 	margin-top: 60px;
 	hyphens: auto;
 	-webkit-hyphens: auto;
-	font: 12pt/13pt 'Pragmatica';
+	font: 11pt/12pt 'Pragmatica';
 	/*border: 1px solid black;*/
 }
 
