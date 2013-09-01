@@ -36,7 +36,7 @@ $(document).ready(function() {
 
 	$('.layer').parallax({
 		mouseport: $('.main_poster_img')
-	}, {}, {xparallax: '600px', yparallax: '600px'});
+	}, {frameDuration:'50'}, {xparallax: '600px', yparallax: '600px'});
 
 	$('.layer').click(function() {
 		var rand_radius = getRandom(200, 600);
