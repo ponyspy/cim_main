@@ -158,7 +158,7 @@
 	width: 16px;
 	height: 50px;
 	float: right;
-	font: 8pt/14pt 'Pragmatica';
+	font: 8pt/11pt 'Pragmatica';
 	letter-spacing: 0px;
 	/*border: 1px solid black;*/
 }
@@ -169,7 +169,8 @@ p {
 }
 
 .dot {
-	margin-top: -3px;
+	margin-top: 2px;
+	margin-bottom: 5px;
 	/*border: 1px solid black;*/
 }
 
@@ -178,6 +179,7 @@ p {
 	margin-top: 60px;
 	hyphens: auto;
 	-webkit-hyphens: auto;
+	font: 12pt/13pt 'Pragmatica';
 	/*border: 1px solid black;*/
 }
 

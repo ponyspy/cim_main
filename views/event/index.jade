@@ -67,7 +67,7 @@ block content
 				+memberList('Исполнители', 'actor')
 			.column
 				if (event[0].ru.comment)
-					.desc
+					.comment
 						!= event[0].ru.comment
 		.description(lang='ru')
 			!= event[0].ru.body

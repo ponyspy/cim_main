@@ -13,15 +13,8 @@ $(document).ready(function() {
 		return Math.round(rand);
 	}
 
-	$('.main_poster_cal :first').show();
-
-	$('.layer').parallax({
-		mouseport: $('.main_poster_img')
-	}, {}, {xparallax: '600px', yparallax: '600px'});
-
-	$('.layer').click(function() {
+	function generatePoster () {
 		var hide_items = $('.hide').size() - 1;
-		var rand_radius = getRandom(200, 600);
 		var rand_items = getRandom(0, hide_items);
 
 		if (rand_items == last_rand) {
@@ -38,6 +31,16 @@ $(document).ready(function() {
 
 		$('.main_poster_cal').hide();
 		$('.main_poster_cal').eq(rand_items).show();
+	}
+	generatePoster();
+
+	$('.layer').parallax({
+		mouseport: $('.main_poster_img')
+	}, {}, {xparallax: '600px', yparallax: '600px'});
+
+	$('.layer').click(function() {
+		var rand_radius = getRandom(200, 600);
+		generatePoster();
 
 		$('.round').animate({
 			width: rand_radius,

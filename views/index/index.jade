@@ -48,7 +48,7 @@ block content
 	.main_poster_block
 		.main_poster_img
 			if (schedule[0])
-				img.layer.image(src=schedule[0].events[0].event.photo)
+				img.layer.image(src='')
 			each date in schedule
 				each event in date.events
 					if (event.banner == 'true')

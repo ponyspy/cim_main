@@ -15,4 +15,13 @@ $(document).ready(function() {
 			$('.inner').css('margin-left', '-' + duration + 'px')
 			$('.stat').text(size)
 		});
+
+		$('.comment').on({
+			mouseover: function() {
+				$(this).css('overflow', 'visible');
+			},
+			mouseout: function() {
+				$(this).css('overflow', 'hidden');
+			}
+		})
 });
