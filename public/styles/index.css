@@ -13,7 +13,7 @@
 	width: 930px;
 	height: 700px;
 	/*display: none;*/
-	margin-top: -1px;
+	/*margin-top: -1px;*/
 	/*position: absolute;*/
 }
 
@@ -113,9 +113,16 @@
 	font: 10pt/12pt 'Pragmatica';
 	font-weight: bold;
 	padding: 10px;
-	top: 720px;
+	margin-top: 726px;
 	margin-left: 950px;
-	position: relative;
+	position: absolute;
+}
+
+.tag_navigator_sroll {
+	margin-top: -35px;
+	margin-left: 950px;
+	position: fixed;
+	/*float: right;*/
 }
 
 .tag_item {

@@ -149,10 +149,10 @@ $(document).ready(function() {
 		var top = $(window).scrollTop();
 
 		if ($(".infinite-container").offset().top < top) {
-			$(".tag_navigator").css('position', 'fixed').css('top', '15px');
+			$(".tag_navigator").addClass('tag_navigator_sroll');
 			sticky = true;
 		} else {
-			$(".tag_navigator").css('position', 'relative').css('top', '720px');
+			$(".tag_navigator").removeClass('tag_navigator_sroll');
 		}
 	};
 
