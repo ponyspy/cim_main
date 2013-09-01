@@ -65,9 +65,8 @@ block content
 				+memberList('Консультант', 'consultant')
 				+memberList('Спецэффекты', 'effects')
 				+memberList('Исполнители', 'actor')
-			.column
-				if (event[0].ru.comment)
-					.comment
-						!= event[0].ru.comment
+			if (event[0].ru.comment)
+				.comment
+					!= event[0].ru.comment
 		.description(lang='ru')
 			!= event[0].ru.body

@@ -81,7 +81,7 @@ $(document).ready(function() {
 				// var tag = $('<div />', {'class':'item_date', 'text': data[i].tag});
 				var date = $('<div />', {'class':'item_date'});
 				var d = $('<p />', {'text': zeroDate(d3)});
-				var dot = $('<p />', {'text': '.'});
+				var dot = $('<p />', {'class':'dot', 'text': '.'});
 				var m = $('<p />', {'text': zeroDate(month)});
 				if (!data[i].poster)
 					var img = $('<div />', {'class':'item_body', 'lang':'ru', 'html': trimString(data[i].ru.body)});

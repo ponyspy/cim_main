@@ -106,7 +106,7 @@ img {
 }
 
 .description {
-	clear: left;
+	clear: both;
 	width: 910px;
  	font: 12pt/13pt 'Pragmatica';
  	/*letter-spacing: 0px;*/
@@ -120,11 +120,16 @@ img {
 }
 
 .comment {
+	width: 200px;
 	font: 10pt/14pt 'Pragmatica';
 	font-weight: bold;
-	height: 58px;
+	/*height: 110px;*/
+	padding-right: 10px;
+	float: right;
+	hyphens: auto;
+	-webkit-hyphens: auto;
 	overflow: hidden;
-	background-color: red;
+	/*background-color: red;*/
 }
 
 .ticket {
