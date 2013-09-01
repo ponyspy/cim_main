@@ -1,6 +1,14 @@
 extends ../layout
 
+block content_style
+	link(rel='stylesheet', type='text/css', href='/styles/add_member.css')
+
 block content
+	h2 Звездочет
+	br
+	a(href='/logout') Выход
+	br
+	br
 	br
 	br
 	a(href='/auth/add/news') Добавить новость

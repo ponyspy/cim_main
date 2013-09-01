@@ -1,7 +1,10 @@
 extends ../layout
 
+block content_style
+	link(rel='stylesheet', type='text/css', href='/styles/add_member.css')
+
 block content
-	h1 Логин
+	h2 Логин
 	form(action='/login', method='post')
 		|Логин:
 		br
@@ -9,7 +12,6 @@ block content
 		br
 		|Пароль:
 		br
-		input(type='text', name='password', value='pass')
+		input(type='password', name='password', value='pass')
 		br
-		br
-		input(type='submit', value='Отправить!')
+		input(type='submit', value='ВХОД')
