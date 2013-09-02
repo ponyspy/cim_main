@@ -7,7 +7,7 @@ $(document).ready(function() {
 		$(this).click(function(event) {
 			t = event.target || event.srcElement;
 
-			if (t.className == 'menu_item') {
+			if (t.className == 'menu_item' || t.className == 'menu_item_arrow' || t.className == 'menu_item_title') {
 				if (flip = !flip) {
 					$(this).children('.menu_item_arrow').text('▲');
 					flip = true;

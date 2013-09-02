@@ -66,11 +66,13 @@
 
 .menu_item_title {
 	float: left;
+	cursor: default;
 }
 
 .menu_item_arrow {
  	float: right;
  	font-size: 12px;
+ 	cursor: default;
  }
 
  .menu_drop {
@@ -180,18 +182,38 @@
 	/*border: 1px solid black;*/
  }
 
- .head_logo {
+ /*.head_logo {
  	width: 170px;
  	height: 130px;
  	margin-left: 380px;
  	border: 1px solid black;
- }
+ }*/
+
+
+/*
+	Footer
+*/
 
  .footer_block {
 	width: 930px;
 	height: 120px;
 	margin-top: 20px;
-	background-color: #583786;
+	background-color: black;
+}
+
+.footer_logo {
+	width: 170px;
+	float: left;
+}
+
+.footer_column {
+	width: 170px;
+	height: 120px;
+	float: left;
+	font: 9pt/10pt 'Pragmatica';
+	/*font-weight: bold;*/
+	border-left: 1px solid black;
+	background-color: white;
 }
 
 /*
