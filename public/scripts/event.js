@@ -5,6 +5,7 @@ $(document).ready(function() {
 
 	// $('body').css('background-image','url(/images/' + rand + '.jpg)');
 
+	if ($('.date').size() >= 8) {
 		$('.calendar').mousemove(function(event) {
 			var duration = event.pageX;
 			var size = $('.date').size() * 110 / 2 - 70
@@ -15,13 +16,6 @@ $(document).ready(function() {
 			$('.inner').css('margin-left', '-' + duration + 'px')
 			$('.stat').text(size)
 		});
+	}
 
-		$('.comment').on({
-			mouseover: function() {
-				$(this).css('overflow', 'visible');
-			},
-			mouseout: function() {
-				$(this).css('overflow', 'hidden');
-			}
-		})
 });

@@ -18,7 +18,7 @@ $(document).ready(function() {
 		var rand_items = getRandom(0, hide_items);
 		var string = $('.cal_title').eq(rand_items).text();
 
-		if (string.length < 15) {
+		if (string.length < 12) {
 			$('.cal_title').eq(rand_items).addClass('cal_title_big');
 		}
 
@@ -50,7 +50,7 @@ $(document).ready(function() {
 		$('.round').animate({
 			width: rand_radius,
 			height: rand_radius
-		}, 500)
+		}, {duration: 400, queue: false})
 	});
 
 	function trimString (str) {

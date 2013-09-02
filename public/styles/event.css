@@ -52,7 +52,7 @@ img {
 	width: 1500px;
 }
 
-.date:hover {
+/*.date:hover {
 	background-color: white;
 	color: black;
 	cursor: pointer;
@@ -62,7 +62,7 @@ img {
 	background-color: white;
 	color: black;
 	cursor: pointer;
-}
+}*/
 
 .event_body {
 	/*position: absolute;*/
