@@ -1,3 +1,7 @@
+p {
+	margin: 0;
+}
+
 .content_block {
 	/*position: relative;*/
 	width: 930px;
@@ -177,8 +181,8 @@
 	/*border: 1px solid black;*/
 }
 
-p {
-	margin: 0;
+.date {
+	font: 8pt/10pt 'Pragmatica';
 	font-weight: bold;
 }
 
@@ -189,6 +193,11 @@ p {
 	/*margin-top: -3px;*/
 	/*margin-bottom: 5px;*/
 	/*border: 1px solid black;*/
+}
+
+.month {
+	font: 8pt/10pt 'Pragmatica';
+	font-weight: bold;
 }
 
 .item_body {

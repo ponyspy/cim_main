@@ -85,9 +85,9 @@ $(document).ready(function() {
 				var title = $('<div />', {'class':'item_title', 'text': data[i].ru.title.toUpperCase()});
 				// var tag = $('<div />', {'class':'item_date', 'text': data[i].tag});
 				var date = $('<div />', {'class':'item_date'});
-				var d = $('<p />', {'text': zeroDate(d3)});
-				var dot = $('<p />', {'class':'dot', 'text': '.'});
-				var m = $('<p />', {'text': zeroDate(month)});
+				var d = $('<div />', {'class':'date', 'text': zeroDate(d3)});
+				var dot = $('<div />', {'class':'dot', 'text': '.'});
+				var m = $('<div />', {'class':'month', 'text': zeroDate(month)});
 				if (!data[i].poster)
 					var img = $('<div />', {'class':'item_body', 'lang':'ru', 'html': trimString(data[i].ru.body)});
 				else
@@ -100,7 +100,7 @@ $(document).ready(function() {
 			$('.loader').hide();
 		}
 		else {
-			$('.loader').text('No more items to show.').show();
+			$('.loader').text('Больше нет новостей!').show();
 			$(window).off('scroll', ScrollLoader);
 			$('.footer_block').show();
 		}
@@ -117,7 +117,7 @@ $(document).ready(function() {
 		}, 400, function() {
 			$('.infinite-item').hide().promise().done(function() {
 				$('.infinite-column').empty();
-				$('.loader').text('Loading...').show();
+				$('.loader').text('Загрузка...').show();
 				$.ajax({
 					url: "/",
 					data: {tag : tag, offset: skip},
@@ -136,7 +136,7 @@ $(document).ready(function() {
 
 	function ScrollLoader(event) {
 		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-			$('.loader').text('Loading...').show();
+			$('.loader').text('Загрузка...').show();
 			$.ajax({
 				url: "/",
 				async: false,

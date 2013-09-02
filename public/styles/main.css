@@ -8,6 +8,15 @@
 	src: url('/fonts/prg65.otf');
 }
 
+a {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
 /*
 	Main
 */
@@ -202,18 +211,36 @@
 }
 
 .footer_logo {
-	width: 170px;
+	background-image: url('/images/design/logo.png');
+	width: 111px;
+	height: 78px;
 	float: left;
+	display: block;
+	margin-top: 20px;
+	margin-left: 12px;
+}
+
+.footer_description {
+	width: 220px;
+	height: 105px;
+	margin-left: 46px;
+	margin-right: 90px;
+	padding-top: 15px;
+	float: left;
+	font: 8pt/11pt 'Pragmatica';
 }
 
 .footer_column {
-	width: 170px;
-	height: 120px;
+	height: 105px;
 	float: left;
-	font: 9pt/10pt 'Pragmatica';
-	/*font-weight: bold;*/
-	border-left: 1px solid black;
-	background-color: white;
+	margin-left: 30px;
+	padding-top: 15px;
+	font: 8pt/11pt 'Pragmatica';
+}
+
+.color {
+	color: white;
+	background-color: black;
 }
 
 /*

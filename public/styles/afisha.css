@@ -144,6 +144,11 @@ background-color: white;
 	/*border: 1px solid black;*/
 }
 
-/*.clearfix {
-	clear: both;
-}*/
+.footer_logo {
+	background-image: url('/images/design/logo_b.png');
+}
+
+.color {
+	color: black;
+	background-color: white;
+}

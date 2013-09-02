@@ -202,6 +202,7 @@ app.get('/news/:id', function (req, res) {
   var id = req.params.id;
 
   News.findById(id, function(err, news) {
+    if (!news) return res.render('error');
     res.render('news', {news: news});
   });
 });
@@ -241,6 +242,7 @@ app.get('/event/:id', function (req, res) {
 
   Schedule.find({'events.event': id}, {'events.$': 1}).limit(10).select('date').sort('-date').exec(function(err, schedule) {
     Event.find({'_id':id}).populate('children members.m_id').exec(function(err, event) {
+       if (!event) return res.render('error');
       res.render('event', {event: event, schedule: schedule});
     });
   });
