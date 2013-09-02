@@ -205,26 +205,28 @@ a:hover {
 
  .footer_block {
 	width: 930px;
-	height: 120px;
+	height: 127px;
 	margin-top: 20px;
 	background-color: black;
 }
 
 .footer_logo {
 	background-image: url('/images/design/logo.png');
+	background-size: cover;
 	width: 111px;
 	height: 78px;
 	float: left;
 	display: block;
-	margin-top: 20px;
-	margin-left: 12px;
+	margin-top: 25px;
+	margin-left: 25px;
+	/*border: 1px solid white;*/
 }
 
 .footer_description {
 	width: 220px;
 	height: 105px;
-	margin-left: 46px;
-	margin-right: 90px;
+	margin-left: 30px;
+	margin-right: 80px;
 	padding-top: 15px;
 	float: left;
 	font: 8pt/11pt 'Pragmatica';
@@ -233,7 +235,7 @@ a:hover {
 .footer_column {
 	height: 105px;
 	float: left;
-	margin-left: 30px;
+	margin-left: 35px;
 	padding-top: 15px;
 	font: 8pt/11pt 'Pragmatica';
 }
