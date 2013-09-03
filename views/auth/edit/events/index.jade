@@ -11,29 +11,23 @@ block content_right
 
 block content
 	h2 Список событий
-	each e,i in event
-		h3 Событие #{i+1}
-		b Заголовок:
-		br
+	br
+	a(href='/auth') назад
+	br
+	br
+	each e in event
 		b
-			a(href='/event/' + e._id)= e.ru.title
+			a(href='/auth/edit/events/' + e._id)= e.ru.title
 		br
-		b Подзаголовок:
 		br
-		b= e.ru.s_title
-		br
-		b Описание:
-		br
-		!= e.ru.body
-		br
-		each member in e.members
-			if (member.c_status == 'director')
-				b режисер
-				br
-				a(href='/auth/edit/members/' + member.m_id._id)= member.m_id.ru.name
-				br
-			if (member.c_status == 'playwright')
-				b драматург
-				br
-				a(href='/auth/edit/members/' + member.m_id._id)= member.m_id.ru.name
-				br
+		//- each member in e.members
+		//- 	if (member.c_status == 'director')
+		//- 		b режисер
+		//- 		br
+		//- 		a(href='/auth/edit/members/' + member.m_id._id)= member.m_id.ru.name
+		//- 		br
+		//- 	if (member.c_status == 'playwright')
+		//- 		b драматург
+		//- 		br
+		//- 		a(href='/auth/edit/members/' + member.m_id._id)= member.m_id.ru.name
+		//- 		br

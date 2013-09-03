@@ -10,10 +10,12 @@ block content_scripts
 block content_right
 
 block content
-	if (news.photo)
-		img(src=news.photo)
-	.title= news.ru.title.toUpperCase()
-	if (news.ru.s_title)
-		.s_title= news.ru.s_title.toUpperCase()
-	.description(lang='ru')
-		!= news.ru.body
+	h2= member.ru.name
+	h3= member.ru.description
+	b События:
+	br
+	br
+	each event in events
+		!= event.ru.title
+		br
+		br

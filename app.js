@@ -262,6 +262,24 @@ app.get('/event/:id', function (req, res) {
 
 
 // ------------------------
+// *** Member Block ***
+// ------------------------
+
+
+app.get('/member/:id', function (req, res) {
+  var id = req.params.id;
+
+  Member.findById(id, function(err, member){
+    Event.find({'members.m_id': id}, {'members.$': 1}).select('ru').sort('-date').exec(function(err, events) {
+      res.render('members/member.jade', {member:member, events: events})
+    });
+  });
+});
+
+
+
+
+// ------------------------
 // *** Auth Block ***
 // ------------------------
 
@@ -689,6 +707,40 @@ app.post('/auth/edit/members/:id', function (req, res) {
 app.get('/auth/edit/events', checkAuth, function (req, res) {
   Event.find().populate('children members.m_id').exec(function(err, event) {
     res.render('auth/edit/events', {event: event});
+  });
+});
+
+app.get('/auth/edit/events/:id', checkAuth, function (req, res) {
+  var id = req.params.id;
+
+  Event.find({'_id':id}).populate('children members.m_id').exec(function(err, event) {
+    res.render('auth/edit/events/event.jade', {event: event[0]});
+  });
+});
+
+app.post('/auth/edit/events/:id', function (req, res) {
+  var id = req.params.id;
+  var post = req.body;
+
+  Event.findById(id, function(err, event) {
+
+    if (post.en) {
+    event.en.title = post.en.title;
+    event.en.s_title = post.en.s_title;
+    event.en.body = post.en.body;
+    event.en.ticket = post.en.ticket;
+    event.en.comment = post.en.comment;
+    }
+
+    event.ru.title = post.ru.title;
+    event.ru.s_title = post.ru.s_title;
+    event.ru.body = post.ru.body;
+    event.ru.ticket = post.ru.ticket;
+    event.ru.comment = post.ru.comment;
+
+    event.save(function(){
+      res.redirect('/auth/edit/events');
+    });
   });
 });
 

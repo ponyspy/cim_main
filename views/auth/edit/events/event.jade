@@ -1,0 +1,47 @@
+extends ../../../layout
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/styles/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/scripts/add.js')
+
+block content_right
+	.navigator
+		.nav_title СОБЫТИЕ
+		.nav_project_children
+		br
+		b.nav_settings_title настройки
+		//- .draft черновик
+		.toggle_eng перевод
+		br
+		b.form_submit ОТПРАВИТЬ
+
+block content
+	.form_block
+		h2 Редактор события
+		br
+		a(href='/auth/edit/events') назад
+		br
+		form(action="", method="post", enctype="multipart/form-data")
+			.form_title Заголовок:
+			input.ru(type="text", name="ru[title]", value=event.ru.title)
+			input.en(type="text", name="en[title]", value=event.en.title, disabled)
+			.form_title Подзаголовок:
+			input.ru(type="text", name="ru[s_title]", value=event.ru.s_title)
+			input.en(type="text", name="en[s_title]", value=event.en.s_title, disabled)
+			.form_title Описание:
+			textarea.ru(name="ru[body]", rows="8",)= event.ru.body
+			textarea.en(name="en[body]", rows="8", disabled)= event.en.body
+			.form_title Тикет:
+			textarea.ru(name="ru[ticket]", rows="8",)= event.ru.ticket
+			textarea.en(name="en[ticket]", rows="8", disabled)= event.en.ticket
+			.form_title Комментарий:
+			textarea.ru(name="ru[comment]", rows="8",)= event.ru.comment
+			textarea.en(name="en[comment]", rows="8", disabled)= event.en.comment
+
+
+
+
+
+
