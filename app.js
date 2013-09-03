@@ -88,8 +88,8 @@ var memberSchema = new Schema({
     },
     date: {type: Date, default: Date.now},
     img: String,
-    status: [String],
-    events: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
+    status: [String]
+    // events: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
 });
 
 var userSchema = new Schema({
@@ -133,16 +133,16 @@ function checkAuth (req, res, next) {
     res.redirect('/login');
 }
 
-function trimID (members) {
-  var mid = []
+// function trimID (members) {
+//   var mid = []
 
-  for (var i in members) {
-    if (members[i].m_id != undefined)
-      mid.push(members[i].m_id)
-  }
+//   for (var i in members) {
+//     if (members[i].m_id != undefined)
+//       mid.push(members[i].m_id)
+//   }
 
-  return mid;
-}
+//   return mid;
+// }
 
 function memberSplit (members) {
   var split = [];
@@ -382,13 +382,13 @@ app.post('/auth/add/event', function(req, res) {
       child.save(function(err, result) {
 
 
-        Member.find({'_id': { $in: trimID(result.members)} }, function(err, members) {
-          async.forEach(members, function(member, callback) {
-            member.events.push(result._id);
-            member.save();
-            callback();
-          });
-        });
+        // Member.find({'_id': { $in: trimID(result.members)} }, function(err, members) {
+        //   async.forEach(members, function(member, callback) {
+        //     member.events.push(result._id);
+        //     member.save();
+        //     callback();
+        //   });
+        // });
 
         if (post_ch.files.photo.size != 0) {
           Child.findById(result._id, function(err, child) {
@@ -410,13 +410,13 @@ app.post('/auth/add/event', function(req, res) {
   }
 
   event.save(function(err, result) {
-    Member.find({'_id': { $in: trimID(result.members) } }, function(err, members) {
-      async.forEach(members, function(member, callback) {
-        member.events.push(result._id);
-        member.save();
-        callback();
-      });
-    });
+    // Member.find({'_id': { $in: trimID(result.members) } }, function(err, members) {
+    //   async.forEach(members, function(member, callback) {
+    //     member.events.push(result._id);
+    //     member.save();
+    //     callback();
+    //   });
+    // });
 
     async.series([
       function(callback) {

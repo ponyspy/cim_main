@@ -18,6 +18,8 @@ block content
 	each e in event
 		b
 			a(href='/auth/edit/events/' + e._id)= e.ru.title
+		|&nbsp;------>&nbsp;
+		a(href='/event/' + e._id) результат
 		br
 		br
 		//- each member in e.members
