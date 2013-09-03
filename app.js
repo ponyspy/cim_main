@@ -265,7 +265,7 @@ app.post('/auth', checkAuth, function (req, res) {
 
 app.get('/auth/add/event', checkAuth, function (req, res) {
   Member.find(function(err, members) {
-    res.render('add_event', {members: members});
+    res.render('auth/add/event.jade', {members: members});
   });
 });
 
@@ -456,7 +456,7 @@ app.post('/auth/add/event', function(req, res) {
 
 
 app.get('/auth/add/schedule', checkAuth, function (req, res) {
-  res.render('add_schedule');
+  res.render('auth/add/schedule/index.jade');
 });
 
 
@@ -466,7 +466,7 @@ app.get('/auth/add/schedule/:year', checkAuth, function (req, res) {
   var end = new Date(year,11,31)
 
   Schedule.find({"date": {"$gte": start, "$lt": end}}).sort('-date').populate('events.event').exec(function(err, schedule) {
-    res.render('add_schedule/add', {schedule: schedule, year: year});
+    res.render('auth/add/schedule/add.jade', {schedule: schedule, year: year});
   });
 });
 
@@ -488,7 +488,7 @@ app.get('/auth/add/schedule/:year/:id', checkAuth, function (req, res) {
 
   Event.find(function(err, events) {
     Schedule.find({'_id':id}).populate('events.event').exec(function(err, result) {
-      res.render('add_schedule/date', {result: result, events: events});
+      res.render('auth/add/schedule/date.jade', {result: result, events: events});
     });
   });
 });
@@ -523,7 +523,7 @@ app.post('/auth/add/schedule/:year/:id', function (req, res) {
 
 
 app.get('/auth/add/news', checkAuth, function (req, res) {
-  res.render('add_news');
+  res.render('auth/add/news.jade');
 });
 
 app.post('/auth/add/news', function (req, res) {
@@ -606,7 +606,7 @@ Members Block
 
 
 app.get('/auth/add/member', checkAuth, function (req, res) {
-  res.render('add_member');
+  res.render('auth/add/member.jade');
 });
 
 app.post('/auth/add/member', function (req, res) {
