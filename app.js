@@ -86,6 +86,7 @@ var memberSchema = new Schema({
       name: String,
       description: String
     },
+    date: {type: Date, default: Date.now},
     img: String,
     status: [String],
     events: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
@@ -198,6 +199,12 @@ app.post('/', function (req, res) {
   }
 });
 
+
+// ------------------------
+// *** News Block ***
+// ------------------------
+
+
 app.get('/news/:id', function (req, res) {
   var id = req.params.id;
 
@@ -206,6 +213,12 @@ app.get('/news/:id', function (req, res) {
     res.render('news', {news: news});
   });
 });
+
+
+// ------------------------
+// *** Afisha Block ***
+// ------------------------
+
 
 app.get('/afisha/:position', function (req, res) {
   var position = req.params.position;
@@ -231,11 +244,10 @@ app.get('/afisha/:position', function (req, res) {
 });
 
 
-app.get('/events', function (req, res) {
-  Event.find().populate('children members.m_id').exec(function(err, event) {
-    res.render('events', {event: event});
-  });
-});
+// ------------------------
+// *** Event Block ***
+// ------------------------
+
 
 app.get('/event/:id', function (req, res) {
   var id = req.params.id;
@@ -247,6 +259,12 @@ app.get('/event/:id', function (req, res) {
     });
   });
 });
+
+
+// ------------------------
+// *** Auth Block ***
+// ------------------------
+
 
 app.get('/auth', checkAuth, function (req, res) {
   res.render('auth');
@@ -263,33 +281,17 @@ app.post('/auth', checkAuth, function (req, res) {
   res.redirect('back');
 });
 
+
+// ------------------------
+// *** Add Event Block ***
+// ------------------------
+
+
 app.get('/auth/add/event', checkAuth, function (req, res) {
   Member.find(function(err, members) {
     res.render('auth/add/event.jade', {members: members});
   });
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 app.post('/auth/add/event', function(req, res) {
   var post = req.body;
@@ -449,10 +451,9 @@ app.post('/auth/add/event', function(req, res) {
 });
 
 
-
-/****************
-  Schedule Block
-****************/
+// ------------------------
+// *** Add Schedule Block ***
+// ------------------------
 
 
 app.get('/auth/add/schedule/:year', checkAuth, function (req, res) {
@@ -512,9 +513,9 @@ app.post('/auth/add/schedule/:year/:id', function (req, res) {
 });
 
 
-/************
-  News Block
-************/
+// ------------------------
+// *** Add News Block ***
+// ------------------------
 
 
 app.get('/auth/add/news', checkAuth, function (req, res) {
@@ -595,9 +596,9 @@ app.post('/auth/add/news', function (req, res) {
 });
 
 
-/*************
-Members Block
-*************/
+// ------------------------
+// *** Add Member Block ***
+// ------------------------
 
 
 app.get('/auth/add/member', checkAuth, function (req, res) {
@@ -640,7 +641,61 @@ app.post('/auth/add/member', function (req, res) {
 });
 
 
+// ------------------------
+// *** Edit Members Block ***
+// ------------------------
 
+
+app.get('/auth/edit/members', checkAuth, function (req, res) {
+  Member.find().sort('-date').exec(function(err, members) {
+    res.render('auth/edit/members', {members: members});
+  });
+});
+
+app.get('/auth/edit/members/:id', checkAuth, function (req, res) {
+  var id = req.params.id;
+
+  Member.findById(id, function(err, member) {
+    res.render('auth/edit/members/member.jade', {member: member});
+  });
+});
+
+
+app.post('/auth/edit/members/:id', function (req, res) {
+  var id = req.params.id;
+  var post = req.body;
+
+  Member.findById(id, function(err, member) {
+    if (post.en) {
+    member.en.name = post.en.name;
+    member.en.description = post.en.description;
+    }
+
+    member.ru.name = post.ru.name;
+    member.ru.description = post.ru.description;
+
+    member.save(function(){
+      res.redirect('/auth/edit/members');
+    });
+  });
+});
+
+
+// ------------------------
+// *** Edit Events Block ***
+// ------------------------
+
+
+app.get('/auth/edit/events', checkAuth, function (req, res) {
+  Event.find().populate('children members.m_id').exec(function(err, event) {
+    res.render('auth/edit/events', {event: event});
+  });
+});
+
+
+// ------------------------
+// *** Login Block ***
+// ------------------------
 
 
 app.get('/login', function (req, res) {
@@ -696,10 +751,10 @@ app.post('/registr', function (req, res) {
 });
 
 
+// ------------------------
+// *** Static Block ***
+// ------------------------
 
-/************
-  Static Block
-************/
 
 app.get('/institute', function (req, res) {
   res.render('static/institute.jade');
@@ -714,10 +769,14 @@ app.get('/halls', function (req, res) {
 });
 
 
+// ------------------------
+// *** Other Block ***
+// ------------------------
+
+
 app.get('/error', function (req, res) {
   res.render('error');
 });
-
 
 app.get('*', function(req, res){
   res.render('error');

@@ -1,0 +1,22 @@
+extends ../../../layout
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/styles/event.css')
+
+block content_scripts
+	script(type='text/javascript', src='/scripts/main.js')
+	//- script(type='text/javascript', src='/scripts/masonry.pkgd.min.js')
+
+block content_right
+
+block content
+	h2 Список участников
+	br
+	a(href='/auth') назад
+	br
+	br
+	br
+	each member in members
+		a(href='/auth/edit/members/' + member._id)= member.ru.name
+		br
+		br

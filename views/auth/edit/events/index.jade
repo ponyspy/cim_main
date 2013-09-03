@@ -1,4 +1,4 @@
-extends ../layout
+extends ../../../layout
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/event.css')
@@ -10,10 +10,9 @@ block content_scripts
 block content_right
 
 block content
-	h1 cool!
+	h2 Список событий
 	each e,i in event
-		h2 Событие #{i+1}
-		br
+		h3 Событие #{i+1}
 		b Заголовок:
 		br
 		b
@@ -25,17 +24,16 @@ block content
 		br
 		b Описание:
 		br
-		b
-			!= e.ru.body
+		!= e.ru.body
 		br
 		each member in e.members
 			if (member.c_status == 'director')
 				b режисер
 				br
-				a(href='/members/' + member.m_id._id)= member.m_id.ru.name
+				a(href='/auth/edit/members/' + member.m_id._id)= member.m_id.ru.name
 				br
 			if (member.c_status == 'playwright')
 				b драматург
 				br
-				a(href='/members/' + member.m_id._id)= member.m_id.ru.name
+				a(href='/auth/edit/members/' + member.m_id._id)= member.m_id.ru.name
 				br
