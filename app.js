@@ -455,11 +455,6 @@ app.post('/auth/add/event', function(req, res) {
 ****************/
 
 
-app.get('/auth/add/schedule', checkAuth, function (req, res) {
-  res.render('auth/add/schedule/index.jade');
-});
-
-
 app.get('/auth/add/schedule/:year', checkAuth, function (req, res) {
   var year = req.params.year;
   var start = new Date(year,0,1)

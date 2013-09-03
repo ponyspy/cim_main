@@ -11,15 +11,31 @@ block content
 	br
 	br
 	br
-	a(href='/auth/add/news') Добавить новость
+	b Новости:
+	br
+	a(href='/auth/add/news')= ' добавить '
+	||
+	a(href='/auth/edit/news')= ' редактировать'
 	br
 	br
-	a(href='/auth/add/event') Конструктор событий
+	b Учстники:
+	br
+	a(href='/auth/add/member')= ' добавить '
+	||
+	a(href='/auth/edit/member')= ' редактировать'
 	br
 	br
-	a(href='/auth/add/member') Добавить участника
+	b События:
+	br
+	a(href='/auth/add/event')= ' конструктор '
+	||
+	a(href='/auth/edit/event')= ' редактор'
 	br
 	br
-	a(href='/auth/add/schedule') Расписание
+	b Расписание:
+	br
+	a(href='/auth/add/schedule/2013')= ' 2013 '
+	||
+	a(href='/auth/add/schedule/2014')= ' 2014 '
 	br
 	br
