@@ -3,6 +3,10 @@ body {
  	/*letter-spacing: 0px;*/
 }
 
+.head_title_block {
+	color: black;
+}
+
 .content_block {
 width: 1120px;
 min-height: 800px;

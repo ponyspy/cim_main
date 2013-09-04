@@ -4,6 +4,10 @@
 	min-height: 600px;
 }
 
+.head_title_block {
+	color: black;
+}
+
 .error_title {
 	width: 85px;
 	padding-top: 100px;
@@ -28,4 +32,13 @@
 	width: 20%;
 	margin: 0 auto;
 	display: block;
+}
+
+.footer_logo {
+	background-image: url('/images/design/logo_b.png');
+}
+
+.color {
+	color: black;
+	background-color: white;
 }

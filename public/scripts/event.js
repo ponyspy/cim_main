@@ -1,9 +1,4 @@
 $(document).ready(function() {
-	var min = 1, max = 3;
-	var rand = min - 0.5 + Math.random()*(max-min+1)
-	rand = Math.round(rand);
-
-	// $('body').css('background-image','url(/images/' + rand + '.jpg)');
 
 	if ($('.date').size() >= 8) {
 		$('.calendar').mousemove(function(event) {
