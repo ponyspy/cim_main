@@ -85,11 +85,13 @@ img {
 }
 
 .title {
-	width: 930px;
+	width: 920px;
  	font: 56pt/51pt 'PragmaticaM';
  	/*letter-spacing: 0px;*/
  	padding-left: 5px;
+ 	padding-right: 5px;
  	padding-top: 10px;
+ 	/*border: 1px solid black;*/
  	/*font-weight: bold;*/
 /*	hyphens: auto;
 	-webkit-hyphens: auto;*/
@@ -138,6 +140,6 @@ img {
 	padding: 10px;
 	float: right;
 	font: 10pt/12pt 'Pragmatica';
-	font-weight: bold;
+	/*font-weight: bold;*/
 	background-color: #c7ff09;
 }

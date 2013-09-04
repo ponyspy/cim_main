@@ -17,6 +17,10 @@ block content
 	br
 	br
 	each member in members
+		a(href='#')= 'удалить '
+		||&nbsp;
 		a(href='/auth/edit/members/' + member._id)= member.ru.name
+		b= ' ===> '
+		a(href='/member/' + member._id, target='_blank') результат
 		br
 		br

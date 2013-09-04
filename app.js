@@ -615,6 +615,48 @@ app.post('/auth/add/news', function (req, res) {
 
 
 // ------------------------
+// *** Edit News Block ***
+// ------------------------
+
+
+app.get('/auth/edit/news', checkAuth, function (req, res) {
+  News.find().sort('-date').exec(function(err, news){
+    res.render('auth/edit/news', {news: news});
+  });
+});
+
+app.get('/auth/edit/news/:id', checkAuth, function (req, res) {
+  var id = req.params.id;
+
+  News.findById(id, function(err, news) {
+    res.render('auth/edit/news/e_news.jade', {news: news});
+  });
+});
+
+app.post('/auth/edit/news/:id', function (req, res) {
+  var id = req.params.id;
+  var post = req.body;
+
+  News.findById(id, function(err, news) {
+    if (post.en) {
+      news.en.title = post.en.title;
+      news.en.s_title = post.en.s_title;
+      news.en.body = post.en.body;
+    }
+
+    news.tag = post.tag;
+    news.ru.title = post.ru.title;
+    news.ru.s_title = post.ru.s_title;
+    news.ru.body = post.ru.body;
+
+    news.save(function(){
+      res.redirect('/auth/edit/news');
+    });
+  });
+});
+
+
+// ------------------------
 // *** Add Member Block ***
 // ------------------------
 

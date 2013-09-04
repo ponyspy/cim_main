@@ -1,0 +1,23 @@
+extends ../../../layout
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/styles/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/scripts/add.js')
+
+block content
+	h2 Список новостей
+	br
+	a(href='/auth') назад
+	br
+	br
+	br
+	each n in news
+		a(href='#')= 'удалить '
+		||&nbsp;
+		a(href='/auth/edit/news/' + n._id)= n.ru.title
+		b= ' ===> '
+		a(href='/news/' + n._id, target='_blank') результат
+			br
+			br

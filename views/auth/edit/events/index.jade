@@ -16,10 +16,11 @@ block content
 	br
 	br
 	each e in event
-		b
-			a(href='/auth/edit/events/' + e._id)= e.ru.title
-		|&nbsp;------>&nbsp;
-		a(href='/event/' + e._id) результат
+		a(href='#')= 'удалить '
+		||&nbsp;
+		a(href='/auth/edit/events/' + e._id)= e.ru.title
+		b= ' ===> '
+		a(href='/event/' + e._id, target='_blank') результат
 		br
 		br
 		//- each member in e.members
