@@ -175,7 +175,7 @@ app.get('/', function(req, res) {
   start.setDate(1);
   end.setFullYear(end.getFullYear(), (end.getMonth()+1), 0);
 
-  Schedule.find({"date": {"$gte": start, "$lt": end}}).populate('events.event').exec(function(err, schedule) {
+  Schedule.find({'date': {'$gte': start, '$lt': end}}).populate('events.event').exec(function(err, schedule) {
     News.find().sort('-date').limit(6).exec(function(err, news) {
       res.render('index', {news: news, schedule: schedule});
     });
@@ -235,7 +235,7 @@ app.get('/afisha/:position', function (req, res) {
   }
   else res.redirect('error')
 
-  Schedule.find({"date": {"$gte": start, "$lt": end}}).sort('date').populate('events.event').exec(function(err, schedule) {
+  Schedule.find({'date': {'$gte': start, '$lt': end}}).sort('date').populate('events.event').exec(function(err, schedule) {
     Schedule.populate(schedule, {path:'events.event.members.m_id', model: 'Member'}, function(err, schedule) {
       // console.log(schedule[0].events[0].event.members)
       res.render('afisha', {schedule: schedule});
@@ -251,8 +251,12 @@ app.get('/afisha/:position', function (req, res) {
 
 app.get('/event/:id', function (req, res) {
   var id = req.params.id;
+  var start = new Date();
+  var end = new Date();
+  start.setDate(1);
+  end.setFullYear(end.getFullYear(), (end.getMonth()+1), 0);
 
-  Schedule.find({'events.event': id}, {'events.$': 1}).limit(10).select('date').sort('-date').exec(function(err, schedule) {
+  Schedule.find({'date': {'$gte': start, '$lt': end}, 'events.event': id}, {'events.$': 1}).limit(10).select('date').sort('-date').exec(function(err, schedule) {
     Event.find({'_id':id}).populate('children members.m_id').exec(function(err, event) {
        if (!event) return res.render('error');
       res.render('event', {event: event, schedule: schedule});
@@ -479,7 +483,7 @@ app.get('/auth/add/schedule/:year', checkAuth, function (req, res) {
   var start = new Date(year,0,1)
   var end = new Date(year,11,31)
 
-  Schedule.find({"date": {"$gte": start, "$lt": end}}).sort('-date').populate('events.event').exec(function(err, schedule) {
+  Schedule.find({'date': {'$gte': start, '$lt': end}}).sort('-date').populate('events.event').exec(function(err, schedule) {
     res.render('auth/add/schedule/add.jade', {schedule: schedule, year: year});
   });
 });
