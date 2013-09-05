@@ -146,3 +146,32 @@ img {
 	/*font-weight: bold;*/
 	background-color: #c7ff09;
 }
+
+.event_block {
+	/*width: 160px;*/
+	min-height: 20px;
+	float: right;
+}
+
+.event {
+	width: 160px;
+	margin-bottom: 20px;
+	background-color: black;
+	padding: 5px;
+	color: white;
+	cursor: pointer;
+}
+
+.event:hover {
+	color: black;
+	background-color: white;
+}
+
+.t {
+	font: 10pt/12pt 'PragmaticaM';
+}
+
+.s_t {
+	font: 8pt/11pt 'PragmaticaM';
+	padding-top: 2px;
+}
