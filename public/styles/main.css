@@ -250,6 +250,13 @@ body {
 	background-color: black;
 }
 
+.loader {
+	margin-left: 315px;
+	width: 300px;
+	font: 11pt/13pt 'Pragmatica';
+	background-color: white;
+}
+
 /*
 	Error
 */

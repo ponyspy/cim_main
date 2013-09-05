@@ -88,19 +88,20 @@ $(document).ready(function() {
 				var d = $('<div />', {'class':'date', 'text': zeroDate(d3)});
 				var dot = $('<div />', {'class':'dot', 'text': '.'});
 				var m = $('<div />', {'class':'month', 'text': zeroDate(month)});
-				if (!data[i].poster)
-					var img = $('<div />', {'class':'item_body', 'lang':'ru', 'html': trimString(data[i].ru.body)});
-				else
+				if (data[i].poster)
 					var img = $('<img />', {'class':'item_img', 'src': data[i].poster});
+				else
+					if(data[i].ru.title.length < 20)
+						var img = $('<div />', {'class':'item_body', 'lang':'ru', 'html': trimString(data[i].ru.body)});
 				// $('.infinite-container').append(item.append(link).append(title).append(date).append(img));
-				$('.infinite-column').eq(t).append(item.append(link.append(title).append(date.append(d, dot, m)).append(img)));
+				$('.infinite-column').eq(t).append(item.append(link.append(title)).append(date.append(d, dot, m)).append(img));
 				// $('.infinite-column').eq(t).append(item.append(link.append(title, date, img)));
 				t++;
 			}
 			$('.loader').hide();
 		}
 		else {
-			$('.loader').text('Больше нет новостей!').show();
+			$('.loader').text('больше нет новостей').show();
 			$(window).off('scroll', ScrollLoader);
 			$('.footer_block').show();
 		}
@@ -117,7 +118,7 @@ $(document).ready(function() {
 		}, 400, function() {
 			$('.infinite-item').hide().promise().done(function() {
 				$('.infinite-column').empty();
-				$('.loader').text('Загрузка...').show();
+				$('.loader').text('загрузка...').show();
 				$.ajax({
 					url: "/",
 					data: {tag : tag, offset: skip},
@@ -136,7 +137,7 @@ $(document).ready(function() {
 
 	function ScrollLoader(event) {
 		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-			$('.loader').text('Загрузка...').show();
+			$('.loader').text('загрузка...').show();
 			$.ajax({
 				url: "/",
 				async: false,
