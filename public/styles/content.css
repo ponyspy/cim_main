@@ -147,31 +147,41 @@ img {
 	background-color: #c7ff09;
 }
 
-.event_block {
+/*
+	Pin Events
+ */
+
+.pin_events_block {
 	/*width: 160px;*/
 	min-height: 20px;
-	float: right;
+	/*float: right;*/
+	position: fixed;
+	margin-left: 950px;
 }
 
-.event {
-	width: 160px;
+a.pin_event_link {
+	text-decoration: none;
+}
+
+.pin_event {
+	width: 150px;
 	margin-bottom: 20px;
 	background-color: black;
-	padding: 5px;
+	padding: 10px;
 	color: white;
 	cursor: pointer;
 }
 
-.event:hover {
+.pin_event:hover {
 	color: black;
 	background-color: white;
 }
 
-.t {
+.pin_event_titile {
 	font: 10pt/12pt 'PragmaticaM';
 }
 
-.s_t {
+.pin_event_s_titile {
 	font: 8pt/11pt 'PragmaticaM';
 	padding-top: 2px;
 }

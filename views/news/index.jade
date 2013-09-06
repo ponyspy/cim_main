@@ -10,13 +10,13 @@ block content_scripts
 	script(type='text/javascript', src='/scripts/back.js')
 
 block content_right
-	//- .event_block
-		.event
-			.t MP3.РАВЕЛЬ
-			.s_t ХОРЕОГРАФИЧЕСКАЯ ИСТОРИЯ НА МУЗЫКУ «БОЛЕРО» МОРИСА РАВЕЛЯ
-		.event
-			.t ПОЛОСАТЫЙ
-			.s_t СКАЗКА С ОРКЕСТРОМ. СПЕКТАКЛЬ ДЛЯ ВСЕЙ СЕМЬИ
+	if (news.events)
+	.pin_events_block
+		each event in news.events
+			a.pin_event_link(href='/event/' + event._id)
+				.pin_event
+					.pin_event_titile= event.ru.title.toUpperCase()
+					.pin_event_s_titile= event.ru.s_title.toUpperCase()
 
 block content
 	if (news.photo)

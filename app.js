@@ -42,6 +42,7 @@ var newsSchema = new Schema({
       },
       photo: String,
       poster: String,
+      events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
       tag: String,
       date: {type: Date, default: Date.now}
 });
@@ -208,9 +209,9 @@ app.post('/', function (req, res) {
 app.get('/news/:id', function (req, res) {
   var id = req.params.id;
 
-  News.findById(id, function(err, news) {
+  News.find({'_id':id}).populate('events').exec(function(err, news) {
     if (!news) return res.render('error');
-    res.render('news', {news: news});
+    res.render('news', {news: news[0]});
   });
 });
 
@@ -541,7 +542,9 @@ app.post('/auth/add/schedule/:year/:id', function (req, res) {
 
 
 app.get('/auth/add/news', checkAuth, function (req, res) {
-  res.render('auth/add/news.jade');
+  Event.find().sort('-date').exec(function(err, events){
+    res.render('auth/add/news.jade', {events: events});
+  });
 });
 
 app.post('/auth/add/news', function (req, res) {
@@ -565,6 +568,10 @@ app.post('/auth/add/news', function (req, res) {
   };
 
   news.tag = post.tag;
+  if (post.events != '')
+    news.events = post.events;
+  else
+    news.events = [];
 
   news.save(function(err, result) {
     async.series([
@@ -632,8 +639,10 @@ app.get('/auth/edit/news', checkAuth, function (req, res) {
 app.get('/auth/edit/news/:id', checkAuth, function (req, res) {
   var id = req.params.id;
 
-  News.findById(id, function(err, news) {
-    res.render('auth/edit/news/e_news.jade', {news: news});
+  News.find({'_id':id}).populate('events').exec(function(err, news) {
+    Event.find(function(err, events){
+      res.render('auth/edit/news/e_news.jade', {news: news[0], events: events});
+    });
   });
 });
 
@@ -649,6 +658,10 @@ app.post('/auth/edit/news/:id', function (req, res) {
     }
 
     news.tag = post.tag;
+    if (post.events != '')
+      news.events = post.events;
+    else
+      news.events = [];
     news.ru.title = post.ru.title;
     news.ru.s_title = post.ru.s_title;
     news.ru.body = post.ru.body;
