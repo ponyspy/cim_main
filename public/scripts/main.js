@@ -136,7 +136,7 @@ $(document).ready(function() {
 	}
 
 	function ScrollLoader(event) {
-		if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+		if ($(document).height() - $(window).height() <= $(window).scrollTop() + 350) {
 			$('.loader').text('загрузка...').show();
 			$.ajax({
 				url: "/",
