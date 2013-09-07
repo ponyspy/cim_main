@@ -4,11 +4,11 @@ block title
 	title= event[0].ru.title.toUpperCase()
 
 block content_style
-	link(rel='stylesheet', type='text/css', href='/styles/content.css')
+	link(rel='stylesheet', type='text/css', href='/styles/content.css' + version)
 
 block content_scripts
-	script(type='text/javascript', src='/scripts/event.js')
-	script(type='text/javascript', src='/scripts/back.js')
+	script(type='text/javascript', src='/scripts/event.js' + version)
+	script(type='text/javascript', src='/scripts/back.js' + version)
 
 block content_right
 	if (event[0].ru.ticket)
