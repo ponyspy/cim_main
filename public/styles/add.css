@@ -152,6 +152,6 @@ input, textarea, select {
 	cursor: pointer;
 }
 
-.footer_block {
+.footer_block, .social_block {
 	display: none;
 }
