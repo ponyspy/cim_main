@@ -76,6 +76,10 @@ input, textarea, select {
 	font-size: 24px;
 }
 
+.date_event {
+	margin-left: 10px;
+}
+
 /*
 	Event
 */

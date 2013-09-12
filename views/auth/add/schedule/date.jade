@@ -15,15 +15,16 @@ block content
 		.title ДОБАВИТЬ СОБЫТИЯ
 		form(action="", method="post", enctype="multipart/form-data")
 			.form_section События
-			each ev in result[0].events
-				b= ev.time.hours + ':' + ev.time.minutes + ' '
-				if (ev.banner)
-					b= 'банер'
-				if (ev.premiere)
-					b= 'премьера'
-				b= ev.event.ru.title
-				br
-				br
+			.date_event
+				each ev in result[0].events
+					b= ev.time.hours + ':' + ev.time.minutes + ' '
+					if (ev.banner)
+						b= '| банер '
+					if (ev.premiere)
+						b= '| премьера | '
+					b= ev.event.ru.title
+					br
+					br
 			.snake
 				input(type='checkbox', name='events[0][banner]', value='true')
 				|баннер

@@ -37,6 +37,10 @@ block content
 			.form_title Комментарий:
 			textarea.ru(name="ru[comment]", rows="8",)= event.ru.comment
 			textarea.en(name="en[comment]", rows="8", disabled)= event.en.comment
+		//- br
+		//- each member in members
+		//- 	each e_member in event.members
+		//- 		b= e_member.c_status
 
 
 

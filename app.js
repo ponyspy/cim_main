@@ -134,16 +134,19 @@ function checkAuth (req, res, next) {
     res.redirect('/login');
 }
 
-// function trimID (members) {
-//   var mid = []
-
-//   for (var i in members) {
-//     if (members[i].m_id != undefined)
-//       mid.push(members[i].m_id)
-//   }
-
-//   return mid;
-// }
+var deleteFolderRecursive = function(path) {
+  if( fs.existsSync(path) ) {
+    fs.readdirSync(path).forEach(function(file,index){
+      var curPath = path + "/" + file;
+      if(fs.statSync(curPath).isDirectory()) { // recurse
+        deleteFolderRecursive(curPath);
+      } else { // delete file
+        fs.unlinkSync(curPath);
+      }
+    });
+    fs.rmdirSync(path);
+  }
+};
 
 function memberSplit (members) {
   var split = [];
@@ -492,13 +495,20 @@ app.get('/auth/add/schedule/:year', checkAuth, function (req, res) {
 app.post('/auth/add/schedule/:year', function (req, res) {
   var post = req.body;
 
-  var schedule = new Schedule({
-    date: new Date(post.schedule.year, post.schedule.month, post.schedule.date)
-  });
+  if (post.del == 'true') {
+    Schedule.findByIdAndRemove(post.id, function() {
+      res.redirect('back');
+    });
+  }
+  else {
+    var schedule = new Schedule({
+      date: new Date(post.schedule.year, post.schedule.month, post.schedule.date)
+    });
 
-  schedule.save(function(err) {
-    res.redirect('back');
-  });
+    schedule.save(function(err) {
+      res.redirect('back');
+    });
+  }
 
 });
 
@@ -650,26 +660,34 @@ app.post('/auth/edit/news/:id', function (req, res) {
   var id = req.params.id;
   var post = req.body;
 
-  News.findById(id, function(err, news) {
-    if (post.en) {
-      news.en.title = post.en.title;
-      news.en.s_title = post.en.s_title;
-      news.en.body = post.en.body;
-    }
-
-    news.tag = post.tag;
-    if (post.events != '')
-      news.events = post.events;
-    else
-      news.events = [];
-    news.ru.title = post.ru.title;
-    news.ru.s_title = post.ru.s_title;
-    news.ru.body = post.ru.body;
-
-    news.save(function(){
-      res.redirect('/auth/edit/news');
+  if (post.del == 'true') {
+    News.findByIdAndRemove(id, function() {
+      deleteFolderRecursive(__dirname + '/public/images/news/' + id);
+      res.redirect('back');
     });
-  });
+  }
+  else {
+    News.findById(id, function(err, news) {
+      if (post.en) {
+        news.en.title = post.en.title;
+        news.en.s_title = post.en.s_title;
+        news.en.body = post.en.body;
+      }
+
+      news.tag = post.tag;
+      if (post.events != '')
+        news.events = post.events;
+      else
+        news.events = [];
+      news.ru.title = post.ru.title;
+      news.ru.s_title = post.ru.s_title;
+      news.ru.body = post.ru.body;
+
+      news.save(function(){
+        res.redirect('/auth/edit/news');
+      });
+    });
+  }
 });
 
 
@@ -742,19 +760,28 @@ app.post('/auth/edit/members/:id', function (req, res) {
   var id = req.params.id;
   var post = req.body;
 
-  Member.findById(id, function(err, member) {
-    if (post.en) {
-    member.en.name = post.en.name;
-    member.en.description = post.en.description;
-    }
-
-    member.ru.name = post.ru.name;
-    member.ru.description = post.ru.description;
-
-    member.save(function(){
-      res.redirect('/auth/edit/members');
+  if (post.del == 'true') {
+    Member.findByIdAndRemove(id, function() {
+      fs.unlink(__dirname + '/public/images/members/' + id + '.jpg', function() {
+        res.redirect('back');
+      });
     });
-  });
+  }
+  else {
+    Member.findById(id, function(err, member) {
+      if (post.en) {
+      member.en.name = post.en.name;
+      member.en.description = post.en.description;
+      }
+
+      member.ru.name = post.ru.name;
+      member.ru.description = post.ru.description;
+
+      member.save(function(){
+        res.redirect('/auth/edit/members');
+      });
+    });
+  }
 });
 
 
@@ -773,7 +800,9 @@ app.get('/auth/edit/events/:id', checkAuth, function (req, res) {
   var id = req.params.id;
 
   Event.find({'_id':id}).populate('children members.m_id').exec(function(err, event) {
-    res.render('auth/edit/events/event.jade', {event: event[0]});
+    Member.find().exec(function(err, members) {
+      res.render('auth/edit/events/event.jade', {event: event[0], members: members});
+    });
   });
 });
 

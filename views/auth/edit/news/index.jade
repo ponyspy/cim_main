@@ -4,7 +4,7 @@ block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/add.css')
 
 block content_scripts
-	script(type='text/javascript', src='/scripts/add.js')
+	script(type='text/javascript', src='/scripts/lists.js')
 
 block content
 	a.back_link(href='/auth') < Назад
@@ -12,7 +12,7 @@ block content
 	br
 	.main_menu_block
 		each n in news
-			a(href='#')= 'удалить '
+			a.rm_news(href='#', id=n._id)= 'удалить '
 			||&nbsp;
 			a(href='/auth/edit/news/' + n._id)= n.ru.title
 			b= ' ---> '

@@ -5,6 +5,7 @@ block content_style
 
 block content_scripts
 	script(type='text/javascript', src='/scripts/add.js')
+	script(type='text/javascript', src='/scripts/lists.js')
 
 block content_right
 	.navigator
@@ -30,7 +31,7 @@ mixin scheduleMonths(title, numb)
 			if (m < 10)
 				- m = '0' + m
 			.schedule_item
-				a(href='#') удалить
+				a.rm_schedule(href='#', id=date._id) удалить
 				!=' | '
 				a.schedule_date(href= year + '/' + date._id)= d + '.' + m
 				!=' | '
