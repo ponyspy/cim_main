@@ -8,6 +8,11 @@
 	src: url('/fonts/prg65.otf');
 }
 
+@font-face {
+	font-family: Grands;
+	src: url('/fonts/Grands.ttf');
+}
+
 a {
 	text-decoration: none;
 	color: black;

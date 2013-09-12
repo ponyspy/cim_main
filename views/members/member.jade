@@ -1,21 +1,24 @@
 extends ../layout
 
+block title
+	title= member.ru.name.toUpperCase()
+
 block content_style
-	link(rel='stylesheet', type='text/css', href='/styles/news.css')
+	link(rel='stylesheet', type='text/css', href='/styles/members.css')
 
 block content_scripts
-	script(type='text/javascript', src='/scripts/main.js')
-	//- script(type='text/javascript', src='/scripts/masonry.pkgd.min.js')
+	//- script(type='text/javascript', src='/scripts/main.js')
+	script(type='text/javascript', src='/scripts/back.js')
 
 block content_right
 
 block content
-	h2= member.ru.name
-	h3= member.ru.description
-	b События:
-	br
-	br
-	each event in events
-		!= event.ru.title
-		br
-		br
+	img(src=member.img)
+	.name= member.ru.name
+	.events События:
+		each event in events
+			br
+			a(href='/event/' + event._id)
+				b= event.ru.title
+			br
+	.description= member.ru.description

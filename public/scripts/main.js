@@ -16,11 +16,6 @@ $(document).ready(function() {
 	function generatePoster () {
 		var hide_items = $('.hide').size() - 1;
 		var rand_items = getRandom(0, hide_items);
-		var string = $('.cal_title').eq(rand_items).text();
-
-		if (string.length < 12) {
-			$('.cal_title').eq(rand_items).addClass('cal_title_big');
-		}
 
 		if (rand_items == last_rand) {
 			rand_items = rand_items + 1;

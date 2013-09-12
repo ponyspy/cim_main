@@ -1,7 +1,7 @@
 extends ../../layout
 
 block content_style
-	link(rel='stylesheet', type='text/css', href='/styles/add_member.css')
+	link(rel='stylesheet', type='text/css', href='/styles/add.css')
 
 block content_scripts
 	script(type='text/javascript', src='/scripts/add_member.js')
@@ -10,10 +10,8 @@ block content_right
 
 
 block content
-	h2 Добавить участника
-	br
-	a(href='/auth') назад
-	br
+	a.back_link(href='/auth') < Назад
+	.title ДОБАВИТЬ УЧАСТНИКА
 	br
 	form(action="/auth/add/member", method="post", enctype="multipart/form-data")
 		.form_title Имя:

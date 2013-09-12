@@ -22,7 +22,8 @@ mixin memberList(marker, status)
 			if (!flag)
 				.marker= marker + ':'
 			- flag = true
-			b= member.m_id.ru.name
+			a(href= '/member/' + member.m_id._id)
+				b= member.m_id.ru.name
 			br
 
 block content

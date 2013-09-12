@@ -1,7 +1,7 @@
 extends ../../../layout
 
 block content_style
-	link(rel='stylesheet', type='text/css', href='/styles/add_member.css')
+	link(rel='stylesheet', type='text/css', href='/styles/add.css')
 
 block content_scripts
 	script(type='text/javascript', src='/scripts/schedule.js')
@@ -11,19 +11,16 @@ block content_right
 
 block content
 	.form_block
-		h2 Добавить события
-		a(href='/auth/add/schedule/' + result[0].date.getFullYear()) назад
-		br
-		br
+		a.back_link(href='/auth/add/schedule/' + result[0].date.getFullYear()) < Назад
+		.title ДОБАВИТЬ СОБЫТИЯ
 		form(action="", method="post", enctype="multipart/form-data")
-			.form_title События
-			br
+			.form_section События
 			each ev in result[0].events
 				b= ev.time.hours + ':' + ev.time.minutes + ' '
 				if (ev.banner)
-					b= '(банер) '
+					b= 'банер'
 				if (ev.premiere)
-					b= '(премьера) '
+					b= 'премьера'
 				b= ev.event.ru.title
 				br
 				br

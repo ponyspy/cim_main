@@ -19,10 +19,8 @@ block content_right
 
 block content
 	.form_block
-		h2 Редактор события
-		br
-		a(href='/auth/edit/events') назад
-		br
+		a.back_link(href='/auth/edit/events') < Назад
+		.title РЕДАКТОР СОБЫТИЯ
 		form(action="", method="post", enctype="multipart/form-data")
 			.form_title Заголовок:
 			input.ru(type="text", name="ru[title]", value=event.ru.title)

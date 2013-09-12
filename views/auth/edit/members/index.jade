@@ -1,7 +1,7 @@
 extends ../../../layout
 
 block content_style
-	link(rel='stylesheet', type='text/css', href='/styles/event.css')
+	link(rel='stylesheet', type='text/css', href='/styles/add.css')
 
 block content_scripts
 	script(type='text/javascript', src='/scripts/main.js')
@@ -10,17 +10,15 @@ block content_scripts
 block content_right
 
 block content
-	h2 Список участников
+	a.back_link(href='/auth') < Назад
+	.title СПИСОК УЧАСТНИКОВ
 	br
-	a(href='/auth') назад
-	br
-	br
-	br
-	each member in members
-		a(href='#')= 'удалить '
-		||&nbsp;
-		a(href='/auth/edit/members/' + member._id)= member.ru.name
-		b= ' ===> '
-		a(href='/member/' + member._id, target='_blank') результат
-		br
-		br
+	.main_menu_block
+		each member in members
+			a(href='#')= 'удалить '
+			||&nbsp;
+			a(href='/auth/edit/members/' + member._id)= member.ru.name
+			b= ' ---> '
+			a(href='/member/' + member._id, target='_blank') результат
+			br
+			br

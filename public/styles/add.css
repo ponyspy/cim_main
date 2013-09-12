@@ -1,39 +1,79 @@
+a,b {
+	font-size: 16px;
+}
+
+.main_menu_block {
+	margin-left: 10px;
+}
+
 .content_block {
-	min-height: 850px;
-	width: 930px;
+	min-height: 600px;
+	padding-bottom: 100px;
+	width: 928px;
 	background-color: white;
+	border: 1px solid black;
+}
+
+.head_title_block {
+	color: black;
 }
 
 .form_block {
 	position: relative;
 }
 
-input {
+input, textarea, select {
 	font-size: 16px;
-	margin-left: 3px;
-}
-
-textarea {
-	font-size: 16px;
-	margin-left: 3px;
+	margin-left: 10px;
 }
 
 .ru {
-	width: 450px;
+	width: 440px;
 	display: inline-block;
-	margin-right: 10px; 
+	margin-right: 10px;
 }
 
 .en {
-	width: 450px;
+	width: 435px;
 	display: none;
+}
+
+.back_link {
+	margin-left: 10px;
+}
+
+.title {
+	margin-top: 20px;
+	margin-left: 10px;
+	font-size: 20pt;
 }
 
 .form_title	{
 	margin-top: 15px;
 	margin-bottom: 15px;
-	font-size: 16px;
-	margin-left: 3px;
+	font-size: 14pt;
+	margin-left: 10px;
+}
+
+.form_section {
+	margin-left: 10px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font: 14pt/14pt 'Times';
+	font-weight: bold;
+}
+
+
+/*
+	Schedule
+*/
+
+.schedule_item {
+	margin-left: 10px;
+}
+
+.schedule_date {
+	font-size: 24px;
 }
 
 /*
@@ -42,7 +82,7 @@ textarea {
 
 .news_convert {
 	margin-top: 15px;
-	margin-left: 3px;
+	margin-left: 10px;
 	width: 115px;
 	cursor: pointer;
 	font-size: 24px;
@@ -53,7 +93,7 @@ textarea {
 
 .event_convert {
 	margin-top: 15px;
-	margin-left: 3px;
+	margin-left: 10px;
 	width: 120px;
 	cursor: pointer;
 	font-size: 24px;
@@ -66,7 +106,7 @@ textarea {
 
 .project_convert {
 	margin-top: 15px;
-	margin-left: 3px;
+	margin-left: 10px;
 	width: 160px;
 	cursor: pointer;
 	font-size: 24px;
@@ -74,11 +114,11 @@ textarea {
 }
 
 .add_child {
-	margin-left: 3px;
+	margin-left: 10px;
 	width: 190px;
 	cursor: pointer;
 	font-size: 24px;
-	border-bottom: 2px solid black;	
+	border-bottom: 2px solid black;
 }
 
 /*
@@ -86,21 +126,15 @@ textarea {
 */
 
 .navigator {
-	width: 170px;
+	width: 150px;
 	float: right;
-	background-color: #9ea13b;
+	background-color: black;
+	color: white;
 	position: relative;
 	margin-top: 15px;
+	padding: 10px;
+	/*font: 10pt/12pt 'Pragmatica';*/
 }
-
-/*.navigator {
-	width: 170px;
-	float: right;
-	background-color: #9ea13b;
-	position: fixed;
-	margin-left: 950px;
-	margin-top: 15px;
-}*/
 
 .nav_item {
 	cursor: pointer;
@@ -112,4 +146,8 @@ textarea {
 
 .toggle_eng {
 	cursor: pointer;
+}
+
+.footer_block {
+	display: none;
 }

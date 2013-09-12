@@ -41,9 +41,8 @@ mixin projectField(st)
 
 block content
 	.form_block
-		h2 Конструктор событий
-		br
-		a(href='/auth') назад
+		a.back_link(href='/auth') < Назад
+		.title КОНСТРУКТОР СОБЫТИЙ
 		br
 		.event_convert СОБЫТИЕ
 		br
@@ -71,10 +70,7 @@ block content
 			.form_title Автор фото:
 			input.ru(type="text", name="ru[p_author]",)
 			input.en(type="text", name="en[p_author]", disabled)
-			br
-			br
-			h3 Участники
-			br
+			.form_section Участники
 			.form_block_event
 				.form_title Режиссер:
 				+eventField('director')
@@ -118,10 +114,7 @@ block content
 				+eventField('consultant')
 				.form_title Спецэффекты
 				+eventField('effects')
-				br
-				br
-				h3 Параметры
-				br
+				.form_section Параметры
 				.form_title Категория:
 				select(name='tag')
 					option(value='performance') спектакль

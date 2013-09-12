@@ -77,7 +77,10 @@ block content
 							.cal_time= event.time.hours + ':' + event.time.minutes
 							.cal_hall= hall[event.event.hall]
 						a(href='/event/' + event.event._id)
-							.cal_title= event.event.ru.title.toUpperCase()
+							if (event.event.ru.title.length < 12)
+								.cal_title.cal_title_big= event.event.ru.title.toUpperCase()
+							else
+								.cal_title= event.event.ru.title.toUpperCase()
 	.infinite-container
 		.infinite-column
 			if (news[0])

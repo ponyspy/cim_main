@@ -1,41 +1,38 @@
 extends ../layout
 
 block content_style
-	link(rel='stylesheet', type='text/css', href='/styles/add_member.css')
+	link(rel='stylesheet', type='text/css', href='/styles/add.css')
 
 block content
-	h2 Звездочет
-	br
-	a(href='/logout') Выход
-	br
-	br
-	br
-	br
-	b Новости:
-	br
-	a(href='/auth/add/news')= ' добавить '
-	||
-	a(href='/auth/edit/news')= ' редактировать'
-	br
-	br
-	b Учстники:
-	br
-	a(href='/auth/add/member')= ' добавить '
-	||
-	a(href='/auth/edit/members')= ' редактировать'
-	br
-	br
-	b События:
-	br
-	a(href='/auth/add/event')= ' конструктор '
-	||
-	a(href='/auth/edit/events')= ' редактор'
-	br
-	br
-	b Расписание:
-	br
-	a(href='/auth/add/schedule/2013')= ' 2013 '
-	||
-	a(href='/auth/add/schedule/2014')= ' 2014 '
-	br
-	br
+	a.back_link(href='/logout') Выход
+	.title ЗВЕЗДОЧЕТ
+	.main_menu_block
+		br
+		b Новости:
+		br
+		a(href='/auth/add/news')= ' добавить '
+		||
+		a(href='/auth/edit/news')= ' редактировать'
+		br
+		br
+		b Учстники:
+		br
+		a(href='/auth/add/member')= ' добавить '
+		||
+		a(href='/auth/edit/members')= ' редактировать'
+		br
+		br
+		b События:
+		br
+		a(href='/auth/add/event')= ' конструктор '
+		||
+		a(href='/auth/edit/events')= ' редактор'
+		br
+		br
+		b Расписание:
+		br
+		a(href='/auth/add/schedule/2013')= ' 2013 '
+		||
+		a(href='/auth/add/schedule/2014')= ' 2014 '
+		br
+		br

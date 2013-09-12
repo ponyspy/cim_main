@@ -7,17 +7,15 @@ block content_scripts
 	script(type='text/javascript', src='/scripts/add.js')
 
 block content
-	h2 Список новостей
+	a.back_link(href='/auth') < Назад
+	.title СПИСОК НОВОСТЕЙ
 	br
-	a(href='/auth') назад
-	br
-	br
-	br
-	each n in news
-		a(href='#')= 'удалить '
-		||&nbsp;
-		a(href='/auth/edit/news/' + n._id)= n.ru.title
-		b= ' ===> '
-		a(href='/news/' + n._id, target='_blank') результат
-			br
-			br
+	.main_menu_block
+		each n in news
+			a(href='#')= 'удалить '
+			||&nbsp;
+			a(href='/auth/edit/news/' + n._id)= n.ru.title
+			b= ' ---> '
+			a(href='/news/' + n._id, target='_blank') результат
+				br
+				br

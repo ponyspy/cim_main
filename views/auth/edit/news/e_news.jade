@@ -19,10 +19,8 @@ block content_right
 
 block content
 	.form_block
-		h2 редактировать новость
-		br
-		a(href='/auth/edit/news') назад
-		br
+		a.back_link(href='/auth/edit/news') < Назад
+		.title РЕДАКТИРОВАТЬ НОВОСТЬ
 		br
 		form(action="", method="post", enctype="multipart/form-data")
 			.form_title Заголовок:
