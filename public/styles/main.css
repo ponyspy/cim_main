@@ -220,6 +220,7 @@ body {
 	width: 930px;
 	height: 127px;
 	margin-top: 20px;
+	float: left;
 	background-color: black;
 }
 
@@ -265,6 +266,27 @@ body {
 	width: 300px;
 	font: 11pt/12pt 'Pragmatica';
 	background-color: white;
+}
+
+/*
+	Social
+ */
+
+.social_block {
+	margin-top: 20px;
+	margin-left: 20px;
+	width: 30px;
+	/*height: 105px;*/
+	/*border: 1px solid black;*/
+	float: left;
+}
+
+.social_item {
+	margin-bottom: 5px;
+	width: 23px;
+	height: 23px;
+	background-color: white;
+	border-radius: 20px;
 }
 
 /*

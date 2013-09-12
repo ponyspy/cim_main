@@ -48,19 +48,22 @@ block content
 									if (!director)
 										director = true
 										|Режиссер:&nbsp;
-									b.member= member.m_id.ru.name + ' '
+									a(href='/member/' + member.m_id._id)
+										b.member= member.m_id.ru.name + ' '
 									br
 								if (member.c_status == 'author')
 									if (!author)
 										author = true
 										|Автор:&nbsp;
-									b.member= member.m_id.ru.name + ' '
+									a(href='/member/' + member.m_id._id)
+										b.member= member.m_id.ru.name + ' '
 									br
 								if (member.c_status == 'playwright')
 									if (!playwright)
 										playwright = true
 										|Драматург:&nbsp;
-									b.member= member.m_id.ru.name + ' '
+									a(href='/member/' + member.m_id._id)
+										b.member= member.m_id.ru.name + ' '
 						each member in event.event.members
 							if (member.c_status == 'director')
 						.actors
@@ -69,7 +72,8 @@ block content
 									if (!actors)
 										actors = true
 										|Исполнители:
-									.member= member.m_id.ru.name
+									a(href='/member/' + member.m_id._id)
+										.member= member.m_id.ru.name
 						.comment
 							!= event.event.ru.comment
 						//- .clearfix
