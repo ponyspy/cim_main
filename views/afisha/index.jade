@@ -5,12 +5,11 @@ block title
 	title= 'АФИША | ' + months[schedule[0].date.getMonth()]
 
 block content_style
-	link(rel='stylesheet', type='text/css', href='/styles/afisha.css')
-	//- link(rel='stylesheet', type='text/css', href='/styles/afisha_colors.css')
+	link(rel='stylesheet', type='text/css', href='/styles/afisha.css' + version)
+	//- link(rel='stylesheet', type='text/css', href='/styles/afisha_colors.css' + version)
 
 block content_scripts
-	script(type='text/javascript', src='/scripts/afisha.js')
-	script(type='text/javascript', src='/scripts/masonry.pkgd.min.js')
+	script(type='text/javascript', src='/scripts/afisha.js' + version)
 
 block content_right
 

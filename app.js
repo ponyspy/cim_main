@@ -260,7 +260,7 @@ app.get('/event/:id', function (req, res) {
   start.setDate(1);
   end.setFullYear(end.getFullYear(), (end.getMonth()+1), 0);
 
-  Schedule.find({'date': {'$gte': start, '$lt': end}, 'events.event': id}, {'events.$': 1}).limit(10).select('date').sort('-date').exec(function(err, schedule) {
+  Schedule.find({'date': {'$gte': start, '$lt': end}, 'events.event': id}, {'events.$': 1}).limit(10).select('date').sort('date').exec(function(err, schedule) {
     Event.find({'_id':id}).populate('children members.m_id').exec(function(err, event) {
        if (!event) return res.render('error');
       res.render('event', {event: event, schedule: schedule});
