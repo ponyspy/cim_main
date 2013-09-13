@@ -14,10 +14,11 @@ block content
 	br
 	.main_menu_block
 		each member in members
-			a.rm_member(href='#', id=member._id)= 'удалить '
-			||&nbsp;
-			a(href='/auth/edit/members/' + member._id)= member.ru.name
-			b= ' ---> '
-			a(href='/member/' + member._id, target='_blank') результат
-			br
-			br
+			.member
+				a.rm_member(href='#', id=member._id)= 'удалить '
+				||&nbsp;
+				a(href='/auth/edit/members/' + member._id)= member.ru.name
+				b= ' ---> '
+				a(href='/member/' + member._id, target='_blank') результат
+				br
+				br

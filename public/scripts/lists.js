@@ -5,6 +5,7 @@ $(document).ready(function() {
 		if (confirm('Удалить?')) {
 			$.post('/auth/edit/members/' + id, {'del': 'true'}).done(function() {
 				location.reload();
+				// $(this).parent('.member').remove();
 			});
 		}
 	});
