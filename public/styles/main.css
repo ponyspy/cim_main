@@ -286,7 +286,19 @@ body {
 	width: 23px;
 	height: 23px;
 	background-color: white;
-	border-radius: 20px;
+	border-radius: 120px;
+}
+
+/*
+	Banner
+ */
+
+.banner_item {
+	margin-top: 2px;
+	width: 23px;
+	height: 23px;
+	background-color: white;
+	border-radius: 120px;
 }
 
 /*
