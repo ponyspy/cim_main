@@ -151,15 +151,16 @@ p {
 	width: 280px;
 	/*height: 350px;*/
 	/*padding-left: 20px;*/
-	margin-top: 15px;
+	float: left;
+	margin-top: 5px;
 }
 
 .item_title {
 	width: 250px;
-	min-height: 50px;
-	/*white-space: pre-wrap;*/
+	min-height: 30px;
+	margin-top: 1px;
+	margin-bottom: 4px;
 	word-wrap: break-word;
-	/*padding-left: 20px;*/
  	font: 19pt/23pt 'Pragmatica';
  	font-weight: bold;
 	text-decoration: none;
@@ -174,8 +175,10 @@ p {
 
 .item_date {
 	width: 16px;
-	height: 50px;
+	height: 39px;
 	float: right;
+	margin-top: 3px;
+	margin-bottom: 8px;
 	font: 8pt/11pt 'Pragmatica';
 	letter-spacing: 0px;
 	/*border: 1px solid black;*/
@@ -201,8 +204,9 @@ p {
 }
 
 .item_body {
-	width: 260px;
-	margin-top: 60px;
+	width: 278px;
+	/*margin-top: 70px;*/
+	clear: both;
 	hyphens: auto;
 	-webkit-hyphens: auto;
 	font: 11pt/12pt 'Pragmatica';
@@ -237,9 +241,14 @@ p {
   padding: 10px; /*20px*/
   margin-top: 20px;
   margin-right: 10px;
+  -webkit-filter: grayscale(100%);
   /*border: 1px solid black;*/
   background-color: white;
   overflow: auto;
+}
+
+.infinite-item:hover {
+	-webkit-filter: grayscale(0);
 }
 
 .infinite-container {

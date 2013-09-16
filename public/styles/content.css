@@ -14,7 +14,7 @@ body {
 img {
 	width: 930px;
 	height: 620px;
-	display: block;
+	/*display: block;*/
 }
 
 .calendar {

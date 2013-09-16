@@ -30,6 +30,10 @@ body {
   background-size: cover;
 }
 
+img {
+	display: block;
+}
+
 /*
 	Main
 */
@@ -69,7 +73,7 @@ body {
 	margin-bottom: 6px;
 	width: 1120px;
 	height: 30px;
-	/*border: 1px solid black;*/
+	/*border: 1px solid red;*/
 }
 
  .menu_item {
@@ -282,7 +286,7 @@ body {
 }
 
 .social_item {
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 	width: 23px;
 	height: 23px;
 	background-color: white;
@@ -293,12 +297,18 @@ body {
 	Banner
  */
 
-.banner_item {
+.banner_block {
 	margin-top: 2px;
+	float: left;
+	/*border: 1px solid red;	*/
+}
+
+.banner_item {
 	width: 23px;
 	height: 23px;
-	background-color: white;
-	border-radius: 120px;
+	margin-right: 20px;
+	background-color: red;
+	border-radius: 46px;
 }
 
 /*
