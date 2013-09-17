@@ -526,13 +526,6 @@ app.post('/auth/add/schedule/:year/:id', function (req, res) {
   var post = req.body;
   var id = req.params.id;
 
-  // async.forEach(post.events, function(event, callback) {
-  //   Event.findById(event.event, function(err, ev) {
-  //     ev.schedule.push(id);
-  //     ev.save();
-  //   });
-  // });
-
   Schedule.findById(id, function(err, date) {
     date.events = post.events;
 
@@ -540,9 +533,6 @@ app.post('/auth/add/schedule/:year/:id', function (req, res) {
       res.redirect('back');
     });
   });
-
-  // console.log(post);
-  // res.redirect('back');
 });
 
 
@@ -560,15 +550,12 @@ app.get('/auth/add/news', checkAuth, function (req, res) {
 app.post('/auth/add/news', function (req, res) {
   var post = req.body;
   var files = req.files;
+  var news = new News();
 
-  var news = new News({
-    ru: {
-      title: post.ru.title,
-      s_title: post.ru.s_title,
-      body: post.ru.body,
-      p_author: post.ru.p_author
-    }
-  });
+  news.ru.title = post.ru.title;
+  news.ru.s_title = post.ru.s_title;
+  news.ru.body = post.ru.body;
+  news.ru.p_author = post.ru.p_author;
 
   if (post.en) {
     news.en.title = post.en.title;
@@ -583,52 +570,46 @@ app.post('/auth/add/news', function (req, res) {
   else
     news.events = [];
 
-  news.save(function(err, result) {
-    async.series([
-      function(callback) {
-        if (files.photo.size != 0) {
-          News.findById(result._id, function(err, news) {
-            fs.readFile(files.photo.path, function (err, data) {
-              fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
-                var newPath = __dirname + '/public/images/news/' + news._id + '/photo.jpg';
-                fs.writeFile(newPath, data, function (err) {
-                  news.photo = '/images/news/' + news._id + '/photo.jpg';
-                  news.save(function() {
-                    callback(null, 'one');
-                  })
-                });
-              });
+  async.parallel({
+    photo: function(callback) {
+      if (files.photo.size != 0) {
+        fs.readFile(files.photo.path, function (err, data) {
+          fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
+            var newPath = __dirname + '/public/images/news/' + news._id + '/photo.jpg';
+            fs.writeFile(newPath, data, function (err) {
+              news.photo = '/images/news/' + news._id + '/photo.jpg';
+              fs.unlink(files.photo.path);
+              callback(null, 1);
             });
           });
-        }
-        else {
-          fs.unlink(files.photo.path);
-          callback(null, 'one');
-        }
-      },
-      function(callback) {
-        if (files.poster.size != 0) {
-          News.findById(result._id, function(err, news) {
-            fs.readFile(files.poster.path, function (err, data) {
-              fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
-                var newPath = __dirname + '/public/images/news/' + news._id + '/poster.jpg';
-                fs.writeFile(newPath, data, function (err) {
-                  news.poster = '/images/news/' + news._id + '/poster.jpg';
-                  news.save(function() {
-                    callback(null, 'two');
-                  })
-                });
-              });
-            });
-          });
-        }
-        else {
-          fs.unlink(files.poster.path);
-          callback(null, 'two');
-        }
+        });
       }
-    ],
-    function(err, results){
+      else {
+        callback(null, 0);
+        fs.unlink(files.photo.path);
+      }
+    },
+    poster: function(callback) {
+      if (files.poster.size != 0) {
+        fs.readFile(files.poster.path, function (err, data) {
+          fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
+            var newPath = __dirname + '/public/images/news/' + news._id + '/poster.jpg';
+            fs.writeFile(newPath, data, function (err) {
+              news.poster = '/images/news/' + news._id + '/poster.jpg';
+              fs.unlink(files.poster.path);
+              callback(null, 2);
+            });
+          });
+        });
+      }
+      else {
+        callback(null, 0);
+        fs.unlink(files.poster.path);
+      }
+    }
+  },
+  function(err, results) {
+    news.save(function(err) {
       res.redirect('back');
     });
   });
@@ -703,36 +684,35 @@ app.get('/auth/add/member', checkAuth, function (req, res) {
 app.post('/auth/add/member', function (req, res) {
   var post = req.body;
   var files = req.files;
-  var ru = post.ru;
-  var en = post.en;
+  var member = new Member();
 
-  var member = new Member({
-    ru:{
-      name: ru.name,
-      description: ru.description
-    },
-    status: post.status
-  });
+  member.status = post.status;
+  member.ru.name = post.ru.name;
+  member.ru.description = post.ru.description;
 
-  member.save(function(err, member) {
-    if (files.img.size != 0) {
-      fs.readFile(files.img.path, function (err, data) {
-        var newPath = __dirname + '/public/images/members/' + member._id + '.jpg';
-        fs.writeFile(newPath, data, function (err) {
-          Member.findById(member._id, function(err, mem) {
-            mem.img = '/images/members/' + member._id + '.jpg';
-            mem.save(function() {
-              res.redirect('back');
-            })
-          });
+  if (post.en) {
+    member.en.name = post.en.name;
+    member.en.description = post.en.description;
+  }
+
+  if (files.img.size != 0) {
+    fs.readFile(files.img.path, function (err, data) {
+      var newPath = __dirname + '/public/images/members/' + member._id + '.jpg';
+      fs.writeFile(newPath, data, function (err) {
+        member.img = '/images/members/' + member._id + '.jpg';
+        member.save(function() {
+          fs.unlink(files.img.path);
+          res.redirect('back');
         });
       });
-    }
-    else {
+    });
+  }
+  else {
+    member.save(function() {
       fs.unlink(files.img.path);
       res.redirect('back');
-    }
-  });
+    });
+  }
 });
 
 
@@ -813,11 +793,11 @@ app.post('/auth/edit/events/:id', function (req, res) {
   Event.findById(id, function(err, event) {
 
     if (post.en) {
-    event.en.title = post.en.title;
-    event.en.s_title = post.en.s_title;
-    event.en.body = post.en.body;
-    event.en.ticket = post.en.ticket;
-    event.en.comment = post.en.comment;
+      event.en.title = post.en.title;
+      event.en.s_title = post.en.s_title;
+      event.en.body = post.en.body;
+      event.en.ticket = post.en.ticket;
+      event.en.comment = post.en.comment;
     }
 
     event.ru.title = post.ru.title;
