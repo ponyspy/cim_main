@@ -903,6 +903,10 @@ app.get('/halls', function (req, res) {
   res.render('static/halls.jade');
 });
 
+app.get('/fa83f41cd8b1.html', function (req, res) {
+  res.render('fa83f41cd8b1');
+});
+
 
 // ------------------------
 // *** Other Block ***
