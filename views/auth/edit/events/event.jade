@@ -37,6 +37,13 @@ block content
 			.form_title Комментарий:
 			textarea.ru(name="ru[comment]", rows="8",)= event.ru.comment
 			textarea.en(name="en[comment]", rows="8", disabled)= event.en.comment
+			.form_title Постер:
+			input(type="file", name="poster")
+			.form_title Фото:
+			input(type="file", name="photo")
+			.form_title Автор фото:
+			input.ru(type="text", name="ru[p_author]",)
+			input.en(type="text", name="en[p_author]", disabled)
 		//- br
 		//- each member in members
 		//- 	each e_member in event.members

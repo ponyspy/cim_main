@@ -28,24 +28,10 @@ mixin eventField(st)
 						option(value=member._id + '-' + st)= member.ru.name
 		input.forward(type="button", value=">")
 
-mixin projectField(st)
-	.snake
-		input.back(type="button", value="<")
-		select(name='children[0][members]', disabled)
-			option(value='') нет
-			each member in members
-				each status in member.status
-					if (status == st)
-						option(value=member._id + '-' + st)= member.ru.name
-		input.forward(type="button", value=">")
-
 block content
 	.form_block
 		a.back_link(href='/auth') < Назад
 		.title КОНСТРУКТОР СОБЫТИЙ
-		br
-		.event_convert СОБЫТИЕ
-		br
 		br
 		form(action="/auth/add/event", method="post", enctype="multipart/form-data")
 			.form_title Заголовок:
@@ -137,92 +123,3 @@ block content
 					option(value='lobby') фойе
 					option(value='301') комната 301
 					option(value='306') комната 306
-				br
-				br
-				.project_convert СПЕЦПРОЕКТ
-				br
-				br
-				.form_block_project
-					.children
-						.child
-							h2.child_counter Событие 1
-							.form_title Заголовок:
-							input.ru(type="text", name="children[0][ru][title]", disabled)
-							input.en(type="text", name="children[0][en][title]", disabled)
-							.form_title Подзаголовок:
-							input.ru(type="text", name="children[0][ru][s_title]", disabled)
-							input.en(type="text", name="children[0][en][s_title]", disabled)
-							.form_title Описание:
-							textarea.ru(name="children[0][ru][body]", rows="8", disabled)
-							textarea.en(name="children[0][en][body]", rows="8", disabled)
-							.form_title Комментарий:
-							textarea.ru(name="children[0][ru][comment]", rows="8", disabled)
-							textarea.en(name="children[0][en][comment]", rows="8", disabled)
-							.form_title Фото:
-							input(type="file", name="children[0][photo]", disabled)
-							.form_title Автор фото:
-							input.ru(type="text", name="children[0][ru][p_author]", disabled)
-							input.en(type="text", name="children[0][en][p_author]", disabled)
-							br
-							br
-							h3 Участники
-							.form_title Режиссер:
-							+projectField('director')
-							.form_title Драматург:
-							+projectField('playwright')
-							.form_title Автор:
-							+projectField('author')
-							.form_title Художественный руководитель:
-							+projectField('art_director')
-							.form_title Куратор:
-							+projectField('curator')
-							.form_title Фотограф:
-							+projectField('photographer')
-							.form_title Художник:
-							+projectField('artist')
-							.form_title Композитор:
-							+projectField('composer')
-							.form_title Хореограф:
-							+projectField('choreographer')
-							.form_title Продюсер:
-							+projectField('producer')
-							.form_title Теоретик:
-							+projectField('theoretician')
-							.form_title Лектор:
-							+projectField('lecturer')
-							.form_title Актеры:
-							+projectField('actor')
-							.form_title Помощник режиссера:
-							+projectField('sub_director')
-							.form_title Технический директор:
-							+projectField('tech_director')
-							.form_title Видеохудожник:
-							+projectField('video_artist')
-							.form_title Звукорежиссер:
-							+projectField('audio_director')
-							.form_title Мультимедиахудожник
-							+projectField('multi_artist')
-							.form_title Сценограф
-							+projectField('scenographer')
-							.form_title Консультант
-							+projectField('consultant')
-							.form_title Спецэффекты
-							+projectField('effects')
-							br
-							br
-							h3 Параметры
-							.form_title Зал:
-							select(name='children[0][hall]', disabled)
-								option(value='main') основная сцена
-								option(value='black') черный зал
-								option(value='white') белый зал
-								option(value='cafe') кафе
-								option(value='lobby') фойе
-								option(value='301') комната 301
-								option(value='306') комната 306
-					br
-					br
-					.add_child добавить событие
-					br
-					br
-				br

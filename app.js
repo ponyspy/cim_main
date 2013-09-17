@@ -322,18 +322,14 @@ app.get('/auth/add/event', checkAuth, function (req, res) {
 app.post('/auth/add/event', function(req, res) {
   var post = req.body;
   var files = req.files;
+  var event = new Event();
 
-  var event = new Event({
-    ru: {
-      title: post.ru.title,
-      s_title: post.ru.s_title,
-      body: post.ru.body,
-      ticket: post.ru.ticket,
-      comment: post.ru.comment,
-      p_author: post.ru.p_author
-    },
-    tag: post.tag
-  });
+  event.ru.title = post.ru.title;
+  event.ru.s_title = post.ru.s_title;
+  event.ru.body = post.ru.body;
+  event.ru.ticket = post.ru.ticket;
+  event.ru.comment = post.ru.comment;
+  event.ru.p_author = post.ru.p_author;
 
   if (post.en) {
     event.en.title = post.en.title;
@@ -344,134 +340,141 @@ app.post('/auth/add/event', function(req, res) {
     event.en.p_author = post.en.p_author;
   };
 
-  if (post.event) {
-    event.members = memberSplit(post.event.members);
-    if (!post.children)
-      event.hall = post.event.hall;
-    // if (post.event.cal)
-    //   event.cal = new Date(post.event.cal.year, post.event.cal.month, post.event.cal.date);
-  };
+  event.tag = post.tag;
+  event.hall = post.event.hall;
+  event.members = memberSplit(post.event.members);
+
+  async.parallel({
+    photo: function(callback) {
+      if (files.photo.size != 0) {
+        fs.readFile(files.photo.path, function (err, data) {
+          fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
+            var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
+            fs.writeFile(newPath, data, function (err) {
+              event.photo = '/images/events/' + event._id + '/photo.jpg';
+              fs.unlink(files.photo.path);
+              callback(null, 1);
+            });
+          });
+        });
+      }
+      else {
+        callback(null, 0);
+        fs.unlink(files.photo.path);
+      }
+    },
+    poster: function(callback) {
+      if (files.poster.size != 0) {
+        fs.readFile(files.poster.path, function (err, data) {
+          fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
+            var newPath = __dirname + '/public/images/events/' + event._id + '/poster.jpg';
+            fs.writeFile(newPath, data, function (err) {
+              event.poster = '/images/events/' + event._id + '/poster.jpg';
+              fs.unlink(files.poster.path);
+              callback(null, 2);
+            });
+          });
+        });
+      }
+      else {
+        callback(null, 0);
+        fs.unlink(files.poster.path);
+      }
+    }
+  },
+  function(err, results) {
+    event.save(function(err) {
+      res.redirect('back');
+    });
+  });
+});
 
 
-  if (post.children) {
+// ------------------------
+// *** Edit Events Block ***
+// ------------------------
 
-    for (var i in post.children) {
-      post.children[i].files = files.children[i];
+
+app.get('/auth/edit/events', checkAuth, function (req, res) {
+  Event.find().populate('children members.m_id').exec(function(err, event) {
+    res.render('auth/edit/events', {event: event});
+  });
+});
+
+app.get('/auth/edit/events/:id', checkAuth, function (req, res) {
+  var id = req.params.id;
+
+  Event.find({'_id':id}).populate('children members.m_id').exec(function(err, event) {
+    Member.find().exec(function(err, members) {
+      res.render('auth/edit/events/event.jade', {event: event[0], members: members});
+    });
+  });
+});
+
+app.post('/auth/edit/events/:id', function (req, res) {
+  var id = req.params.id;
+  var post = req.body;
+  var files = req.files;
+
+  Event.findById(id, function(err, event) {
+    event.ru.title = post.ru.title;
+    event.ru.s_title = post.ru.s_title;
+    event.ru.body = post.ru.body;
+    event.ru.ticket = post.ru.ticket;
+    event.ru.comment = post.ru.comment;
+    event.ru.p_author = post.ru.p_author;
+
+    if (post.en) {
+      event.en.title = post.en.title;
+      event.en.s_title = post.en.s_title;
+      event.en.body = post.en.body;
+      event.en.ticket = post.en.ticket;
+      event.en.comment = post.en.comment;
+      event.en.p_author = post.en.p_author;
     }
 
-    async.forEach(post.children, function(post_ch, callback) {
-      var child = new Child({
-        ru: {
-          title: post_ch.ru.title,
-          s_title: post_ch.ru.s_title,
-          body: post_ch.ru.body,
-          comment: post_ch.ru.comment,
-          p_author: post_ch.ru.p_author
-        },
-        // cal: ch_date,
-        hall: post_ch.hall,
-        members: memberSplit(post_ch.members),
-        _parent: event._id
-      });
-
-      // if (post_ch.cal)
-      //   var ch_date = new Date(post_ch.cal.year, post_ch.cal.month, post_ch.cal.date);
-
-      if (post_ch.en) {
-        child.en.title = post_ch.en.title;
-        child.en.s_title = post_ch.en.s_title;
-        child.en.body = post_ch.en.body;
-        child.en.comment = post_ch.en.comment;
-        child.en.p_author = post_ch.en.p_author;
-      }
-
-      event.children.push(child._id);
-
-      child.save(function(err, result) {
-
-
-        // Member.find({'_id': { $in: trimID(result.members)} }, function(err, members) {
-        //   async.forEach(members, function(member, callback) {
-        //     member.events.push(result._id);
-        //     member.save();
-        //     callback();
-        //   });
-        // });
-
-        if (post_ch.files.photo.size != 0) {
-          Child.findById(result._id, function(err, child) {
-            fs.readFile(post_ch.files.photo.path, function (err, data) {
-              var newPath = __dirname + '/public/images/events/children/' + child._id + '.jpg';
-              fs.writeFile(newPath, data, function(err) {
-                child.photo = '/images/events/children/' + child._id + '.jpg';
-                child.save();
-              });
-            });
-          });
-        }
-        else callback(); // не работает исключение
-
-      });
-    }, function() {
-      child.save();
-    });
-  }
-
-  event.save(function(err, result) {
-    // Member.find({'_id': { $in: trimID(result.members) } }, function(err, members) {
-    //   async.forEach(members, function(member, callback) {
-    //     member.events.push(result._id);
-    //     member.save();
-    //     callback();
-    //   });
-    // });
-
-    async.series([
-      function(callback) {
+    async.parallel({
+      photo: function(callback) {
         if (files.photo.size != 0) {
-          Event.findById(result._id, function(err, event) {
-            fs.readFile(files.photo.path, function (err, data) {
-              fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
-                var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
-                fs.writeFile(newPath, data, function (err) {
-                  event.photo = '/images/events/' + event._id + '/photo.jpg';
-                  event.save(function() {
-                    callback(null, 'one');
-                  })
-                });
+          fs.readFile(files.photo.path, function (err, data) {
+            fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
+              var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
+              fs.writeFile(newPath, data, function (err) {
+                event.photo = '/images/events/' + event._id + '/photo.jpg';
+                fs.unlink(files.photo.path);
+                callback(null, 1);
               });
             });
           });
         }
         else {
+          callback(null, 0);
           fs.unlink(files.photo.path);
-          callback(null, 'one');
         }
       },
-      function(callback) {
+      poster: function(callback) {
         if (files.poster.size != 0) {
-          Event.findById(result._id, function(err, event) {
-            fs.readFile(files.poster.path, function (err, data) {
-              fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
-                var newPath = __dirname + '/public/images/events/' + event._id + '/poster.jpg';
-                fs.writeFile(newPath, data, function (err) {
-                  event.poster = '/images/events/' + event._id + '/poster.jpg';
-                  event.save(function() {
-                    callback(null, 'two');
-                  })
-                });
+          fs.readFile(files.poster.path, function (err, data) {
+            fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
+              var newPath = __dirname + '/public/images/events/' + event._id + '/poster.jpg';
+              fs.writeFile(newPath, data, function (err) {
+                event.poster = '/images/events/' + event._id + '/poster.jpg';
+                fs.unlink(files.poster.path);
+                callback(null, 2);
               });
             });
           });
         }
         else {
+          callback(null, 0);
           fs.unlink(files.poster.path);
-          callback(null, 'two');
         }
       }
-    ],
-    function(err, results){
-      res.redirect('back');
+    },
+    function(err, results) {
+      event.save(function(err) {
+        res.redirect('/auth/edit/events');
+      });
     });
   });
 });
@@ -640,6 +643,7 @@ app.get('/auth/edit/news/:id', checkAuth, function (req, res) {
 app.post('/auth/edit/news/:id', function (req, res) {
   var id = req.params.id;
   var post = req.body;
+  var files = req.files;
 
   if (post.del == 'true') {
     News.findByIdAndRemove(id, function() {
@@ -649,10 +653,16 @@ app.post('/auth/edit/news/:id', function (req, res) {
   }
   else {
     News.findById(id, function(err, news) {
+      news.ru.title = post.ru.title;
+      news.ru.s_title = post.ru.s_title;
+      news.ru.body = post.ru.body;
+      news.ru.p_author = post.ru.p_author;
+
       if (post.en) {
         news.en.title = post.en.title;
         news.en.s_title = post.en.s_title;
         news.en.body = post.en.body;
+        news.en.p_author = post.en.p_author;
       }
 
       news.tag = post.tag;
@@ -660,12 +670,49 @@ app.post('/auth/edit/news/:id', function (req, res) {
         news.events = post.events;
       else
         news.events = [];
-      news.ru.title = post.ru.title;
-      news.ru.s_title = post.ru.s_title;
-      news.ru.body = post.ru.body;
 
-      news.save(function(){
-        res.redirect('/auth/edit/news');
+      async.parallel({
+        photo: function(callback) {
+          if (files.photo.size != 0) {
+            fs.readFile(files.photo.path, function (err, data) {
+              fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
+                var newPath = __dirname + '/public/images/news/' + news._id + '/photo.jpg';
+                fs.writeFile(newPath, data, function (err) {
+                  news.photo = '/images/news/' + news._id + '/photo.jpg';
+                  fs.unlink(files.photo.path);
+                  callback(null, 1);
+                });
+              });
+            });
+          }
+          else {
+            callback(null, 0);
+            fs.unlink(files.photo.path);
+          }
+        },
+        poster: function(callback) {
+          if (files.poster.size != 0) {
+            fs.readFile(files.poster.path, function (err, data) {
+              fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
+                var newPath = __dirname + '/public/images/news/' + news._id + '/poster.jpg';
+                fs.writeFile(newPath, data, function (err) {
+                  news.poster = '/images/news/' + news._id + '/poster.jpg';
+                  fs.unlink(files.poster.path);
+                  callback(null, 2);
+                });
+              });
+            });
+          }
+          else {
+            callback(null, 0);
+            fs.unlink(files.poster.path);
+          }
+        }
+      },
+      function(err, results) {
+        news.save(function(err) {
+          res.redirect('/auth/edit/news');
+        });
       });
     });
   }
@@ -739,6 +786,7 @@ app.get('/auth/edit/members/:id', checkAuth, function (req, res) {
 app.post('/auth/edit/members/:id', function (req, res) {
   var id = req.params.id;
   var post = req.body;
+  var files = req.files;
 
   if (post.del == 'true') {
     Member.findByIdAndRemove(id, function() {
@@ -757,59 +805,26 @@ app.post('/auth/edit/members/:id', function (req, res) {
       member.ru.name = post.ru.name;
       member.ru.description = post.ru.description;
 
-      member.save(function(){
-        res.redirect('/auth/edit/members');
-      });
+      if (files.img.size != 0) {
+        fs.readFile(files.img.path, function (err, data) {
+          var newPath = __dirname + '/public/images/members/' + member._id + '.jpg';
+          fs.writeFile(newPath, data, function (err) {
+            member.img = '/images/members/' + member._id + '.jpg';
+            member.save(function() {
+              fs.unlink(files.img.path);
+              res.redirect('/auth/edit/members');
+            });
+          });
+        });
+      }
+      else {
+        member.save(function() {
+          fs.unlink(files.img.path);
+          res.redirect('/auth/edit/members');
+        });
+      }
     });
   }
-});
-
-
-// ------------------------
-// *** Edit Events Block ***
-// ------------------------
-
-
-app.get('/auth/edit/events', checkAuth, function (req, res) {
-  Event.find().populate('children members.m_id').exec(function(err, event) {
-    res.render('auth/edit/events', {event: event});
-  });
-});
-
-app.get('/auth/edit/events/:id', checkAuth, function (req, res) {
-  var id = req.params.id;
-
-  Event.find({'_id':id}).populate('children members.m_id').exec(function(err, event) {
-    Member.find().exec(function(err, members) {
-      res.render('auth/edit/events/event.jade', {event: event[0], members: members});
-    });
-  });
-});
-
-app.post('/auth/edit/events/:id', function (req, res) {
-  var id = req.params.id;
-  var post = req.body;
-
-  Event.findById(id, function(err, event) {
-
-    if (post.en) {
-      event.en.title = post.en.title;
-      event.en.s_title = post.en.s_title;
-      event.en.body = post.en.body;
-      event.en.ticket = post.en.ticket;
-      event.en.comment = post.en.comment;
-    }
-
-    event.ru.title = post.ru.title;
-    event.ru.s_title = post.ru.s_title;
-    event.ru.body = post.ru.body;
-    event.ru.ticket = post.ru.ticket;
-    event.ru.comment = post.ru.comment;
-
-    event.save(function(){
-      res.redirect('/auth/edit/events');
-    });
-  });
 });
 
 
