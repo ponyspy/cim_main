@@ -257,7 +257,7 @@ app.get('/event/:id', function (req, res) {
   var id = req.params.id;
   var start = new Date();
   var end = new Date();
-  // start.setDate(1);
+  start.setDate(start.getDate() - 1);
   end.setFullYear(end.getFullYear(), (end.getMonth()+1), 0);
 
   Schedule.find({'date': {'$gte': start, '$lt': end}, 'events.event': id}, {'events.$': 1}).limit(10).select('date').sort('date').exec(function(err, schedule) {
