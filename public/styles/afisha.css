@@ -15,12 +15,25 @@ background-color: white;
 }
 
 .afisha_item_block	{
+	overflow: hidden;
+	margin-bottom: 14px;
+}
 
+.afisha_tags_block {
+	clear: both;
+	position: absolute;
+	margin-left: 14px;
+	margin-top: -14px;
+}
+
+.afisha_all_block {
+	float: left;
 }
 
 .afisha_date_block {
 	width: 225px;
 	height: 70px;
+	/*margin-top: 14px;*/
 	float: left;
 	/*border: 1px solid black;*/
 	/*background-color: #df5f59;*/
@@ -46,6 +59,7 @@ background-color: white;
 }
 
 .afisha_schedule_block {
+	/*margin-top: 14px;*/
 	width: 90px;
 	height: 60px;
 	float: left;
@@ -69,18 +83,27 @@ background-color: white;
 }
 
 .premiere {
-	width: 80px;
-	/*float: left;*/
-	/*margin-left: 110px;*/
-	margin-bottom: 1px;
-	margin-top: 1px;
+	/*width: 80px;*/
+	float: left;
+	margin-right: 10px;
+	/*margin-bottom: 1px;*/
+	/*margin-top: 1px;*/
  	font: 8pt/8pt 'Pragmatica';
  	letter-spacing: 1px;
  	/*font-weight: bold;*/
+ 	cursor: pointer;
  	color: white;
- 	padding: 2px;
+ 	padding-left: 7px;
+ 	padding-right: 7px;
+ 	padding-top: 2px;
+ 	padding-bottom: 2px;
  	text-align: center;
  	background-color: black;
+}
+
+.premiere:hover {
+	background-color: red;
+	color: white;
 }
 
 .afisha_event {

@@ -29,50 +29,69 @@ block content
 			.afisha_events_block
 				each event in date.events
 					.afisha_description_block
-						//- if (event.premiere == 'true')
-							.premiere ПРЕМЬЕРА
 						.afisha_schedule_block
 							.afisha_time= event.time.hours + ':' + event.time.minutes
 							- var hall = {'main': 'основная сцена', 'black': 'черный зал', 'white': 'белый зал', 'cafe': 'кафе', 'lobby': 'фойе', '301': 'комната 301', '306': 'комната 306'}
 							.afisha_hall= hall[event.event.hall]
-						//- if (event.premiere == 'true')
-							.premiere ПРЕМЬЕРА
-						.afisha_event
-							if (event.premiere == 'true')
-								.premiere ПРЕМЬЕРА
-							a.title(href='/event/' + event.event._id)= event.event.ru.title.toUpperCase()
-							.s_title= event.event.ru.s_title.toUpperCase()
+
+
+
+
+
+
+
+
+						.afisha_all_block
+							.afisha_tags_block
+								if (event.premiere == 'true')
+									.premiere ПРЕМЬЕРА
+									.premiere ДЕТСКИЙ ЦИМ
+							.afisha_event
+								a.title(href='/event/' + event.event._id)= event.event.ru.title.toUpperCase()
+								.s_title= event.event.ru.s_title.toUpperCase()
+								each member in event.event.members
+									if (member.c_status == 'director')
+										if (!director)
+											director = true
+											|Режиссер:&nbsp;
+										a(href='/member/' + member.m_id._id)
+											b.member= member.m_id.ru.name + ' '
+										br
+									if (member.c_status == 'author')
+										if (!author)
+											author = true
+											|Автор:&nbsp;
+										a(href='/member/' + member.m_id._id)
+											b.member= member.m_id.ru.name + ' '
+										br
+									if (member.c_status == 'playwright')
+										if (!playwright)
+											playwright = true
+											|Драматург:&nbsp;
+										a(href='/member/' + member.m_id._id)
+											b.member= member.m_id.ru.name + ' '
+
+
+
+
+
+
+
+
+
+
+
+
+
 							each member in event.event.members
 								if (member.c_status == 'director')
-									if (!director)
-										director = true
-										|Режиссер:&nbsp;
-									a(href='/member/' + member.m_id._id)
-										b.member= member.m_id.ru.name + ' '
-									br
-								if (member.c_status == 'author')
-									if (!author)
-										author = true
-										|Автор:&nbsp;
-									a(href='/member/' + member.m_id._id)
-										b.member= member.m_id.ru.name + ' '
-									br
-								if (member.c_status == 'playwright')
-									if (!playwright)
-										playwright = true
-										|Драматург:&nbsp;
-									a(href='/member/' + member.m_id._id)
-										b.member= member.m_id.ru.name + ' '
-						each member in event.event.members
-							if (member.c_status == 'director')
-						.actors
-							each member in event.event.members
-								if (member.c_status == 'actor')
-									if (!actors)
-										actors = true
-										|Исполнители:
-									a(href='/member/' + member.m_id._id)
-										.member= member.m_id.ru.name
-						.comment
-							!= event.event.ru.comment
-						//- .clearfix
+							.actors
+								each member in event.event.members
+									if (member.c_status == 'actor')
+										if (!actors)
+											actors = true
+											|Исполнители:
+										a(href='/member/' + member.m_id._id)
+											.member= member.m_id.ru.name
+							.comment
+								!= event.event.ru.comment
