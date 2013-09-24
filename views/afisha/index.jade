@@ -19,7 +19,9 @@ block content_right
 - var actors = false
 
 block content
-	each date in schedule
+	each date in schedule   //- !!!!!!!!!!!!!!!
+		if (date.date < Date.now())
+			.afisha_item_block.out
 		.afisha_item_block
 			- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ']
 			- var d = date.date.getDate()
