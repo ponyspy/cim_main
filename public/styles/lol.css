@@ -1,0 +1,27 @@
+body {
+	background-image: url('/images/design/lol/pink_love.jpg');
+}
+
+.content_block {
+	opacity: 0.5;
+  -webkit-transition-property: opacity;
+  -webkit-transition-duration: 0.5s;
+  -webkit-transition-timing-function: ease;
+}
+
+.content_block:hover {
+	opacity: 1;
+}
+
+.lol_title {
+	margin-left: 10px;
+	opacity: 0;
+  -webkit-transition-property: opacity;
+  -webkit-transition-duration: 0.5s;
+  -webkit-transition-timing-function: ease;
+}
+
+.star {
+	width: 150px;
+	cursor: default;
+}

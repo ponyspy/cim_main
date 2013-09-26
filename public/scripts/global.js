@@ -1,14 +1,12 @@
 $(document).ready(function() {
-	var menu = $('.menu_item');
 
-	// $(document).click(function(event) {
-	// 	t = event.target || event.srcElement;
-	// 	// alert(t.className)
-	// 	if (t.className != 'menu_item' ) {
-	// 		$('.menu_item_arrow').text('▼');
-	// 		$('.menu_drop').hide();
-	// 	};
-	// });
+	$('.pay').hover(function() {
+		$('.pay_drop').show()
+	}, function() {
+		$('.pay_drop').hide()
+	});
+
+	var menu = $('.menu_item');
 
 	menu.each(function() {
 		var flip = false;

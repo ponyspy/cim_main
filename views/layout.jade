@@ -10,7 +10,12 @@ html
 					a(href='/')
 						.head_title_block ЦЕНТР ИМЕНИ ВС. МЕЙЕРХОЛЬДА
 					.menu_block
-						a.pay(href='http://bigbilet.ru/company/card?id=A88F2473BE633D61E040115529B0081A#_', target='_blank') БИЛЕТЫ ON-line
+						.pay БИЛЕТЫ ON-line
+							.pay_drop
+								a(href='http://bigbilet.ru/company/card?id=A88F2473BE633D61E040115529B0081A#_', target='_blank') BIGBILET
+								//- br
+								!=' &nbsp;|&nbsp; '
+								a(href='http://www.ticketland.ru/buildinfo/1571/', target='_blank') TICKETLAND
 						.menu_item
 							.menu_item_title афиша
 							.menu_item_arrow ▼
@@ -33,6 +38,8 @@ html
 								//- a.menu_link(href='/gogo') дирекция
 								//- br
 								a.menu_link(href='/institute') институт театра
+								br
+								a.menu_link(href='http://shtl.meyerhold.ru') штл
 								br
 								//- a.menu_link(href='/magistr') магистратура
 								//- br
