@@ -2,14 +2,18 @@ extends ../layout
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/add.css')
-	link(rel='stylesheet', type='text/css', href='/styles/lol.css')
+	if (session.user_id == '521211e2b063c72302000003')
+		link(rel='stylesheet', type='text/css', href='/styles/lol.css')
 
 block content_scripts
-	script(type='text/javascript', src='/scripts/lol.js')
+	if (session.user_id == '521211e2b063c72302000003')
+		script(type='text/javascript', src='/scripts/lol.js')
 
 block content
 	a.back_link(href='/logout') Выход
-	.title ЗВЕЗДОЧЕТ
+	if (session.user_id == '521211e2b063c72302000003')
+		.lol_title
+	.title.star ЗВЕЗДОЧЕТ
 	.main_menu_block
 		br
 		b Новости:
