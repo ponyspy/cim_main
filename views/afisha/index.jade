@@ -19,10 +19,8 @@ block content_right
 - var actors = false
 
 block content
-	each date in schedule   //- !!!!!!!!!!!!!!!
-		if (date.date < Date.now())
-			.afisha_item_block.out
-		.afisha_item_block
+	each date in schedule
+		div.afisha_item_block(class=date.date > Date.now() ? '' : 'out2')
 			- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ']
 			- var d = date.date.getDate()
 			if (d < 10)
@@ -46,8 +44,8 @@ block content
 						.afisha_all_block
 							.afisha_tags_block
 								if (event.premiere == 'true')
-									.premiere ПРЕМЬЕРА
-									.premiere ДЕТСКИЙ ЦИМ
+									.tag.premiere ПРЕМЬЕРА
+									.tag.child ДЕТСКИЙ ЦИМ
 							.afisha_event
 								a.title(href='/event/' + event.event._id)= event.event.ru.title.toUpperCase()
 								.s_title= event.event.ru.s_title.toUpperCase()
