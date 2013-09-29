@@ -166,12 +166,12 @@ background-color: white;
 }
 
 .comment {
-	min-height: 77px;
+	min-height: 79px;
 	float: left;
 	width: 170px;
  	font: 10pt/14pt 'Pragmatica';
  	letter-spacing: 0px;
- 	padding-top: 3px;
+ 	padding-top: 1px;
  	padding-left: 20px;
  	font-weight: bold;
 	/*border: 1px solid black;*/
