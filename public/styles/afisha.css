@@ -9,9 +9,16 @@ body {
 
 .content_block {
 width: 1120px;
-min-height: 800px;
+min-height: 550px;
 overflow: auto;
 background-color: white;
+}
+
+.afisha_no_schedule_block {
+	width: 705px;
+	font: 56pt/50pt 'PragmaticaM';
+	margin-top: 20%;
+	margin-left: 164px;
 }
 
 .afisha_item_block	{
@@ -192,4 +199,8 @@ background-color: white;
 
 .out a {
 	color: #b7b3b0;
+}
+
+.out .tag {
+	background-color: #b7b3b0;
 }

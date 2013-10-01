@@ -2,7 +2,7 @@ extends ../layout
 
 block title
 	- var months = ['ЯНВАРЬ', 'ФЕВРАЛЬ', 'МАРТ', 'АПРЕЛЬ', 'МАЙ', 'ИЮНЬ', 'ИЮЛЬ', 'АВГУСТ', 'СЕНТЯБРЬ', 'ОКТЯБРЬ', 'НОЯБРЬ', 'ДЕКАБРЬ'];
-	title= 'АФИША | ' + months[schedule[0].date.getMonth()]
+	title= 'АФИША | ' + months[month]
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/afisha.css' + version)
@@ -19,80 +19,64 @@ block content_right
 - var actors = false
 
 block content
-	each date in schedule
-		div.afisha_item_block(class=date.date > Date.now() ? '' : 'out2')
-			- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ']
-			- var d = date.date.getDate()
-			if (d < 10)
-				- d = '0' + d
-			.afisha_date_block= days[date.date.getDay()] + '.' + d
-			.afisha_events_block
-				each event in date.events
-					.afisha_description_block
-						.afisha_schedule_block
-							.afisha_time= event.time.hours + ':' + event.time.minutes
-							- var hall = {'main': 'основная сцена', 'black': 'черный зал', 'white': 'белый зал', 'cafe': 'кафе', 'lobby': 'фойе', '301': 'комната 301', '306': 'комната 306'}
-							.afisha_hall= hall[event.event.hall]
+	if (schedule.length == 0)
+		.afisha_no_schedule_block НЕТ РАСПИСАНИЯ
+	else
+		each date in schedule
+			div.afisha_item_block(class=date.date > Date.now() ? '' : 'out')
+				- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ']
+				- var d = date.date.getDate()
+				if (d < 10)
+					- d = '0' + d
+				.afisha_date_block= days[date.date.getDay()] + '.' + d
+				.afisha_events_block
+					each event in date.events
+						.afisha_description_block
+							.afisha_schedule_block
+								.afisha_time= event.time.hours + ':' + event.time.minutes
+								- var hall = {'main': 'основная сцена', 'black': 'черный зал', 'white': 'белый зал', 'cafe': 'кафе', 'lobby': 'фойе', '301': 'комната 301', '306': 'комната 306'}
+								.afisha_hall= hall[event.event.hall]
 
+							.afisha_all_block
+								.afisha_tags_block
+									if (event.premiere == 'true')
+										.tag.premiere ПРЕМЬЕРА
+									if (!event.event.ru.comment)
+										.tag.nocomment NO COMMENT
+								.afisha_event
+									a.title(href='/event/' + event.event._id)= event.event.ru.title.toUpperCase()
+									.s_title= event.event.ru.s_title.toUpperCase()
+									each member in event.event.members
+										if (member.c_status == 'director')
+											if (!director)
+												director = true
+												|Режиссер:&nbsp;
+											a(href='/member/' + member.m_id._id)
+												b.member= member.m_id.ru.name + ' '
+											br
+										if (member.c_status == 'author')
+											if (!author)
+												author = true
+												|Автор:&nbsp;
+											a(href='/member/' + member.m_id._id)
+												b.member= member.m_id.ru.name + ' '
+											br
+										if (member.c_status == 'playwright')
+											if (!playwright)
+												playwright = true
+												|Драматург:&nbsp;
+											a(href='/member/' + member.m_id._id)
+												b.member= member.m_id.ru.name + ' '
 
-
-
-
-
-
-
-						.afisha_all_block
-							.afisha_tags_block
-								if (event.premiere == 'true')
-									.tag.premiere ПРЕМЬЕРА
-								if (!event.event.ru.comment)
-									.tag.nocomment NO COMMENT
-							.afisha_event
-								a.title(href='/event/' + event.event._id)= event.event.ru.title.toUpperCase()
-								.s_title= event.event.ru.s_title.toUpperCase()
 								each member in event.event.members
 									if (member.c_status == 'director')
-										if (!director)
-											director = true
-											|Режиссер:&nbsp;
-										a(href='/member/' + member.m_id._id)
-											b.member= member.m_id.ru.name + ' '
-										br
-									if (member.c_status == 'author')
-										if (!author)
-											author = true
-											|Автор:&nbsp;
-										a(href='/member/' + member.m_id._id)
-											b.member= member.m_id.ru.name + ' '
-										br
-									if (member.c_status == 'playwright')
-										if (!playwright)
-											playwright = true
-											|Драматург:&nbsp;
-										a(href='/member/' + member.m_id._id)
-											b.member= member.m_id.ru.name + ' '
-
-
-
-
-
-
-
-
-
-
-
-
-
-							each member in event.event.members
-								if (member.c_status == 'director')
-							.actors
-								each member in event.event.members
-									if (member.c_status == 'actor')
-										if (!actors)
-											actors = true
-											|Исполнители:
-										a(href='/member/' + member.m_id._id)
-											.member= member.m_id.ru.name
-							.comment
-								!= event.event.ru.comment
+								.actors
+									each member in event.event.members
+										if (member.c_status == 'actor')
+											if (!actors)
+												actors = true
+												|Исполнители:
+											a(href='/member/' + member.m_id._id)
+												.member= member.m_id.ru.name
+								.comment
+									!= event.event.ru.comment
