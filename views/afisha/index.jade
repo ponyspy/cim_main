@@ -14,6 +14,7 @@ block content_scripts
 block content_right
 
 - var director = false
+- var lecturer = false
 - var author = false
 - var playwright = false
 - var actors = false
@@ -41,32 +42,35 @@ block content
 								.afisha_tags_block
 									if (event.premiere == 'true')
 										.tag.premiere ПРЕМЬЕРА
-									//- if (!event.event.ru.comment)
+									if (!event.event.ru.comment)
 										.tag.nocomment NO COMMENT
 								.afisha_event
 									a.title(href='/event/' + event.event._id)= event.event.ru.title.toUpperCase()
 									.s_title= event.event.ru.s_title.toUpperCase()
 									each member in event.event.members
+										if (member.c_status == 'lecturer')
+											if (!lecturer)
+												lecturer = true
+												|Лектор:&nbsp;
+											a.member(href='/member/' + member.m_id._id)= member.m_id.ru.name + ' '
+											br
 										if (member.c_status == 'director')
 											if (!director)
 												director = true
 												|Режиссер:&nbsp;
-											a(href='/member/' + member.m_id._id)
-												b.member= member.m_id.ru.name + ' '
+											a.member(href='/member/' + member.m_id._id)= member.m_id.ru.name + ' '
 											br
 										if (member.c_status == 'author')
 											if (!author)
 												author = true
 												|Автор:&nbsp;
-											a(href='/member/' + member.m_id._id)
-												b.member= member.m_id.ru.name + ' '
+											a.member(href='/member/' + member.m_id._id)= member.m_id.ru.name + ' '
 											br
 										if (member.c_status == 'playwright')
 											if (!playwright)
 												playwright = true
 												|Драматург:&nbsp;
-											a(href='/member/' + member.m_id._id)
-												b.member= member.m_id.ru.name + ' '
+											a.member(href='/member/' + member.m_id._id)= member.m_id.ru.name + ' '
 
 								each member in event.event.members
 									if (member.c_status == 'director')
@@ -76,7 +80,8 @@ block content
 											if (!actors)
 												actors = true
 												|Исполнители:
-											a(href='/member/' + member.m_id._id)
-												.member= member.m_id.ru.name
+												br
+											a.member(href='/member/' + member.m_id._id)= member.m_id.ru.name
+											br
 								.comment
 									!= event.event.ru.comment
