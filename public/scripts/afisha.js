@@ -14,14 +14,16 @@ $(document).ready(function() {
 
 	$('.tag').click(function(event) {
 		var tag = '.' + this.className.slice(4);
-		$(this).data('clicked', !$(this).data('clicked'));
-		$('.afisha_description_block, .afisha_item_block').not(':has(' + tag + ')').slideToggle('slow');
+		$(tag).data('clicked', !$(tag).data('clicked'));
+		// $('.afisha_description_block, .afisha_item_block').not(':has(' + tag + ')').slideToggle('slow');
 
 		if ($(this).data('clicked')) {
 			$(tag).off('mouseout');
+			$('.afisha_description_block, .afisha_item_block').not(':has(' + tag + ')').slideUp('slow');
 		}
 		else {
 			$(tag).on('mouseout', {color: 'black'}, setColor);
+			$('.afisha_description_block, .afisha_item_block').not(':has(' + tag + ')').slideDown('slow');
 		}
 	});
 });
