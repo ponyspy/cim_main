@@ -230,7 +230,7 @@ app.get('/afisha/:position', function (req, res) {
   var end = new Date();
 
   if (position == 'current') {
-    start.setDate(1);
+    start.setDate(0);
     end.setFullYear(end.getFullYear(), (end.getMonth()+1), 0);
   }
   else if (position == 'next') {
@@ -239,7 +239,7 @@ app.get('/afisha/:position', function (req, res) {
   }
   else res.redirect('error')
 
-  Schedule.find({'date': {'$gte': start, '$lt': end}}).sort('date').populate('events.event').exec(function(err, schedule) {
+  Schedule.find({'date': {'$gte': start, '$lte': end}}).sort('date').populate('events.event').exec(function(err, schedule) {
     Schedule.populate(schedule, {path:'events.event.members.m_id', model: 'Member'}, function(err, schedule) {
       res.render('afisha', {schedule: schedule, month: start.getMonth()});
     });

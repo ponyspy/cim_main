@@ -24,7 +24,9 @@ block content
 		.afisha_no_schedule_block НЕТ РАСПИСАНИЯ
 	else
 		each date in schedule
-			div.afisha_item_block(class=date.date > Date.now() ? '' : 'out')
+			- var now = new Date()
+			- now.setDate(now.getDate()-1)
+			div.afisha_item_block(class=date.date < now ? 'out' : '')
 				- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ']
 				- var d = date.date.getDate()
 				if (d < 10)

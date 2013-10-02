@@ -204,3 +204,8 @@ background-color: white;
 .out .tag {
 	background-color: #b7b3b0;
 }
+
+.select_tag {
+	background-color: red;
+	color: white;
+}
