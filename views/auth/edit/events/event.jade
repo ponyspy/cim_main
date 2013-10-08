@@ -1,56 +1,95 @@
 extends ../../../layout
 
+block title
+	title= event.ru.title.toUpperCase()
+
 block content_style
-	link(rel='stylesheet', type='text/css', href='/styles/add.css')
+	link(rel="stylesheet", type="text/css", href="/styles/edit.css")
+	link(rel='stylesheet', type='text/css', href='/styles/content.css' + version)
+	link(rel="stylesheet", type="text/css", href="/styles/font-awesome/css/font-awesome.min.css" + version)
+	link(rel="stylesheet", type="text/css", href="/styles/popclip.css" + version)
 
 block content_scripts
-	script(type='text/javascript', src='/scripts/add.js')
+	script(type='text/javascript', src='/scripts/edit.js' + version)
+	script(type='text/javascript', src='/scripts/back.js' + version)
+	script(type='text/javascript', src='/scripts/mfupload.js' + version)
+	script(type="text/javascript", src='/scripts/jquery.popline.min.js' + version)
 
 block content_right
-	.navigator
-		.nav_title СОБЫТИЕ
-		.nav_project_children
+	.content_right_block
+		.ticket(contenteditable)
+			!= event.ru.ticket
+		.settings ПАРАМЕТРЫ
+			.s_item.toggle_lang язык
+			.s_item.toggle_grid направляющие
+		.upload ОТПРАВИТЬ
+
+//- mixin memberList(marker, status)
+//- 	- var flag = false
+//- 	each member in event.members
+//- 		if (member.c_status == status)
+//- 			if (!flag)
+//- 				.marker= marker + ':'
+//- 			- flag = true
+//- 			a(href= '/member/' + member.m_id._id)
+//- 				b= member.m_id.ru.name
+//- 			br
+
+
+mixin memberList(marker, status)
+	.marker(class=status)
+		.m_title= marker + ':'
+		.m_edit= '+'
 		br
-		b.nav_settings_title настройки
-		//- .draft черновик
-		.toggle_eng перевод
-		br
-		b.form_submit ОТПРАВИТЬ
+	each member in event.members
+		if (member.c_status == status)
+			a(href= '/member/' + member.m_id._id)
+				b= member.m_id.ru.name
+			br
 
 block content
-	.form_block
-		a.back_link(href='/auth/edit/events') < Назад
-		.title РЕДАКТОР СОБЫТИЯ
-		form(action="", method="post", enctype="multipart/form-data")
-			.form_title Заголовок:
-			input.ru(type="text", name="ru[title]", value=event.ru.title)
-			input.en(type="text", name="en[title]", value=event.en.title, disabled)
-			.form_title Подзаголовок:
-			input.ru(type="text", name="ru[s_title]", value=event.ru.s_title)
-			input.en(type="text", name="en[s_title]", value=event.en.s_title, disabled)
-			.form_title Описание:
-			textarea.ru(name="ru[body]", rows="8",)= event.ru.body
-			textarea.en(name="en[body]", rows="8", disabled)= event.en.body
-			.form_title Тикет:
-			textarea.ru(name="ru[ticket]", rows="8",)= event.ru.ticket
-			textarea.en(name="en[ticket]", rows="8", disabled)= event.en.ticket
-			.form_title Комментарий:
-			textarea.ru(name="ru[comment]", rows="8",)= event.ru.comment
-			textarea.en(name="en[comment]", rows="8", disabled)= event.en.comment
-			.form_title Постер:
-			input(type="file", name="poster")
-			.form_title Фото:
-			input(type="file", name="photo")
-			.form_title Автор фото:
-			input.ru(type="text", name="ru[p_author]",)
-			input.en(type="text", name="en[p_author]", disabled)
-		//- br
-		//- each member in members
-		//- 	each e_member in event.members
-		//- 		b= e_member.c_status
-
-
-
-
-
-
+	//- img(src=event.photo)
+	if (event.photo)
+		.image_upload(style='background-image: url(' + event.photo + ')')
+			input(type='file', name='image', data-post='/', data-crop='true')
+	else
+		.image_upload
+			input(type='file', name='image', data-post='/', data-crop='true')
+	.event_body
+		.title(lang='ru', contenteditable)= event.ru.title.toUpperCase()
+		if (event.ru.s_title)
+			.s_title(lang='ru', contenteditable)= event.ru.s_title.toUpperCase()
+		.members
+			.column
+				.add
+				.list
+					+memberList('Режиссер', 'director')
+					+memberList('Автор', 'author')
+					+memberList('Драматург', 'playwright')
+					+memberList('Хореограф', 'choreographer')
+					+memberList('Композитор', 'composer')
+					+memberList('Художник', 'artist')
+					+memberList('Исполнители', 'actor')
+					+memberList('Продюсер', 'producer')
+					+memberList('Куратор', 'curator')
+					+memberList('Лектор', 'lecturer')
+					+memberList('Теоретик', 'theoretician')
+					+memberList('Художественный руководитель', 'art_director')
+					+memberList('Сценограф', 'scenographer')
+			.column
+				.add
+				.list
+					+memberList('Фотограф', 'photographer')
+					+memberList('Помощник режисера', 'sub_director')
+					+memberList('Технический директор', 'tech_director')
+					+memberList('Видеохудожник', 'video_artist')
+					+memberList('Художник по свету', 'light_artist')
+					+memberList('Звукорежисер', 'audio_director')
+					+memberList('Мультимедиахудожник', 'multi_artist')
+					+memberList('Консультант', 'consultant')
+					+memberList('Спецэффекты', 'effects')
+			//- if (event.ru.comment)
+			.comment(contenteditable)
+				!= event.ru.comment
+		.description(lang='ru', contenteditable)
+			!= event.ru.body

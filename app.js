@@ -393,6 +393,25 @@ app.post('/auth/add/event', function(req, res) {
 // *** Edit Events Block ***
 // ------------------------
 
+app.post('/edit', function (req, res) {
+  var files = req.files;
+  fs.readFile(files.mf_file_undefined.path, function (err, data) {
+    var newPath = __dirname + '/public/preview/p.jpg';
+    fs.writeFile(newPath, data, function (err) {
+      var path = {'path':'/preview/p.jpg'}
+      res.send(path);
+    });
+  });
+});
+
+app.post('/mlist', function (req, res) {
+  var post = req.body;
+
+  Member.find({'status': post.status}).sort('-date').exec(function(err, members) {
+    res.send(members);
+  });
+});
+
 
 app.get('/auth/edit/events', checkAuth, function (req, res) {
   Event.find().populate('children members.m_id').exec(function(err, event) {
