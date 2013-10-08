@@ -67,13 +67,17 @@ input {
 }
 
 .m_edit {
-	width: 15px;
+	/*width: 15px;*/
 	float: right;
 	color: red;
-	font-size: 12pt;
-	font-weight: bold;
+	font-size: 14pt;
+	/*font-weight: bold;*/
 	cursor: pointer;
 	text-align: center;
+}
+
+.m_edit:hover {
+	color: black;
 }
 
 .marker {
@@ -83,11 +87,12 @@ input {
 .add {
 	height: 300px;
 	background-color: #389177;
-	display: none;
+	padding-top: 17px;
 }
 
 .add_member {
 	cursor: pointer;
+	font-weight: bold;
 }
 
 .select_member {

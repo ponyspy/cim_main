@@ -39,12 +39,13 @@ $(document).ready(function() {
 		var marker = $(this).closest('.marker').attr('class').slice(7);
 
 		$.post('/mlist', {status: marker}).done(function(members) {
-			var a = th.closest('.column').index();
-			$('.list').eq(1 - a).hide();
-			$('.add').eq(1 - a).empty().show();
+			var add = $('<div />', {'class':'add'});
+			$('.add').remove();
+			th.after(add);
+
 			for (var i in members) {
 				var add_member = $('<div />', {'class':'add_member', 'text': members[i].ru.name, 'id': members[i].id});
-				$('.add').eq(1 - a).append(add_member);
+				$('.add').append(add_member);
 			}
 		});
 	});

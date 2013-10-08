@@ -39,13 +39,13 @@ block content_right
 mixin memberList(marker, status)
 	.marker(class=status)
 		.m_title= marker + ':'
-		.m_edit= '+'
+		.m_edit= '✎'
 		br
-	each member in event.members
-		if (member.c_status == status)
-			a(href= '/member/' + member.m_id._id)
-				b= member.m_id.ru.name
-			br
+		each member in event.members
+			if (member.c_status == status)
+				a(href= '/member/' + member.m_id._id, id=member.m_id._id)
+					b= member.m_id.ru.name
+				br
 
 block content
 	//- img(src=event.photo)
@@ -61,33 +61,29 @@ block content
 			.s_title(lang='ru', contenteditable)= event.ru.s_title.toUpperCase()
 		.members
 			.column
-				.add
-				.list
-					+memberList('Режиссер', 'director')
-					+memberList('Автор', 'author')
-					+memberList('Драматург', 'playwright')
-					+memberList('Хореограф', 'choreographer')
-					+memberList('Композитор', 'composer')
-					+memberList('Художник', 'artist')
-					+memberList('Исполнители', 'actor')
-					+memberList('Продюсер', 'producer')
-					+memberList('Куратор', 'curator')
-					+memberList('Лектор', 'lecturer')
-					+memberList('Теоретик', 'theoretician')
-					+memberList('Художественный руководитель', 'art_director')
-					+memberList('Сценограф', 'scenographer')
+				+memberList('Режиссер', 'director')
+				+memberList('Автор', 'author')
+				+memberList('Драматург', 'playwright')
+				+memberList('Хореограф', 'choreographer')
+				+memberList('Композитор', 'composer')
+				+memberList('Художник', 'artist')
+				+memberList('Исполнители', 'actor')
+				+memberList('Продюсер', 'producer')
+				+memberList('Куратор', 'curator')
+				+memberList('Лектор', 'lecturer')
+				+memberList('Теоретик', 'theoretician')
+				+memberList('Художественный руководитель', 'art_director')
+				+memberList('Сценограф', 'scenographer')
 			.column
-				.add
-				.list
-					+memberList('Фотограф', 'photographer')
-					+memberList('Помощник режисера', 'sub_director')
-					+memberList('Технический директор', 'tech_director')
-					+memberList('Видеохудожник', 'video_artist')
-					+memberList('Художник по свету', 'light_artist')
-					+memberList('Звукорежисер', 'audio_director')
-					+memberList('Мультимедиахудожник', 'multi_artist')
-					+memberList('Консультант', 'consultant')
-					+memberList('Спецэффекты', 'effects')
+				+memberList('Фотограф', 'photographer')
+				+memberList('Помощник режисера', 'sub_director')
+				+memberList('Технический директор', 'tech_director')
+				+memberList('Видеохудожник', 'video_artist')
+				+memberList('Художник по свету', 'light_artist')
+				+memberList('Звукорежисер', 'audio_director')
+				+memberList('Мультимедиахудожник', 'multi_artist')
+				+memberList('Консультант', 'consultant')
+				+memberList('Спецэффекты', 'effects')
 			//- if (event.ru.comment)
 			.comment(contenteditable)
 				!= event.ru.comment
