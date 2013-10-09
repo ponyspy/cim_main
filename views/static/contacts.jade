@@ -1,0 +1,36 @@
+extends ../layout
+
+block title
+	title ЦИМ | КОНТАКТЫ
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/styles/static.css' + version)
+
+block content_scripts
+	script(type='text/javascript', src='/scripts/static.js' + version)
+	script(type='text/javascript', src='/scripts/back.js' + version)
+
+block content_right
+
+block content_left
+
+block content
+		.content
+			.title КОНТАКТЫ
+			.description
+				br
+				b ЦЕНТР ИМЕНИ ВС. МЕЙЕРХОЛЬДА
+				p 127055 Москва, ул. Новослободская, 23 (м. Менделеевская / м. Новослободская)
+				p +7 (495) 363-10-48
+				br
+				img(src='//api-maps.yandex.ru/services/constructor/1.0/static/?sid=k3n4VT_yMyurpXva2Mmclneka5FzZgaf&width=600&height=450', alt='')
+				br
+				p Кирилл БАМБУРОВ
+				p пресс-секретарь Центра им. Вс. Мейерхольда
+				a(href='mailto:bamburov.kirill@gmail.com') BAMBUROV.KIRILL@GMAIL.COM
+
+
+
+
+
+

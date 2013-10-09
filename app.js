@@ -889,6 +889,9 @@ app.post('/registr', function (req, res) {
 // *** Static Block ***
 // ------------------------
 
+app.get('/contacts', function (req, res) {
+  res.render('static/contacts.jade');
+});
 
 app.get('/institute', function (req, res) {
   res.render('static/institute.jade');
