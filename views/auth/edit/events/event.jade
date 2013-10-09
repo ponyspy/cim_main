@@ -40,12 +40,12 @@ mixin memberList(marker, status)
 	.marker(class=status)
 		.m_title= marker + ':'
 		.m_edit= '✎'
-		br
-		each member in event.members
-			if (member.c_status == status)
-				a.link(href= '/member/' + member.m_id._id, id=member.m_id._id)
-					b= member.m_id.ru.name
-				//- br
+		.m_list
+			each member in event.members
+				if (member.c_status == status)
+					a(href= '/member/' + member.m_id._id, id=member.m_id._id)
+						b= member.m_id.ru.name
+					//- br
 
 block content
 	//- img(src=event.photo)

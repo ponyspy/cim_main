@@ -76,6 +76,10 @@ input {
 	text-align: center;
 }
 
+.m_list {
+	clear: both;
+}
+
 .m_edit:hover {
 	color: black;
 }

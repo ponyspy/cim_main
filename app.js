@@ -396,9 +396,10 @@ app.post('/auth/add/event', function(req, res) {
 app.post('/edit', function (req, res) {
   var files = req.files;
   fs.readFile(files.mf_file_undefined.path, function (err, data) {
-    var newPath = __dirname + '/public/preview/p.jpg';
+    var name = files.mf_file_undefined.path.slice(33);
+    var newPath = __dirname + '/public/preview/' + name;
     fs.writeFile(newPath, data, function (err) {
-      var path = {'path':'/preview/p.jpg'}
+      var path = {'path':'/preview/' + name}
       res.send(path);
     });
   });
@@ -435,12 +436,14 @@ app.post('/auth/edit/events/:id', function (req, res) {
   var files = req.files;
 
   Event.findById(id, function(err, event) {
-    event.ru.title = post.ru.title;
-    event.ru.s_title = post.ru.s_title;
-    event.ru.body = post.ru.body;
-    event.ru.ticket = post.ru.ticket;
-    event.ru.comment = post.ru.comment;
-    event.ru.p_author = post.ru.p_author;
+    if (post.ru) {
+      event.ru.title = post.ru.title;
+      event.ru.s_title = post.ru.s_title;
+      event.ru.body = post.ru.body;
+      event.ru.ticket = post.ru.ticket;
+      event.ru.comment = post.ru.comment;
+      event.ru.p_author = post.ru.p_author;
+    }
 
     if (post.en) {
       event.en.title = post.en.title;
@@ -450,50 +453,52 @@ app.post('/auth/edit/events/:id', function (req, res) {
       event.en.comment = post.en.comment;
       event.en.p_author = post.en.p_author;
     }
-
-    async.parallel({
-      photo: function(callback) {
-        if (files.photo.size != 0) {
-          fs.readFile(files.photo.path, function (err, data) {
-            fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
-              var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
-              fs.writeFile(newPath, data, function (err) {
-                event.photo = '/images/events/' + event._id + '/photo.jpg';
-                fs.unlink(files.photo.path);
-                callback(null, 1);
-              });
-            });
-          });
-        }
-        else {
-          callback(null, 0);
-          fs.unlink(files.photo.path);
-        }
-      },
-      poster: function(callback) {
-        if (files.poster.size != 0) {
-          fs.readFile(files.poster.path, function (err, data) {
-            fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
-              var newPath = __dirname + '/public/images/events/' + event._id + '/poster.jpg';
-              fs.writeFile(newPath, data, function (err) {
-                event.poster = '/images/events/' + event._id + '/poster.jpg';
-                fs.unlink(files.poster.path);
-                callback(null, 2);
-              });
-            });
-          });
-        }
-        else {
-          callback(null, 0);
-          fs.unlink(files.poster.path);
-        }
-      }
-    },
-    function(err, results) {
-      event.save(function(err) {
-        res.redirect('/auth/edit/events');
-      });
+    event.save(function(err){
+      res.redirect('/auth/edit/events');
     });
+    // async.parallel({
+    //   photo: function(callback) {
+    //     if (files.photo.size != 0) {
+    //       fs.readFile(files.photo.path, function (err, data) {
+    //         fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
+    //           var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
+    //           fs.writeFile(newPath, data, function (err) {
+    //             event.photo = '/images/events/' + event._id + '/photo.jpg';
+    //             fs.unlink(files.photo.path);
+    //             callback(null, 1);
+    //           });
+    //         });
+    //       });
+    //     }
+    //     else {
+    //       callback(null, 0);
+    //       fs.unlink(files.photo.path);
+    //     }
+    //   },
+    //   poster: function(callback) {
+    //     if (files.poster.size != 0) {
+    //       fs.readFile(files.poster.path, function (err, data) {
+    //         fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
+    //           var newPath = __dirname + '/public/images/events/' + event._id + '/poster.jpg';
+    //           fs.writeFile(newPath, data, function (err) {
+    //             event.poster = '/images/events/' + event._id + '/poster.jpg';
+    //             fs.unlink(files.poster.path);
+    //             callback(null, 2);
+    //           });
+    //         });
+    //       });
+    //     }
+    //     else {
+    //       callback(null, 0);
+    //       fs.unlink(files.poster.path);
+    //     }
+    //   }
+    // },
+    // function(err, results) {
+    //   event.save(function(err) {
+    //     res.redirect('/auth/edit/events');
+    //   });
+    // });
   });
 });
 

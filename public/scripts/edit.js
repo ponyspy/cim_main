@@ -6,10 +6,19 @@ $(document).ready(function() {
 		var title = $('.title').html();
 		var s_title = $('.s_title').html();
 		var description = $('.description').html();
-		alert('cool')
-		// $.post('', title: title).done(function() {
+		var ticket = $('.ticket').html();
+		var comment = $('.comment').html();
 
-		// });
+		var ru = {
+			title: title,
+			s_title: s_title,
+			body: description,
+			ticket: ticket,
+			comment: comment
+		}
+		$.post('', {ru: ru}).done(function() {
+			alert('cool')
+		});
 	});
 
 	$('.image_upload').mfupload({
@@ -18,8 +27,8 @@ $(document).ready(function() {
 		maxsize		: 2,
 		post_upload	: "/edit",
 		folder		: "",
-		ini_text	: "Drag your files to here or click",
-		over_text	: "Drop Here",
+		ini_text	: "Нажми или перетащи",
+		over_text	: "Отпускай!",
 		over_col	: '',
 		over_bkcol	: 'white',
 
@@ -37,8 +46,8 @@ $(document).ready(function() {
 	$('.m_edit').click(function(event) {
 		var th = $(this);
 		var marker = $(this).closest('.marker').attr('class').slice(7);
-		// var mem = $(this).nextAll('a');
-		var mem = $(this).closest('.marker').children('.link');
+		var mem = th.next('.m_list').children('a');
+		// th.next('.m_list').children('a').css('color', 'red');
 		// $(this).nextAll('a').remove();
 
 		$.post('/mlist', {status: marker}).done(function(members) {
@@ -51,11 +60,9 @@ $(document).ready(function() {
 				$('.add').append(add_member);
 				// $('#' + members[i]._id).addClass('select_member');
 			}
-
-			for (var i in mem) {
-				alert($(mem[i]).attr('id'))
-			}
-
+			// for (var k in mem) {
+			// 	alert($(mem[k]).attr('class'))
+			// }
 			for (var i in members) {
 				for (var j in mem) {
 					if ($(mem[j]).attr('id') == members[i]._id) {
