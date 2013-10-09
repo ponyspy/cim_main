@@ -43,9 +43,9 @@ mixin memberList(marker, status)
 		br
 		each member in event.members
 			if (member.c_status == status)
-				a(href= '/member/' + member.m_id._id, id=member.m_id._id)
+				a.link(href= '/member/' + member.m_id._id, id=member.m_id._id)
 					b= member.m_id.ru.name
-				br
+				//- br
 
 block content
 	//- img(src=event.photo)

@@ -37,6 +37,9 @@ $(document).ready(function() {
 	$('.m_edit').click(function(event) {
 		var th = $(this);
 		var marker = $(this).closest('.marker').attr('class').slice(7);
+		// var mem = $(this).nextAll('a');
+		var mem = $(this).closest('.marker').children('.link');
+		// $(this).nextAll('a').remove();
 
 		$.post('/mlist', {status: marker}).done(function(members) {
 			var add = $('<div />', {'class':'add'});
@@ -44,8 +47,21 @@ $(document).ready(function() {
 			th.after(add);
 
 			for (var i in members) {
-				var add_member = $('<div />', {'class':'add_member', 'text': members[i].ru.name, 'id': members[i].id});
+				var add_member = $('<div />', {'class':'add_member', 'text': members[i].ru.name, 'id': members[i]._id});
 				$('.add').append(add_member);
+				// $('#' + members[i]._id).addClass('select_member');
+			}
+
+			for (var i in mem) {
+				alert($(mem[i]).attr('id'))
+			}
+
+			for (var i in members) {
+				for (var j in mem) {
+					if ($(mem[j]).attr('id') == members[i]._id) {
+						$('#' + members[i]._id).addClass('select_member');
+					}
+				}
 			}
 		});
 	});

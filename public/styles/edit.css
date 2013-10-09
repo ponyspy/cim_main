@@ -83,6 +83,9 @@ input {
 .marker {
 	clear: both;
 }
+.marker a {
+	display: block;
+}
 
 .add {
 	height: 300px;
