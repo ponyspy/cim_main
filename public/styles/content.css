@@ -90,6 +90,18 @@ img {
 	/*border: 1px solid black;*/
 }
 
+.m_list a {
+	font-weight: bold;
+	float: left;
+	clear: both;
+	margin-right: 5px;
+}
+
+.m_comment {
+	min-width: 50px;
+	float: left;
+}
+
 .title {
 	width: 922px;
  	font: 56pt/51pt 'PragmaticaM';

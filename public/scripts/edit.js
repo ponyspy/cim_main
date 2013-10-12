@@ -1,6 +1,6 @@
 $(document).ready(function() {
-
-	$(".description, .comment, .ticket").popline();
+	var img_preview = 'null';
+	$(".description, .comment, .ticket").popline({disable:['color']});
 
 	$('.upload').click(function(event) {
 		var title = $('.title').html();
@@ -16,8 +16,8 @@ $(document).ready(function() {
 			ticket: ticket,
 			comment: comment
 		}
-		$.post('', {ru: ru}).done(function() {
-			alert('cool')
+		$.post('', {img: img_preview, ru: ru}).done(function(result) {
+			alert(result)
 		});
 	});
 
@@ -35,7 +35,8 @@ $(document).ready(function() {
 		init		: function(){ },
 		start		: function(result){ },
 		loaded		: function(result) {
-			$('.image_upload').css('background-image', 'url(' + result.path + ')')
+			$('.image_upload').css('background-image', 'url(' + result.path + ')');
+			img_preview = result.path;
 		},
 		progress	: function(result){ },
 		error		: function(error){ },
@@ -43,33 +44,34 @@ $(document).ready(function() {
 
 	});
 
+	// $('.marker').click(function(event) {
+	// 	var markers = $('.marker .m_list').children('a');
+	// 	markers.each(function(index, marker) {
+	// 		var id = $(marker).attr('id');
+	// 		var status = $(marker).closest('.marker').attr('class').slice(7);
+	// 		var comment = $(marker).next('.m_comment').text();
+	// 		alert(status + ' ' + id + ' ' + comment)
+	// 	});
+	// });
+
 	$('.m_edit').click(function(event) {
 		var th = $(this);
 		var marker = $(this).closest('.marker').attr('class').slice(7);
-		var mem = th.next('.m_list').children('a');
 		// th.next('.m_list').children('a').css('color', 'red');
+		var list = th.next('.m_list').children('a');
 		// $(this).nextAll('a').remove();
 
 		$.post('/mlist', {status: marker}).done(function(members) {
 			var add = $('<div />', {'class':'add'});
 			$('.add').remove();
 			th.after(add);
+			// $('.add').append(list)
 
 			for (var i in members) {
 				var add_member = $('<div />', {'class':'add_member', 'text': members[i].ru.name, 'id': members[i]._id});
 				$('.add').append(add_member);
-				// $('#' + members[i]._id).addClass('select_member');
 			}
-			// for (var k in mem) {
-			// 	alert($(mem[k]).attr('class'))
-			// }
-			for (var i in members) {
-				for (var j in mem) {
-					if ($(mem[j]).attr('id') == members[i]._id) {
-						$('#' + members[i]._id).addClass('select_member');
-					}
-				}
-			}
+
 		});
 	});
 
@@ -78,6 +80,6 @@ $(document).ready(function() {
 	});
 
   $('.toggle_grid').click(function(event) {
-  	$('.title, .s_title, .description, .column, .comment, .marker').toggleClass('grid');
+  	$('.title, .s_title, .description, .column, .comment, .marker .m_comment').toggleClass('grid');
   });
 });

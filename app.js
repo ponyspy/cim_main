@@ -453,8 +453,21 @@ app.post('/auth/edit/events/:id', function (req, res) {
       event.en.comment = post.en.comment;
       event.en.p_author = post.en.p_author;
     }
-    event.save(function(err){
-      res.redirect('/auth/edit/events');
+
+    if (post.img != 'null') {
+      fs.readFile(__dirname + '/public' + post.img, function (err, data) {
+        fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
+          var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
+          fs.writeFile(newPath, data, function (err) {
+            event.photo = '/images/events/' + event._id + '/photo.jpg';
+            fs.unlink(__dirname + '/public' + post.img);
+          });
+        });
+      });
+    }
+
+    event.save(function(){
+      res.send('ok!')
     });
     // async.parallel({
     //   photo: function(callback) {

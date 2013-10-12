@@ -43,9 +43,8 @@ mixin memberList(marker, status)
 		.m_list
 			each member in event.members
 				if (member.c_status == status)
-					a(href= '/member/' + member.m_id._id, id=member.m_id._id)
-						b= member.m_id.ru.name
-					//- br
+					a(href= '/member/' + member.m_id._id, id=member.m_id._id)= member.m_id.ru.name
+					.m_comment(lang='ru', contenteditable)= 'привет'
 
 block content
 	//- img(src=event.photo)
