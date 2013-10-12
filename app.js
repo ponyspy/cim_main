@@ -234,7 +234,7 @@ app.get('/afisha/:position', function (req, res) {
     end.setFullYear(end.getFullYear(), (end.getMonth()+1), 0);
   }
   else if (position == 'next') {
-    start.setFullYear(start.getFullYear(), (start.getMonth()+1), 1);
+    start.setFullYear(start.getFullYear(), (start.getMonth()+1), 0);
     end.setFullYear(end.getFullYear(), (end.getMonth()+2), 0);
   }
   else res.redirect('error')
