@@ -2,7 +2,7 @@ extends ../layout
 
 block title
 	- var months = ['ЯНВАРЬ', 'ФЕВРАЛЬ', 'МАРТ', 'АПРЕЛЬ', 'МАЙ', 'ИЮНЬ', 'ИЮЛЬ', 'АВГУСТ', 'СЕНТЯБРЬ', 'ОКТЯБРЬ', 'НОЯБРЬ', 'ДЕКАБРЬ'];
-	title= 'АФИША | ' + months[month]
+	title= 'АФИША | ' + months[month+1]
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/afisha.css' + version)
