@@ -22,7 +22,7 @@ block content_right
 		.settings ПАРАМЕТРЫ
 			.s_item.toggle_lang язык
 			.s_item.toggle_grid направляющие
-		.upload ОТПРАВИТЬ
+		.upload СОХРАНИТЬ
 
 //- mixin memberList(marker, status)
 //- 	- var flag = false
@@ -39,12 +39,12 @@ block content_right
 mixin memberList(marker, status)
 	.marker(class=status)
 		.m_title= marker + ':'
-		.m_edit= '✎'
+		.m_edit= '⊙'
 		.m_list
 			each member in event.members
 				if (member.c_status == status)
 					a(href= '/member/' + member.m_id._id, id=member.m_id._id)= member.m_id.ru.name
-					.m_comment(lang='ru', contenteditable)= 'привет'
+					.m_comment(lang='ru', contenteditable='true')= member.comment
 
 block content
 	//- img(src=event.photo)

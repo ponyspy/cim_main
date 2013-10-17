@@ -73,7 +73,8 @@ var eventSchema = new Schema({
       date: {type: Date, default: Date.now},
    members: [{
     c_status: String,
-    m_id: { type: Schema.Types.ObjectId, ref: 'Member' }
+    m_id: { type: Schema.Types.ObjectId, ref: 'Member' },
+    comment: String
    }],
   children: [{ type: Schema.Types.ObjectId, ref: 'Child' }]
 });
@@ -436,6 +437,9 @@ app.post('/auth/edit/events/:id', function (req, res) {
   var files = req.files;
 
   Event.findById(id, function(err, event) {
+
+    event.members = post.members;
+
     if (post.ru) {
       event.ru.title = post.ru.title;
       event.ru.s_title = post.ru.s_title;

@@ -8,6 +8,21 @@ $(document).ready(function() {
 		var description = $('.description').html();
 		var ticket = $('.ticket').html();
 		var comment = $('.comment').html();
+		var markers = $('.marker .m_list').children('a');
+		var members = [];
+		console.log(members)
+
+		markers.each(function(index, marker) {
+			var id = $(marker).attr('id');
+			var status = $(marker).closest('.marker').attr('class').slice(7);
+			var comment = $(marker).next('.m_comment').text();
+			var member = {
+				m_id: id,
+				c_status: status,
+				comment: comment
+			}
+			members.push(member);
+		});
 
 		var ru = {
 			title: title,
@@ -16,7 +31,7 @@ $(document).ready(function() {
 			ticket: ticket,
 			comment: comment
 		}
-		$.post('', {img: img_preview, ru: ru}).done(function(result) {
+		$.post('', {img: img_preview, ru: ru, members: members}).done(function(result) {
 			alert(result)
 		});
 	});
@@ -44,28 +59,41 @@ $(document).ready(function() {
 
 	});
 
-	// $('.marker').click(function(event) {
-	// 	var markers = $('.marker .m_list').children('a');
-	// 	markers.each(function(index, marker) {
-	// 		var id = $(marker).attr('id');
-	// 		var status = $(marker).closest('.marker').attr('class').slice(7);
-	// 		var comment = $(marker).next('.m_comment').text();
-	// 		alert(status + ' ' + id + ' ' + comment)
-	// 	});
-	// });
+
+	$(document).on('keyup change', '.m_search', function(event) {
+		var value = $(this).val();
+
+		var elems = $('.add').children('.add_member');
+		elems.each(function(index, el) {
+			var el_val = $(el).html().toLowerCase();
+				if (el_val.search(value.toLowerCase()) != -1)
+					$(el).show();
+				else
+					$(el).hide();
+		});
+	});
 
 	$('.m_edit').click(function(event) {
 		var th = $(this);
 		var marker = $(this).closest('.marker').attr('class').slice(7);
-		// th.next('.m_list').children('a').css('color', 'red');
+		$('.m_del').remove();
+
+		$('.marker').removeAttr('style')
+		$('.' + marker).css('background-color', '#389177');
 		var list = th.next('.m_list').children('a');
-		// $(this).nextAll('a').remove();
+		list.each(function(index, el) {
+			var del = $('<div />', {'class':'m_del', 'text':'⊖'});
+			$(el).before(del);
+			$(el).css('clear', 'none');
+			$(el).next('.m_comment').css('float', 'none');
+		});
 
 		$.post('/mlist', {status: marker}).done(function(members) {
 			var add = $('<div />', {'class':'add'});
+			var search = $('<input />', {'class':'m_search', 'type':'text', 'placeholder':'поиск'});
 			$('.add').remove();
-			th.after(add);
-			// $('.add').append(list)
+			th.next('.m_list').after(add);
+			$('.add').append(search)
 
 			for (var i in members) {
 				var add_member = $('<div />', {'class':'add_member', 'text': members[i].ru.name, 'id': members[i]._id});
@@ -76,8 +104,20 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.add_member', function(event) {
-		$(this).toggleClass('select_member');
+		$(this).remove();
+		var member_id = $(this).attr('id');
+		var member_name = $(this).html();
+		var link = $('<a />', {'href':'/member/' + member_id, 'text': member_name, 'id': member_id});
+		var comment = $('<div />', {'class':'m_comment', 'text': 'привет', 'contenteditable':true});
+		$('.director > .m_list').append(link, comment);
 	});
+
+
+	$(document).on('click', '.m_del', function(event) {
+		$(this).remove();
+		$(this).next('a').remove();
+	});
+
 
   $('.toggle_grid').click(function(event) {
   	$('.title, .s_title, .description, .column, .comment, .marker .m_comment').toggleClass('grid');
