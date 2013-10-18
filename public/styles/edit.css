@@ -86,7 +86,6 @@
 
 .marker {
 	clear: both;
-	/*background-color: #389177;*/
 }
 .marker a {
 	display: block;
@@ -98,10 +97,10 @@
 	background-color: #389177;
 	clear: both;
 	border-top: 2px solid black;
+	padding-top: 10px;
 }
 
-.add_member {
-	cursor: pointer;
+.add a {
 	font-weight: bold;
 }
 
@@ -133,11 +132,14 @@
 .m_search {
 	width: 130px;
 	height: 15px;
-	float: right;
+	margin-left: 164px;
+	margin-top: -10px;
+/*	float: right;*/
 	display: block;
 	font-size: 14px;
 	background-color: black;
 	color: white;
+	position: absolute;
 }
 
 

@@ -63,13 +63,17 @@ $(document).ready(function() {
 	$(document).on('keyup change', '.m_search', function(event) {
 		var value = $(this).val();
 
-		var elems = $('.add').children('.add_member');
+		var elems = $('.add').children('a');
 		elems.each(function(index, el) {
 			var el_val = $(el).html().toLowerCase();
-				if (el_val.search(value.toLowerCase()) != -1)
+				if (el_val.search(value.toLowerCase()) != -1) {
 					$(el).show();
-				else
+					$(el).prev('.m_del').show();
+				}
+				else {
 					$(el).hide();
+					$(el).prev('.m_del').hide();
+				}
 		});
 	});
 
@@ -98,22 +102,23 @@ $(document).ready(function() {
 
 			for (var i in members) {
 				var m_add = $('<div />', {'class':'m_add', 'text':'⊕'});
-				var add_member = $('<div />', {'class':'add_member', 'text': members[i].ru.name, 'id': members[i]._id});
+				var add_member = $('<a />', {'href':'/member/' + members[i]._id, 'text': members[i].ru.name, 'id': members[i]._id});
 				$('.add').append(m_add, add_member);
 			}
 
 		});
 	});
 
-	$(document).on('click', '.add_member', function(event) {
-		var marker = $(this).closest('.marker').attr('class').slice(7);
 
-		$(this).remove();
-		var member_id = $(this).attr('id');
-		var member_name = $(this).html();
-		var link = $('<a />', {'href':'/member/' + member_id, 'text': member_name, 'id': member_id});
+	$(document).on('click', '.m_add', function(event) {
+		var marker = $(this).closest('.marker').attr('class').slice(7);
+		var member = $(this).next('a');
 		var comment = $('<div />', {'class':'m_comment', 'text': 'привет', 'contenteditable':true});
-		$('.' + marker + ' > .m_list').append(link, comment);
+		var del = $('<div />', {'class':'m_del', 'text':'⊖'});
+
+		$('.' + marker + ' > .m_list').append(del, member, comment);
+		// $('.' + marker + ' > .m_list > a').css('clear', 'none');
+		$(this).remove();
 	});
 
 
