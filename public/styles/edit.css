@@ -113,7 +113,15 @@
 	cursor: pointer;
 }
 
-.m_del:hover {
+.m_add {
+	width: 25px;
+	float: left;
+	font-size: 18pt;
+	color: red;
+	cursor: pointer;
+}
+
+.m_del:hover, .m_add:hover {
 	width: 40px;
 	color: black
 }

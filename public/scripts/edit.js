@@ -78,7 +78,7 @@ $(document).ready(function() {
 		var marker = $(this).closest('.marker').attr('class').slice(7);
 		$('.m_del').remove();
 
-		$('.marker').removeAttr('style')
+		$('.marker').removeAttr('style');
 		$('.' + marker).css('background-color', '#389177');
 		var list = th.next('.m_list').children('a');
 		list.each(function(index, el) {
@@ -91,31 +91,36 @@ $(document).ready(function() {
 		$.post('/mlist', {status: marker}).done(function(members) {
 			var add = $('<div />', {'class':'add'});
 			var search = $('<input />', {'class':'m_search', 'type':'text', 'placeholder':'поиск'});
+
 			$('.add').remove();
 			th.next('.m_list').after(add);
 			$('.add').append(search)
 
 			for (var i in members) {
+				var m_add = $('<div />', {'class':'m_add', 'text':'⊕'});
 				var add_member = $('<div />', {'class':'add_member', 'text': members[i].ru.name, 'id': members[i]._id});
-				$('.add').append(add_member);
+				$('.add').append(m_add, add_member);
 			}
 
 		});
 	});
 
 	$(document).on('click', '.add_member', function(event) {
+		var marker = $(this).closest('.marker').attr('class').slice(7);
+
 		$(this).remove();
 		var member_id = $(this).attr('id');
 		var member_name = $(this).html();
 		var link = $('<a />', {'href':'/member/' + member_id, 'text': member_name, 'id': member_id});
 		var comment = $('<div />', {'class':'m_comment', 'text': 'привет', 'contenteditable':true});
-		$('.director > .m_list').append(link, comment);
+		$('.' + marker + ' > .m_list').append(link, comment);
 	});
 
 
 	$(document).on('click', '.m_del', function(event) {
-		$(this).remove();
 		$(this).next('a').remove();
+		$(this).next('.m_comment').remove();
+		$(this).remove();
 	});
 
 
