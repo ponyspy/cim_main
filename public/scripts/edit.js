@@ -80,17 +80,16 @@ $(document).ready(function() {
 	$('.m_edit').click(function(event) {
 		var th = $(this);
 		var marker = $(this).closest('.marker').attr('class').slice(7);
-		$('.' + marker + ' > .m_list > a').css('clear', 'both');
+		$('.marker a').removeAttr('style');
+		$('.marker').css('padding-bottom', '0px');
 		$('.m_del').remove();
+		$('.' + marker).css('padding-bottom', '10px');
 
-		// $('.marker').removeAttr('style');
-		// $('.' + marker).css('background-color', '#389177');
 		var list = th.next('.m_list').children('a');
 		list.each(function(index, el) {
 			var del = $('<div />', {'class':'m_del', 'text':'⊖'});
 			$(el).before(del);
 			$(el).css('clear', 'none');
-			// $(el).next('.m_comment').css('float', 'none');
 		});
 
 		$.post('/mlist', {status: marker}).done(function(members) {
@@ -98,7 +97,7 @@ $(document).ready(function() {
 			var search = $('<input />', {'class':'m_search', 'type':'text', 'placeholder':'поиск'});
 
 			$('.add').remove();
-			th.next('.m_list').after(add);
+			th.closest('.marker').after(add);
 			$('.add').append(search)
 
 			for (var i in members) {
@@ -112,7 +111,7 @@ $(document).ready(function() {
 
 
 	$(document).on('click', '.m_add', function(event) {
-		var marker = $(this).closest('.marker').attr('class').slice(7);
+		var marker = $(this).closest('.add').prev('.marker').attr('class').slice(7);
 		var member = $(this).next('a');
 		var comment = $('<div />', {'class':'m_comment', 'text': 'привет', 'contenteditable':true});
 		var del = $('<div />', {'class':'m_del', 'text':'⊖'});

@@ -86,13 +86,16 @@
 
 .marker {
 	clear: both;
+	/*background-color: green;*/
+	overflow: hidden;
+	/*padding-bottom: 10px;*/
 }
 .marker a {
 	/*display: block;*/
 }
 
 .add {
-	min-height: 21px;
+	min-height: 10px;
 	max-height: 300px;
 	/*background-color: #389177;*/
 	clear: both;
