@@ -80,16 +80,17 @@ $(document).ready(function() {
 	$('.m_edit').click(function(event) {
 		var th = $(this);
 		var marker = $(this).closest('.marker').attr('class').slice(7);
+		$('.' + marker + ' > .m_list > a').css('clear', 'both');
 		$('.m_del').remove();
 
-		$('.marker').removeAttr('style');
-		$('.' + marker).css('background-color', '#389177');
+		// $('.marker').removeAttr('style');
+		// $('.' + marker).css('background-color', '#389177');
 		var list = th.next('.m_list').children('a');
 		list.each(function(index, el) {
 			var del = $('<div />', {'class':'m_del', 'text':'⊖'});
 			$(el).before(del);
 			$(el).css('clear', 'none');
-			$(el).next('.m_comment').css('float', 'none');
+			// $(el).next('.m_comment').css('float', 'none');
 		});
 
 		$.post('/mlist', {status: marker}).done(function(members) {
@@ -117,7 +118,7 @@ $(document).ready(function() {
 		var del = $('<div />', {'class':'m_del', 'text':'⊖'});
 
 		$('.' + marker + ' > .m_list').append(del, member, comment);
-		// $('.' + marker + ' > .m_list > a').css('clear', 'none');
+		$('.' + marker + ' > .m_list > a').css('clear', 'none');
 		$(this).remove();
 	});
 
