@@ -68,11 +68,11 @@ $(document).ready(function() {
 			var el_val = $(el).html().toLowerCase();
 				if (el_val.search(value.toLowerCase()) != -1) {
 					$(el).show();
-					$(el).prev('.m_del').show();
+					$(el).prev('.m_add').show();
 				}
 				else {
 					$(el).hide();
-					$(el).prev('.m_del').hide();
+					$(el).prev('.m_add').hide();
 				}
 		});
 	});
@@ -84,6 +84,8 @@ $(document).ready(function() {
 		$('.marker').css('padding-bottom', '0px');
 		$('.m_del').remove();
 		$('.' + marker).css('padding-bottom', '10px');
+		$('.m_edit').removeAttr('style');
+		th.css('color', 'black');
 
 		var list = th.next('.m_list').children('a');
 		list.each(function(index, el) {
@@ -94,7 +96,7 @@ $(document).ready(function() {
 
 		$.post('/mlist', {status: marker}).done(function(members) {
 			var add = $('<div />', {'class':'add'});
-			var search = $('<input />', {'class':'m_search', 'type':'text', 'placeholder':'поиск'});
+			var search = $('<input />', {'class':'m_search', 'type':'text', 'placeholder':'поиск...'});
 
 			$('.add').remove();
 			th.closest('.marker').after(add);
@@ -113,7 +115,7 @@ $(document).ready(function() {
 	$(document).on('click', '.m_add', function(event) {
 		var marker = $(this).closest('.add').prev('.marker').attr('class').slice(7);
 		var member = $(this).next('a');
-		var comment = $('<div />', {'class':'m_comment', 'text': 'привет', 'contenteditable':true});
+		var comment = $('<div />', {'class':'m_comment', 'text': 'описание', 'contenteditable':true});
 		var del = $('<div />', {'class':'m_del', 'text':'⊖'});
 
 		$('.' + marker + ' > .m_list').append(del, member, comment);
