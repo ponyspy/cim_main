@@ -444,7 +444,7 @@ app.post('/auth/edit/events/:id', function (req, res) {
       event.ru.title = post.ru.title;
       event.ru.s_title = post.ru.s_title;
       event.ru.body = post.ru.body;
-      event.ru.ticket = post.ru.ticket;
+      // event.ru.ticket = post.ru.ticket;
       event.ru.comment = post.ru.comment;
       event.ru.p_author = post.ru.p_author;
     }

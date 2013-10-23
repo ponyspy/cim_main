@@ -28,9 +28,11 @@ $(document).ready(function() {
 			title: title,
 			s_title: s_title,
 			body: description,
-			ticket: ticket,
 			comment: comment
 		}
+		if (ticket != '<br>')
+			ru.ticket = ticket;
+
 		$.post('', {img: img_preview, ru: ru, members: members}).done(function(result) {
 			alert(result)
 		});
