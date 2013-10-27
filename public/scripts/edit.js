@@ -10,7 +10,7 @@ $(document).ready(function() {
 		var comment = $('.comment').html();
 		var markers = $('.marker .m_list').children('a');
 		var members = [];
-		console.log(members)
+		// console.log(members)
 
 		markers.each(function(index, marker) {
 			var id = $(marker).attr('id');
@@ -19,7 +19,7 @@ $(document).ready(function() {
 			var member = {
 				m_id: id,
 				c_status: status,
-				comment: comment
+				comment: {ru:comment}
 			}
 			members.push(member);
 		});
@@ -30,8 +30,11 @@ $(document).ready(function() {
 			body: description,
 			comment: comment
 		}
-		if (ticket != '<br>')
+
+		// console.log('|' + ticket + '|')
+		if (ticket != '<br>' || ticket !=/[^\s]*/)
 			ru.ticket = ticket;
+		// console.log(ru)
 
 		$.post('', {img: img_preview, ru: ru, members: members}).done(function(result) {
 			alert(result)

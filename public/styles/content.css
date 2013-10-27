@@ -11,10 +11,14 @@ body {
 }
 
 
-img {
+.image_upload {
 	width: 930px;
 	height: 620px;
-	/*display: block;*/
+	/*background: no-repeat center center;*/
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .calendar {
@@ -95,6 +99,11 @@ img {
 	float: left;
 	clear: both;
 	margin-right: 5px;
+}
+
+.marker {
+	clear: both;
+	overflow: hidden;
 }
 
 .m_comment {

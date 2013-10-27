@@ -15,19 +15,32 @@ block content_right
 		.ticket
 			!= event[0].ru.ticket
 
+//- mixin memberList(marker, status)
+//- 	- var flag = false
+//- 	each member in event[0].members
+//- 		if (member.c_status == status)
+//- 			if (!flag)
+//- 				.marker= marker + ':'
+//- 			- flag = true
+//- 			a(href= '/member/' + member.m_id._id)
+//- 				b= member.m_id.ru.name
+//- 			br
+
 mixin memberList(marker, status)
 	- var flag = false
 	each member in event[0].members
 		if (member.c_status == status)
 			if (!flag)
-				.marker= marker + ':'
+				.marker(class=status)
+					.m_title= marker + ':'
 			- flag = true
-			a(href= '/member/' + member.m_id._id)
-				b= member.m_id.ru.name
-			br
+					.m_list
+						a(href= '/member/' + member.m_id._id, id=member.m_id._id)= member.m_id.ru.name
+						.m_comment(lang='ru')= member.comment.ru
 
 block content
-	img(src=event[0].photo)
+	if (event[0].photo)
+		.image_upload(style='background-image: url(' + event[0].photo + ')')
 	if (schedule.length > 0)
 		.calendar
 			.inner

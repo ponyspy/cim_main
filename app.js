@@ -74,7 +74,10 @@ var eventSchema = new Schema({
    members: [{
     c_status: String,
     m_id: { type: Schema.Types.ObjectId, ref: 'Member' },
-    comment: String
+    comment: {
+      ru: String,
+      en: String
+    }
    }],
   children: [{ type: Schema.Types.ObjectId, ref: 'Child' }]
 });
