@@ -20,7 +20,7 @@ block content_right
 
 block content
 	if (news.photo)
-		img(src=news.photo)
+		.image_upload(style='background-image: url(' + news.photo + ')')
 	.title= news.ru.title.toUpperCase()
 	if (news.ru.s_title)
 		.s_title= news.ru.s_title.toUpperCase()
