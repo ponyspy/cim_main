@@ -21,8 +21,9 @@ block content_right
 block content
 	if (news.photo)
 		.image_upload(style='background-image: url(' + news.photo + ')')
-	.title= news.ru.title.toUpperCase()
-	if (news.ru.s_title)
-		.s_title= news.ru.s_title.toUpperCase()
-	.description(lang='ru')
-		!= news.ru.body
+	.content_body
+		.title= news.ru.title.toUpperCase()
+		if (news.ru.s_title)
+			.s_title= news.ru.s_title.toUpperCase()
+		.description(lang='ru')
+			!= news.ru.body
