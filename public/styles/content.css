@@ -28,28 +28,62 @@ body {
 	overflow: hidden;
 }
 
-.date {
-	width: 80px;
-	height: 80px;
-	float: left;
-	color: white;
-	margin-left: 0px;
- 	font: 21pt/22pt 'PragmaticaM';
- 	letter-spacing: 0px;
- 	padding: 10px;
-	display: inline-block;
-	overflow: hidden;
-	white-space: nowrap;
-}
-
-.big {
+.cal_date {
 	width: 230px;
 	height: 80px;
 	float: left;
 	color: white;
+	margin-left: 0px;
  	font: 56pt/51pt 'PragmaticaM';
  	letter-spacing: -1px;
  	padding: 5px;
+ 	cursor: default;
+	display: inline-block;
+	overflow: hidden;
+	background-color: black;
+	white-space: nowrap;
+	position: relative;
+	z-index: 1;
+}
+
+.cal_schedule {
+	width: 110px;
+	height: 75px;
+	padding-top: 5px;
+	float: left;
+	color: white;
+	cursor: default;
+	margin-left: -110px;
+	/*background-color: green;*/
+	position: relative;
+	z-index: 0;
+}
+
+.cal_time {
+	font: 11pt/12pt 'Pragmatica';
+	letter-spacing: 0px;
+	margin-top: 1px;
+	padding: 5px;
+	font-weight: bold;
+}
+
+.cal_hall {
+	font: 11pt/12pt 'Pragmatica';
+	letter-spacing: 0px;
+	padding: 5px;
+}
+
+.cal_spacer {
+	width: 2px;
+	height: 55px;
+	margin-top: 13px;
+	margin-right: 25px;
+	float: left;
+	background-color: white;
+}
+
+.cal_spacer:last-child {
+	display: none;
 }
 
 .inner {
