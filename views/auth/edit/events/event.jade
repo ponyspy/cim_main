@@ -54,7 +54,7 @@ block content
 	else
 		.image_upload
 			input(type='file', name='image', data-post='/', data-crop='true')
-	.event_body
+	.content_body
 		.title(lang='ru', contenteditable)= event.ru.title.toUpperCase()
 		if (event.ru.s_title)
 			.s_title(lang='ru', contenteditable)= event.ru.s_title.toUpperCase()
