@@ -29,7 +29,8 @@ body {
 }
 
 .cal_date {
-	width: 230px;
+	/*width: 230px;*/
+	margin-right: 25px;
 	height: 80px;
 	float: left;
 	color: white;
