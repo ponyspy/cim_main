@@ -179,28 +179,28 @@ p {
 	float: right;
 	margin-top: 3px;
 	margin-bottom: 8px;
-	font: 8pt/11pt 'Pragmatica';
-	letter-spacing: 0px;
+	font: 8pt/11pt 'PragmaticaB';
+	/*letter-spacing: 0px;*/
 	/*border: 1px solid black;*/
 }
 
 .date {
-	font: 8pt/10pt 'Pragmatica';
-	font-weight: bold;
+	font: 8pt/10pt 'PragmaticaB';
+	/*font-weight: bold;*/
 }
 
 .dot {
 	width: 15px;
 	height: 12px;
-	font: 12pt/5pt 'Pragmatica';
+	font: 10pt/5pt 'PragmaticaB';
 	/*margin-top: -3px;*/
 	/*margin-bottom: 5px;*/
 	/*border: 1px solid black;*/
 }
 
 .month {
-	font: 8pt/10pt 'Pragmatica';
-	font-weight: bold;
+	font: 8pt/10pt 'PragmaticaB';
+	/*font-weight: bold;*/
 }
 
 .item_body {
