@@ -80,11 +80,11 @@ background-color: white;
 }
 
 .afisha_time {
- 	font: 11pt/12pt 'Pragmatica';
+ 	font: 11pt/12pt 'PragmaticaM';
  	letter-spacing: 0px;
- 	margin-top: 1px;
+ 	margin-top: 0px;
  	/*padding: 5px;*/
- 	font-weight: bold;
+ 	/*font-weight: bold;*/
 }
 
 .afisha_hall {
@@ -131,10 +131,10 @@ background-color: white;
 }
 
 .title {
- 	font: 21pt/21pt 'PragmaticaM';
- 	letter-spacing: 0px;
+ 	font: 21pt/21pt 'PragmaticaB';
+ 	/*letter-spacing: 0.5px;*/
  	padding-top: 3px;
- 	font-weight: bold;
+ 	/*font-weight: bold;*/
  	color: black;
  	text-decoration: none;
  	/*border: 1px solid black;*/
@@ -145,12 +145,12 @@ background-color: white;
 }
 
 .s_title {
- 	font: 11pt/13pt 'Pragmatica';
+ 	font: 11pt/13pt 'PragmaticaB';
  	margin-top: 3px;
  	margin-bottom: 1px;
- 	letter-spacing: 0px;
+ 	/*letter-spacing: 0.5px;*/
  	/*padding: 5px;*/
- 	font-weight: bold;
+ 	/*font-weight: bold;*/
 }
 
 .actors {
@@ -164,10 +164,11 @@ background-color: white;
 }
 
 .member {
- 	font: 11pt/13pt 'Pragmatica';
- 	letter-spacing: 0px;
+ 	font: 11pt/13pt 'PragmaticaB';
+ 	/*letter-spacing: 0.5px;*/
+ 	/*letter-spacing: 0px;*/
  	/*padding-top: 3px;*/
- 	font-weight: bold;
+ 	/*font-weight: bold;*/
  	/*margin-top: 1px;*/
  	/*border: 1px solid black;*/
 }
@@ -176,11 +177,11 @@ background-color: white;
 	min-height: 79px;
 	float: left;
 	width: 170px;
- 	font: 10pt/14pt 'Pragmatica';
- 	letter-spacing: 0px;
+ 	font: 10pt/14pt 'PragmaticaB';
+ 	/*letter-spacing: 0.5px;*/
  	padding-top: 1px;
  	padding-left: 20px;
- 	font-weight: bold;
+ 	/*font-weight: bold;*/
 	/*border: 1px solid black;*/
 }
 

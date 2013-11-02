@@ -9,9 +9,14 @@
 }
 
 @font-face {
+	font-family: PragmaticaB;
+	src: url('/fonts/prg75.otf');
+}
+
+/*@font-face {
 	font-family: Grands;
 	src: url('/fonts/Grands.ttf');
-}
+}*/
 
 a {
 	text-decoration: none;
@@ -84,7 +89,7 @@ img {
  	float: left;
  	color: white;
  	font: 12pt/10pt 'Pragmatica';
- 	letter-spacing: 0px;
+ 	/*letter-spacing: 0px;*/
  	padding: 5px;
  	background-color: black;
  	border: 1px solid white;

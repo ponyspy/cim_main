@@ -130,7 +130,8 @@ body {
 }
 
 .m_list a {
-	font-weight: bold;
+	/*font-weight: bold;*/
+	font: 11pt/13pt 'PragmaticaB';
 	float: left;
 	clear: both;
 	margin-right: 5px;
@@ -185,11 +186,15 @@ body {
 	/*border: 1px solid black;*/
 }
 
+.description b {
+	font: 12pt/13pt 'PragmaticaB';
+}
+
 .comment {
 	width: 270px;
 	min-height: 35px;
-	font: 10pt/14pt 'Pragmatica';
-	font-weight: bold;
+	font: 10pt/14pt 'PragmaticaB';
+	/*font-weight: bold;*/
 	/*height: 110px;*/
 	margin-top: 10px;
 	margin-bottom: 10px;

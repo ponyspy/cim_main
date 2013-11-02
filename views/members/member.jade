@@ -14,10 +14,9 @@ block content_right
 
 block content
 	img(src=member.img)
-	.name= member.ru.name
-	.events События:
-		each event in events
-			br
-			a(href='/event/' + event._id)
-				b= event.ru.title
-	.description= member.ru.description
+	.content_body
+		.name= member.ru.name
+		.events События:
+			each event in events
+				a(href='/event/' + event._id)= event.ru.title
+		.description= member.ru.description
