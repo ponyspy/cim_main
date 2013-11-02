@@ -161,8 +161,8 @@ p {
 	margin-top: 1px;
 	margin-bottom: 4px;
 	word-wrap: break-word;
-	font: 18pt/21pt 'Pragmatica';
-	font-weight: bold;
+	font: 18pt/21pt 'PragmaticaM';
+	/*font-weight: bold;*/
 	text-decoration: none;
 	float: left;
 	overflow: visible;
