@@ -18,7 +18,7 @@ $(document).ready(function() {
 			$(this).next('.cal_schedule').stop().animate({'margin-left':'0px'}, 200)
 		},
 		mouseout: function() {
-			$(this).next('.cal_schedule').stop().animate({'margin-left':'-110px'}, 200)
+			$(this).next('.cal_schedule').stop().animate({'margin-left':'-115px'}, 200)
 		},
 	})
 
