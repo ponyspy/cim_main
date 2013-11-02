@@ -67,12 +67,24 @@ img {
 	Pin Events
  */
 
-.pin_events_block {
-	/*width: 160px;*/
+/*.pin_events_block {
 	min-height: 20px;
-	/*float: right;*/
 	position: fixed;
 	margin-left: 950px;
+}*/
+
+.pin_events_block {
+	position: fixed;
+	margin-left: 950px;
+	width: 200px;
+	overflow: hidden;
+	/*background-color: red;*/
+}
+
+.pin_events_scroll {
+	width: 220px;
+	overflow: auto;
+	height: 450px;
 }
 
 a.pin_event_link {
