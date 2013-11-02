@@ -30,7 +30,7 @@ img {
  	/*letter-spacing: 0px;*/
 	hyphens: auto;
 	-webkit-hyphens: auto;
- 	margin-top: 5px;
+ 	margin-top: 25px;
  	/*padding-top: 2px;*/
  	padding-bottom: 2px;
  	padding-left: 10px;
@@ -61,4 +61,43 @@ img {
 .events a {
 	font: 11pt/13pt 'PragmaticaB';
 	display: block;
+}
+
+/*
+	Pin Events
+ */
+
+.pin_events_block {
+	/*width: 160px;*/
+	min-height: 20px;
+	/*float: right;*/
+	position: fixed;
+	margin-left: 950px;
+}
+
+a.pin_event_link {
+	text-decoration: none;
+}
+
+.pin_event {
+	width: 150px;
+	margin-bottom: 20px;
+	background-color: black;
+	padding: 10px;
+	color: white;
+	cursor: pointer;
+}
+
+.pin_event:hover {
+	color: black;
+	background-color: white;
+}
+
+.pin_event_titile {
+	font: 10pt/12pt 'PragmaticaM';
+}
+
+.pin_event_s_titile {
+	font: 8pt/11pt 'PragmaticaM';
+	padding-top: 2px;
 }
