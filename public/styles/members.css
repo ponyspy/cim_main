@@ -76,15 +76,17 @@ img {
 .pin_events_block {
 	position: fixed;
 	margin-left: 950px;
-	width: 200px;
+	width: 170px;
 	overflow: hidden;
 	/*background-color: red;*/
 }
 
 .pin_events_scroll {
-	width: 220px;
+	width: 200px;
 	overflow: auto;
 	height: 450px;
+	position: relative;
+	/*background-color: green;*/
 }
 
 a.pin_event_link {
