@@ -2,6 +2,7 @@ var fs = require('fs');
 var express = require('express');
     var app = express();
 var async = require('async');
+var gm = require('gm').subClass({ imageMagick: true });
 
 var mongoose = require('mongoose');
   var Schema = mongoose.Schema;
@@ -288,8 +289,6 @@ app.get('/member/:id', function (req, res) {
 });
 
 
-
-
 // ------------------------
 // *** Auth Block ***
 // ------------------------
@@ -301,7 +300,7 @@ app.get('/auth', checkAuth, function (req, res) {
 
 app.post('/auth', checkAuth, function (req, res) {
   var post = req.body;
-  console.log(req.body);
+  // console.log(req.body);
   // console.log(req.body.children[0].ru.title);
   // console.log(req.body.children[0].cal);
   // console.log(req.body.event.ru.actors);
@@ -350,14 +349,12 @@ app.post('/auth/add/event', function(req, res) {
   async.parallel({
     photo: function(callback) {
       if (files.photo.size != 0) {
-        fs.readFile(files.photo.path, function (err, data) {
-          fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
-            var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
-            fs.writeFile(newPath, data, function (err) {
-              event.photo = '/images/events/' + event._id + '/photo.jpg';
-              fs.unlink(files.photo.path);
-              callback(null, 1);
-            });
+        fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
+          var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
+          gm(files.photo.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
+            event.photo = '/images/events/' + event._id + '/photo.jpg';
+            fs.unlink(files.photo.path);
+            callback(null, 1);
           });
         });
       }
@@ -368,14 +365,12 @@ app.post('/auth/add/event', function(req, res) {
     },
     poster: function(callback) {
       if (files.poster.size != 0) {
-        fs.readFile(files.poster.path, function (err, data) {
-          fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
-            var newPath = __dirname + '/public/images/events/' + event._id + '/poster.jpg';
-            fs.writeFile(newPath, data, function (err) {
-              event.poster = '/images/events/' + event._id + '/poster.jpg';
-              fs.unlink(files.poster.path);
-              callback(null, 2);
-            });
+        fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
+          var newPath = __dirname + '/public/images/events/' + event._id + '/poster.jpg';
+          gm(files.poster.path).resize(280, false).quality(60).noProfile().write(newPath, function() {
+            event.poster = '/images/events/' + event._id + '/poster.jpg';
+            fs.unlink(files.poster.path);
+            callback(null, 2);
           });
         });
       }
@@ -399,13 +394,11 @@ app.post('/auth/add/event', function(req, res) {
 
 app.post('/edit', function (req, res) {
   var files = req.files;
-  fs.readFile(files.mf_file_undefined.path, function (err, data) {
-    var name = files.mf_file_undefined.path.slice(33);
-    var newPath = __dirname + '/public/preview/' + name;
-    fs.writeFile(newPath, data, function (err) {
-      var path = {'path':'/preview/' + name}
-      res.send(path);
-    });
+  var name = files.mf_file_undefined.path.slice(33);
+  var newPath = __dirname + '/public/preview/' + name;
+  gm(files.mf_file_undefined.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
+    var path = {'path':'/preview/' + name}
+    res.send(path);
   });
 });
 
@@ -462,13 +455,11 @@ app.post('/auth/edit/events/:id', function (req, res) {
     }
 
     if (post.img != 'null') {
-      fs.readFile(__dirname + '/public' + post.img, function (err, data) {
-        fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
-          var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
-          fs.writeFile(newPath, data, function (err) {
-            event.photo = '/images/events/' + event._id + '/photo.jpg';
-            fs.unlink(__dirname + '/public' + post.img);
-          });
+      fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
+        var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
+        gm(__dirname + '/public' + post.img).resize(1120, false).quality(60).noProfile().write(newPath, function() {
+          event.photo = '/images/events/' + event._id + '/photo.jpg';
+          fs.unlink(__dirname + '/public' + post.img);
         });
       });
     }
@@ -619,14 +610,12 @@ app.post('/auth/add/news', function (req, res) {
   async.parallel({
     photo: function(callback) {
       if (files.photo.size != 0) {
-        fs.readFile(files.photo.path, function (err, data) {
-          fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
-            var newPath = __dirname + '/public/images/news/' + news._id + '/photo.jpg';
-            fs.writeFile(newPath, data, function (err) {
-              news.photo = '/images/news/' + news._id + '/photo.jpg';
-              fs.unlink(files.photo.path);
-              callback(null, 1);
-            });
+        fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
+          var newPath = __dirname + '/public/images/news/' + news._id + '/photo.jpg';
+          gm(files.photo.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
+            news.photo = '/images/news/' + news._id + '/photo.jpg';
+            fs.unlink(files.photo.path);
+            callback(null, 1);
           });
         });
       }
@@ -637,14 +626,12 @@ app.post('/auth/add/news', function (req, res) {
     },
     poster: function(callback) {
       if (files.poster.size != 0) {
-        fs.readFile(files.poster.path, function (err, data) {
-          fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
-            var newPath = __dirname + '/public/images/news/' + news._id + '/poster.jpg';
-            fs.writeFile(newPath, data, function (err) {
-              news.poster = '/images/news/' + news._id + '/poster.jpg';
-              fs.unlink(files.poster.path);
-              callback(null, 2);
-            });
+        fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
+          var newPath = __dirname + '/public/images/news/' + news._id + '/poster.jpg';
+          gm(files.poster.path).resize(280, false).quality(60).noProfile().write(newPath, function() {
+            news.poster = '/images/news/' + news._id + '/poster.jpg';
+            fs.unlink(files.poster.path);
+            callback(null, 2);
           });
         });
       }
@@ -717,14 +704,12 @@ app.post('/auth/edit/news/:id', function (req, res) {
       async.parallel({
         photo: function(callback) {
           if (files.photo.size != 0) {
-            fs.readFile(files.photo.path, function (err, data) {
-              fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
-                var newPath = __dirname + '/public/images/news/' + news._id + '/photo.jpg';
-                fs.writeFile(newPath, data, function (err) {
-                  news.photo = '/images/news/' + news._id + '/photo.jpg';
-                  fs.unlink(files.photo.path);
-                  callback(null, 1);
-                });
+            fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
+              var newPath = __dirname + '/public/images/news/' + news._id + '/photo.jpg';
+              gm(files.photo.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
+                news.photo = '/images/news/' + news._id + '/photo.jpg';
+                fs.unlink(files.photo.path);
+                callback(null, 1);
               });
             });
           }
@@ -735,14 +720,12 @@ app.post('/auth/edit/news/:id', function (req, res) {
         },
         poster: function(callback) {
           if (files.poster.size != 0) {
-            fs.readFile(files.poster.path, function (err, data) {
-              fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
-                var newPath = __dirname + '/public/images/news/' + news._id + '/poster.jpg';
-                fs.writeFile(newPath, data, function (err) {
-                  news.poster = '/images/news/' + news._id + '/poster.jpg';
-                  fs.unlink(files.poster.path);
-                  callback(null, 2);
-                });
+            fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
+              var newPath = __dirname + '/public/images/news/' + news._id + '/poster.jpg';
+              gm(files.poster.path).resize(280, false).quality(60).noProfile().write(newPath, function() {
+                news.poster = '/images/news/' + news._id + '/poster.jpg';
+                fs.unlink(files.poster.path);
+                callback(null, 2);
               });
             });
           }
@@ -786,14 +769,12 @@ app.post('/auth/add/member', function (req, res) {
   }
 
   if (files.img.size != 0) {
-    fs.readFile(files.img.path, function (err, data) {
-      var newPath = __dirname + '/public/images/members/' + member._id + '.jpg';
-      fs.writeFile(newPath, data, function (err) {
-        member.img = '/images/members/' + member._id + '.jpg';
-        member.save(function() {
-          fs.unlink(files.img.path);
-          res.redirect('back');
-        });
+    var newPath = __dirname + '/public/images/members/' + member._id + '.jpg';
+    gm(files.img.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
+      member.img = '/images/members/' + member._id + '.jpg';
+      member.save(function() {
+        fs.unlink(files.img.path);
+        res.redirect('back');
       });
     });
   }
@@ -849,14 +830,12 @@ app.post('/auth/edit/members/:id', function (req, res) {
       member.ru.description = post.ru.description;
 
       if (files.img.size != 0) {
-        fs.readFile(files.img.path, function (err, data) {
-          var newPath = __dirname + '/public/images/members/' + member._id + '.jpg';
-          fs.writeFile(newPath, data, function (err) {
-            member.img = '/images/members/' + member._id + '.jpg';
-            member.save(function() {
-              fs.unlink(files.img.path);
-              res.redirect('/auth/edit/members');
-            });
+        var newPath = __dirname + '/public/images/members/' + member._id + '.jpg';
+        gm(files.img.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
+          member.img = '/images/members/' + member._id + '.jpg';
+          member.save(function() {
+            fs.unlink(files.img.path);
+            res.redirect('/auth/edit/members');
           });
         });
       }
