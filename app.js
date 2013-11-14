@@ -367,7 +367,7 @@ app.post('/auth/add/event', function(req, res) {
       if (files.poster.size != 0) {
         fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
           var newPath = __dirname + '/public/images/events/' + event._id + '/poster.jpg';
-          gm(files.poster.path).resize(280, false).quality(60).noProfile().write(newPath, function() {
+          gm(files.poster.path).resize(580, false).quality(60).noProfile().write(newPath, function() {
             event.poster = '/images/events/' + event._id + '/poster.jpg';
             fs.unlink(files.poster.path);
             callback(null, 2);
@@ -632,7 +632,7 @@ app.post('/auth/add/news', function (req, res) {
       if (files.poster.size != 0) {
         fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
           var newPath = __dirname + '/public/images/news/' + news._id + '/poster.jpg';
-          gm(files.poster.path).resize(280, false).quality(60).noProfile().write(newPath, function() {
+          gm(files.poster.path).resize(580, false).quality(60).noProfile().write(newPath, function() {
             news.poster = '/images/news/' + news._id + '/poster.jpg';
             fs.unlink(files.poster.path);
             callback(null, 2);
@@ -726,7 +726,7 @@ app.post('/auth/edit/news/:id', function (req, res) {
           if (files.poster.size != 0) {
             fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
               var newPath = __dirname + '/public/images/news/' + news._id + '/poster.jpg';
-              gm(files.poster.path).resize(280, false).quality(60).noProfile().write(newPath, function() {
+              gm(files.poster.path).resize(580, false).quality(60).noProfile().write(newPath, function() {
                 news.poster = '/images/news/' + news._id + '/poster.jpg';
                 fs.unlink(files.poster.path);
                 callback(null, 2);
