@@ -1,7 +1,7 @@
 .content_block {
 	background-color: white;
 	width: 930px;
-	min-height: 600px;
+	min-height: 300px;
 }
 
 .head_title_block {
@@ -10,8 +10,9 @@
 
 .error_title {
 	width: 85px;
-	padding-top: 100px;
-	margin: 0 auto;
+	/*padding-top: 100px;*/
+	margin-left: 10px;
+	/*margin: 0 auto;*/
 	/*padding-left: 10px;*/
 	font-family: 'Times New Roman';
 	/*font: 56pt/51pt 'PragmaticaM';*/
@@ -21,15 +22,18 @@
 .error_s_title {
 	width: 165px;
 	font-family: 'Times New Roman';
-	margin: 0 auto;
+	margin-left: 10px;
+	/*margin: 0 auto;*/
 	/*font: 26pt/28pt 'PragmaticaM';*/
 	/*padding-top: 10px;*/
-	padding-bottom: 30px;
+	/*padding-bottom: 30px;*/
 	/*border: 1px solid black;*/
 }
 
 .error_image {
-	width: 20%;
+	padding-top: 150px;
+	padding-bottom: 150px;
+	width: 170px;
 	margin: 0 auto;
 	display: block;
 }

@@ -98,7 +98,7 @@ $(document).ready(function() {
 		else {
 			$('.loader').text('больше нет новостей').show();
 			$(window).off('scroll', ScrollLoader);
-			$('.footer_block').show();
+			$('.footer_block, .banner_block').show();
 		}
 	}
 
@@ -106,7 +106,7 @@ $(document).ready(function() {
 		var tag = this.className.slice(9);
 		skip = 0;
 
-		$('.footer_block').hide();
+		$('.footer_block, .banner_block').hide();
 		$(window).off('scroll', ScrollLoader);
 		$('body').animate({
 			scrollTop: $(".infinite-container").offset().top
