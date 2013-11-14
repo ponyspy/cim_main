@@ -457,16 +457,20 @@ app.post('/auth/edit/events/:id', function (req, res) {
     if (post.img != 'null') {
       fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
         var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
-        gm(__dirname + '/public' + post.img).resize(1120, false).quality(60).noProfile().write(newPath, function() {
+        gm(__dirname + '/public' + post.img).write(newPath, function() {
           event.photo = '/images/events/' + event._id + '/photo.jpg';
           fs.unlink(__dirname + '/public' + post.img);
+          event.save(function() {
+            res.send('ok img');
+          });
         });
       });
     }
-
-    event.save(function(){
-      res.send('ok!')
-    });
+    else {
+      event.save(function(err, event) {
+        res.send('ok!')
+      });
+    }
     // async.parallel({
     //   photo: function(callback) {
     //     if (files.photo.size != 0) {
