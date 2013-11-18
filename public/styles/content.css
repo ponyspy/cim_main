@@ -207,11 +207,42 @@ body {
 	/*background-color: red;*/
 }
 
+.content_right_block {
+	float: right;
+}
+
+.edit_btn {
+	width: 170px;
+	height: 30px;
+	background-color: red;
+	color: white;
+	cursor: pointer;
+	text-align: center;
+	padding-top: 13px;
+	margin-top: 20px;
+	font: 12pt/14pt 'Pragmatica';
+}
+
+.edit_btn a {
+	color: white;
+	text-decoration: none;
+	font: 12pt/14pt 'Pragmatica';
+}
+
+.edit_btn:hover {
+	background-color: white;
+}
+
+.edit_btn:hover a {
+	color: black;
+	background-color: white;
+}
+
 .ticket {
 	width: 150px;
 	min-height: 30px;
 	padding: 10px;
-	float: right;
+	/*float: right;*/
 	font: 10pt/12pt 'Pragmatica';
 	/*font-weight: bold;*/
 	background-color: #c7ff09;

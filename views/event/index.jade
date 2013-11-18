@@ -11,9 +11,13 @@ block content_scripts
 	script(type='text/javascript', src='/scripts/back.js' + version)
 
 block content_right
-	if (event[0].ru.ticket)
-		.ticket
-			!= event[0].ru.ticket
+	.content_right_block
+		if (event[0].ru.ticket)
+			.ticket
+				!= event[0].ru.ticket
+		if (session.user_id)
+			.edit_btn
+				a(href='/auth/edit/events/' + event[0]._id, target='_blank') РЕДАКТИРОВАТЬ
 
 //- mixin memberList(marker, status)
 //- 	- var flag = false
