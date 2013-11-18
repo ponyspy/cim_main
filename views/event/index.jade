@@ -16,8 +16,7 @@ block content_right
 			.ticket
 				!= event[0].ru.ticket
 		if (session.user_id)
-			.edit_btn
-				a(href='/auth/edit/events/' + event[0]._id, target='_blank') РЕДАКТИРОВАТЬ
+			a.edit_btn(href='/auth/edit/events/' + event[0]._id, target='_blank') РЕДАКТИРОВАТЬ
 
 //- mixin memberList(marker, status)
 //- 	- var flag = false

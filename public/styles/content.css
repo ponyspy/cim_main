@@ -216,26 +216,19 @@ body {
 	height: 30px;
 	background-color: red;
 	color: white;
-	cursor: pointer;
 	text-align: center;
-	padding-top: 13px;
-	margin-top: 20px;
-	font: 12pt/14pt 'Pragmatica';
-}
-
-.edit_btn a {
-	color: white;
 	text-decoration: none;
+	padding-top: 13px;
+	/*position: fixed;*/
+	margin-top: 20px;
+	display: block;
 	font: 12pt/14pt 'Pragmatica';
 }
 
 .edit_btn:hover {
 	background-color: white;
-}
-
-.edit_btn:hover a {
 	color: black;
-	background-color: white;
+	text-decoration: none;
 }
 
 .ticket {
