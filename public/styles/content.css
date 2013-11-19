@@ -220,7 +220,7 @@ body {
 	text-decoration: none;
 	padding-top: 13px;
 	/*position: fixed;*/
-	margin-top: 20px;
+	/*margin-top: 20px;*/
 	display: block;
 	font: 12pt/14pt 'Pragmatica';
 }
@@ -235,6 +235,7 @@ body {
 	width: 150px;
 	min-height: 30px;
 	padding: 10px;
+	margin-bottom: 20px;
 	/*float: right;*/
 	font: 10pt/12pt 'Pragmatica';
 	/*font-weight: bold;*/
