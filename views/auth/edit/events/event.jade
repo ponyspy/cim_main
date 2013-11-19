@@ -24,18 +24,6 @@ block content_right
 			.s_item.toggle_grid направляющие
 		.upload СОХРАНИТЬ
 
-//- mixin memberList(marker, status)
-//- 	- var flag = false
-//- 	each member in event.members
-//- 		if (member.c_status == status)
-//- 			if (!flag)
-//- 				.marker= marker + ':'
-//- 			- flag = true
-//- 			a(href= '/member/' + member.m_id._id)
-//- 				b= member.m_id.ru.name
-//- 			br
-
-
 mixin memberList(marker, status)
 	.marker(class=status)
 		.m_title= marker + ':'
