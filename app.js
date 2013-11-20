@@ -48,6 +48,19 @@ var newsSchema = new Schema({
       date: {type: Date, default: Date.now}
 });
 
+var presSchema = new Schema({
+      ru: {
+        author: String,
+        body: String
+      },
+      en: {
+        author: String,
+        body: String
+      },
+      link: String,
+      events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
+      date: {type: Date, default: Date.now}
+});
 
 var eventSchema = new Schema({
       ru: {
@@ -123,6 +136,7 @@ var User = mongoose.model('User', userSchema);
 var Member = mongoose.model('Member', memberSchema);
 var Event = mongoose.model('Event', eventSchema);
 var News = mongoose.model('News', newsSchema);
+var Press = mongoose.model('Press', presSchema);
 var Child = mongoose.model('Child', eventSchema);
 var Schedule = mongoose.model('Schedule', scheduleSchema);
 
@@ -746,6 +760,42 @@ app.post('/auth/edit/news/:id', function (req, res) {
       });
     });
   }
+});
+
+
+// ------------------------
+// *** Add Press Block ***
+// ------------------------
+
+
+app.get('/auth/add/press', checkAuth, function (req, res) {
+  Event.find().sort('-date').exec(function(err, events) {
+    res.render('auth/add/press.jade', {events: events});
+  });
+});
+
+app.post('/auth/add/press', function (req, res) {
+  var post = req.body;
+  var files = req.files;
+  var press = new Press();
+
+  press.ru.author = post.ru.author;
+  press.ru.body = post.ru.body;
+  press.link = post.link;
+
+  if (post.en) {
+    press.en.author = post.en.author;
+    press.en.body = post.en.body;
+  };
+
+  if (post.events != '')
+    press.events = post.events;
+  else
+    press.events = [];
+
+  press.save(function(err) {
+    res.redirect('back');
+  });
 });
 
 
