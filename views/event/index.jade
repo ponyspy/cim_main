@@ -18,16 +18,12 @@ block content_right
 		if (session.user_id)
 			a.edit_btn(href='/auth/edit/events/' + event[0]._id, target='_blank') РЕДАКТИРОВАТЬ
 
-//- mixin memberList(marker, status)
-//- 	- var flag = false
-//- 	each member in event[0].members
-//- 		if (member.c_status == status)
-//- 			if (!flag)
-//- 				.marker= marker + ':'
-//- 			- flag = true
-//- 			a(href= '/member/' + member.m_id._id)
-//- 				b= member.m_id.ru.name
-//- 			br
+block content_under
+	.press_block
+		each item in press
+			.press_item
+				a.press_author(href=item.link, target='_blank')= item.ru.author + ':'
+				.press_body= item.ru.body
 
 mixin memberList(marker, status)
 	- var flag = false

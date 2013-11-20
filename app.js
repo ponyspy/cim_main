@@ -279,10 +279,12 @@ app.get('/event/:id', function (req, res) {
   end.setFullYear(end.getFullYear(), (end.getMonth()+1), 0);
 
   Schedule.find({'date': {'$gte': start, '$lt': end}, 'events.event': id}, {'events.$': 1}).limit(10).select('date').sort('date').exec(function(err, schedule) {
-    Event.find({'_id':id}).populate('children members.m_id').exec(function(err, event) {
-       if (!event) return res.render('error');
-      res.render('event', {event: event, schedule: schedule});
-    });
+    Press.find({'events': id}).sort('-date').exec(function(err, press) {
+      Event.find({'_id':id}).populate('children members.m_id').exec(function(err, event) {
+         if (!event) return res.render('error');
+        res.render('event', {event: event, schedule: schedule, press: press});
+      });
+    })
   });
 });
 
@@ -776,7 +778,6 @@ app.get('/auth/add/press', checkAuth, function (req, res) {
 
 app.post('/auth/add/press', function (req, res) {
   var post = req.body;
-  var files = req.files;
   var press = new Press();
 
   press.ru.author = post.ru.author;
@@ -795,6 +796,53 @@ app.post('/auth/add/press', function (req, res) {
 
   press.save(function(err) {
     res.redirect('back');
+  });
+});
+
+
+// ------------------------
+// *** Edit Press Block ***
+// ------------------------
+
+
+app.get('/auth/edit/press', checkAuth, function (req, res) {
+  Press.find().sort('-date').exec(function(err, press){
+    res.render('auth/edit/press', {press: press});
+  });
+});
+
+app.get('/auth/edit/press/:id', checkAuth, function (req, res) {
+  var id = req.params.id;
+
+  Press.find({'_id':id}).populate('events').exec(function(err, press) {
+    Event.find(function(err, events){
+      res.render('auth/edit/press/e_press.jade', {press: press[0], events: events});
+    });
+  });
+});
+
+app.post('/auth/edit/press/:id', function (req, res) {
+  var post = req.body;
+  var id = req.params.id;
+
+  Press.findById(id, function(err, press) {
+    press.ru.author = post.ru.author;
+    press.ru.body = post.ru.body;
+    press.link = post.link;
+
+    if (post.en) {
+      press.en.author = post.en.author;
+      press.en.body = post.en.body;
+    };
+
+    if (post.events != '')
+      press.events = post.events;
+    else
+      press.events = [];
+
+    press.save(function(err) {
+      res.redirect('back');
+    });
   });
 });
 
