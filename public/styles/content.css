@@ -302,3 +302,8 @@ a.pin_event_link {
 .press_author {
 	font: 11pt/13pt 'PragmaticaB';
 }
+
+.press_body {
+	font-style:italic;
+	display: inline;
+}

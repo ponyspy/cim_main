@@ -23,7 +23,7 @@ block content_under
 		each item in press
 			.press_item
 				a.press_author(href=item.link, target='_blank')= item.ru.author + ':'
-				.press_body= item.ru.body
+				.press_body= '«' + item.ru.body + '»'
 
 mixin memberList(marker, status)
 	- var flag = false
