@@ -304,6 +304,7 @@ a.pin_event_link {
 }
 
 .press_body {
+	font: 11pt/13pt 'Pragmatica';
 	font-style:italic;
 	display: inline;
 }
