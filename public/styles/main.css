@@ -33,6 +33,8 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+	overflow: hidden;
+	margin: 0;
 }
 
 img {
@@ -43,11 +45,17 @@ img {
 	Main
 */
 
+html, body, .maket {
+	height: 100%;
+}
+
 .maket {
-	width: 1120px;
+	width: 100%;
 	margin: 0 auto;
 	position: relative;
 	/*border: 1px solid black;*/
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
 }
 
 .main_block {
@@ -191,7 +199,7 @@ img {
  	display: none;
 }
 
- .search_submit {
+.search_submit {
  	width: 50px;
  	height: 14px;
  	float: left ;
@@ -213,7 +221,7 @@ img {
 	Head title
  */
 
- .head_title_block {
+.head_title_block {
 	width: 350px;
 	height: 22px;
 	margin-right: 20px;
@@ -233,12 +241,11 @@ img {
  	border: 1px solid black;
  }*/
 
-
 /*
 	Footer
 */
 
- .footer_block {
+.footer_block {
 	width: 930px;
 	height: 127px;
 	margin-top: 20px;
@@ -327,4 +334,57 @@ img {
 	margin-right: 20px;
 	/*background-color: red;*/
 	/*border-radius: 46px;*/
+}
+
+/*
+	Photostream
+ */
+
+.photo_stream {
+	width: 105px;
+	height: 25px;
+	padding-top: 5px;
+	/*padding-bottom: 5px;*/
+	font: 13pt/13pt 'PragmaticaM';
+	text-align: center;
+	background-color: white;
+	position: absolute;
+	cursor: pointer;
+	top: 45px;
+	right: 24px;
+	z-index: 90000;
+}
+
+.photo_stream:hover {
+	color: white;
+	background-color: black;
+}
+
+.background_block {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+
+.background_item {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	background: no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.green {
+	background-image: url(/images/design/backgrounds/1.jpg);
+}
+
+.red {
+	background-image: url(/images/design/backgrounds/2.jpg);
+}
+
+.blue {
+	background-image: url(/images/design/backgrounds/3.jpg);
 }
