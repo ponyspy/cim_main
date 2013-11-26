@@ -7,15 +7,19 @@ function backScroller (event) {
 
 
 	if ($('.background_item').eq(count).offset().top + $('.background_item').eq(count).height() <= 0) {
-		scroll = 0;
-		if (count != 0)
+		if (count != 0) {
+			scroll = 0;
 			count--;
-		else
+		}
+		else {
 			count = 0;
+			scroll = 0
+			event.stopImmediatePropagation();
+		}
 	}
 	else if ($('.background_item').eq(count).offset().top >= 0) {
-		count++;
 		scroll = - $('.background_item').eq(count).height();
+		count++;
 	}
 
 

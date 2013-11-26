@@ -244,6 +244,7 @@ app.get('/news/:id', function (req, res) {
 
 
 app.get('/afisha/:position', function (req, res) {
+  res.locals.background = false;
   var position = req.params.position;
   var start = new Date();
   var end = new Date();
