@@ -3,12 +3,11 @@ html
 	head
 		include header
 	body
-		if (background != false)
+		if (photos)
 			.photo_stream фотопоток
 			.background_block
-				.background_item.red
-				.background_item.green
-				.background_item.blue
+				each photo in photos
+					.background_item(style='background-image: url(' + photo.image + ')')
 		.maket
 			.main_block
 				//- .photo_stream фотопоток

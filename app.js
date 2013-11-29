@@ -62,6 +62,17 @@ var presSchema = new Schema({
       date: {type: Date, default: Date.now}
 });
 
+var photoSchema = new Schema({
+      ru: {
+        description: String
+      },
+      en: {
+        description: String
+      },
+      image: String,
+      date: {type: Date, default: Date.now}
+});
+
 var eventSchema = new Schema({
       ru: {
         title: String,
@@ -137,6 +148,7 @@ var Member = mongoose.model('Member', memberSchema);
 var Event = mongoose.model('Event', eventSchema);
 var News = mongoose.model('News', newsSchema);
 var Press = mongoose.model('Press', presSchema);
+var Photo = mongoose.model('Photo', photoSchema);
 var Child = mongoose.model('Child', eventSchema);
 var Schedule = mongoose.model('Schedule', scheduleSchema);
 
@@ -151,6 +163,13 @@ function checkAuth (req, res, next) {
     next();
   else
     res.redirect('/login');
+}
+
+function photoStream (req, res, next) {
+  Photo.find().sort('-date').limit(3).exec(function(err, photos) {
+    res.locals.photos = photos;
+    next();
+  });
 }
 
 var deleteFolderRecursive = function(path) {
@@ -192,7 +211,7 @@ function memberSplit (members) {
 // ------------------------
 
 
-app.get('/', function(req, res) {
+app.get('/', photoStream, function(req, res) {
   var start = new Date();
   var end = new Date();
   start.setDate(1);
@@ -244,7 +263,6 @@ app.get('/news/:id', function (req, res) {
 
 
 app.get('/afisha/:position', function (req, res) {
-  res.locals.background = false;
   var position = req.params.position;
   var start = new Date();
   var end = new Date();
@@ -954,6 +972,50 @@ app.post('/auth/edit/members/:id', function (req, res) {
 
 
 // ------------------------
+// *** Add Photo Block ***
+// ------------------------
+
+
+app.get('/auth/add/photo', checkAuth, function (req, res) {
+  res.render('auth/add/photo.jade');
+});
+
+app.post('/auth/add/photo', function (req, res) {
+  var post = req.body;
+  var files = req.files;
+  var photo = new Photo();
+
+  photo.ru.description = post.ru.description;
+
+  if (post.en) {
+    photo.en.description = post.en.description;
+  }
+
+  if (files.img.size != 0) {
+    var newPath = __dirname + '/public/images/photo_stream/' + photo._id + '.jpg';
+    gm(files.img.path).resize(2100, false).quality(60).noProfile().write(newPath, function() {
+      photo.image = '/images/photo_stream/' + photo._id + '.jpg';
+      photo.save(function() {
+        fs.unlink(files.img.path);
+        res.redirect('back');
+      });
+    });
+  }
+  else {
+    photo.save(function() {
+      fs.unlink(files.img.path);
+      res.redirect('back');
+    });
+  }
+});
+
+
+// ------------------------
+// *** Edit Photos Block ***
+// ------------------------
+
+
+// ------------------------
 // *** Login Block ***
 // ------------------------
 
@@ -1045,7 +1107,7 @@ app.get('/error', function (req, res) {
   res.render('error');
 });
 
-app.get('*', function(req, res){
+app.get('*', function(req, res) {
   res.render('error');
 });
 
