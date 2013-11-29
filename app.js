@@ -172,6 +172,12 @@ function photoStream (req, res, next) {
   });
 }
 
+
+// ------------------------
+// *** Handlers Block ***
+// ------------------------
+
+
 var deleteFolderRecursive = function(path) {
   if( fs.existsSync(path) ) {
     fs.readdirSync(path).forEach(function(file,index){

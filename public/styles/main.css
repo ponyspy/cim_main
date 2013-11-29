@@ -128,13 +128,14 @@ html, body, .maket {
  	z-index: 1;
  }
 
- .menu_link:hover {
+ .menu_drop a:hover {
  		text-decoration: underline;
  }
 
- .menu_link {
+ .menu_drop a {
  	color: white;
  	text-decoration: none;
+ 	display: block;
  }
 
  .pay {
@@ -371,16 +372,4 @@ html, body, .maket {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-}
-
-.green {
-	background-image: url(/images/design/backgrounds/1.jpg);
-}
-
-.red {
-	background-image: url(/images/design/backgrounds/2.jpg);
-}
-
-.blue {
-	background-image: url(/images/design/backgrounds/3.jpg);
 }

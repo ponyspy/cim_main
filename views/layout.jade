@@ -10,7 +10,6 @@ html
 					.background_item(style='background-image: url(' + photo.image + ')')
 		.maket
 			.main_block
-				//- .photo_stream фотопоток
 				.header_block
 					//- .line_block
 					a(href='/')
@@ -19,7 +18,6 @@ html
 						.pay БИЛЕТЫ ON-line
 							.pay_drop
 								a(href='http://bigbilet.ru/company/card?id=A88F2473BE633D61E040115529B0081A#_', target='_blank') BIGBILET
-								//- br
 								!=' &nbsp;|&nbsp; '
 								a(href='http://www.ticketland.ru/buildinfo/1571/', target='_blank') TICKETLAND
 						.menu_item
@@ -28,34 +26,24 @@ html
 							.menu_drop
 								- var months = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
 								- var date = new Date()
-								a.menu_link(href='/afisha/current')=  months[date.getMonth()]
-								br
-								a.menu_link(href='/afisha/next')= months[date.getMonth()+1]
-								//- br
-								//- a.menu_link(href='/afisha/archive')  архив
+								a(href='/afisha/current')=  months[date.getMonth()]
+								a(href='/afisha/next')= months[date.getMonth()+1]
+								//- a(href='/afisha/archive')  архив
 						.menu_item
 							.menu_item_title цим
 							.menu_item_arrow ▼
 							.menu_drop
-								a.menu_link(href='/') новости
-								br
-								a.menu_link(href='/now') цим сегодня
-								br
-								//- a.menu_link(href='/gogo') дирекция
-								//- br
-								a.menu_link(href='/institute') институт театра
-								br
-								a.menu_link(href='http://shtl.meyerhold.ru') штл
-								br
-								//- a.menu_link(href='/magistr') магистратура
-								//- br
-								a.menu_link(href='/halls') площадки
-								br
-								a.menu_link(href='http://old.meyerhold.ru') старый сайт
-								br
-								a.menu_link(href='/contacts') контакты
-								//- br
-								//- a.menu_link(href='/auth') авторизация
+								if (session.user_id)
+									a(href='/auth') звездочет
+								a(href='/') новости
+								a(href='/now') цим сегодня
+								//- a(href='/gogo') дирекция
+								a(href='/institute') институт театра
+								a(href='http://shtl.meyerhold.ru') штл
+								//- a(href='/magistr') магистратура
+								a(href='/halls') площадки
+								a(href='http://old.meyerhold.ru') старый сайт
+								a(href='/contacts') контакты
 						.banner_block
 							//- a(href='http://kudago.com/msk/', title='Афиша в Москве', target='_blank')
 								img.banner_item(src='/images/design/banners/banner.png')
