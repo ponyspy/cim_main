@@ -2,24 +2,22 @@ var count = 0;
 var scroll = 0;
 
 function backScroller (event) {
-	scroll += event.originalEvent.wheelDelta;
+	scroll += event.deltaY;
+	var offset_top = $('.background_item').eq(count).offset().top;
+	var offset_bottom = $('.background_item').eq(count).offset().top + $('.background_item').eq(count).height();
 	$('.background_item').eq(count).css('margin-top', scroll);
 
-
-	if ($('.background_item').eq(count).offset().top + $('.background_item').eq(count).height() <= 0) {
-		if (count != 0) {
+	if (offset_bottom <= 0) {
+		if (count != 1) {
 			scroll = 0;
 			count--;
 		}
-		else {
-			count = 0;
-			scroll = 0
-			event.stopImmediatePropagation();
-		}
 	}
-	else if ($('.background_item').eq(count).offset().top >= 0) {
-		scroll = - $('.background_item').eq(count).height();
-		count++;
+	else if (offset_top >= 0) {
+		if (count != $('.background_item').length - 1) {
+			scroll = - $('.background_item').eq(count).height();
+			count++;
+		}
 	}
 
 

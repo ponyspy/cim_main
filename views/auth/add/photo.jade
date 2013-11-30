@@ -19,6 +19,10 @@ block content
 		textarea.en(name="en[description]", rows="8", disabled)
 		.form_title Фото:
 		input(type="file", name="img")
+		.form_title Стиль:
+		select(name='style')
+			option(value='black') Черный
+			option(value='white') Белый
 		br
 		br
 		input(type='button', class='toggle_eng', value='Перевод')

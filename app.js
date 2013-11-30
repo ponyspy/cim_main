@@ -982,7 +982,7 @@ app.post('/auth/edit/members/:id', function (req, res) {
 // ------------------------
 
 
-app.get('/auth/add/photo', checkAuth, function (req, res) {
+app.get('/auth/add/photo', photoStream, checkAuth, function (req, res) {
   res.render('auth/add/photo.jade');
 });
 
