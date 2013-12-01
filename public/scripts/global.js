@@ -1,5 +1,6 @@
 var count = 0;
 var scroll = 0;
+var post_offset = 0;
 
 function backScroller (event) {
 	scroll += event.deltaY;
@@ -11,6 +12,17 @@ function backScroller (event) {
 		if (count != 1) {
 			scroll = 0;
 			count--;
+
+			// post_offset += 3;
+			// $.post('/photo_stream', {'offset':post_offset}).done(function(photos) {
+			// 	if (photos != 'false') {
+			// 		$.each(photos, function(index, photo) {
+			// 			 var ph = $('<div />', {'class':'background_item', 'style': 'background-image: url(' + photo.image + ')'});
+			// 			 $('.background_item:last').after(ph);
+			// 		});
+			// 	}
+			// });
+
 		}
 	}
 	else if (offset_top >= 0) {
@@ -55,6 +67,9 @@ function fixStream () {
 	else {
 		$(this).on('mouseout', showStream);
 		$(this).off('mousewheel');
+		// $('.background_item').eq(count).offset({top:0});
+		$('.background_item').eq(count).css('margin-top', '0');
+		scroll = 0;
 	}
 }
 

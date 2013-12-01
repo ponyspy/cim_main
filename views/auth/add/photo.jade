@@ -14,6 +14,9 @@ block content
 	.title ДОБАВИТЬ ФОТО
 	br
 	form(action="/auth/add/photo", method="post", enctype="multipart/form-data")
+		.form_title Автор:
+		input.ru(type="text", name="ru[author]",)
+		input.en(type="text", name="en[author]", disabled)
 		.form_title Описание:
 		textarea.ru(name="ru[description]", rows="8",)
 		textarea.en(name="en[description]", rows="8", disabled)

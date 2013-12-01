@@ -64,12 +64,15 @@ var presSchema = new Schema({
 
 var photoSchema = new Schema({
       ru: {
-        description: String
+        description: String,
+        author: String
       },
       en: {
-        description: String
+        description: String,
+        author: String
       },
       image: String,
+      style: String,
       date: {type: Date, default: Date.now}
 });
 
@@ -210,6 +213,23 @@ function memberSplit (members) {
 
   return results;
 }
+
+
+// ------------------------
+// *** Post parms Block ***
+// ------------------------
+
+
+app.post('/photo_stream', function (req, res) {
+  var post = req.body;
+
+  Photo.find().sort('-date').skip(post.offset).limit(3).exec(function(err, photos) {
+    if (!photos)
+      res.send('false')
+    else
+      res.send(photos);
+  });
+});
 
 
 // ------------------------
@@ -992,9 +1012,13 @@ app.post('/auth/add/photo', function (req, res) {
   var photo = new Photo();
 
   photo.ru.description = post.ru.description;
+  photo.ru.author = post.ru.author;
+
+  photo.style = post.style;
 
   if (post.en) {
     photo.en.description = post.en.description;
+    photo.en.author = post.en.author;
   }
 
   if (files.img.size != 0) {

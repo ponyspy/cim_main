@@ -345,11 +345,14 @@ html, body, .maket {
 	font: 13pt/13pt 'PragmaticaM';
 	text-align: center;
 	background-color: white;
-	position: absolute;
+	position: fixed;
 	cursor: pointer;
-	top: 45px;
-	right: 35px;
+	top: 96%;
 	z-index: 90000;
+/*	-webkit-transform-origin: left;
+	-webkit-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	transform: rotate(-90deg);*/
 }
 
 .photo_stream:hover {
