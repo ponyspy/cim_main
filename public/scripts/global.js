@@ -62,7 +62,7 @@ function fixStream () {
 
 	if ($(this).data('clicked')) {
 		$(this).off('mouseout');
-		$('.background_block').on('scroll', backScroller);
+		// $('.background_block').on('scroll', backScroller);
 	}
 	else {
 		$(this).on('mouseout', showStream);
