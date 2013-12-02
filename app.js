@@ -273,7 +273,7 @@ app.post('/', function (req, res) {
 // ------------------------
 
 
-app.get('/news/:id', function (req, res) {
+app.get('/news/:id', photoStream, function (req, res) {
   var id = req.params.id;
 
   News.find({'_id':id}).populate('events').exec(function(err, news) {
@@ -316,7 +316,7 @@ app.get('/afisha/:position', function (req, res) {
 // ------------------------
 
 
-app.get('/event/:id', function (req, res) {
+app.get('/event/:id', photoStream, function (req, res) {
   var id = req.params.id;
   var start = new Date();
   var end = new Date();
@@ -339,7 +339,7 @@ app.get('/event/:id', function (req, res) {
 // ------------------------
 
 
-app.get('/member/:id', function (req, res) {
+app.get('/member/:id', photoStream, function (req, res) {
   var id = req.params.id;
 
   Member.findById(id, function(err, member){
@@ -1043,6 +1043,21 @@ app.post('/auth/add/photo', function (req, res) {
 // ------------------------
 // *** Edit Photos Block ***
 // ------------------------
+
+
+app.get('/auth/edit/photos', checkAuth, function (req, res) {
+  Photo.find().sort('-date').exec(function(err, photos){
+    res.render('auth/edit/photos', {photos: photos});
+  });
+});
+
+app.get('/auth/edit/photos/:id', checkAuth, function (req, res) {
+  var id = req.params.id;
+
+  Photo.findById(id, function(err, photo) {
+    res.render('auth/edit/photos/photo.jade', {photo: photo});
+  });
+});
 
 
 // ------------------------

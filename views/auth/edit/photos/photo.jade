@@ -1,0 +1,32 @@
+extends ../../../layout
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/styles/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/scripts/add_member.js')
+
+block content_right
+
+
+block content
+	a.back_link(href='/auth') < Назад
+	.title РЕДАКТИРОВАТЬ ФОТО
+	br
+	form(action="/auth/edit/photos", method="post", enctype="multipart/form-data")
+		.form_title Автор:
+		input.ru(type="text", name="ru[author]", value=photo.ru.author)
+		input.en(type="text", name="en[author]", disabled)
+		.form_title Описание:
+		textarea.ru(name="ru[description]", rows="8",)= photo.ru.description
+		textarea.en(name="en[description]", rows="8", disabled)
+		.form_title Фото:
+		input(type="file", name="img")
+		.form_title Стиль:
+		select(name='style')
+			option(value='black') Черный
+			option(value='white') Белый
+		br
+		br
+		input(type='button', class='toggle_eng', value='Перевод')
+		input(type="submit", value="Добавить")
