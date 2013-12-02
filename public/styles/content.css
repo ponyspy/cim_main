@@ -21,6 +21,18 @@ body {
   background-size: cover;
 }
 
+.p_author {
+	margin-top: 600px;
+	margin-left: -40px;
+	padding: 2px;
+	position: absolute;
+	background-color: white;
+	-webkit-transform-origin: left;
+	-webkit-transform: rotate(-90deg);
+	-moz-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+}
+
 .calendar {
 	width: 930px;
 	height: 80px;

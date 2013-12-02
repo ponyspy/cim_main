@@ -62,6 +62,20 @@ var presSchema = new Schema({
       date: {type: Date, default: Date.now}
 });
 
+var photoSchema = new Schema({
+      ru: {
+        description: String,
+        author: String
+      },
+      en: {
+        description: String,
+        author: String
+      },
+      image: String,
+      style: String,
+      date: {type: Date, default: Date.now}
+});
+
 var eventSchema = new Schema({
       ru: {
         title: String,
@@ -137,6 +151,7 @@ var Member = mongoose.model('Member', memberSchema);
 var Event = mongoose.model('Event', eventSchema);
 var News = mongoose.model('News', newsSchema);
 var Press = mongoose.model('Press', presSchema);
+var Photo = mongoose.model('Photo', photoSchema);
 var Child = mongoose.model('Child', eventSchema);
 var Schedule = mongoose.model('Schedule', scheduleSchema);
 
@@ -152,6 +167,19 @@ function checkAuth (req, res, next) {
   else
     res.redirect('/login');
 }
+
+function photoStream (req, res, next) {
+  Photo.find().sort('-date').limit(3).exec(function(err, photos) {
+    res.locals.photos = photos;
+    next();
+  });
+}
+
+
+// ------------------------
+// *** Handlers Block ***
+// ------------------------
+
 
 var deleteFolderRecursive = function(path) {
   if( fs.existsSync(path) ) {
@@ -188,11 +216,28 @@ function memberSplit (members) {
 
 
 // ------------------------
+// *** Post parms Block ***
+// ------------------------
+
+
+app.post('/photo_stream', function (req, res) {
+  var post = req.body;
+
+  Photo.find().sort('-date').skip(post.offset).limit(1).exec(function(err, photos) {
+    if (!photos)
+      res.send('false')
+    else
+      res.send(photos);
+  });
+});
+
+
+// ------------------------
 // *** Main Block ***
 // ------------------------
 
 
-app.get('/', function(req, res) {
+app.get('/', photoStream, function(req, res) {
   var start = new Date();
   var end = new Date();
   start.setDate(1);
@@ -228,7 +273,7 @@ app.post('/', function (req, res) {
 // ------------------------
 
 
-app.get('/news/:id', function (req, res) {
+app.get('/news/:id', photoStream, function (req, res) {
   var id = req.params.id;
 
   News.find({'_id':id}).populate('events').exec(function(err, news) {
@@ -271,7 +316,7 @@ app.get('/afisha/:position', function (req, res) {
 // ------------------------
 
 
-app.get('/event/:id', function (req, res) {
+app.get('/event/:id', photoStream, function (req, res) {
   var id = req.params.id;
   var start = new Date();
   var end = new Date();
@@ -294,7 +339,7 @@ app.get('/event/:id', function (req, res) {
 // ------------------------
 
 
-app.get('/member/:id', function (req, res) {
+app.get('/member/:id', photoStream, function (req, res) {
   var id = req.params.id;
 
   Member.findById(id, function(err, member){
@@ -953,6 +998,69 @@ app.post('/auth/edit/members/:id', function (req, res) {
 
 
 // ------------------------
+// *** Add Photo Block ***
+// ------------------------
+
+
+app.get('/auth/add/photo', photoStream, checkAuth, function (req, res) {
+  res.render('auth/add/photo.jade');
+});
+
+app.post('/auth/add/photo', function (req, res) {
+  var post = req.body;
+  var files = req.files;
+  var photo = new Photo();
+
+  photo.ru.description = post.ru.description;
+  photo.ru.author = post.ru.author;
+
+  photo.style = post.style;
+
+  if (post.en) {
+    photo.en.description = post.en.description;
+    photo.en.author = post.en.author;
+  }
+
+  if (files.img.size != 0) {
+    var newPath = __dirname + '/public/images/photo_stream/' + photo._id + '.jpg';
+    gm(files.img.path).resize(2100, false).quality(60).noProfile().write(newPath, function() {
+      photo.image = '/images/photo_stream/' + photo._id + '.jpg';
+      photo.save(function() {
+        fs.unlink(files.img.path);
+        res.redirect('back');
+      });
+    });
+  }
+  else {
+    photo.save(function() {
+      fs.unlink(files.img.path);
+      res.redirect('back');
+    });
+  }
+});
+
+
+// ------------------------
+// *** Edit Photos Block ***
+// ------------------------
+
+
+app.get('/auth/edit/photos', checkAuth, function (req, res) {
+  Photo.find().sort('-date').exec(function(err, photos){
+    res.render('auth/edit/photos', {photos: photos});
+  });
+});
+
+app.get('/auth/edit/photos/:id', checkAuth, function (req, res) {
+  var id = req.params.id;
+
+  Photo.findById(id, function(err, photo) {
+    res.render('auth/edit/photos/photo.jade', {photo: photo});
+  });
+});
+
+
+// ------------------------
 // *** Login Block ***
 // ------------------------
 
@@ -1044,7 +1152,7 @@ app.get('/error', function (req, res) {
   res.render('error');
 });
 
-app.get('*', function(req, res){
+app.get('*', function(req, res) {
   res.render('error');
 });
 

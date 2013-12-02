@@ -124,13 +124,13 @@ p {
 	/*letter-spacing: 1px;*/
 	/*font-weight: bold;*/
 	padding: 10px;
-	margin-top: 726px;
+	margin-top: 720px;
 	margin-left: 950px;
 	position: absolute;
 }
 
 .tag_navigator_sroll {
-	margin-top: -27px;
+	margin-top: -25px;
 	margin-left: 950px;
 	position: fixed;
 	/*float: right;*/

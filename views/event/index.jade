@@ -8,7 +8,7 @@ block content_style
 
 block content_scripts
 	script(type='text/javascript', src='/scripts/event.js' + version)
-	script(type='text/javascript', src='/scripts/back.js' + version)
+	//- script(type='text/javascript', src='/scripts/back.js' + version)
 
 block content_right
 	.content_right_block
@@ -40,6 +40,11 @@ mixin memberList(marker, status)
 block content
 	if (event[0].photo)
 		.image_upload(style='background-image: url(' + event[0].photo + ')')
+			if (event[0].ru.p_author)
+				.p_author
+					|Фото:
+					br
+					!= event[0].ru.p_author
 	if (schedule.length > 0)
 		.calendar
 			.inner
