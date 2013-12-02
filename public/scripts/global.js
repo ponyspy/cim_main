@@ -21,16 +21,24 @@ function backScroller () {
 			}
 		});
 	}
+	// else if (offset_top <= 0) {
+	// 	counter--
+	// 	var p_author = $('.background_item').eq(counter).children('.item_author').text();
+	// 	var p_description = $('.background_item').eq(counter).children('.item_description').text();
+
+	// 	$('.b_author').text(p_author);
+	// 	$('.b_description').text(p_description);
+	// }
 }
 
 function showStream () {
 	$('.maket').fadeIn('fast');
-	$('.background_description_block').hide();
+	$('.background_description_block').fadeOut('fast')();
 }
 
 function hideStream () {
 	$('.maket').fadeOut('fast');
-	$('.background_description_block').show();
+	$('.background_description_block').fadeIn('fast');
 }
 
 function fixStream () {
@@ -43,6 +51,9 @@ function fixStream () {
 	else {
 		$(this).on('mouseout', showStream);
 		$(this).off('scroll');
+		$('.background_block').animate({
+			scrollTop: $('.background_item').eq(counter).offset().top
+		}, 300);
 	}
 }
 

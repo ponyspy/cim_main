@@ -393,3 +393,10 @@ html, body, .maket {
 	right: 65px;
 	display: none;
 }
+
+.b_author {
+	font: 11pt/13pt 'PragmaticaB';
+}
+.b_description {
+	font: 11pt/13pt 'Pragmatica';
+}
