@@ -338,7 +338,7 @@ html, body, .maket {
  */
 
 .photo_stream {
-	width: 105px;
+	width: 110px;
 	height: 25px;
 	padding-top: 5px;
 	/*padding-bottom: 5px;*/
@@ -386,19 +386,19 @@ html, body, .maket {
 	width: 250px;
 	min-height: 50px;
 	background-color: white;
-	padding: 5px;
+	padding: 10px;
 	position: fixed;
 	float: right;
 	top: 46px;
-	right: 65px;
+	right: 46px;
 	display: none;
 }
 
 .b_author {
-	font: 11pt/13pt 'PragmaticaB';
+	font: 11pt/12pt 'PragmaticaB';
 }
 .b_description {
-	font: 11pt/13pt 'Pragmatica';
+	font: 11pt/12pt 'Pragmatica';
 	hyphens: auto;
 	-webkit-hyphens: auto;
 }
