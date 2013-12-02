@@ -1122,20 +1122,32 @@ app.post('/registr', function (req, res) {
 // *** Static Block ***
 // ------------------------
 
-app.get('/contacts', function (req, res) {
+app.get('/contacts', photoStream, function (req, res) {
   res.render('static/contacts.jade');
 });
 
-app.get('/institute', function (req, res) {
+app.get('/institute', photoStream, function (req, res) {
   res.render('static/institute.jade');
 });
 
-app.get('/now', function (req, res) {
+app.get('/now', photoStream, function (req, res) {
   res.render('static/now.jade');
 });
 
-app.get('/halls', function (req, res) {
+app.get('/halls', photoStream, function (req, res) {
   res.render('static/halls.jade');
+});
+
+app.get('/fokin', photoStream, function (req, res) {
+  res.render('static/fokin.jade');
+});
+
+app.get('/meyerhold', photoStream, function (req, res) {
+  res.render('static/meyerhold.jade');
+});
+
+app.get('/history', photoStream, function (req, res) {
+  res.render('static/history.jade');
 });
 
 app.get('/fa83f41cd8b1.html', function (req, res) {
