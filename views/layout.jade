@@ -6,8 +6,13 @@ html
 		if (photos)
 			.photo_stream фотопоток
 			.background_block
+				.background_description_block
+					.b_author= photos[0].ru.author
+					.b_description= photos[0].ru.description
 				each photo in photos
 					.background_item(style='background-image: url(' + photo.image + ')')
+						.item_author= photo.ru.author
+						.item_description= photo.ru.description
 		.maket
 			.main_block
 				.header_block

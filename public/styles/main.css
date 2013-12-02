@@ -377,3 +377,19 @@ html, body, .maket {
   -o-background-size: cover;
   background-size: cover;
 }
+
+.item_author, .item_description {
+	display: none;
+}
+
+.background_description_block {
+	width: 250px;
+	min-height: 50px;
+	background-color: white;
+	padding: 5px;
+	position: fixed;
+	float: right;
+	top: 46px;
+	right: 65px;
+	display: none;
+}
