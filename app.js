@@ -223,7 +223,7 @@ function memberSplit (members) {
 app.post('/photo_stream', function (req, res) {
   var post = req.body;
 
-  Photo.find().sort('-date').skip(post.offset).limit(3).exec(function(err, photos) {
+  Photo.find().sort('-date').skip(post.offset).limit(1).exec(function(err, photos) {
     if (!photos)
       res.send('false')
     else

@@ -399,4 +399,6 @@ html, body, .maket {
 }
 .b_description {
 	font: 11pt/13pt 'Pragmatica';
+	hyphens: auto;
+	-webkit-hyphens: auto;
 }
