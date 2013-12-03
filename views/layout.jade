@@ -7,7 +7,7 @@ html
 			.photo_stream
 			.background_block
 				.background_description_block
-					if (photos)
+					if (photos.length != 0)
 						.b_author= photos[0].ru.author
 						.b_description= photos[0].ru.description
 				each photo in photos
