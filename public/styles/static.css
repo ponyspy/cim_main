@@ -68,6 +68,13 @@
 	display: none;
 }
 
+.section {
+	margin-bottom: 15px;
+}
+.section:last-child {
+	margin-bottom: 0px;
+}
+
 .nav_item {
 	cursor: pointer;
 }

@@ -1142,10 +1142,6 @@ app.get('/fokin', photoStream, function (req, res) {
   res.render('static/fokin.jade');
 });
 
-app.get('/meyerhold', photoStream, function (req, res) {
-  res.render('static/meyerhold.jade');
-});
-
 app.get('/history', photoStream, function (req, res) {
   res.render('static/history.jade');
 });

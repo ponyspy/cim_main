@@ -3,7 +3,7 @@ $(document).ready(function() {
 
 	$('.nav_item').click(function(event) {
 		$('.content').hide();
-		var index = $(this).index();
+		var index = $(this).index('.nav_item');
 		$('.content').eq(index).show()
 	});
 });
