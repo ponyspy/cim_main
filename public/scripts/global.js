@@ -33,12 +33,12 @@ function backScroller () {
 
 function showStream () {
 	$('.maket').fadeIn('fast');
-	$('.background_description_block').fadeOut('fast');
+	$('.background_description_block').stop(true, true).fadeOut('fast');
 }
 
 function hideStream () {
 	$('.maket').fadeOut('fast');
-	$('.background_description_block').fadeIn('fast');
+	$('.background_description_block').stop(true, true).fadeIn('fast');
 }
 
 function fixStream () {

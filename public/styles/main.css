@@ -380,7 +380,7 @@ html, body, .maket {
 
 .background_description_block {
 	width: 250px;
-	min-height: 50px;
+	min-height: 20px;
 	background-color: white;
 	padding: 10px;
 	position: fixed;
