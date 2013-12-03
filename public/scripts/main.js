@@ -107,8 +107,8 @@ $(document).ready(function() {
 		skip = 0;
 
 		$('.footer_block, .banner_block').hide();
-		$(window).off('scroll', ScrollLoader);
-		$('body').animate({
+		$('.maket').off('scroll', ScrollLoader);
+		$('.maket').animate({
 			scrollTop: $(".infinite-container").offset().top
 		}, 400, function() {
 			$('.infinite-item').hide().promise().done(function() {
@@ -123,7 +123,7 @@ $(document).ready(function() {
 
 					ItemConstructor(data, event);
 					$('.infinite-item').show(function() {
-						$(window).on('scroll', {tag: tag, offset: 6}, ScrollLoader);
+						$('.maket').on('scroll', {tag: tag, offset: 6}, ScrollLoader);
 					});
 				});
 			});
