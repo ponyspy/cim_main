@@ -1023,7 +1023,7 @@ app.post('/auth/add/photo', function (req, res) {
 
   if (files.img.size != 0) {
     var newPath = __dirname + '/public/images/photo_stream/' + photo._id + '.jpg';
-    gm(files.img.path).resize(2100, false).quality(60).noProfile().write(newPath, function() {
+    gm(files.img.path).resize(2200, false).quality(60).noProfile().write(newPath, function() {
       photo.image = '/images/photo_stream/' + photo._id + '.jpg';
       photo.save(function() {
         fs.unlink(files.img.path);
@@ -1047,7 +1047,7 @@ app.post('/auth/add/photo', function (req, res) {
 
 app.get('/auth/edit/photos', checkAuth, function (req, res) {
   Photo.find().sort('-date').exec(function(err, photos){
-    res.render('auth/edit/photos', {photos: photos});
+    res.render('auth/edit/photos', {photos: photos});  // broken var name photos
   });
 });
 
@@ -1057,6 +1057,49 @@ app.get('/auth/edit/photos/:id', checkAuth, function (req, res) {
   Photo.findById(id, function(err, photo) {
     res.render('auth/edit/photos/photo.jade', {photo: photo});
   });
+});
+
+app.post('/auth/edit/photos/:id', function (req, res) {
+  var id = req.params.id;
+  var post = req.body;
+  var files = req.files;
+
+  if (post.del == 'true') {
+    Photo.findByIdAndRemove(id, function() {
+      fs.unlink(__dirname + '/public/images/photo_stream/' + id + '.jpg', function() {
+        res.redirect('back');
+      });
+    });
+  }
+  else {
+    Photo.findById(id, function(err, photo) {
+      if (post.en) {
+      photo.en.author = post.en.author;
+      photo.en.description = post.en.description;
+      }
+
+      photo.ru.author = post.ru.author;
+      photo.ru.description = post.ru.description;
+      photo.style = post.style;
+
+      if (files.img.size != 0) {
+        var newPath = __dirname + '/public/images/photo_stream/' + photo._id + '.jpg';
+        gm(files.img.path).resize(2200, false).quality(60).noProfile().write(newPath, function() {
+          photo.img = '/images/photo_stream/' + photo._id + '.jpg';
+          photo.save(function() {
+            fs.unlink(files.img.path);
+            res.redirect('/auth/edit/photos');
+          });
+        });
+      }
+      else {
+        photo.save(function() {
+          fs.unlink(files.img.path);
+          res.redirect('/auth/edit/photos');
+        });
+      }
+    });
+  }
 });
 
 

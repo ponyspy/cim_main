@@ -1,4 +1,5 @@
 var counter = 0;
+var post_counter = 0;
 
 function backScroller () {
 	var offset_top = $('.background_item').eq(counter).offset().top;
@@ -6,13 +7,14 @@ function backScroller () {
 
 	if (offset_bottom <= 0) {
 		counter++
+		post_counter+=3
 		var p_author = $('.background_item').eq(counter).children('.item_author').text();
 		var p_description = $('.background_item').eq(counter).children('.item_description').text();
 
 		$('.b_author').text(p_author);
 		$('.b_description').text(p_description);
 
-		$.post('/photo_stream', {'offset':counter+2}).done(function(photos) {
+		$.post('/photo_stream', {'offset':post_counter}).done(function(photos) {
 			if (photos != 'false') {
 				$.each(photos, function(index, photo) {
 					 var ph = $('<div />', {'class':'background_item', 'style': 'background-image: url(' + photo.image + ')'});
