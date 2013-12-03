@@ -51,9 +51,7 @@ function fixStream () {
 	else {
 		$(this).on('mouseout', showStream);
 		$(this).off('scroll');
-		$('.background_block').animate({
-			scrollTop: $('.background_item').eq(counter).offset().top
-		}, 300);
+		$('.background_item').eq(counter).scrollintoview();
 	}
 }
 
