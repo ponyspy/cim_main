@@ -338,26 +338,22 @@ html, body, .maket {
  */
 
 .photo_stream {
-	width: 110px;
-	height: 25px;
-	padding-top: 5px;
-	/*padding-bottom: 5px;*/
-	font: 13pt/13pt 'PragmaticaM';
-	text-align: center;
-	background-color: white;
+	width: 35px;
+	height: 35px;
+	background-image: url('/images/design/ps_w.png');
+	background-size: cover;
 	position: fixed;
 	cursor: pointer;
-	top: 96%;
+	top: 95%;
 	z-index: 90000;
-/*	-webkit-transform-origin: left;
-	-webkit-transform: rotate(-90deg);
-	-moz-transform: rotate(-90deg);
-	transform: rotate(-90deg);*/
 }
 
 .photo_stream:hover {
-	color: white;
-	background-color: black;
+	/*background-image: url('/images/design/ps_b.png');*/
+	transform:rotate(180deg);
+	-ms-transform:rotate(180deg);
+	-webkit-transform:rotate(180deg);
+	-webkit-transition-duration: 0.8s;
 }
 
 .background_block {
@@ -365,12 +361,12 @@ html, body, .maket {
 	height: 100%;
 	position: absolute;
 	overflow-y: auto;
+	/*-webkit-overflow-scrolling: touch;*/
 }
 
 .background_item {
 	width: 100%;
 	height: 100%;
-	/*position: absolute;*/
 	background: no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;

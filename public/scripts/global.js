@@ -33,7 +33,7 @@ function backScroller () {
 
 function showStream () {
 	$('.maket').fadeIn('fast');
-	$('.background_description_block').fadeOut('fast')();
+	$('.background_description_block').fadeOut('fast');
 }
 
 function hideStream () {
