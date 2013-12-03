@@ -56,7 +56,6 @@ function fixStream () {
 }
 
 $(document).ready(function() {
-	count = $('.background_item').length - 1;
 
 	$('.photo_stream').on('mouseover', hideStream);
 	$('.photo_stream').on('mouseout', showStream);
