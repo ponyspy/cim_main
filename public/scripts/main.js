@@ -97,7 +97,7 @@ $(document).ready(function() {
 		}
 		else {
 			$('.loader').text('больше нет новостей').show();
-			$(window).off('scroll', ScrollLoader);
+			$('.maket').off('scroll', ScrollLoader);
 			$('.footer_block, .banner_block').show();
 		}
 	}
