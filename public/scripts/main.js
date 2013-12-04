@@ -134,7 +134,7 @@ $(document).ready(function() {
 		var offset = $('.loader').offset();
 		var maket = $('.maket').height();
 
-		if (offset.top - 350 <= maket) {
+		if (offset.top <= maket + 350) {
 			$('.loader').text('загрузка...').show();
 			$.ajax({
 				url: "/",
