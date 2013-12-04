@@ -23,7 +23,7 @@ function backScroller () {
 			}
 		});
 	}
-	else if (offset_top >= 0) {
+	else if (offset_top >= 0 && counter != 0) {
 		counter--
 		var p_author = $('.background_item').eq(counter).children('.item_author').text();
 		var p_description = $('.background_item').eq(counter).children('.item_description').text();
