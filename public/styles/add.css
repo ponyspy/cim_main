@@ -148,10 +148,6 @@ input, textarea, select {
 	cursor: pointer;
 }
 
-.toggle_eng {
-	cursor: pointer;
-}
-
 .footer_block, .social_block {
 	display: none;
 }
