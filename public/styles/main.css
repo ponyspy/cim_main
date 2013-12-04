@@ -392,6 +392,7 @@ html, body, .maket {
 
 .b_author {
 	font: 11pt/12pt 'PragmaticaB';
+	padding-bottom: 5px;
 }
 .b_description {
 	font: 11pt/12pt 'Pragmatica';
