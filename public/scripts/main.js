@@ -131,10 +131,10 @@ $(document).ready(function() {
 	}
 
 	function ScrollLoader(event) {
-		var offset = $('.loader').offset();
 		var maket = $('.maket').height();
+		var cont = $('.infinite-container').height();
 
-		if (offset.top <= maket + 350) {
+		if (cont - maket <= $('.maket').scrollTop() - 350) {
 			$('.loader').text('загрузка...').show();
 			$.ajax({
 				url: "/",
