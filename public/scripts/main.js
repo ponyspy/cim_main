@@ -109,15 +109,15 @@ $(document).ready(function() {
 		$('.footer_block, .banner_block').hide();
 		$('.maket').off('scroll', ScrollLoader);
 		$('.maket').animate({
-			scrollTop: $(".infinite-container").offset().top
+			scrollTop: $('.infinite-container').offset().top
 		}, 400, function() {
 			$('.infinite-item').hide().promise().done(function() {
 				$('.infinite-column').empty();
 				$('.loader').text('загрузка...').show();
 				$.ajax({
-					url: "/",
+					url: '/',
 					data: {tag : tag, offset: skip},
-					type: "POST"
+					type: 'POST'
 				}).done(function(data) {
 					skip = 6;
 
@@ -137,10 +137,10 @@ $(document).ready(function() {
 		if (cont - maket <= $('.maket').scrollTop() - 350) {
 			$('.loader').text('загрузка...').show();
 			$.ajax({
-				url: "/",
+				url: '/',
 				async: false,
 				data: {tag : event.data.tag, offset: skip},
-				type: "POST"
+				type: 'POST'
 			}).done(function(data) {
 				ItemConstructor(data, event);
 			});
@@ -152,11 +152,11 @@ $(document).ready(function() {
 		var sticky = false;
 		var top = $('.maket').scrollTop();
 
-		if ($(".infinite-container").offset().top < top - 743) {
-			$(".tag_navigator").addClass('tag_navigator_sroll');
+		if ($('.infinite-container').offset().top < top - 743) {
+			$('.tag_navigator').addClass('tag_navigator_sroll');
 			sticky = true;
 		} else {
-			$(".tag_navigator").removeClass('tag_navigator_sroll');
+			$('.tag_navigator').removeClass('tag_navigator_sroll');
 		}
 	};
 

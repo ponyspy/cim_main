@@ -94,10 +94,11 @@ p {
 }
 
 .cal_title {
-	width: 570px;
+	width: 560px;
 	height: 71px;
 	float: left;
 	padding-top: 9px;
+	padding-right: 10px;
 	font: 21pt/22pt 'PragmaticaM';
 	color: white;
 	font-weight: bold;
@@ -161,7 +162,7 @@ p {
 	margin-top: 1px;
 	margin-bottom: 4px;
 	word-wrap: break-word;
-	font: 18pt/21pt 'PragmaticaM';
+	font: 16pt/20pt 'PragmaticaM';
 	/*font-weight: bold;*/
 	text-decoration: none;
 	float: left;
