@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	if ($('.cal_date').size() >= 3) {
+	if ($('.cal_date').size() > 3) {
 		$('.calendar').mousemove(function(event) {
 			var duration = event.pageX;
 			var size = $('.cal_date').size() * 200 / 2 - 70
