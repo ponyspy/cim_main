@@ -175,6 +175,13 @@ function photoStream (req, res, next) {
   });
 }
 
+function editPhotoStream (req, res, next) {
+  Photo.find({'_id':req.params.id}).exec(function(err, photos) {
+    res.locals.photos = photos;
+    next();
+  });
+}
+
 
 // ------------------------
 // *** Handlers Block ***
@@ -452,6 +459,7 @@ app.post('/auth/add/event', function(req, res) {
 // ------------------------
 // *** Edit Events Block ***
 // ------------------------
+
 
 app.post('/edit', function (req, res) {
   var files = req.files;
@@ -1051,7 +1059,7 @@ app.get('/auth/edit/photos', checkAuth, function (req, res) {
   });
 });
 
-app.get('/auth/edit/photos/:id', checkAuth, function (req, res) {
+app.get('/auth/edit/photos/:id', checkAuth, editPhotoStream, function (req, res) {
   var id = req.params.id;
 
   Photo.findById(id, function(err, photo) {
