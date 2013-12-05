@@ -1,9 +1,9 @@
 $(document).ready(function() {
 
-	if ($('.date').size() >= 8) {
+	if ($('.cal_date').size() >= 3) {
 		$('.calendar').mousemove(function(event) {
 			var duration = event.pageX;
-			var size = $('.date').size() * 110 / 2 - 70
+			var size = $('.cal_date').size() * 200 / 2 - 70
 
 			duration = duration - 400;
 			if (duration >= size) duration = size;
@@ -18,7 +18,7 @@ $(document).ready(function() {
 			$(this).next('.cal_schedule').stop().animate({'margin-left':'0px'}, 200)
 		},
 		mouseout: function() {
-			$(this).next('.cal_schedule').stop().animate({'margin-left':'-115px'}, 200)
+			$(this).next('.cal_schedule').stop().animate({'margin-left':'-120px'}, 200)
 		},
 	})
 
