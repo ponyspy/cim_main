@@ -47,21 +47,25 @@ function fixStream () {
 	$(this).data('clicked', !$(this).data('clicked'));
 
 	if ($(this).data('clicked')) {
-		$(this).off('mouseout');
+		$(this).off('mouseout mouseover');
+		$(this).on('mouseover', showStream)
+					 .on('mouseout', hideStream);
 		$('.background_block').on('scroll', backScroller);
 	}
 	else {
-		$(this).on('mouseout', showStream);
-		$(this).off('scroll');
+		$(this).off('mouseover mouseout');
+		$('.background_block').off('scroll');
+		$(this).on('mouseover', hideStream)
+					 .on('mouseout', showStream);
 		$('.background_item').eq(counter).scrollintoview();
 	}
 }
 
 $(document).ready(function() {
 
-	$('.photo_stream').on('mouseover', hideStream);
-	$('.photo_stream').on('mouseout', showStream);
-	$('.photo_stream').on('click', fixStream);
+	$('.photo_stream').on('mouseover', hideStream)
+										.on('mouseout', showStream)
+										.on('click', fixStream);
 
 	$('.pay').on({
 		mouseover: function() {
