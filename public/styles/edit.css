@@ -18,8 +18,9 @@
 	color: white;
 	text-align: center;
 	padding-top: 13px;
-	margin-top: 20px;
+	/*margin-top: 20px;*/
 	font: 12pt/14pt 'Pragmatica';
+	position: fixed;
 }
 
 .upload:hover {
@@ -31,9 +32,10 @@
 	width: 150px;
 	background-color: black;
 	clear: both;
-	margin-top: 20px;
+	margin-top: 63px;
 	color: white;
 	padding: 10px;
+	position: fixed;
 }
 
 .s_item:hover {
@@ -143,7 +145,7 @@
 	background-color: #915860;
 }
 
-.title, .s_title, .description, .comment, .ticket, .m_comment, .m_search {
+.title, .s_title, .description, .comment, .ticket, .m_comment, .m_search, .a_name {
 	outline: none;
 }
 
@@ -177,4 +179,8 @@
 
 .m_comment.grid {
 	background-color: #744c91;
+}
+
+.a_name.grid {
+	background-color: #209166;
 }

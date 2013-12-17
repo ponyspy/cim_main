@@ -486,7 +486,7 @@ app.get('/auth/edit/events', checkAuth, function (req, res) {
   });
 });
 
-app.get('/auth/edit/events/:id', checkAuth, function (req, res) {
+app.get('/auth/edit/events/:id', checkAuth, photoStream, function (req, res) {
   var id = req.params.id;
 
   Event.find({'_id':id}).populate('children members.m_id').exec(function(err, event) {
@@ -504,12 +504,14 @@ app.post('/auth/edit/events/:id', function (req, res) {
   Event.findById(id, function(err, event) {
 
     event.members = post.members;
+    event.tag = post.tag;
+    event.hall = post.hall;
 
     if (post.ru) {
       event.ru.title = post.ru.title;
       event.ru.s_title = post.ru.s_title;
       event.ru.body = post.ru.body;
-      // event.ru.ticket = post.ru.ticket;
+      event.ru.ticket = post.ru.ticket;
       event.ru.comment = post.ru.comment;
       event.ru.p_author = post.ru.p_author;
     }
@@ -530,59 +532,16 @@ app.post('/auth/edit/events/:id', function (req, res) {
           event.photo = '/images/events/' + event._id + '/photo.jpg';
           fs.unlink(__dirname + '/public' + post.img);
           event.save(function() {
-            res.send('ok img');
+            res.send('ok_img');
           });
         });
       });
     }
     else {
       event.save(function(err, event) {
-        res.send('ok!')
+        res.send('ok')
       });
     }
-    // async.parallel({
-    //   photo: function(callback) {
-    //     if (files.photo.size != 0) {
-    //       fs.readFile(files.photo.path, function (err, data) {
-    //         fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
-    //           var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
-    //           fs.writeFile(newPath, data, function (err) {
-    //             event.photo = '/images/events/' + event._id + '/photo.jpg';
-    //             fs.unlink(files.photo.path);
-    //             callback(null, 1);
-    //           });
-    //         });
-    //       });
-    //     }
-    //     else {
-    //       callback(null, 0);
-    //       fs.unlink(files.photo.path);
-    //     }
-    //   },
-    //   poster: function(callback) {
-    //     if (files.poster.size != 0) {
-    //       fs.readFile(files.poster.path, function (err, data) {
-    //         fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
-    //           var newPath = __dirname + '/public/images/events/' + event._id + '/poster.jpg';
-    //           fs.writeFile(newPath, data, function (err) {
-    //             event.poster = '/images/events/' + event._id + '/poster.jpg';
-    //             fs.unlink(files.poster.path);
-    //             callback(null, 2);
-    //           });
-    //         });
-    //       });
-    //     }
-    //     else {
-    //       callback(null, 0);
-    //       fs.unlink(files.poster.path);
-    //     }
-    //   }
-    // },
-    // function(err, results) {
-    //   event.save(function(err) {
-    //     res.redirect('/auth/edit/events');
-    //   });
-    // });
   });
 });
 

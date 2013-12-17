@@ -8,9 +8,11 @@ $(document).ready(function() {
 		var description = $('.description').html();
 		var ticket = $('.ticket').html();
 		var comment = $('.comment').html();
+		var p_author = $('.a_name').html();
+		var hall = $('.hall').val();
+		var tag = $('.tag').val();
 		var markers = $('.marker .m_list').children('a');
 		var members = [];
-		// console.log(members)
 
 		markers.each(function(index, marker) {
 			var id = $(marker).attr('id');
@@ -31,13 +33,22 @@ $(document).ready(function() {
 			comment: comment
 		}
 
-		// console.log('|' + ticket + '|')
-		if (ticket != '<br>' || ticket !=/[^\s]*/)
-			ru.ticket = ticket;
-		// console.log(ru)
+		if (p_author == '<br>' || p_author == '')
+			ru.p_author = '';
+		else
+			ru.p_author = p_author;
 
-		$.post('', {img: img_preview, ru: ru, members: members}).done(function(result) {
-			alert(result)
+
+		if (ticket == '<br>' || ticket == '')
+			ru.ticket = '';
+		else
+			ru.ticket = ticket;
+
+		$.post('', {img: img_preview, ru: ru, members: members, tag: tag, hall: hall}).done(function(result) {
+			$('.upload').text('ГОТОВО!');
+			setTimeout(function() {
+			    $('.upload').text('СОХРАНИТЬ')
+			  }, 1000);
 		});
 	});
 
@@ -119,13 +130,13 @@ $(document).ready(function() {
 
 	$(document).on('click', '.m_add', function(event) {
 		var marker = $(this).closest('.add').prev('.marker').attr('class').slice(7);
-		var member = $(this).next('a');
+		var member = $(this).next('a').clone();
 		var comment = $('<div />', {'class':'m_comment', 'text': 'описание', 'contenteditable':true});
 		var del = $('<div />', {'class':'m_del', 'text':'⊖'});
 
 		$('.' + marker + ' > .m_list').append(del, member, comment);
 		$('.' + marker + ' > .m_list > a').css('clear', 'none');
-		$(this).remove();
+		// $(this).remove();
 	});
 
 
@@ -137,6 +148,6 @@ $(document).ready(function() {
 
 
   $('.toggle_grid').click(function(event) {
-  	$('.title, .s_title, .description, .column, .comment, .marker .m_comment').toggleClass('grid');
+  	$('.title, .s_title, .description, .column, .comment, .marker .m_comment, .a_name').toggleClass('grid');
   });
 });

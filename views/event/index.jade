@@ -42,9 +42,8 @@ block content
 		.image_upload(style='background-image: url(' + event[0].photo + ')')
 			if (event[0].ru.p_author)
 				.p_author
-					|Фото:
-					br
-					!= event[0].ru.p_author
+					.a_title Фото:
+					.a_name= event[0].ru.p_author
 	if (schedule.length > 0)
 		.calendar
 			.inner

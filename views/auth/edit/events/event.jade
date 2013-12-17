@@ -4,14 +4,14 @@ block title
 	title= 'РЕДАКТОР : ' + event.ru.title.toUpperCase()
 
 block content_style
-	link(rel="stylesheet", type="text/css", href="/styles/edit.css")
+	link(rel="stylesheet", type="text/css", href="/styles/edit.css" + version)
 	link(rel='stylesheet', type='text/css', href='/styles/content.css' + version)
 	link(rel="stylesheet", type="text/css", href="/styles/font-awesome/css/font-awesome.min.css" + version)
 	link(rel="stylesheet", type="text/css", href="/styles/popclip.css" + version)
 
 block content_scripts
 	script(type='text/javascript', src='/scripts/edit.js' + version)
-	script(type='text/javascript', src='/scripts/back.js' + version)
+	//- script(type='text/javascript', src='/scripts/back.js' + version)
 	script(type='text/javascript', src='/scripts/mfupload.js' + version)
 	script(type="text/javascript", src='/scripts/jquery.popline.min.js' + version)
 
@@ -22,6 +22,27 @@ block content_right
 		.settings ПАРАМЕТРЫ
 			.s_item.toggle_lang язык
 			.s_item.toggle_grid направляющие
+			br
+			.s_cat зал:
+			select.hall(name='hall')
+				option(value='main', selected=event.hall=='main') основная сцена
+				option(value='black', selected=event.hall=='black') черный зал
+				option(value='white', selected=event.hall=='white') белый зал
+				option(value='cafe', selected=event.hall=='cafe') кафе
+				option(value='lobby', selected=event.hall=='lobby') фойе
+				option(value='301', selected=event.hall=='301') комната 301
+				option(value='306', selected=event.hall=='306') комната 306
+			.s_cat категория:
+			select.tag(name='tag')
+				option(value='performance', selected=event.tag=='performance') спектакль
+				option(value='lecture', selected=event.tag=='lecture') лекция
+				option(value='masterclass', selected=event.tag=='masterclass') мастер-класс
+				option(value='exhibition', selected=event.tag=='exhibition') выставка
+				option(value='concert', selected=event.tag=='concert') концерт
+				option(value='education', selected=event.tag=='education') институт театра
+				option(value='blackbox', selected=event.tag=='blackbox') blackbox
+				option(value='children', selected=event.tag=='children') детская программа
+				option(value='storytallyng', selected=event.tag=='storytallyng') сторителлинг
 		.upload СОХРАНИТЬ
 
 mixin memberList(marker, status)
@@ -38,6 +59,9 @@ block content
 	//- img(src=event.photo)
 	if (event.photo)
 		.image_upload(style='background-image: url(' + event.photo + ')')
+			.p_author
+				.a_title Фото:
+				.a_name(contenteditable='plaintext-only')= event.ru.p_author
 			input(type='file', name='image', data-post='/', data-crop='true')
 	else
 		.image_upload
