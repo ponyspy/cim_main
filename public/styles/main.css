@@ -361,6 +361,7 @@ html, body, .maket {
 	height: 100%;
 	position: absolute;
 	overflow-y: auto;
+	background-color: black;
 	/*-webkit-overflow-scrolling: touch;*/
 }
 
