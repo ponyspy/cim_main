@@ -124,6 +124,24 @@ body {
 	/*border: 1px solid black;*/
 }
 
+.content_body ol, ul, li {
+	margin-left: 10px;
+	padding: 0;
+}
+
+.content_body blockquote {
+	margin: 0;
+	padding: 0;
+}
+
+.content_body blockquote:before {
+	content: open-quote;
+}
+
+.content_body blockquote:after {
+	content: close-quote;
+}
+
 .column {
 	width: 300px;
 	min-height: 35px;
