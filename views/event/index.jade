@@ -86,8 +86,11 @@ block content
 				+memberList('Мультимедиахудожник', 'multi_artist')
 				+memberList('Консультант', 'consultant')
 				+memberList('Спецэффекты', 'effects')
-			if (event[0].ru.comment)
-				.comment
-					!= event[0].ru.comment
+			.s_column
+				.age 18+
+				.duration 1 ч. 20 мин.
+				if (event[0].ru.comment)
+					.comment
+						!= event[0].ru.comment
 		.description(lang='ru')
 			!= event[0].ru.body
