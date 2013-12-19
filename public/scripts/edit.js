@@ -5,15 +5,8 @@ $(document).ready(function() {
 	$("#one").sortable({connectWith: "#two", placeholder: 'column_placeholder', cancel: '.m_comment, .m_search'});
 	$("#two").sortable({connectWith: "#one", placeholder: 'column_placeholder', cancel: '.m_comment, .m_search'});
 
-	$('.empty_colums').click(function() {
-		$(this).data('clicked', !$(this).data('clicked'));
-
-		if ($(this).data('clicked')) {
-			$('.marker').has('.m_list:not(:has(a))').hide();
-		}
-		else {
-			$('.marker').show();
-		}
+	$('.marker').click(function() {
+		alert('колонка: ' + $(this).parent('.column').index() + '\nэлемент: ' + $(this).index())
 	});
 
 	$('.upload').click(function(event) {
@@ -160,6 +153,16 @@ $(document).ready(function() {
 		$(this).remove();
 	});
 
+	$('.empty_colums').click(function() {
+		$(this).data('clicked', !$(this).data('clicked'));
+
+		if ($(this).data('clicked')) {
+			$('.marker').has('.m_list:not(:has(a))').hide();
+		}
+		else {
+			$('.marker').show();
+		}
+	});
 
   $('.toggle_grid').click(function(event) {
   	$('.title, .s_title, .description, .column, .comment, .marker .m_comment, .a_name').toggleClass('grid');
