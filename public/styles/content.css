@@ -265,6 +265,10 @@ body {
 	/*background-color: red;*/
 }
 
+.age:after {
+	content: '+';
+}
+
 .content_right_block {
 	float: right;
 }

@@ -14,11 +14,11 @@ block content
 	.title СПИСОК СОБЫТИЙ
 	br
 	.main_menu_block
-		each e in event
+		each event in events
 			a(href='#')= 'удалить '
 			||&nbsp;
-			a(href='/auth/edit/events/' + e._id)= e.ru.title
+			a(href='/auth/edit/events/' + event._id)= event.ru.title
 			b= ' ---> '
-			a(href='/event/' + e._id, target='_blank') результат
+			a(href='/event/' + event._id, target='_blank') результат
 			br
 			br

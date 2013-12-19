@@ -6,7 +6,7 @@ $(document).ready(function() {
 	$("#two").sortable({connectWith: "#one", placeholder: 'column_placeholder', cancel: '.m_comment, .m_search'});
 
 	$('.marker').click(function() {
-		alert('колонка: ' + $(this).parent('.column').index() + '\nэлемент: ' + $(this).index())
+		console.log('колонка: ' + $(this).parent('.column').index() + '\nэлемент: ' + $(this).index())
 	});
 
 	$('.upload').click(function(event) {
@@ -155,16 +155,22 @@ $(document).ready(function() {
 
 	$('.empty_colums').click(function() {
 		$(this).data('clicked', !$(this).data('clicked'));
+		$(this).toggleClass('selected');
+		$('.add, .m_del').remove();
+		$('.m_list a, .m_edit').removeAttr('style');
+		$('.marker').css('padding-bottom', '0px');
 
 		if ($(this).data('clicked')) {
 			$('.marker').has('.m_list:not(:has(a))').hide();
+			$('.m_edit').hide();
 		}
 		else {
-			$('.marker').show();
+			$('.marker, .m_edit').show();
 		}
 	});
 
-  $('.toggle_grid').click(function(event) {
-  	$('.title, .s_title, .description, .column, .comment, .marker .m_comment, .a_name').toggleClass('grid');
+  $('.toggle_grid').click(function() {
+  	$(this).toggleClass('selected');
+  	$('.title, .s_title, .description, .column, .comment, .marker .m_comment, .a_name, .age, .duration').toggleClass('grid');
   });
 });

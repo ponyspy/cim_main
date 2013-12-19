@@ -38,6 +38,14 @@
 	position: fixed;
 }
 
+.settings select {
+	min-width: 145px;
+}
+
+.settings .selected {
+	color: red;
+}
+
 .s_item:hover {
 	text-decoration: underline;
 	cursor: pointer;
@@ -153,7 +161,7 @@
 	background-color: #915860;
 }
 
-.title, .s_title, .description, .comment, .ticket, .m_comment, .m_search, .a_name {
+.title, .s_title, .description, .comment, .ticket, .m_comment, .m_search, .a_name, .age, .duration {
 	outline: none;
 }
 
@@ -191,4 +199,12 @@
 
 .a_name.grid {
 	background-color: #209166;
+}
+
+.age.grid {
+	background-color: #914133;
+}
+
+.duration.grid {
+	background-color: #69918a;
 }

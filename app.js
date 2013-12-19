@@ -481,8 +481,8 @@ app.post('/mlist', function (req, res) {
 
 
 app.get('/auth/edit/events', checkAuth, function (req, res) {
-  Event.find().populate('children members.m_id').exec(function(err, event) {
-    res.render('auth/edit/events', {event: event});
+  Event.find().sort('-date').exec(function(err, events) {
+    res.render('auth/edit/events', {events: events});
   });
 });
 
