@@ -2,6 +2,20 @@ $(document).ready(function() {
 	var img_preview = 'null';
 	$(".description, .comment, .ticket").popline({disable:['color']});
 
+	$("#one").sortable({connectWith: "#two", placeholder: 'column_placeholder', cancel: '.m_comment, .m_search'});
+	$("#two").sortable({connectWith: "#one", placeholder: 'column_placeholder', cancel: '.m_comment, .m_search'});
+
+	$('.empty_colums').click(function() {
+		$(this).data('clicked', !$(this).data('clicked'));
+
+		if ($(this).data('clicked')) {
+			$('.marker').has('.m_list:not(:has(a))').hide();
+		}
+		else {
+			$('.marker').show();
+		}
+	});
+
 	$('.upload').click(function(event) {
 		var title = $('.title').html();
 		var s_title = $('.s_title').html();

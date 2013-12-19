@@ -14,6 +14,7 @@ block content_scripts
 	//- script(type='text/javascript', src='/scripts/back.js' + version)
 	script(type='text/javascript', src='/scripts/mfupload.js' + version)
 	script(type="text/javascript", src='/scripts/jquery.popline.min.js' + version)
+	script(type="text/javascript", src='/scripts/jquery-ui-1.10.3.custom.min.js' + version)
 
 block content_right
 	.content_right_block
@@ -22,6 +23,7 @@ block content_right
 		.settings ПАРАМЕТРЫ
 			.s_item.toggle_lang язык
 			.s_item.toggle_grid направляющие
+			.s_item.empty_colums пустые колонки
 			br
 			.s_cat зал:
 			select.hall(name='hall')
@@ -71,7 +73,7 @@ block content
 		if (event.ru.s_title)
 			.s_title(lang='ru', contenteditable)= event.ru.s_title.toUpperCase()
 		.members
-			.column
+			.column#one
 				+memberList('Режиссер', 'director')
 				+memberList('Автор', 'author')
 				+memberList('Драматург', 'playwright')
@@ -85,7 +87,7 @@ block content
 				+memberList('Теоретик', 'theoretician')
 				+memberList('Художественный руководитель', 'art_director')
 				+memberList('Сценограф', 'scenographer')
-			.column
+			.column#two
 				+memberList('Фотограф', 'photographer')
 				+memberList('Помощник режисера', 'sub_director')
 				+memberList('Технический директор', 'tech_director')
@@ -95,8 +97,10 @@ block content
 				+memberList('Мультимедиахудожник', 'multi_artist')
 				+memberList('Консультант', 'consultant')
 				+memberList('Спецэффекты', 'effects')
-			//- if (event.ru.comment)
-			.comment(contenteditable)
-				!= event.ru.comment
+			.s_column
+				.age 18+
+				.duration 1 ч. 20 мин.
+				.comment(contenteditable)
+					!= event.ru.comment
 		.description(lang='ru', contenteditable)
 			!= event.ru.body
