@@ -73,30 +73,38 @@ block content
 		if (event.ru.s_title)
 			.s_title(lang='ru', contenteditable)= event.ru.s_title.toUpperCase()
 		.members
-			.column#one
-				+memberList('Режиссер', 'director')
-				+memberList('Автор', 'author')
-				+memberList('Драматург', 'playwright')
-				+memberList('Хореограф', 'choreographer')
-				+memberList('Композитор', 'composer')
-				+memberList('Художник', 'artist')
-				+memberList('Исполнители', 'actor')
-				+memberList('Продюсер', 'producer')
-				+memberList('Куратор', 'curator')
-				+memberList('Лектор', 'lecturer')
-				+memberList('Теоретик', 'theoretician')
-				+memberList('Художественный руководитель', 'art_director')
-				+memberList('Сценограф', 'scenographer')
-			.column#two
-				+memberList('Фотограф', 'photographer')
-				+memberList('Помощник режисера', 'sub_director')
-				+memberList('Технический директор', 'tech_director')
-				+memberList('Видеохудожник', 'video_artist')
-				+memberList('Художник по свету', 'light_artist')
-				+memberList('Звукорежисер', 'audio_director')
-				+memberList('Мультимедиахудожник', 'multi_artist')
-				+memberList('Консультант', 'consultant')
-				+memberList('Спецэффекты', 'effects')
+			if (event.meta.columns.one.length > 0 && event.meta.columns.two.length > 0)
+				.column#one
+					each column, i in event.meta.columns.one
+						+memberList(column.marker, column.status)
+				.column#two
+					each column, i in event.meta.columns.two
+						+memberList(column.marker, column.status)
+			else
+				.column#one
+					+memberList('Режиссер', 'director')
+					+memberList('Автор', 'author')
+					+memberList('Драматург', 'playwright')
+					+memberList('Хореограф', 'choreographer')
+					+memberList('Композитор', 'composer')
+					+memberList('Художник', 'artist')
+					+memberList('Исполнители', 'actor')
+					+memberList('Продюсер', 'producer')
+					+memberList('Куратор', 'curator')
+					+memberList('Лектор', 'lecturer')
+					+memberList('Теоретик', 'theoretician')
+					+memberList('Художественный руководитель', 'art_director')
+					+memberList('Сценограф', 'scenographer')
+				.column#two
+					+memberList('Фотограф', 'photographer')
+					+memberList('Помощник режисера', 'sub_director')
+					+memberList('Технический директор', 'tech_director')
+					+memberList('Видеохудожник', 'video_artist')
+					+memberList('Художник по свету', 'light_artist')
+					+memberList('Звукорежисер', 'audio_director')
+					+memberList('Мультимедиахудожник', 'multi_artist')
+					+memberList('Консультант', 'consultant')
+					+memberList('Спецэффекты', 'effects')
 			.s_column
 				.age(contenteditable)= event.age
 				.duration(contenteditable)= event.duration

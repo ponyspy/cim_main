@@ -98,6 +98,18 @@ var eventSchema = new Schema({
       hall: String,
       age: Number,
       duration: String,
+      meta: {
+        columns: {
+          one: [{
+            marker: String,
+            status: String
+          }],
+          two: [{
+            marker: String,
+            status: String
+          }]
+        }
+      },
        tag: String,
       _parent: { type: Schema.Types.ObjectId, ref: 'Event' },
       date: {type: Date, default: Date.now},
@@ -510,6 +522,7 @@ app.post('/auth/edit/events/:id', function (req, res) {
     event.hall = post.hall;
     event.age = post.age;
     event.duration = post.duration;
+    event.meta.columns = post.columns;
 
     if (post.ru) {
       event.ru.title = post.ru.title;

@@ -10,28 +10,6 @@ $(document).ready(function() {
 	});
 
 
-	$('.title').click(function(event) {
-		var m_colums = $('.marker');
-		var colums = {
-			'one': [],
-			'two': []
-		}
-
-		m_colums.each(function(index, el) {
-			var col = $(this).parent('.column').index();
-			var row = $(this).index();
-			var status = $(this).attr('class').slice(7);
-
-			if (col == 0)
-				colums.one.push(status);
-			else if (col == 1)
-				colums.two.push(status);
-		});
-		console.log(colums.one)
-		console.log(colums.two)
-	});
-
-
 	$('.upload').click(function(event) {
 		var title = $('.title').html();
 		var s_title = $('.s_title').html();
@@ -45,6 +23,23 @@ $(document).ready(function() {
 		var tag = $('.tag').val();
 		var markers = $('.marker .m_list').children('a');
 		var members = [];
+		var m_columns = $('.marker');
+		var columns = {
+			'one': [],
+			'two': []
+		}
+
+		m_columns.each(function(index, el) {
+			var col = $(this).parent('.column').index();
+			var row = $(this).index();
+			var status = $(this).attr('class').slice(7);
+			var marker = $(this).children('.m_title').html().slice(0, -1);
+
+			if (col == 0)
+				columns.one.push({marker: marker, status:status});
+			else if (col == 1)
+				columns.two.push({marker: marker, status:status});
+		});
 
 		markers.each(function(index, marker) {
 			var id = $(marker).attr('id');
@@ -76,7 +71,7 @@ $(document).ready(function() {
 		else
 			ru.ticket = ticket;
 
-		$.post('', {img: img_preview, ru: ru, members: members, tag: tag, hall: hall, age: age, duration: duration}).done(function(result) {
+		$.post('', {img: img_preview, ru: ru, members: members, tag: tag, hall: hall, age: age, duration: duration, columns: columns}).done(function(result) {
 			$('.upload').text('ГОТОВО!');
 			setTimeout(function() {
 			    $('.upload').text('СОХРАНИТЬ')
