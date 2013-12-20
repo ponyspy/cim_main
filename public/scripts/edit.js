@@ -16,6 +16,8 @@ $(document).ready(function() {
 		var ticket = $('.ticket').html();
 		var comment = $('.comment').html();
 		var p_author = $('.a_name').html();
+		var age = $('.age').html();
+		var duration = $('.duration').html();
 		var hall = $('.hall').val();
 		var tag = $('.tag').val();
 		var markers = $('.marker .m_list').children('a');
@@ -51,7 +53,7 @@ $(document).ready(function() {
 		else
 			ru.ticket = ticket;
 
-		$.post('', {img: img_preview, ru: ru, members: members, tag: tag, hall: hall}).done(function(result) {
+		$.post('', {img: img_preview, ru: ru, members: members, tag: tag, hall: hall, age: age, duration: duration}).done(function(result) {
 			$('.upload').text('ГОТОВО!');
 			setTimeout(function() {
 			    $('.upload').text('СОХРАНИТЬ')

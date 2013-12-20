@@ -96,6 +96,8 @@ var eventSchema = new Schema({
       photo: String,
       poster: String,
       hall: String,
+      age: Number,
+      duration: String,
        tag: String,
       _parent: { type: Schema.Types.ObjectId, ref: 'Event' },
       date: {type: Date, default: Date.now},
@@ -506,6 +508,8 @@ app.post('/auth/edit/events/:id', function (req, res) {
     event.members = post.members;
     event.tag = post.tag;
     event.hall = post.hall;
+    event.age = post.age;
+    event.duration = post.duration;
 
     if (post.ru) {
       event.ru.title = post.ru.title;

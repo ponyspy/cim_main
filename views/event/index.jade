@@ -87,8 +87,8 @@ block content
 				+memberList('Консультант', 'consultant')
 				+memberList('Спецэффекты', 'effects')
 			.s_column
-				.age 18
-				.duration 1 ч. 20 мин.
+				.age= event.age
+				.duration= event.duration
 				if (event.ru.comment)
 					.comment
 						!= event.ru.comment
