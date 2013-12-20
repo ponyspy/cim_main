@@ -9,6 +9,29 @@ $(document).ready(function() {
 		console.log('колонка: ' + $(this).parent('.column').index() + '\nэлемент: ' + $(this).index())
 	});
 
+
+	$('.title').click(function(event) {
+		var m_colums = $('.marker');
+		var colums = {
+			'one': [],
+			'two': []
+		}
+
+		m_colums.each(function(index, el) {
+			var col = $(this).parent('.column').index();
+			var row = $(this).index();
+			var status = $(this).attr('class').slice(7);
+
+			if (col == 0)
+				colums.one.push(status);
+			else if (col == 1)
+				colums.two.push(status);
+		});
+		console.log(colums.one)
+		console.log(colums.two)
+	});
+
+
 	$('.upload').click(function(event) {
 		var title = $('.title').html();
 		var s_title = $('.s_title').html();
