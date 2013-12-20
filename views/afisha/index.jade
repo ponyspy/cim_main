@@ -31,8 +31,7 @@ block content
 			div.afisha_item_block(class=date.date < now ? 'out' : '')
 				- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ']
 				- var d = date.date.getDate()
-				if (d < 10)
-					- d = '0' + d
+				- d = d < 10 ? '0' + d : d
 				.afisha_date_block= days[date.date.getDay()] + '.' + d
 				.afisha_events_block
 					each event in date.events

@@ -69,8 +69,7 @@ block content
 					.main_poster_cal
 						- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ']
 						- var d = date.date.getDate()
-						if (d < 10)
-							- d = '0' + d
+						- d = d < 10 ? '0' + d : d
 						.cal_date= days[date.date.getDay()] + '.' + d
 						- var hall = {'main': 'основная сцена', 'black': 'черный зал', 'white': 'белый зал', 'cafe': 'кафе', 'lobby': 'фойе', '301': 'комната 301', '306': 'комната 306'}
 						.cal_schedule

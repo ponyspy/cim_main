@@ -247,7 +247,7 @@ app.post('/photo_stream', function (req, res) {
 app.get('/', photoStream, function(req, res) {
   var start = new Date();
   var end = new Date();
-  start.setDate(1);
+  // start.setDate(1);
   end.setFullYear(end.getFullYear(), (end.getMonth()+1), 0);
 
   Schedule.find({'date': {'$gte': start, '$lt': end}}).populate('events.event').exec(function(err, schedule) {
@@ -334,7 +334,7 @@ app.get('/event/:id', photoStream, function (req, res) {
     Press.find({'events': id}).sort('-date').exec(function(err, press) {
       Event.find({'_id':id}).populate('children members.m_id').exec(function(err, event) {
          if (!event) return res.render('error');
-        res.render('event', {event: event, schedule: schedule, press: press});
+        res.render('event', {event: event[0], schedule: schedule, press: press});
       });
     })
   });
