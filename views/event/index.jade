@@ -95,8 +95,10 @@ block content
 					+memberList('Консультант', 'consultant')
 					+memberList('Спецэффекты', 'effects')
 			.s_column
-				.age= event.age
-				.duration= event.duration
+				if (event.age)
+					.age= event.age
+				if (event.duration)
+					.duration= event.duration
 				if (event.ru.comment)
 					.comment
 						!= event.ru.comment
