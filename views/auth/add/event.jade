@@ -1,128 +1,93 @@
 extends ../../layout
 
 block title
-	title КОНСТРУКТОР СОБЫТИЙ
+	title КОНСТРУКТОР
 
 block content_style
-	link(rel='stylesheet', type='text/css', href='/styles/add.css')
+	link(rel="stylesheet", type="text/css", href="/styles/edit.css" + version)
+	link(rel='stylesheet', type='text/css', href='/styles/content.css' + version)
+	link(rel="stylesheet", type="text/css", href="/styles/font-awesome/css/font-awesome.min.css" + version)
+	link(rel="stylesheet", type="text/css", href="/styles/popclip.css" + version)
 
 block content_scripts
-	script(type='text/javascript', src='/scripts/add.js')
+	script(type='text/javascript', src='/scripts/edit.js' + version)
+	//- script(type='text/javascript', src='/scripts/back.js' + version)
+	script(type='text/javascript', src='/scripts/mfupload.js' + version)
+	script(type="text/javascript", src='/scripts/jquery.popline.min.js' + version)
+	script(type="text/javascript", src='/scripts/jquery-ui-1.10.3.custom.min.js' + version)
 
 block content_right
-	.navigator
-		.nav_title СОБЫТИЕ
-		.nav_project_children
-		br
-		b.nav_settings_title настройки
-		//- .draft черновик
-		.toggle_eng перевод
-		br
-		b.form_submit ОТПРАВИТЬ
+	.content_right_block
+		.ticket(contenteditable) Тикет для события
+		.settings ПАРАМЕТРЫ
+			.s_item.toggle_lang язык
+			.s_item.toggle_grid направляющие
+			.s_item.empty_colums пустые колонки
+			br
+			.s_cat зал:
+			select.hall(name='hall')
+				option(value='main') основная сцена
+				option(value='black') черный зал
+				option(value='white') белый зал
+				option(value='cafe') кафе
+				option(value='lobby') фойе
+				option(value='301') комната 301
+				option(value='306') комната 306
+			.s_cat категория:
+			select.tag(name='tag')
+				option(value='performance') спектакль
+				option(value='lecture') лекция
+				option(value='masterclass') мастер-класс
+				option(value='exhibition') выставка
+				option(value='concert') концерт
+				option(value='education') институт театра
+				option(value='blackbox') blackbox
+				option(value='children') детская программа
+				option(value='storytallyng') сторителлинг
+		.upload СОЗДАТЬ
 
-mixin eventField(st)
-	.snake
-		input.back(type="button", value="<")
-		select(name='event[members]')
-			option(value='') нет
-			each member in members
-				each status in member.status
-					if (status == st)
-						option(value=member._id + '-' + st)= member.ru.name
-		input.forward(type="button", value=">")
+mixin memberList(marker, status)
+	.marker(class=status)
+		.m_title= marker + ':'
+		.m_edit= '⊙'
+		.m_list
 
 block content
-	.form_block
-		a.back_link(href='/auth') < Назад
-		.title КОНСТРУКТОР СОБЫТИЙ
-		br
-		form(action="/auth/add/event", method="post", enctype="multipart/form-data")
-			.form_title Заголовок:
-			input.ru(type="text", name="ru[title]",)
-			input.en(type="text", name="en[title]", disabled)
-			.form_title Подзаголовок:
-			input.ru(type="text", name="ru[s_title]",)
-			input.en(type="text", name="en[s_title]", disabled)
-			.form_title Описание:
-			textarea.ru(name="ru[body]", rows="8",)
-			textarea.en(name="en[body]", rows="8", disabled)
-			.form_title Тикет:
-			textarea.ru(name="ru[ticket]", rows="8",)
-			textarea.en(name="en[ticket]", rows="8", disabled)
-			.form_title Комментарий:
-			textarea.ru(name="ru[comment]", rows="8",)
-			textarea.en(name="en[comment]", rows="8", disabled)
-			.form_title Постер:
-			input(type="file", name="poster")
-			.form_title Фото:
-			input(type="file", name="photo")
-			.form_title Автор фото:
-			input.ru(type="text", name="ru[p_author]",)
-			input.en(type="text", name="en[p_author]", disabled)
-			.form_section Участники
-			.form_block_event
-				.form_title Режиссер:
-				+eventField('director')
-				.form_title Драматург:
-				+eventField('playwright')
-				.form_title Автор:
-				+eventField('author')
-				.form_title Художественный руководитель:
-				+eventField('art_director')
-				.form_title Куратор:
-				+eventField('curator')
-				.form_title Фотограф:
-				+eventField('photographer')
-				.form_title Художник:
-				+eventField('artist')
-				.form_title Художник по свету:
-				+eventField('light_artist')
-				.form_title Композитор:
-				+eventField('composer')
-				.form_title Хореограф:
-				+eventField('choreographer')
-				.form_title Продюсер:
-				+eventField('producer')
-				.form_title Теоретик:
-				+eventField('theoretician')
-				.form_title Лектор:
-				+eventField('lecturer')
-				.form_title Актеры:
-				+eventField('actor')
-				.form_title Помощник режиссера:
-				+eventField('sub_director')
-				.form_title Технический директор:
-				+eventField('tech_director')
-				.form_title Видеохудожник:
-				+eventField('video_artist')
-				.form_title Звукорежиссер:
-				+eventField('audio_director')
-				.form_title Мультимедиахудожник
-				+eventField('multi_artist')
-				.form_title Сценограф
-				+eventField('scenographer')
-				.form_title Консультант
-				+eventField('consultant')
-				.form_title Спецэффекты
-				+eventField('effects')
-				.form_section Параметры
-				.form_title Категория:
-				select(name='tag')
-					option(value='performance') спектакль
-					option(value='lecture') лекция
-					option(value='masterclass') мастер-класс
-					option(value='exhibition') выставка
-					option(value='concert') концерт
-					option(value='education') институт театра
-					option(value='blackbox') blackbox
-					option(value='children') детская программа
-					option(value='storytallyng') сторителлинг
-				.form_title Зал:
-				select(name='event[hall]')
-					option(value='main') основная сцена
-					option(value='black') черный зал
-					option(value='white') белый зал
-					option(value='cafe') кафе
-					option(value='lobby') фойе
-					option(value='301') комната 301
-					option(value='306') комната 306
+	.image_upload
+		.p_author
+			.a_title Фото:
+			.a_name(contenteditable='plaintext-only') Автор фото
+		input(type='file', name='image', data-post='/', data-crop='true')
+	.content_body
+		.title(lang='ru', contenteditable) Заголовок
+		.s_title(lang='ru', contenteditable) Подзаголовок
+		.members
+			.column#one
+				+memberList('Режиссер', 'director')
+				+memberList('Автор', 'author')
+				+memberList('Драматург', 'playwright')
+				+memberList('Хореограф', 'choreographer')
+				+memberList('Композитор', 'composer')
+				+memberList('Художник', 'artist')
+				+memberList('Исполнители', 'actor')
+				+memberList('Продюсер', 'producer')
+				+memberList('Куратор', 'curator')
+				+memberList('Лектор', 'lecturer')
+				+memberList('Теоретик', 'theoretician')
+				+memberList('Художественный руководитель', 'art_director')
+				+memberList('Сценограф', 'scenographer')
+			.column#two
+				+memberList('Фотограф', 'photographer')
+				+memberList('Помощник режисера', 'sub_director')
+				+memberList('Технический директор', 'tech_director')
+				+memberList('Видеохудожник', 'video_artist')
+				+memberList('Художник по свету', 'light_artist')
+				+memberList('Звукорежисер', 'audio_director')
+				+memberList('Мультимедиахудожник', 'multi_artist')
+				+memberList('Консультант', 'consultant')
+				+memberList('Спецэффекты', 'effects')
+			.s_column
+				.age(contenteditable) 0
+				.duration(contenteditable) 1 ч. 20 мин.
+				.comment(contenteditable) Комментарий для события
+		.description(lang='ru', contenteditable) Описание события

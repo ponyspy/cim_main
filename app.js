@@ -136,7 +136,6 @@ var memberSchema = new Schema({
     date: {type: Date, default: Date.now},
     img: String,
     status: [String]
-    // events: [{ type: Schema.Types.ObjectId, ref: 'Event' }]
 });
 
 var userSchema = new Schema({
@@ -216,25 +215,6 @@ var deleteFolderRecursive = function(path) {
   }
 };
 
-function memberSplit (members) {
-  var split = [];
-  var results = [];
-  var s;
-
-  for (var i in members)
-    if (members[i] != '') split.push(members[i]);
-
-  for (var i in split) {
-    s = split[i].split('-');
-    results.push({
-      m_id: s[0],
-      c_status: s[1]
-    });
-  }
-
-  return results;
-}
-
 
 // ------------------------
 // *** Post parms Block ***
@@ -249,6 +229,24 @@ app.post('/photo_stream', function (req, res) {
       res.send('false')
     else
       res.send(photos);
+  });
+});
+
+app.post('/edit', function (req, res) {
+  var files = req.files;
+  var name = files.mf_file_undefined.path.slice(33);
+  var newPath = __dirname + '/public/preview/' + name;
+  gm(files.mf_file_undefined.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
+    var path = {'path':'/preview/' + name}
+    res.send(path);
+  });
+});
+
+app.post('/mlist', function (req, res) {
+  var post = req.body;
+
+  Member.find({'status': post.status}).sort('-date').exec(function(err, members) {
+    res.send(members);
   });
 });
 
@@ -380,24 +378,13 @@ app.get('/auth', checkAuth, function (req, res) {
   res.render('auth');
 });
 
-app.post('/auth', checkAuth, function (req, res) {
-  var post = req.body;
-  // console.log(req.body);
-  // console.log(req.body.children[0].ru.title);
-  // console.log(req.body.children[0].cal);
-  // console.log(req.body.event.ru.actors);
-  // console.log(results);
-
-  res.redirect('back');
-});
-
 
 // ------------------------
 // *** Add Event Block ***
 // ------------------------
 
 
-app.get('/auth/add/event', checkAuth, function (req, res) {
+app.get('/auth/add/event', photoStream, checkAuth, function (req, res) {
   Member.find(function(err, members) {
     res.render('auth/add/event.jade', {members: members});
   });
@@ -425,73 +412,35 @@ app.post('/auth/add/event', function(req, res) {
   };
 
   event.tag = post.tag;
-  event.hall = post.event.hall;
-  event.members = memberSplit(post.event.members);
+  event.hall = post.hall;
+  event.age = post.age;
+  event.members = post.members;
+  event.duration = post.duration;
+  event.meta.columns = post.columns;
 
-  async.parallel({
-    photo: function(callback) {
-      if (files.photo.size != 0) {
-        fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
-          var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
-          gm(files.photo.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
-            event.photo = '/images/events/' + event._id + '/photo.jpg';
-            fs.unlink(files.photo.path);
-            callback(null, 1);
-          });
+  if (post.img != 'null') {
+    fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
+      var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
+      gm(__dirname + '/public' + post.img).write(newPath, function() {
+        event.photo = '/images/events/' + event._id + '/photo.jpg';
+        fs.unlink(__dirname + '/public' + post.img);
+        event.save(function() {
+          res.redirect('back');
         });
-      }
-      else {
-        callback(null, 0);
-        fs.unlink(files.photo.path);
-      }
-    },
-    poster: function(callback) {
-      if (files.poster.size != 0) {
-        fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
-          var newPath = __dirname + '/public/images/events/' + event._id + '/poster.jpg';
-          gm(files.poster.path).resize(580, false).quality(60).noProfile().write(newPath, function() {
-            event.poster = '/images/events/' + event._id + '/poster.jpg';
-            fs.unlink(files.poster.path);
-            callback(null, 2);
-          });
-        });
-      }
-      else {
-        callback(null, 0);
-        fs.unlink(files.poster.path);
-      }
-    }
-  },
-  function(err, results) {
-    event.save(function(err) {
+      });
+    });
+  }
+  else {
+    event.save(function(err, event) {
       res.redirect('back');
     });
-  });
+  }
 });
 
 
 // ------------------------
 // *** Edit Events Block ***
 // ------------------------
-
-
-app.post('/edit', function (req, res) {
-  var files = req.files;
-  var name = files.mf_file_undefined.path.slice(33);
-  var newPath = __dirname + '/public/preview/' + name;
-  gm(files.mf_file_undefined.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
-    var path = {'path':'/preview/' + name}
-    res.send(path);
-  });
-});
-
-app.post('/mlist', function (req, res) {
-  var post = req.body;
-
-  Member.find({'status': post.status}).sort('-date').exec(function(err, members) {
-    res.send(members);
-  });
-});
 
 
 app.get('/auth/edit/events', checkAuth, function (req, res) {
@@ -1057,14 +1006,14 @@ app.post('/auth/edit/photos/:id', function (req, res) {
   }
   else {
     Photo.findById(id, function(err, photo) {
-      if (post.en) {
-      photo.en.author = post.en.author;
-      photo.en.description = post.en.description;
-      }
-
+      photo.style = post.style;
       photo.ru.author = post.ru.author;
       photo.ru.description = post.ru.description;
-      photo.style = post.style;
+
+      if (post.en) {
+        photo.en.author = post.en.author;
+        photo.en.description = post.en.description;
+      }
 
       if (files.img.size != 0) {
         var newPath = __dirname + '/public/images/photo_stream/' + photo._id + '.jpg';

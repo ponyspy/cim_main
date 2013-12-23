@@ -58,16 +58,11 @@ mixin memberList(marker, status)
 					.m_comment(lang='ru', contenteditable='true')= member.comment.ru
 
 block content
-	//- img(src=event.photo)
-	if (event.photo)
-		.image_upload(style='background-image: url(' + event.photo + ')')
-			.p_author
-				.a_title Фото:
-				.a_name(contenteditable='plaintext-only')= event.ru.p_author
-			input(type='file', name='image', data-post='/', data-crop='true')
-	else
-		.image_upload
-			input(type='file', name='image', data-post='/', data-crop='true')
+	.image_upload(style=event.photo ? 'background-image: url(' + event.photo + ')' : '')
+		.p_author
+			.a_title Фото:
+			.a_name(contenteditable='plaintext-only')= event.ru.p_author
+		input(type='file', name='image', data-post='/', data-crop='true')
 	.content_body
 		.title(lang='ru', contenteditable)= event.ru.title.toUpperCase()
 		if (event.ru.s_title)
