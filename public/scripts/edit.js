@@ -1,14 +1,20 @@
 $(document).ready(function() {
 	var img_preview = 'null';
-	$(".description, .comment, .ticket").popline({disable:['color']});
+	$('.description, .comment, .ticket').popline({disable:['color']});
 
-	$("#one").sortable({connectWith: "#two", placeholder: 'column_placeholder', cancel: '.m_comment, .m_search'});
-	$("#two").sortable({connectWith: "#one", placeholder: 'column_placeholder', cancel: '.m_comment, .m_search'});
+	$('#one').sortable({connectWith: '#two', placeholder: 'column_placeholder', cancel: '.m_comment, .m_search'});
+	$('#two').sortable({connectWith: '#one', placeholder: 'column_placeholder', cancel: '.m_comment, .m_search'});
 
-	$('.marker').click(function() {
-		console.log('колонка: ' + $(this).parent('.column').index() + '\nэлемент: ' + $(this).index())
-	});
+	// $('.marker').click(function() {
+	// 	console.log('колонка: ' + $(this).parent('.column').index() + '\nэлемент: ' + $(this).index())
+	// });
 
+	function checkField (field) {
+		if (field == '<br>' || field == '')
+			return '';
+		else
+			return field;
+	}
 
 	$('.upload').click(function(event) {
 		var title = $('.title').html();
@@ -60,22 +66,22 @@ $(document).ready(function() {
 			comment: comment
 		}
 
-		if (p_author == '<br>' || p_author == '')
-			ru.p_author = '';
-		else
-			ru.p_author = p_author;
+		ru.p_author = checkField(p_author);
+		ru.ticket = checkField(ticket);
+		duration = checkField(duration);
+		age = checkField(age);
 
-
-		if (ticket == '<br>' || ticket == '')
-			ru.ticket = '';
-		else
-			ru.ticket = ticket;
 
 		$.post('', {img: img_preview, ru: ru, members: members, tag: tag, hall: hall, age: age, duration: duration, columns: columns}).done(function(result) {
-			$('.upload').text('ГОТОВО!');
-			setTimeout(function() {
-			    $('.upload').text('СОХРАНИТЬ')
-			  }, 1000);
+			var btn_title = $('.upload').text();
+			if (btn_title == 'СОЗДАТЬ')
+				 location.reload();
+			else {
+				$('.upload').text('ГОТОВО!');
+				setTimeout(function() {
+					$('.upload').text(btn_title)
+				}, 1000);
+			}
 		});
 	});
 
@@ -83,10 +89,10 @@ $(document).ready(function() {
 
 		type		: 'jpg,png,tif,jpeg',
 		maxsize		: 6,
-		post_upload	: "/edit",
-		folder		: "",
-		ini_text	: "Нажми или перетащи",
-		over_text	: "Отпускай!",
+		post_upload	: '/edit',
+		folder		: '',
+		ini_text	: 'Нажми или перетащи',
+		over_text	: 'Отпускай!',
 		over_col	: '',
 		over_bkcol	: 'white',
 
@@ -189,8 +195,8 @@ $(document).ready(function() {
 		}
 	});
 
-  $('.toggle_grid').click(function() {
-  	$(this).toggleClass('selected');
-  	$('.title, .s_title, .description, .column, .comment, .marker .m_comment, .a_name, .age, .duration').toggleClass('grid');
-  });
+	$('.toggle_grid').click(function() {
+		$(this).toggleClass('selected');
+		$('.title, .s_title, .description, .column, .comment, .marker .m_comment, .a_name, .age, .duration').toggleClass('grid');
+	});
 });

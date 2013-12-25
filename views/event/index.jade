@@ -95,9 +95,8 @@ block content
 					+memberList('Консультант', 'consultant')
 					+memberList('Спецэффекты', 'effects')
 			.s_column
-				if (event.age)
+				if (event.age && event.duration)
 					.age= event.age
-				if (event.duration)
 					.duration= event.duration
 				if (event.ru.comment)
 					.comment
