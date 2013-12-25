@@ -320,7 +320,7 @@ app.get('/afisha/:position', function (req, res) {
     start.setFullYear(start.getFullYear(), (start.getMonth()+1), 0);
     end.setFullYear(end.getFullYear(), (end.getMonth()+2), 0);
   }
-  else res.redirect('error')
+  else res.render('error');
 
   Schedule.find({'date': {'$gte': start, '$lte': end}}).sort('date').populate('events.event').exec(function(err, schedule) {
     Schedule.populate(schedule, {path:'events.event.members.m_id', model: 'Member'}, function(err, schedule) {
@@ -361,7 +361,8 @@ app.get('/event/:id', photoStream, function (req, res) {
 app.get('/member/:id', photoStream, function (req, res) {
   var id = req.params.id;
 
-  Member.findById(id, function(err, member){
+  Member.findById(id, function(err, member) {
+    if (!member) return res.render('error');
     Event.find({'members.m_id': id}, {'members.$': 1}).select('ru').sort('-date').exec(function(err, events) {
       res.render('members/member.jade', {member:member, events: events})
     });
