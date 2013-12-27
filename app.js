@@ -100,14 +100,8 @@ var eventSchema = new Schema({
       duration: String,
       meta: {
         columns: {
-          one: [{
-            marker: String,
-            status: String
-          }],
-          two: [{
-            marker: String,
-            status: String
-          }]
+          one: [String],
+          two: [String]
         }
       },
        tag: String,

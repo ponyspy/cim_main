@@ -42,9 +42,9 @@ $(document).ready(function() {
 			var marker = $(this).children('.m_title').html().slice(0, -1);
 
 			if (col == 0)
-				columns.one.push({marker: marker, status:status});
+				columns.one.push(status);
 			else if (col == 1)
-				columns.two.push({marker: marker, status:status});
+				columns.two.push(status);
 		});
 
 		markers.each(function(index, marker) {

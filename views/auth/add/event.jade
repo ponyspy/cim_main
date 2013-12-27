@@ -53,6 +53,8 @@ mixin memberList(marker, status)
 		.m_list
 
 block content
+	- var ru_column_one = {'director': 'Режиссер', 'author': 'Автор', 'playwright': 'Драматург', 'choreographer': 'Хореограф', 'composer': 'Композитор', 'artist': 'Художник', 'actor': 'Исполнители', 'producer': 'Продюсер', 'curator': 'Куратор', 'lecturer': 'Лектор', 'theoretician': 'Теоретик', 'art_director': 'Художественный руководитель', 'scenographer': 'Сценограф'}
+	- var ru_column_two = {'photographer': 'Фотограф', 'sub_director': 'Помощник режисера', 'tech_director': 'Технический директор', 'video_artist': 'Видеохудожник', 'light_artist': 'Художник по свету', 'audio_director': 'Звукорежисер', 'multi_artist': 'Мультимедиахудожник', 'consultant': 'Консультант', 'effects': 'Спецэффекты'}
 	.image_upload
 		.p_author
 			.a_title Фото:
@@ -63,29 +65,11 @@ block content
 		.s_title(lang='ru', contenteditable) Подзаголовок
 		.members
 			.column#one
-				+memberList('Режиссер', 'director')
-				+memberList('Автор', 'author')
-				+memberList('Драматург', 'playwright')
-				+memberList('Хореограф', 'choreographer')
-				+memberList('Композитор', 'composer')
-				+memberList('Художник', 'artist')
-				+memberList('Исполнители', 'actor')
-				+memberList('Продюсер', 'producer')
-				+memberList('Куратор', 'curator')
-				+memberList('Лектор', 'lecturer')
-				+memberList('Теоретик', 'theoretician')
-				+memberList('Художественный руководитель', 'art_director')
-				+memberList('Сценограф', 'scenographer')
+				each marker, status in ru_column_one
+					+memberList(marker, status)
 			.column#two
-				+memberList('Фотограф', 'photographer')
-				+memberList('Помощник режисера', 'sub_director')
-				+memberList('Технический директор', 'tech_director')
-				+memberList('Видеохудожник', 'video_artist')
-				+memberList('Художник по свету', 'light_artist')
-				+memberList('Звукорежисер', 'audio_director')
-				+memberList('Мультимедиахудожник', 'multi_artist')
-				+memberList('Консультант', 'consultant')
-				+memberList('Спецэффекты', 'effects')
+				each marker, status in ru_column_two
+					+memberList(marker, status)
 			.s_column
 				.age(contenteditable) 0
 				.duration(contenteditable) 1 ч. 20 мин.
