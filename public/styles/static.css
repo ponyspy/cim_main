@@ -62,6 +62,11 @@
 	font: 10pt/13pt 'Pragmatica';
 	color: white;
 	padding: 10px;
+	text-align: center;
+}
+
+.under_block a {
+	color: white;
 }
 
 .content {
@@ -83,13 +88,14 @@
 	text-decoration: underline;
 }
 
-ul {
+ol,ul {
 	padding: 0;
+	margin-top: 5px;
 	margin-left: 20px;
 }
 
 li {
-	padding-top: 10px;
+	padding-top: 3px;
 	list-style-type: none;
 }
 
@@ -102,10 +108,10 @@ a:hover {
 	text-decoration: underline;
 }
 
-li:before {
-	/*content: ' ';*/
-}
-
 p {
 	margin: 0;
+}
+
+.r_append, .right_block {
+	display: none;
 }
