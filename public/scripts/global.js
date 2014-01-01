@@ -1,6 +1,15 @@
 var counter = 0;
 var post_counter = 0;
 
+function hideDropMenu (event) {
+	if (event.target.className != 'menu_item') {
+	  $('.menu_item').children('.menu_drop').hide();
+	  $('.menu_item').children('.menu_item_arrow').text('▼');
+	  $('.menu_item').data('clicked', false);
+	  $(document).off('click');
+	}
+}
+
 function backScroller () {
 	var offset_top = $('.background_item').eq(counter).offset().top;
 	var offset_bottom = $('.background_item').eq(counter).offset().top + $('.background_item').eq(counter).height();
@@ -67,34 +76,23 @@ $(document).ready(function() {
 										.on('mouseout', showStream)
 										.on('click', fixStream);
 
-	$('.pay').on({
-		mouseover: function() {
-			$('.pay_drop').show();
-		},
-		mouseout: function() {
-			$('.pay_drop').hide();
-		}
+
+	$('.pay').on('mouseover mouseout', function() {
+		$('.pay_drop').toggle();
 	});
 
-	var menu = $('.menu_item');
 
-	menu.each(function() {
-		var flip = false;
+	$('.menu_item').click(function(event) {
+		$(this).data('clicked', !$(this).data('clicked'));
 
-		$(this).click(function(event) {
-			t = event.target || event.srcElement;
-
-			if (t.className == 'menu_item' || t.className == 'menu_item_arrow' || t.className == 'menu_item_title') {
-				if (flip = !flip) {
-					$(this).children('.menu_item_arrow').text('▲');
-					flip = true;
-				}
-				else {
-					$(this).children('.menu_item_arrow').text('▼');
-					flip = false;
-				}
-				$(this).children('.menu_drop').toggle();
-			}
-		});
+		if ($(this).data('clicked')) {
+			$(this).children('.menu_item_arrow').text('▲');
+			$(document).on('click', hideDropMenu);
+		}
+		else {
+			$(this).children('.menu_item_arrow').text('▼');
+			$(document).off('click');
+		}
+		$(this).children('.menu_drop').toggle();
 	});
 });
