@@ -10,6 +10,15 @@ block content_scripts
 	script(type='text/javascript', src='/scripts/add_member.js')
 
 block content_right
+	.navigator
+		.nav_title ФОТО
+		.nav_project_children
+		br
+		b.nav_settings_title настройки
+		//- .draft черновик
+		.toggle_eng перевод
+		br
+		b.form_submit ОТПРАВИТЬ
 
 
 block content
@@ -29,7 +38,3 @@ block content
 		select(name='style')
 			option(value='black') Черный
 			option(value='white') Белый
-		br
-		br
-		input(type='button', class='toggle_eng', value='Перевод')
-		input(type="submit", value="Редактировать")

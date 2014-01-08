@@ -11,14 +11,31 @@ block content_scripts
 	script(type='text/javascript', src='/scripts/lists.js')
 
 block content_right
+	- var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+	- obj = {}
 	.navigator
+		.nav_title ДОБАВИТЬ ДАТУ
+		form(action="/auth/add/schedule/" + year, method="post", enctype="multipart/form-data")
+			.nav_forms
+				select(name='schedule[date]')
+					option(value='') Дата
+					- for (var i=1; i<32; i++)
+						option(value=i)= i
+				select(name='schedule[month]')
+					option(value='') Месяц
+					- var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+					each month, i in months
+						option(value=i)= month
+				input(type='hidden', name='schedule[year]', value=year)
+				.form_submit добавить
+				br
+				//- input(type='submit', value='Добавить')
 		.nav_title РАСПИСАНИЕ
-		br
-		b январь
-		br
-		b февраль
-		br
-		b март
+		each date in schedule
+			- obj[date.date.getMonth()] = true
+		- res = Object.keys(obj)
+		each numb in res
+			.nav_item= months[numb]
 
 mixin scheduleMonths(title, numb)
 	- var month = true
@@ -29,10 +46,8 @@ mixin scheduleMonths(title, numb)
 				- month = false
 			- var d = date.date.getDate()
 			- var m = date.date.getMonth()+1
-			if (d < 10)
-				- d = '0' + d
-			if (m < 10)
-				- m = '0' + m
+			- d = d < 10 ? '0' + d : d
+			- m = m < 10 ? '0' + m : m
 			.schedule_item
 				a.rm_schedule(href='#', id=date._id) удалить
 				!=' | '
@@ -49,27 +64,11 @@ mixin scheduleMonths(title, numb)
 				!=' | '
 				b= 'премьер: ' + premiere
 				br
-				br
 
 block content
 	.form_block
 		a.back_link(href='/auth') < Назад
 		.title РАСПИСАНИЕ НА #{year} ГОД
-		.form_section Добавить дату
-		form(action="/auth/add/schedule/" + year, method="post", enctype="multipart/form-data")
-			.cal_block
-				select(name='schedule[date]')
-					option(value='') Дата
-					- for (var i=1; i<32; i++)
-						option(value=i)= i
-				select(name='schedule[month]')
-					option(value='') Месяц
-					- var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
-					each month, i in months
-						option(value=i)= month
-				input(type='hidden', name='schedule[year]', value=year)
-				input(type='submit', value='Добавить')
-			//- .form_section Расписание
 			if (schedule)
 				+scheduleMonths('Январь', 1)
 				+scheduleMonths('Февраль', 2)
