@@ -115,3 +115,7 @@ p {
 .r_append, .right_block {
 	display: none;
 }
+
+small {
+	margin-left: 3px;
+}

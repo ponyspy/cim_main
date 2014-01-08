@@ -175,6 +175,8 @@ body {
 .m_comment {
 	min-width: 50px;
 	float: left;
+	margin-top: 3px;
+	font: 10pt/10pt 'Pragmatica';
 }
 
 .title {
