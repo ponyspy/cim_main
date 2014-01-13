@@ -1,7 +1,7 @@
 extends ../../../layout
 
 block title
-	title РАСПИСАНИЕ
+	title РАСПИСАНИЕ НА #{year} ГОД
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/add.css')
@@ -23,13 +23,11 @@ block content_right
 						option(value=i)= i
 				select(name='schedule[month]')
 					option(value='') Месяц
-					- var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
 					each month, i in months
 						option(value=i)= month
 				input(type='hidden', name='schedule[year]', value=year)
-				.form_submit добавить
+				.form_submit Добавить
 				br
-				//- input(type='submit', value='Добавить')
 		.nav_title РАСПИСАНИЕ
 		each date in schedule
 			- obj[date.date.getMonth()] = true
@@ -50,9 +48,9 @@ mixin scheduleMonths(title, numb)
 			- m = m < 10 ? '0' + m : m
 			.schedule_item
 				a.rm_schedule(href='#', id=date._id) удалить
-				!=' | '
+				.spacer |
 				a.schedule_date(href= year + '/' + date._id)= d + '.' + m
-				!=' | '
+				.spacer |
 				- var banner = 0
 				- var premiere = 0
 				each event in date.events
@@ -60,8 +58,8 @@ mixin scheduleMonths(title, numb)
 						- premiere++
 					if (event.banner == 'true')
 						- banner++
-				b= 'банеров: ' + banner
-				!=' | '
+				b= 'баннеров: ' + banner
+				.spacer |
 				b= 'премьер: ' + premiere
 				br
 

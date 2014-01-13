@@ -33,6 +33,18 @@ $(document).ready(function() {
 
 
 // ------------------------
+// *** Navigator Block ***
+// ------------------------
+
+
+	$('.nav_item').click(function(event) {
+		index = $(this).index('.nav_item');
+
+		$('.form_section').eq(index).scrollintoview();
+	});
+
+
+// ------------------------
 // *** Constructors Block ***
 // ------------------------
 
