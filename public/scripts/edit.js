@@ -202,7 +202,6 @@ $(document).ready(function() {
 
 	$('.clear_format').click(function(event) {
 		var raw = $('.description').html();
-		console.log(raw)
 		raw = raw.replace(/(<[^>]*)style\s*=\s*('|")[^\2]*?\2([^>]*>)/g, '$1$3')
 
 		$('.description').empty().append(raw);

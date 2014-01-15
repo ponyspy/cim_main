@@ -109,7 +109,7 @@ $(document).ready(function() {
 		$('.footer_block, .banner_block').hide();
 		$('.maket').off('scroll', ScrollLoader);
 		$('.maket').animate({
-			scrollTop: $('.infinite-container').offset().top
+			scrollTop: $('.infinite-container').offset().top + $('.maket').scrollTop()
 		}, 400, function() {
 			$('.infinite-item').hide().promise().done(function() {
 				$('.infinite-column').empty();
