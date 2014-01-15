@@ -11,13 +11,19 @@ block content_scripts
 	//- script(type='text/javascript', src='/scripts/back.js' + version)
 
 block content_right
-
+	.right_block
+		.r_item
+		.r_item
+			p зузузуззу:
+			a(href='mailto:mail@gmail.com')
+				b Артём МАЗУР
+			p +7 (909) 682-69-29
 block content_left
 	.left_block
 		.content_navigator
 			.section КОНТАКТЫ
 				.nav_item зрителям
-				.nav_item партнерам
+				.nav_item арендаторам
 			.section ПЛОЩАДКИ
 				.nav_item большой зал
 				.nav_item черный зал
@@ -33,9 +39,11 @@ block content
 			.description
 				br
 				p 127055 Москва, ул. Новослободская, 23 (м. Менделеевская / м. Новослободская)
-				p +7 (495) 363-10-48
 				br
-				img(src='//api-maps.yandex.ru/services/constructor/1.0/static/?sid=k3n4VT_yMyurpXva2Mmclneka5FzZgaf&width=600&height=450', alt='')
+				|<script type="text/javascript" charset="utf-8" src="//api-maps.yandex.ru/services/constructor/1.0/js/?sid=k3n4VT_yMyurpXva2Mmclneka5FzZgaf&width700&height=350"></script>
+				br
+				b Билетный стол
+				p +7 (495) 363-10-48
 				br
 				b Кирилл БАМБУРОВ
 				p пресс-секретарь Центра им. Вс. Мейерхольда
@@ -44,7 +52,8 @@ block content
 			.title ПАРТНЕРАМ
 			.s_title ПАРТНЕРАМ
 			.description
-				p гугуггугугуг
+				p +7 (909) 682-69-29
+				b Артём МАЗУР
 		.content
 			.title БОЛЬШОЙ ЗАЛ
 			.description
