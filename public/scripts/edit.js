@@ -199,4 +199,12 @@ $(document).ready(function() {
 		$(this).toggleClass('selected');
 		$('.title, .s_title, .description, .column, .comment, .marker .m_comment, .a_name, .age, .duration').toggleClass('grid');
 	});
+
+	$('.clear_format').click(function(event) {
+		var raw = $('.description').html();
+		console.log(raw)
+		raw = raw.replace(/(<[^>]*)style\s*=\s*('|")[^\2]*?\2([^>]*>)/g, '$1$3')
+
+		$('.description').empty().append(raw);
+	});
 });
