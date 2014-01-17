@@ -5,7 +5,7 @@ var async = require('async');
 var gm = require('gm').subClass({ imageMagick: true });
 
 var mongoose = require('mongoose');
-  var Schema = mongoose.Schema;
+  var models = require('./models/main.js');
 mongoose.connect('localhost', 'main');
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
@@ -28,139 +28,14 @@ app.use(app.router);
 // -------------------
 
 
-var newsSchema = new Schema({
-      ru: {
-        title: String,
-      s_title: String,
-         body: String,
-     p_author: String
-      },
-      en: {
-        title: String,
-      s_title: String,
-         body: String,
-     p_author: String
-      },
-      photo: String,
-      poster: String,
-      events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
-      tag: String,
-      date: {type: Date, default: Date.now}
-});
-
-var presSchema = new Schema({
-      ru: {
-        author: String,
-        body: String
-      },
-      en: {
-        author: String,
-        body: String
-      },
-      link: String,
-      events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
-      date: {type: Date, default: Date.now}
-});
-
-var photoSchema = new Schema({
-      ru: {
-        description: String,
-        author: String
-      },
-      en: {
-        description: String,
-        author: String
-      },
-      image: String,
-      style: String,
-      date: {type: Date, default: Date.now}
-});
-
-var eventSchema = new Schema({
-      ru: {
-        title: String,
-      s_title: String,
-         body: String,
-         ticket: String,
-         comment: String,
-         p_author: String
-      },
-      en: {
-        title: String,
-      s_title: String,
-         body: String,
-         ticket: String,
-         comment: String,
-         p_author: String
-      },
-      photo: String,
-      poster: String,
-      hall: String,
-      age: Number,
-      duration: String,
-      meta: {
-        columns: {
-          one: [String],
-          two: [String]
-        }
-      },
-       tag: String,
-      _parent: { type: Schema.Types.ObjectId, ref: 'Event' },
-      date: {type: Date, default: Date.now},
-   members: [{
-    c_status: String,
-    m_id: { type: Schema.Types.ObjectId, ref: 'Member' },
-    comment: {
-      ru: String,
-      en: String
-    }
-   }],
-  children: [{ type: Schema.Types.ObjectId, ref: 'Child' }]
-});
-
-var memberSchema = new Schema({
-    ru: {
-      name: String,
-      description: String
-    },
-    en: {
-      name: String,
-      description: String
-    },
-    date: {type: Date, default: Date.now},
-    img: String,
-    status: [String]
-});
-
-var userSchema = new Schema({
-   login: String,
-    password: String,
-   email: String,
-  status: {type: String, default: 'User'},
-    date: {type: Date, default: Date.now},
-});
-
-var scheduleSchema = new Schema({
-  events: [{
-    event: { type: Schema.Types.ObjectId, ref: 'Event' },
-    premiere: String,
-    banner: String,
-    time: {
-      hours: String,
-      minutes: String
-    }
-    }],
-  date: {type: Date, default: Date.now}
-});
-
-var User = mongoose.model('User', userSchema);
-var Member = mongoose.model('Member', memberSchema);
-var Event = mongoose.model('Event', eventSchema);
-var News = mongoose.model('News', newsSchema);
-var Press = mongoose.model('Press', presSchema);
-var Photo = mongoose.model('Photo', photoSchema);
-var Child = mongoose.model('Child', eventSchema);
-var Schedule = mongoose.model('Schedule', scheduleSchema);
+var User = models.userSchema;
+var Member = models.memberSchema;
+var Event = models.eventSchema;
+var News = models.newsSchema;
+var Press = models.presSchema;
+var Photo = models.photoSchema;
+var Child = models.eventSchema;
+var Schedule = models.scheduleSchema;
 
 
 // ------------------------
