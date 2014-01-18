@@ -1,16 +1,18 @@
 var fs = require('fs');
+var gm = require('gm').subClass({ imageMagick: true });
+
 var express = require('express');
     var app = express();
 var async = require('async');
-var gm = require('gm').subClass({ imageMagick: true });
 
 var mongoose = require('mongoose');
   var models = require('./models/main.js');
 mongoose.connect('localhost', 'main');
+
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.locals.pretty = true;
-// app.use(express.favicon(__dirname + '/public/img/favicon.ico'));
+// app.use(express. favicon(__dirname + '/public/images/design/favicon.png'));
 app.use(express.bodyParser({ keepExtensions: true, uploadDir:__dirname + '/uploads' }));
 app.use(express.methodOverride());
 app.use(express.cookieParser());
@@ -28,14 +30,14 @@ app.use(app.router);
 // -------------------
 
 
-var User = models.userSchema;
-var Member = models.memberSchema;
-var Event = models.eventSchema;
-var News = models.newsSchema;
-var Press = models.presSchema;
-var Photo = models.photoSchema;
-var Child = models.eventSchema;
-var Schedule = models.scheduleSchema;
+var User = models.User;
+var Member = models.Member;
+var Event = models.Event;
+var News = models.News;
+var Press = models.Press;
+var Photo = models.Photo;
+var Child = models.Child;
+var Schedule = models.Schedule;
 
 
 // ------------------------

@@ -126,11 +126,11 @@ var scheduleSchema = new Schema({
   date: {type: Date, default: Date.now}
 });
 
-module.exports.userSchema = mongoose.model('User', userSchema);
-module.exports.memberSchema = mongoose.model('Member', memberSchema);
-module.exports.eventSchema = mongoose.model('Event', eventSchema);
-module.exports.newsSchema = mongoose.model('News', newsSchema);
-module.exports.presSchema = mongoose.model('Press', presSchema);
-module.exports.photoSchema = mongoose.model('Photo', photoSchema);
-module.exports.eventSchema = mongoose.model('Child', eventSchema);
-module.exports.scheduleSchema = mongoose.model('Schedule', scheduleSchema);
+module.exports.User = mongoose.model('User', userSchema);
+module.exports.Member = mongoose.model('Member', memberSchema);
+module.exports.Event = mongoose.model('Event', eventSchema);
+module.exports.News = mongoose.model('News', newsSchema);
+module.exports.Press = mongoose.model('Press', presSchema);
+module.exports.Photo = mongoose.model('Photo', photoSchema);
+module.exports.Child = mongoose.model('Child', eventSchema);
+module.exports.Schedule = mongoose.model('Schedule', scheduleSchema);
