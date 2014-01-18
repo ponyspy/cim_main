@@ -87,8 +87,7 @@ var eventSchema = new Schema({
       ru: String,
       en: String
     }
-   }],
-  children: [{ type: Schema.Types.ObjectId, ref: 'Child' }]
+   }]
 });
 
 var memberSchema = new Schema({
@@ -132,5 +131,4 @@ module.exports.Event = mongoose.model('Event', eventSchema);
 module.exports.News = mongoose.model('News', newsSchema);
 module.exports.Press = mongoose.model('Press', presSchema);
 module.exports.Photo = mongoose.model('Photo', photoSchema);
-module.exports.Child = mongoose.model('Child', eventSchema);
 module.exports.Schedule = mongoose.model('Schedule', scheduleSchema);

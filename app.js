@@ -36,7 +36,6 @@ var Event = models.Event;
 var News = models.News;
 var Press = models.Press;
 var Photo = models.Photo;
-var Child = models.Child;
 var Schedule = models.Schedule;
 
 
@@ -215,7 +214,7 @@ app.get('/event/:id', photoStream, function (req, res) {
 
   Schedule.find({'date': {'$gte': start, '$lt': end}, 'events.event': id}, {'events.$': 1}).limit(10).select('date').sort('date').exec(function(err, schedule) {
     Press.find({'events': id}).sort('-date').exec(function(err, press) {
-      Event.find({'_id':id}).populate('children members.m_id').exec(function(err, event) {
+      Event.find({'_id':id}).populate('members.m_id').exec(function(err, event) {
          if (!event) return res.render('error');
         res.render('event', {event: event[0], schedule: schedule, press: press});
       });
@@ -324,7 +323,7 @@ app.get('/auth/edit/events', checkAuth, function (req, res) {
 app.get('/auth/edit/events/:id', checkAuth, photoStream, function (req, res) {
   var id = req.params.id;
 
-  Event.find({'_id':id}).populate('children members.m_id').exec(function(err, event) {
+  Event.find({'_id':id}).populate('members.m_id').exec(function(err, event) {
     Member.find().exec(function(err, members) {
       res.render('auth/edit/events/event.jade', {event: event[0], members: members});
     });
