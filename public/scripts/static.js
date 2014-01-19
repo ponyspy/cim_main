@@ -1,5 +1,8 @@
 $(document).ready(function() {
 	$('.content :first').show();
+	if (!$('.r_item :first').is(':empty')) {
+		$('.r_item :first').show();
+	}
 
 	$('.nav_item').click(function(event) {
 		$('.content, .r_item').hide();
