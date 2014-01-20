@@ -206,4 +206,23 @@ $(document).ready(function() {
 
 		$('.description').empty().append(raw);
 	});
+
+	$('.raw_text').click(function(event) {
+		$(this).data('clicked', !$(this).data('clicked'));
+		$(this).toggleClass('selected');
+
+		if ($(this).data('clicked')) {
+			var raw = $('.description').html();
+			$('.description').empty().text(raw);
+		}
+		else {
+			var raw = $('.description').text();
+			$('.description').empty().append(raw);
+
+			// $('.description').html(function(i, html) {
+			// 	return html.replace(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, '<iframe width="420" height="345" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>');
+			// });
+
+		}
+	});
 });
