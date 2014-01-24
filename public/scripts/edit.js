@@ -1,3 +1,13 @@
+// $.fn.youtube = function(options) {
+//   return this.each(function() {
+//     var options = $.extend({width:570, height:416}, options);
+//     var text = $(this).html();
+//     var regex = /http:\/\/(www.)?youtu(be\.com|\.be)\/(watch\?v=)?([A-Za-z0-9._%-]*)(\&\S+)?/g
+//     var html = text.replace(regex, '<iframe class="youtube-player" type="text/html" width="' + options.width + '" height="' + options.height + '" src="http://www.youtube.com/embed/$2" frameborder="0"></iframe>');
+//     $(this).html(html);
+//   });
+// }
+
 $(document).ready(function() {
 	var img_preview = 'null';
 	$('.description, .comment, .ticket').popline({disable:['color']});
@@ -219,9 +229,7 @@ $(document).ready(function() {
 			var raw = $('.description').text();
 			$('.description').empty().append(raw);
 
-			// $('.description').html(function(i, html) {
-			// 	return html.replace(/(?:http:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g, '<iframe width="420" height="345" src="http://www.youtube.com/embed/$1" frameborder="0" allowfullscreen></iframe>');
-			// });
+			// $('.description').youtube()
 
 		}
 	});
