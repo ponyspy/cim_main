@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	$('.afisha_description_block').css('height', $('.afisha_description_block').height());
 
 	$('.tag').on({
 		mouseover: function() {

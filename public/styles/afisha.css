@@ -62,6 +62,8 @@ background-color: white;
 
 .afisha_description_block {
 	margin-bottom: 30px;
+	/*width: 885px;*/
+	/*outline: 1px solid black;*/
 	/*margin-left: 60px;*/
 	/*border: 1px solid black;*/
 	/*background-color: #68c5e2;*/
@@ -209,4 +211,23 @@ background-color: white;
 .select_tag {
 	background-color: red;
 	color: white;
+}
+
+/*.schedule_actual .afisha_description_block:last-child {
+	margin-bottom: 0px;
+}*/
+
+.schedule_separator {
+	margin-left: 12px;
+	margin-bottom: 12px;
+}
+
+.separator_title {
+	font: 8pt/10pt 'PragmaticaM';
+	/*letter-spacing: 1pt;*/
+}
+
+.separator_line {
+	background-color: black;
+	height: 1px;
 }
