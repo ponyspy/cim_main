@@ -219,21 +219,26 @@ background-color: white;
 
 
 
-.afisha_events_block:last-child .afisha_description_block {
+.afisha_actual_block>.afisha_description_block {
 	margin-bottom: 0px;
 }
 
 .afisha_separator_block {
 	margin-left: 12px;
-	margin-bottom: 12px;
+	margin-bottom: 30px;
+	overflow: hidden;
 }
 
 .separator_title {
+	float: left;
 	font: 8pt/10pt 'PragmaticaM';
-	/*letter-spacing: 1pt;*/
 }
 
 .separator_line {
-	background-color: black;
+	width: 1065px;
 	height: 1px;
+	margin-top: 6px;
+	margin-left: 5px;
+	background-color: black;
+	float: left;
 }

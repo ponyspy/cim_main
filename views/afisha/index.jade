@@ -8,7 +8,7 @@ block title
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/afisha.css' + version)
-	link(rel='stylesheet', type='text/css', href='/styles/afisha_colors.css' + version)
+	//- link(rel='stylesheet', type='text/css', href='/styles/afisha_colors.css' + version)
 
 block content_scripts
 	script(type='text/javascript', src='/scripts/afisha.js' + version)
@@ -93,7 +93,7 @@ block content
 				if (date.date > now)
 					+getSchedule(date, false)
 		.afisha_separator_block
-			.separator_title АРХИВ
+			a.separator_title(href='/afisha/archive') АРХИВ
 			.separator_line
 		.afisha_archive_block
 			each date in schedule.reverse()
