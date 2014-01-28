@@ -213,11 +213,17 @@ background-color: white;
 	color: white;
 }
 
-/*.schedule_actual .afisha_description_block:last-child {
-	margin-bottom: 0px;
-}*/
 
-.schedule_separator {
+
+
+
+
+
+.afisha_events_block:last-child .afisha_description_block {
+	margin-bottom: 0px;
+}
+
+.afisha_separator_block {
 	margin-left: 12px;
 	margin-bottom: 12px;
 }
