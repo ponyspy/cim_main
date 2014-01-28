@@ -27,7 +27,9 @@ function backScroller () {
 			if (photos != 'false') {
 				$.each(photos, function(index, photo) {
 					 var ph = $('<div />', {'class':'background_item', 'style': 'background-image: url(' + photo.image + ')'});
-					 $('.background_item:last').after(ph);
+					 var ph_author = $('<div />', {'class':'item_author', 'text': photo.ru.author});
+					 var ph_description = $('<div />', {'class':'item_description', 'text': photo.ru.description});
+					 $('.background_item:last').after(ph.append(ph_author, ph_description));
 				});
 			}
 		});
