@@ -1,6 +1,6 @@
 $(document).ready(function() {
-	$('.afisha_item_block').css('height', $('.afisha_item_block').height());
-	var tags = [];
+	// $('.afisha_item_block').css('height', $('.afisha_item_block').height());
+	// var tags = [];
 
 	$('.tag').on({
 		mouseover: function() {
