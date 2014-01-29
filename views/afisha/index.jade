@@ -39,7 +39,7 @@ mixin getSchedule(date, out)
 						.afisha_tags_block
 							if (event.premiere == 'true')
 								.tag.premiere ПРЕМЬЕРА
-							//- if (!event.event.ru.comment)
+							//- if (event.event.ru.comment == '<br>')
 								.tag.nocomment NO COMMENT
 						.afisha_event
 							a.title(href='/event/' + event.event._id)= event.event.ru.title.toUpperCase()

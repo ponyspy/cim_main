@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	$('.afisha_item_block').css('height', $('.afisha_item_block').height());
+	var tags = [];
 
 	$('.tag').on({
 		mouseover: function() {
@@ -18,10 +19,13 @@ $(document).ready(function() {
 
 			if ($(this).data('clicked')) {
 				$(tag).off('mouseout');
+				// $('.afisha_description_block, .afisha_item_block').not(':has(' + tag + ')').addClass('hide').slideUp('600');
 			}
 			else {
 				$(tag).on('mouseout', function() {
 					$(tag).removeAttr('style');
+					// $('.afisha_description_block, .afisha_item_block').not(':has(' + tag + ')').filter('.hide').slideDown('600');
+					// $('.hide').not(':has(' + tag + ')').slideDown('600');
 				});
 			}
 		}
