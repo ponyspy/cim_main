@@ -18,6 +18,7 @@ var newsSchema = new Schema({
       poster: String,
       events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
       tag: String,
+      status: String,
       date: {type: Date, default: Date.now}
 });
 

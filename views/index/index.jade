@@ -33,19 +33,15 @@ mixin trimString(str)
 	!= str
 
 mixin infiniteItem(item)
-	.infinite-item
+	.infinite-item(class=item.status == 'hot' ? 'hot' : '')
 		a.item_link(href='/news/' + item._id)
 			.item_title #{item.ru.title.toUpperCase()}
 		.item_date
 			- var date = item.date.getDate()
 			- var month = item.date.getMonth()+1
-			if (date < 10)
-				- date = '0' + date
-			if (month < 10)
-				- month = '0' + month
-			.date= date
+			.date= date < 10 ? '0' + date : date
 			.dot= '.'
-			.month= month
+			.month= month < 10 ? '0' + month : month
 		if (item.poster)
 			img.item_img(src=item.poster)
 		else

@@ -471,6 +471,7 @@ app.post('/auth/add/news', function (req, res) {
   };
 
   news.tag = post.tag;
+  news.status = post.status;
   if (post.events != '')
     news.events = post.events;
   else
@@ -565,6 +566,7 @@ app.post('/auth/edit/news/:id', function (req, res) {
       }
 
       news.tag = post.tag;
+      news.status = post.status;
       if (post.events != '')
         news.events = post.events;
       else
