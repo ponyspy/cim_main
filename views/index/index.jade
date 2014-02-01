@@ -34,8 +34,7 @@ mixin trimString(str)
 
 mixin infiniteItem(item)
 	.infinite-item(class=item.status == 'hot' ? 'hot' : '')
-		a.item_link(href='/news/' + item._id)
-			.item_title #{item.ru.title.toUpperCase()}
+		a.item_title(href='/news/' + item._id)= item.ru.title.toUpperCase()
 		.item_date
 			- var date = item.date.getDate()
 			- var month = item.date.getMonth()+1

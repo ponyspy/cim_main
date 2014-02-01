@@ -214,11 +214,6 @@ p {
 	/*border: 1px solid black;*/
 }
 
-.item_link {
-	text-decoration: none;
-	color: black;
-}
-
 .infinite-container  {
 	width: 930px;
 	overflow: auto;
@@ -279,7 +274,3 @@ p {
 .footer_block {
 	display: none;
 }
-
-/*.banner_block {
-	display: none;
-}*/
