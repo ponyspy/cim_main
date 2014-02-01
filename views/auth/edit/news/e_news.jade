@@ -48,10 +48,17 @@ block content
 			.form_title Прикрепить события
 			.snake
 				input.back(type="button", value="<")
-				select(name='events')
-					option(value='') нет
-					each event in events
-						option(value=event._id)= event.ru.title
+				if (news.events.length == 0)
+					select(name='events')
+						option(value='') нет
+						each event in events
+							option(value=event._id)= event.ru.title
+				else
+					each n_event in news.events
+						select(name='events')
+							option(value='') нет
+							each event in events
+								option(value=event._id, selected=n_event._id.toString() == event._id.toString())= event.ru.title
 				input.forward(type="button", value=">")
 			.form_title Категория:
 			select(name='tag')
@@ -62,5 +69,5 @@ block content
 				option(value='concert') концерт
 				option(value='education') институт театра
 				option(value='blackbox') blackbox
-				option(value='children') детская программа
+				option(value='children') детский цим
 				option(value='storytallyng') сторителлинг
