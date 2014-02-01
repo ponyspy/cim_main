@@ -273,6 +273,8 @@ body {
 
 .content_right_block {
 	float: right;
+	min-width: 170px;
+	min-height: 170px;
 }
 
 .edit_btn {
@@ -283,6 +285,7 @@ body {
 	text-align: center;
 	text-decoration: none;
 	padding-top: 13px;
+	margin-bottom: 20px;
 	/*position: fixed;*/
 	/*margin-top: 20px;*/
 	display: block;
@@ -312,10 +315,11 @@ body {
 
 .pin_events_block {
 	/*width: 160px;*/
+	/*margin-top: 20px;*/
 	min-height: 20px;
 	/*float: right;*/
 	position: fixed;
-	margin-left: 950px;
+	/*margin-left: 950px;*/
 }
 
 a.pin_event_link {
