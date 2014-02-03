@@ -27,12 +27,13 @@ $(document).ready(function() {
 				tags.splice(tags.indexOf(tag), 1);
 				var s_tags = tags.join(', ');
 
+				if (tags.length != 0)
+					$('.afisha_description_block, .afisha_item_block').has(s_tags).not(':has(' + tag + ')').slideDown('600');
+				else
+					$('.afisha_description_block, .afisha_item_block').not(':has(' + tag + ')').slideDown('600');
+
 				$(tag).on('mouseout', function() {
 					$(tag).removeAttr('style');
-					if (tags.length != 0)
-						$('.afisha_description_block, .afisha_item_block').has(s_tags).not(':has(' + tag + ')').slideDown('600');
-					else
-						$('.afisha_description_block, .afisha_item_block').not(':has(' + tag + ')').slideDown('600');
 				});
 			}
 		}
