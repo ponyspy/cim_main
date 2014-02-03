@@ -1,6 +1,6 @@
 $(document).ready(function() {
 	// $('.afisha_item_block').css('height', $('.afisha_item_block').height());
-	// var tags = [];
+	var tags = [];
 
 	$('.tag').on({
 		mouseover: function() {
@@ -15,17 +15,24 @@ $(document).ready(function() {
 			var tag = '.' + this.className.slice(4);
 
 			$(tag).data('clicked', !$(tag).data('clicked'));
-			$('.afisha_description_block, .afisha_item_block').not(':has(' + tag + ')').slideToggle('600');
+			// $('.afisha_description_block, .afisha_item_block').not(':has(' + tag + ')').slideToggle('600');
 
 			if ($(this).data('clicked')) {
+				tags.push(tag);
+
 				$(tag).off('mouseout');
-				// $('.afisha_description_block, .afisha_item_block').not(':has(' + tag + ')').addClass('hide').slideUp('600');
+				$('.afisha_description_block, .afisha_item_block').not(':has(' + tag + ')').slideUp('600');
 			}
 			else {
+				tags.splice(tags.indexOf(tag), 1);
+				var s_tags = tags.join(', ');
+
 				$(tag).on('mouseout', function() {
 					$(tag).removeAttr('style');
-					// $('.afisha_description_block, .afisha_item_block').not(':has(' + tag + ')').filter('.hide').slideDown('600');
-					// $('.hide').not(':has(' + tag + ')').slideDown('600');
+					if (tags.length != 0)
+						$('.afisha_description_block, .afisha_item_block').has(s_tags).not(':has(' + tag + ')').slideDown('600');
+					else
+						$('.afisha_description_block, .afisha_item_block').not(':has(' + tag + ')').slideDown('600');
 				});
 			}
 		}
