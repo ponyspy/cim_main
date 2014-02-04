@@ -2,7 +2,7 @@ $(document).ready(function() {
 	$('.rm_member').click(function(event) {
 		var id  = $(this).attr('id');
 
-		if (confirm('Удалить?')) {
+		if (confirm('Удалить?\n\nУчастник будет удален из всех событий!')) {
 			$.post('/auth/edit/members/' + id, {'del': 'true'}).done(function() {
 				location.reload();
 				// $(this).parent('.member').remove();
