@@ -766,21 +766,23 @@ app.post('/auth/edit/members/:id', function (req, res) {
   var files = req.files;
 
   if (post.del == 'true') {
-    Member.findByIdAndRemove(id, function() {
-      fs.unlink(__dirname + '/public/images/members/' + id + '.jpg', function() {
-        res.redirect('back');
+    Event.update({'members.m_id':id}, { $pull: { 'members': { m_id: id } } }, { multi: true }).exec(function() {
+      Member.findByIdAndRemove(id, function() {
+        fs.unlink(__dirname + '/public/images/members/' + id + '.jpg', function() {
+          res.redirect('back');
+        });
       });
     });
   }
   else {
     Member.findById(id, function(err, member) {
-      if (post.en) {
-      member.en.name = post.en.name;
-      member.en.description = post.en.description;
-      }
-
       member.ru.name = post.ru.name;
       member.ru.description = post.ru.description;
+
+      if (post.en) {
+        member.en.name = post.en.name;
+        member.en.description = post.en.description;
+      }
 
       if (files.img.size != 0) {
         var newPath = __dirname + '/public/images/members/' + member._id + '.jpg';
