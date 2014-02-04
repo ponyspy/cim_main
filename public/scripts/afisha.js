@@ -1,6 +1,4 @@
 $(document).ready(function() {
-	// $('.afisha_item_block').css('height', $('.afisha_item_block').height());
-
 	var tags = [];
 	var $sort_items = $('.afisha_description_block, .afisha_item_block');
 

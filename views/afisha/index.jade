@@ -39,10 +39,12 @@ mixin getSchedule(date, out)
 						.afisha_tags_block
 							if (event.premiere == 'true')
 								.tag.premiere ПРЕМЬЕРА
-							if (event.event.ru.comment == '<br>')
-								.tag.nocomment NO COMMENT
-							if (event.event.ru.comment != '<br>')
-								.tag.comment1 COMMENT
+							if (event.event.tag == 'blackbox')
+								.tag.blackbox BLACKBOX
+							if (event.event.tag == 'children')
+								.tag.children ДЕТСКИЙ ЦИМ
+							if (event.event.tag == 'lecture')
+								.tag.lecture ЛЕКЦИЯ
 						.afisha_event
 							a.title(href='/event/' + event.event._id)= event.event.ru.title.toUpperCase()
 							.s_title= event.event.ru.s_title.toUpperCase()
