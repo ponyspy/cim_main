@@ -330,6 +330,17 @@ app.get('/auth/edit/events/:id', checkAuth, photoStream, function (req, res) {
   });
 });
 
+app.post('/rm_event', function (req, res) {
+  var id = req.body.id;
+
+  Schedule.update({'events.event':id}, { $pull: { 'events': { event: id } } }, { multi: true }).exec(function() {
+    Event.findByIdAndRemove(id, function() {
+      deleteFolderRecursive(__dirname + '/public/images/events/' + id);
+      res.send('ok');
+    });
+  });
+});
+
 app.post('/auth/edit/events/:id', function (req, res) {
   var id = req.params.id;
   var post = req.body;
