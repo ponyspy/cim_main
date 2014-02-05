@@ -401,21 +401,21 @@ app.get('/auth/add/schedule/:year', checkAuth, function (req, res) {
 app.post('/auth/add/schedule/:year', function (req, res) {
   var post = req.body;
 
-  if (post.del == 'true') {
-    Schedule.findByIdAndRemove(post.id, function() {
-      res.redirect('back');
-    });
-  }
-  else {
-    var schedule = new Schedule({
-      date: new Date(post.schedule.year, post.schedule.month, post.schedule.date)
-    });
+  var schedule = new Schedule({
+    date: new Date(post.schedule.year, post.schedule.month, post.schedule.date)
+  });
 
-    schedule.save(function(err) {
-      res.redirect('back');
-    });
-  }
+  schedule.save(function(err) {
+    res.redirect('back');
+  });
+});
 
+app.post('/rm_schedule', function (req, res) {
+  var id = req.body.id;
+
+  Schedule.findByIdAndRemove(id, function() {
+    res.send('ok');
+  });
 });
 
 app.get('/auth/add/schedule/:year/:id', checkAuth, function (req, res) {
@@ -540,79 +540,80 @@ app.get('/auth/edit/news/:id', checkAuth, function (req, res) {
   });
 });
 
+app.post('/rm_news', function (req, res) {
+  var id = req.body.id;
+
+  News.findByIdAndRemove(id, function() {
+    deleteFolderRecursive(__dirname + '/public/images/news/' + id);
+    res.send('ok');
+  });
+});
+
 app.post('/auth/edit/news/:id', function (req, res) {
   var id = req.params.id;
   var post = req.body;
   var files = req.files;
 
-  if (post.del == 'true') {
-    News.findByIdAndRemove(id, function() {
-      deleteFolderRecursive(__dirname + '/public/images/news/' + id);
-      res.redirect('back');
-    });
-  }
-  else {
-    News.findById(id, function(err, news) {
-      news.ru.title = post.ru.title;
-      news.ru.s_title = post.ru.s_title;
-      news.ru.body = post.ru.body;
-      news.ru.p_author = post.ru.p_author;
+  News.findById(id, function(err, news) {
+    news.ru.title = post.ru.title;
+    news.ru.s_title = post.ru.s_title;
+    news.ru.body = post.ru.body;
+    news.ru.p_author = post.ru.p_author;
 
-      if (post.en) {
-        news.en.title = post.en.title;
-        news.en.s_title = post.en.s_title;
-        news.en.body = post.en.body;
-        news.en.p_author = post.en.p_author;
-      }
+    if (post.en) {
+      news.en.title = post.en.title;
+      news.en.s_title = post.en.s_title;
+      news.en.body = post.en.body;
+      news.en.p_author = post.en.p_author;
+    }
 
-      news.tag = post.tag;
-      news.status = post.status;
-      if (post.events != '')
-        news.events = post.events;
-      else
-        news.events = [];
+    news.tag = post.tag;
+    news.status = post.status;
+    if (post.events != '')
+      news.events = post.events;
+    else
+      news.events = [];
 
-      async.parallel({
-        photo: function(callback) {
-          if (files.photo.size != 0) {
-            fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
-              var newPath = __dirname + '/public/images/news/' + news._id + '/photo.jpg';
-              gm(files.photo.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
-                news.photo = '/images/news/' + news._id + '/photo.jpg';
-                fs.unlink(files.photo.path);
-                callback(null, 1);
-              });
+    async.parallel({
+      photo: function(callback) {
+        if (files.photo.size != 0) {
+          fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
+            var newPath = __dirname + '/public/images/news/' + news._id + '/photo.jpg';
+            gm(files.photo.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
+              news.photo = '/images/news/' + news._id + '/photo.jpg';
+              fs.unlink(files.photo.path);
+              callback(null, 1);
             });
-          }
-          else {
-            callback(null, 0);
-            fs.unlink(files.photo.path);
-          }
-        },
-        poster: function(callback) {
-          if (files.poster.size != 0) {
-            fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
-              var newPath = __dirname + '/public/images/news/' + news._id + '/poster.jpg';
-              gm(files.poster.path).resize(580, false).quality(60).noProfile().write(newPath, function() {
-                news.poster = '/images/news/' + news._id + '/poster.jpg';
-                fs.unlink(files.poster.path);
-                callback(null, 2);
-              });
-            });
-          }
-          else {
-            callback(null, 0);
-            fs.unlink(files.poster.path);
-          }
+          });
+        }
+        else {
+          callback(null, 0);
+          fs.unlink(files.photo.path);
         }
       },
-      function(err, results) {
-        news.save(function(err) {
-          res.redirect('/auth/edit/news');
-        });
+      poster: function(callback) {
+        if (files.poster.size != 0) {
+          fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
+            var newPath = __dirname + '/public/images/news/' + news._id + '/poster.jpg';
+            gm(files.poster.path).resize(580, false).quality(60).noProfile().write(newPath, function() {
+              news.poster = '/images/news/' + news._id + '/poster.jpg';
+              fs.unlink(files.poster.path);
+              callback(null, 2);
+            });
+          });
+        }
+        else {
+          callback(null, 0);
+          fs.unlink(files.poster.path);
+        }
+      }
+    },
+    function(err, results) {
+      news.save(function(err) {
+        res.redirect('/auth/edit/news');
       });
     });
-  }
+  });
 });
 
 
@@ -669,6 +670,14 @@ app.get('/auth/edit/press/:id', checkAuth, function (req, res) {
     Event.find(function(err, events){
       res.render('auth/edit/press/e_press.jade', {press: press[0], events: events});
     });
+  });
+});
+
+app.post('/rm_press', function (req, res) {
+  var id = req.body.id;
+
+  Press.findByIdAndRemove(id, function() {
+    res.send('ok');
   });
 });
 
@@ -759,49 +768,49 @@ app.get('/auth/edit/members/:id', checkAuth, function (req, res) {
   });
 });
 
+app.post('/rm_member', function (req, res) {
+  var id = req.body.id;
+
+  Event.update({'members.m_id':id}, { $pull: { 'members': { m_id: id } } }, { multi: true }).exec(function() {
+    Member.findByIdAndRemove(id, function() {
+      fs.unlink(__dirname + '/public/images/members/' + id + '.jpg', function() {
+        res.send('ok');
+      });
+    });
+  });
+});
 
 app.post('/auth/edit/members/:id', function (req, res) {
   var id = req.params.id;
   var post = req.body;
   var files = req.files;
 
-  if (post.del == 'true') {
-    Event.update({'members.m_id':id}, { $pull: { 'members': { m_id: id } } }, { multi: true }).exec(function() {
-      Member.findByIdAndRemove(id, function() {
-        fs.unlink(__dirname + '/public/images/members/' + id + '.jpg', function() {
-          res.redirect('back');
-        });
-      });
-    });
-  }
-  else {
-    Member.findById(id, function(err, member) {
-      member.ru.name = post.ru.name;
-      member.ru.description = post.ru.description;
+  Member.findById(id, function(err, member) {
+    member.ru.name = post.ru.name;
+    member.ru.description = post.ru.description;
 
-      if (post.en) {
-        member.en.name = post.en.name;
-        member.en.description = post.en.description;
-      }
+    if (post.en) {
+      member.en.name = post.en.name;
+      member.en.description = post.en.description;
+    }
 
-      if (files.img.size != 0) {
-        var newPath = __dirname + '/public/images/members/' + member._id + '.jpg';
-        gm(files.img.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
-          member.img = '/images/members/' + member._id + '.jpg';
-          member.save(function() {
-            fs.unlink(files.img.path);
-            res.redirect('/auth/edit/members');
-          });
-        });
-      }
-      else {
+    if (files.img.size != 0) {
+      var newPath = __dirname + '/public/images/members/' + member._id + '.jpg';
+      gm(files.img.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
+        member.img = '/images/members/' + member._id + '.jpg';
         member.save(function() {
           fs.unlink(files.img.path);
           res.redirect('/auth/edit/members');
         });
-      }
-    });
-  }
+      });
+    }
+    else {
+      member.save(function() {
+        fs.unlink(files.img.path);
+        res.redirect('/auth/edit/members');
+      });
+    }
+  });
 });
 
 
@@ -864,6 +873,16 @@ app.get('/auth/edit/photos/:id', checkAuth, editPhotoStream, function (req, res)
 
   Photo.findById(id, function(err, photo) {
     res.render('auth/edit/photos/photo.jade', {photo: photo});
+  });
+});
+
+app.post('/rm_photo', function (req, res) {
+  var id = req.body.id;
+
+  Photo.findByIdAndRemove(id, function() {
+    fs.unlink(__dirname + '/public/images/photo_stream/' + id + '.jpg', function() {
+      res.send('ok');
+    });
   });
 });
 

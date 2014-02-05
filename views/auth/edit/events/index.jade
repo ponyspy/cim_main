@@ -7,8 +7,7 @@ block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/add.css')
 
 block content_scripts
-	script(type='text/javascript', src='/scripts/main.js')
-	//- script(type='text/javascript', src='/scripts/masonry.pkgd.min.js')
+	script(type='text/javascript', src='/scripts/lists.js')
 
 block content_right
 
@@ -18,7 +17,7 @@ block content
 	br
 	.main_menu_block
 		each event in events
-			a(href='#')= 'удалить '
+			a.rm_event(href='#', id=event._id)= 'удалить '
 			||&nbsp;
 			a(href='/auth/edit/events/' + event._id)= event.ru.title
 			b= ' ---> '
