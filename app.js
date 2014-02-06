@@ -1028,7 +1028,11 @@ app.get('/history', photoStream, function (req, res) {
 });
 
 app.get('/fa83f41cd8b1.html', function (req, res) {
-  res.render('fa83f41cd8b1');
+  res.render('yandex/mail.jade');
+});
+
+app.get('/yandex_67a4a7cf92fb328f.html', function (req, res) {
+  res.render('yandex/webmaster.jade');
 });
 
 
