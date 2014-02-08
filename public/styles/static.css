@@ -106,3 +106,10 @@ small {
 	padding: 10px;
 	background-color: white;
 }
+
+#map-canvas {
+	width: 720px;
+	height: 350px;
+	margin: 0px;
+	padding: 0px
+}
