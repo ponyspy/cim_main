@@ -282,7 +282,9 @@ app.post('/auth/add/event', function(req, res) {
     event.en.p_author = post.en.p_author;
   };
 
-  event.tag = post.tag;
+  if (post.project != 'false')
+    event.project = post.project;
+  event.category = post.category;
   event.hall = post.hall;
   event.age = post.age;
   event.members = post.members;
@@ -348,8 +350,12 @@ app.post('/auth/edit/events/:id', function (req, res) {
 
   Event.findById(id, function(err, event) {
 
+    if (post.project != 'false')
+      event.project = post.project;
+    else
+      event.project = undefined;
+    event.category = post.category;
     event.members = post.members;
-    event.tag = post.tag;
     event.hall = post.hall;
     event.age = post.age;
     event.duration = post.duration;

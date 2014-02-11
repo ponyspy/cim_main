@@ -16,6 +16,12 @@ block content_scripts
 	script(type="text/javascript", src='/scripts/jquery.popline.min.js' + version)
 	script(type="text/javascript", src='/scripts/jquery-ui-1.10.3.custom.min.js' + version)
 
+
+mixin boxCategory(category, name)
+	input(type='checkbox', checked=(event.category.indexOf(category) in event.category), name='category', value=category)
+	!= name
+	br
+
 block content_right
 	.content_right_block
 		.ticket(contenteditable)
@@ -36,18 +42,22 @@ block content_right
 				option(value='lobby', selected=event.hall=='lobby') фойе
 				option(value='301', selected=event.hall=='301') комната 301
 				option(value='306', selected=event.hall=='306') комната 306
+			.s_cat спецпроект:
+			select.project(name='project')
+				option(value='false', selected=event.project=='') нет
+				option(value='education', selected=event.project=='education') институт театра
+				option(value='blackbox', selected=event.project=='blackbox') blackbox
+				option(value='children', selected=event.project=='children') детский цим
 			.s_cat категория:
-			select.tag(name='tag')
-				option(value='performance', selected=event.tag=='performance') спектакль
-				option(value='lecture', selected=event.tag=='lecture') лекция
-				option(value='masterclass', selected=event.tag=='masterclass') мастер-класс
-				option(value='exhibition', selected=event.tag=='exhibition') выставка
-				option(value='concert', selected=event.tag=='concert') концерт
-				option(value='education', selected=event.tag=='education') институт театра
-				option(value='blackbox', selected=event.tag=='blackbox') blackbox
-				option(value='children', selected=event.tag=='children') детская программа
-				option(value='storytallyng', selected=event.tag=='storytallyng') сторителлинг
+			.category
+				+boxCategory('performance', 'спектакль')
+				+boxCategory('lecture', 'лекция')
+				+boxCategory('masterclass', 'мастер-класс')
+				+boxCategory('exhibition', 'выставка')
+				+boxCategory('concert', 'концерт')
+				+boxCategory('storytallyng', 'сторителлинг')
 		.upload СОХРАНИТЬ
+
 
 mixin memberList(marker, status)
 	.marker(class=status)

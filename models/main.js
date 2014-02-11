@@ -78,8 +78,8 @@ var eventSchema = new Schema({
           two: [String]
         }
       },
-       tag: String,
-      _parent: { type: Schema.Types.ObjectId, ref: 'Event' },
+      category: [String],
+      project: String,
       date: {type: Date, default: Date.now},
    members: [{
     c_status: String,
