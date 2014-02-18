@@ -44,7 +44,7 @@ mixin getSchedule(date, out)
 							if (event.event.project == 'children')
 								.tag.children ДЕТСКИЙ ЦИМ
 							each category in event.event.category
-								if (category != 'event')
+								if (category != 'performance')
 									.tag(class=category)= categorys[category]
 						.afisha_event
 							a.title(href='/event/' + event.event._id)= event.event.ru.title.toUpperCase()
