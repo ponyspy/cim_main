@@ -75,7 +75,23 @@ body {
 
 .afisha_hall {
  	font: 11pt/13pt 'Pragmatica';
- 	padding-top: 9px;
+ 	padding-top: 5px;
+ 	padding-bottom: 4px;
+}
+
+.afisha_ticket {
+	margin-top: 5px;
+	border: 1px solid black;
+	padding-left: 5px;
+	padding-right: 5px;
+	font: 10pt/12pt 'Pragmatica';
+}
+
+.afisha_ticket:hover {
+	border: 1px solid red;
+	color: white;
+	background-color: red;
+	text-decoration: none;
 }
 
 .tag {
