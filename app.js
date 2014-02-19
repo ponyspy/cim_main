@@ -177,24 +177,30 @@ app.get('/news/:id', photoStream, function (req, res) {
 // ------------------------
 
 
-app.get('/afisha/:position', function (req, res) {
-  var position = req.params.position;
-  var start = new Date();
-  var end = new Date();
-
-  if (position == 'current') {
-    start.setDate(0);
-    end.setFullYear(end.getFullYear(), (end.getMonth()+1), 0);
-  }
-  else if (position == 'next') {
-    start.setFullYear(start.getFullYear(), (start.getMonth()+1), 0);
-    end.setFullYear(end.getFullYear(), (end.getMonth()+2), 0);
-  }
-  else res.render('error');
+app.get('/afisha/:year/:month', function (req, res) {
+  var year = req.params.year;
+  var month = req.params.month - 1;
+  var start = new Date(year, month, 0);
+  var end = new Date(year, (month + 1), 0);
 
   Schedule.find({'date': {'$gte': start, '$lte': end}}).sort('date').populate('events.event').exec(function(err, schedule) {
     Schedule.populate(schedule, {path:'events.event.members.m_id', model: 'Member'}, function(err, schedule) {
-      res.render('afisha', {schedule: schedule, month: start.getMonth()+1});
+      res.render('afisha', {schedule: schedule, month: month});
+    });
+  });
+});
+
+
+// ------------------------
+// *** Afisha Archive Block ***
+// ------------------------
+
+
+app.get('/afisha/archive', function (req, res) {
+
+  Schedule.find().sort('date').populate('events.event').exec(function(err, schedule) {
+    Schedule.populate(schedule, {path:'events.event.members.m_id', model: 'Member'}, function(err, schedule) {
+      res.render('afisha/archive.jade', {schedule: schedule});
     });
   });
 });

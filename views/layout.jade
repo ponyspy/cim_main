@@ -27,18 +27,15 @@ html
 								a(href='http://bigbilet.ru/company/card?id=A88F2473BE633D61E040115529B0081A#_', target='_blank') BIGBILET
 								!=' &nbsp;|&nbsp; '
 								a(href='http://www.ticketland.ru/buildinfo/1571/', target='_blank') TICKETLAND
-						.menu_item
-							.menu_item_title афиша
-							.menu_item_arrow ▼
+						.menu_item афиша
 							.menu_drop
 								- var months = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
 								- var date = new Date()
-								a(href='/afisha/current')=  months[date.getMonth()]
-								a(href='/afisha/next')= months[date.getMonth()+1]
-								//- a(href='/afisha/archive')  архив
-						.menu_item
-							.menu_item_title цим
-							.menu_item_arrow ▼
+								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+1))=  months[date.getMonth()]
+								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+2))= months[date.getMonth()+1]
+								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+3))= months[date.getMonth()+2]
+								a(href='/afisha/archive') архив
+						.menu_item цим
 							.menu_drop
 								if (session.user_id)
 									a(href='/auth') звездочет
