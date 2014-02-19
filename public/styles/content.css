@@ -66,10 +66,22 @@ body {
 	float: left;
 	color: white;
 	cursor: default;
-	margin-left: -120px;
-	/*background-color: green;*/
 	position: relative;
 	z-index: 0;
+}
+
+.cal_date + .cal_schedule {
+	-webkit-transition: 0.2s;
+	-moz-transition: 0.2s;
+	transition: 0.2s;
+	margin-left: -120px;
+}
+
+.cal_date:hover + .cal_schedule {
+	-webkit-transition: 0.2s;
+	-moz-transition: 0.2s;
+	transition: 0.2s;
+	margin-left: 0px;
 }
 
 .cal_time {
