@@ -22,7 +22,7 @@ block content_right
 - var actors = false
 
 mixin getSchedule(date, out)
-	- var hall = {'main': 'основная сцена', 'black': 'черный зал', 'white': 'белый зал', 'cafe': 'кафе', 'lobby': 'фойе', '301': 'комната 301', '306': 'комната 306'}
+	- var hall = {'main': 'большой зал', 'black': 'черный зал', 'white': 'белый зал', 'cafe': 'кафе', 'lobby': 'фойе', '301': 'комната 301', '306': 'комната 306'}
 	- var categorys = {'lecture': 'ЛЕКЦИЯ', 'masterclass': 'МАСТЕР-КЛАСС', 'exhibition': 'ВЫСТАВКА', 'concert': 'КОНЦЕРТ', 'storytallyng': 'СТОРИТЕЛЛИНГ'}
 	.afisha_item_block(class=out ? 'out' : '')
 		- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ']

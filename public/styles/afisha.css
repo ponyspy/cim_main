@@ -26,7 +26,7 @@ body {
 
 .afisha_tags_block {
 	min-height: 14px;
-	margin-left: 14px;
+	margin-left: 10px;
 	margin-top: -6px;
 }
 
@@ -58,7 +58,7 @@ body {
 
 .afisha_schedule_block {
 	margin-top: 14px;
-	width: 90px;
+	width: 95px;
 	height: 76px;
 	float: left;
 	padding-left: 10px;
@@ -104,11 +104,11 @@ body {
 }
 
 .afisha_event {
-	width: 360px;
+	width: 362px;
 	min-height: 77px;
 	clear: both;
 	float: left;
-	padding-left: 12px;
+	padding-left: 8px;
 	padding-top: 3px;
 	overflow: hidden;
 }
@@ -130,12 +130,11 @@ body {
 }
 
 .actors {
-	width: 185px;
+	width: 190px;
 	min-height: 78px;
 	float: left;
 	padding-top: 2px;
-	padding-left: 23px;
-	padding-right: 5px;
+	padding-left: 20px;
 }
 
 .member {

@@ -51,7 +51,7 @@ block content
 			.inner
 				each date,i in schedule
 					- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ'];
-					- var hall = {'main': 'основная сцена', 'black': 'черный зал', 'white': 'белый зал', 'cafe': 'кафе', 'lobby': 'фойе', '301': 'комната 301', '306': 'комната 306'}
+					- var hall = {'main': 'большой зал', 'black': 'черный зал', 'white': 'белый зал', 'cafe': 'кафе', 'lobby': 'фойе', '301': 'комната 301', '306': 'комната 306'}
 					- var d = date.date.getDate()
 					- d = d < 10 ? '0' + d : d
 					.cal_date= days[date.date.getDay()] + '.' + d

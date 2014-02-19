@@ -104,11 +104,13 @@ html, body, .maket {
 	margin-top: 1px;
 	font-size: 12px;
 	float: right;
+	-webkit-transform-origin: 50% 5px;
 	-webkit-transition: 0.2s;
  }
 
  .open:before {
 	/*content: '▲';*/
+	-webkit-transform-origin: 50% 5px;
 	-webkit-transform: rotate(180deg);
 	-webkit-transition: 0.2s;
 	margin-top: 1px;

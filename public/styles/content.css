@@ -74,7 +74,7 @@ body {
 	-webkit-transition: 0.2s;
 	-moz-transition: 0.2s;
 	transition: 0.2s;
-	margin-left: -120px;
+	margin-left: -121px;
 }
 
 .cal_date:hover + .cal_schedule {
