@@ -100,8 +100,8 @@ block content
 				if (date.date > now)
 					+getSchedule(date, false)
 		.afisha_separator_block
-			//- a.separator_title(href='/afisha/archive') АРХИВ
-			.separator_title АРХИВ
+			a.separator_title(href='/afisha/archive') АРХИВ
+			//- .separator_title АРХИВ
 			.separator_line
 		.afisha_archive_block
 			each date in schedule.reverse()

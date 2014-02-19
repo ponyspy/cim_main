@@ -75,20 +75,19 @@ body {
 	z-index: 0;
 }
 
-.cal_date:hover {
+.cal_item:hover .cal_date {
 	background-color: white;
 	color: black;
-	cursor: pointer;
 }
 
-.cal_date + .cal_schedule {
+.cal_item .cal_schedule {
 	-webkit-transition: 0.2s;
 	-moz-transition: 0.2s;
 	transition: 0.2s;
 	margin-left: -121px;
 }
 
-.cal_date:hover + .cal_schedule {
+.cal_item:hover .cal_schedule {
 	-webkit-transition: 0.2s;
 	-moz-transition: 0.2s;
 	transition: 0.2s;
@@ -114,14 +113,19 @@ body {
 .cal_ticket {
 	width: 80px;
 	margin-top: 5px;
-	/*border: 1px solid black;*/
+	border: 1px solid black;
 	padding-left: 5px;
 	padding-right: 5px;
 	font: 10pt/12pt 'Pragmatica';
+	display: block;
+}
 
+.cal_ticket:hover {
 	border: 1px solid red;
 	color: white;
 	background-color: red;
+	cursor: pointer;
+	text-decoration: none;
 }
 
 .cal_spacer {
