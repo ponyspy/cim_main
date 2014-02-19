@@ -43,12 +43,13 @@ block content
 					- for (var i=10; i<60; i+=10)
 						option(value=i)= i
 				select(name='events[0][event]')
-					option(value='') Событие
+					option(value='') -- События
 					each event in events
 						option(value=event._id)= event.ru.title
+				input(type='text', name='events[0][ticket]', style='font-size: 12px; width: 270px;', placeholder='ссылка на билет')
 			br
 			input.plus(type="button", value="-")
 			input.minus(type="button", value="+")
 			br
 			br
-			input(type="submit", value="Добавить")
+			input(type="submit", value="Сохранить")
