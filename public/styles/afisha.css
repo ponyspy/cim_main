@@ -76,7 +76,7 @@ body {
 .afisha_hall {
  	font: 11pt/13pt 'Pragmatica';
  	padding-top: 9px;
- 	padding-bottom: 5px;
+ 	/*padding-bottom: 5px;*/
 }
 
 .afisha_ticket {
