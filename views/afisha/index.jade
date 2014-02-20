@@ -35,7 +35,7 @@ mixin getSchedule(date, out)
 					.afisha_schedule_block
 						.afisha_time= event.time.hours + ':' + event.time.minutes
 						.afisha_hall= hall[event.event.hall]
-						if (event.ticket)
+						if (event.ticket && !out)
 							a.afisha_ticket(href=event.ticket, target='_blank') купить билет
 					.afisha_all_block
 						.afisha_tags_block
