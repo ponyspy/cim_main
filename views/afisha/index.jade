@@ -41,10 +41,10 @@ mixin getSchedule(date, out)
 						.afisha_tags_block
 							if (event.premiere == 'true')
 								.tag.premiere ПРЕМЬЕРА
-							if (event.event.project == 'blackbox')
-								.tag.blackbox BLACKBOX
-							if (event.event.project == 'children')
-								.tag.children ДЕТСКИЙ ЦИМ
+							each project in projects
+								each p_event in project.events
+									if (p_event.toString() == event.event._id.toString())
+										.tag(class=project._id)= project.ru.title.toUpperCase()
 							each category in event.event.category
 								if (category != 'performance')
 									.tag(class=category)= categorys[category]

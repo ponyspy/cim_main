@@ -36,7 +36,7 @@ $(document).ready(function() {
 		var age = $('.age').html();
 		var duration = $('.duration').html();
 		var hall = $('.hall').val();
-		var project = $('.project').val();
+		// var project = $('.project').val();
 		var markers = $('.marker .m_list').children('a');
 		var members = [];
 		var category = [];
@@ -87,7 +87,7 @@ $(document).ready(function() {
 		age = checkField(age);
 
 
-		$.post('', {img: img_preview, ru: ru, members: members, category: category, project: project, hall: hall, age: age, duration: duration, columns: columns}).done(function(result) {
+		$.post('', {img: img_preview, ru: ru, members: members, category: category, hall: hall, age: age, duration: duration, columns: columns}).done(function(result) {
 			var btn_title = $('.upload').text();
 			if (btn_title == 'СОЗДАТЬ')
 				 location.reload();

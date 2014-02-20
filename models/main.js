@@ -79,7 +79,6 @@ var eventSchema = new Schema({
         }
       },
       category: [String],
-      project: String,
       date: {type: Date, default: Date.now},
    members: [{
     c_status: String,
@@ -107,10 +106,23 @@ var memberSchema = new Schema({
 
 var userSchema = new Schema({
    login: String,
-    password: String,
+password: String,
    email: String,
   status: {type: String, default: 'User'},
     date: {type: Date, default: Date.now},
+});
+
+var projectSchema = new Schema({
+  ru: {
+    title: String,
+    description: String,
+  },
+  en: {
+    title: String,
+    description: String,
+  },
+  events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
+    date: {type: Date, default: Date.now}
 });
 
 var scheduleSchema = new Schema({
@@ -134,3 +146,4 @@ module.exports.News = mongoose.model('News', newsSchema);
 module.exports.Press = mongoose.model('Press', presSchema);
 module.exports.Photo = mongoose.model('Photo', photoSchema);
 module.exports.Schedule = mongoose.model('Schedule', scheduleSchema);
+module.exports.Project = mongoose.model('Project', projectSchema);

@@ -37,6 +37,7 @@ var News = models.News;
 var Press = models.Press;
 var Photo = models.Photo;
 var Schedule = models.Schedule;
+var Project = models.Project;
 
 
 // ------------------------
@@ -185,7 +186,9 @@ app.get('/afisha/:year/:month', function (req, res) {
 
   Schedule.find({'date': {'$gte': start, '$lte': end}}).sort('date').populate('events.event').exec(function(err, schedule) {
     Schedule.populate(schedule, {path:'events.event.members.m_id', model: 'Member'}, function(err, schedule) {
-      res.render('afisha', {schedule: schedule, month: month});
+      Project.find().exec(function(err, projects) {
+        res.render('afisha', {schedule: schedule, projects: projects, month: month});
+      });
     });
   });
 });
@@ -288,8 +291,6 @@ app.post('/auth/add/event', function(req, res) {
     event.en.p_author = post.en.p_author;
   };
 
-  if (post.project != 'false')
-    event.project = post.project;
   event.category = post.category;
   event.hall = post.hall;
   event.age = post.age;
@@ -356,10 +357,6 @@ app.post('/auth/edit/events/:id', function (req, res) {
 
   Event.findById(id, function(err, event) {
 
-    if (post.project != 'false')
-      event.project = post.project;
-    else
-      event.project = undefined;
     event.category = post.category;
     event.members = post.members;
     event.hall = post.hall;
@@ -402,6 +399,41 @@ app.post('/auth/edit/events/:id', function (req, res) {
         res.send('ok')
       });
     }
+  });
+});
+
+
+// ------------------------
+// *** Add Project Block ***
+// ------------------------
+
+
+app.get('/auth/add/project', checkAuth, function (req, res) {
+  Event.find().sort('-date').exec(function(err, events) {
+    res.render('auth/add/project.jade', {events: events});
+  });
+});
+
+app.post('/auth/add/project', function (req, res) {
+  var post = req.body;
+  var files = req.files;
+  var project = new Project();
+
+  project.ru.title = post.ru.title;
+  project.ru.description = post.ru.description;
+
+  if (post.en) {
+    project.en.title = post.en.title;
+    project.en.description = post.en.description;
+  };
+
+  if (post.events != '')
+    project.events = post.events;
+  else
+    project.events = [];
+
+  project.save(function(err) {
+    res.redirect('back');
   });
 });
 
