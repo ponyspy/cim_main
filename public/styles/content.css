@@ -134,6 +134,18 @@ body {
 	background-color: white;
 }
 
+.cal_inner_title {
+	float: left;
+	color: white;
+	font: 8pt/10pt 'Pragmatica';
+	text-align: center;
+	margin-right: 8px;
+	display: block;
+	height: 80px;
+	-webkit-writing-mode: vertical-lr;
+	-webkit-transform: scale(-1, -1);
+}
+
 .cal_spacer:last-child {
 	display: none;
 }
