@@ -22,15 +22,25 @@ body {
 }
 
 .p_author {
-	margin-top: 602px;
-	margin-left: -40px;
-	padding: 2px;
+	margin-top: 620px;
+	margin-left: -46px;
+	padding: 5px;
 	position: absolute;
+	font: 11pt/13pt 'Pragmatica';
 	background-color: white;
-	-webkit-transform-origin: left;
+	-webkit-transform-origin: 0 0;
+	-moz-transform-origin: 0 0;
 	-webkit-transform: rotate(-90deg);
 	-moz-transform: rotate(-90deg);
 	transform: rotate(-90deg);
+}
+
+.a_name, .a_title {
+	float: left;
+}
+
+.a_title {
+	margin-right: 5px;
 }
 
 .calendar {
