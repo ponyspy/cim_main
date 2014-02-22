@@ -19,29 +19,53 @@ block content
 		form(action="", method="post", enctype="multipart/form-data")
 			.form_section События
 			.date_event
-				each item, index in schedule.events
+				if (schedule.events.length > 0)
+					each item, index in schedule.events
+						.snake
+							input.minus(type="button", value="-")
+							input(type='checkbox', name='events[' + index + '][banner]', checked=item.banner=='true', value='true')
+							|баннер
+							input(type='checkbox', name='events[' + index + '][premiere]', checked=item.premiere=='true', value='true')
+							|премьера
+							select(name='events[' + index + '][time][hours]')
+								option(value='') Часы
+								- for (var i=0; i<24; i++)
+									option(value=i, selected=(item.time.hours == i))= i
+							select(name='events[' + index + '][time][minutes]')
+								option(value='') Минуты
+								option(value='00') 00
+								- for (var i=10; i<60; i+=10)
+									option(value=i, selected=(item.time.minutes == i))= i
+							select(name='events[' + index + '][event]')
+								option(value='') -- Программы
+								option(value='') Страшно интересно
+								option(value='') -- События
+								each event in events
+									option(value=event._id, selected=(event._id.toString() == item.event._id.toString()))= event.ru.title.slice(0, 30)
+							input(type='text', name='events[' + index + '][ticket]', style='font-size: 12px; width: 210px;', value= item.ticket, placeholder='ссылка на билет')
+				else
 					.snake
 						input.minus(type="button", value="-")
-						input(type='checkbox', name='events[' + index + '][banner]', checked=item.banner=='true', value='true')
+						input(type='checkbox', name='events[0][banner]', value='true')
 						|баннер
-						input(type='checkbox', name='events[' + index + '][premiere]', checked=item.premiere=='true', value='true')
+						input(type='checkbox', name='events[0][premiere]', value='true')
 						|премьера
-						select(name='events[' + index + '][time][hours]')
+						select(name='events[0][time][hours]')
 							option(value='') Часы
 							- for (var i=0; i<24; i++)
-								option(value=i, selected=(item.time.hours == i))= i
-						select(name='events[' + index + '][time][minutes]')
+								option(value=i)= i
+						select(name='events[0][time][minutes]')
 							option(value='') Минуты
 							option(value='00') 00
 							- for (var i=10; i<60; i+=10)
-								option(value=i, selected=(item.time.minutes == i))= i
-						select(name='events[' + index + '][event]')
+								option(value=i)= i
+						select(name='events[0][event]')
 							option(value='') -- Программы
 							option(value='') Страшно интересно
 							option(value='') -- События
 							each event in events
-								option(value=event._id, selected=(event._id.toString() == item.event._id.toString()))= event.ru.title.slice(0, 30)
-						input(type='text', name='events[' + index + '][ticket]', style='font-size: 12px; width: 210px;', value= item.ticket, placeholder='ссылка на билет')
+								option(value=event._id)= event.ru.title.slice(0, 30)
+						input(type='text', name='events[0][ticket]', style='font-size: 12px; width: 210px;', placeholder='ссылка на билет')
 				br
 				input.plus(type="button", value="+")
 				br
