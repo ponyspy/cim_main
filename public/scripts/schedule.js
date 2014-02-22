@@ -4,7 +4,7 @@ $(document).ready(function() {
 		var elem = $('.snake');
 		elem.first().clone().insertAfter(elem.last());
 
-		var forms = $('.snake').eq(elem.length).children('select, input').filter(':not(.plus)');
+		var forms = $('.snake').eq(elem.length).children('select, input').filter(':not(.minus)');
 		forms.each(function() {
 			var value = $(this).attr('name');
 			value = value.replace('0', elem.length);
@@ -20,6 +20,6 @@ $(document).ready(function() {
 		$(this).parent('.snake').remove();
 	}
 
-	$(document).on('click', '.plus', snakeBack);
-	$('.minus').on('click', snakeForward);
+	$(document).on('click', '.minus', snakeBack);
+	$('.plus').on('click', snakeForward);
 });
