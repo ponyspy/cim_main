@@ -12,7 +12,7 @@ $(document).ready(function() {
 			$(this).filter(':checked').prop('checked', false);
 			$(this).children('option').eq(0).attr('selected', true);
 		});
-		$(forms).eq(7).removeAttr('value');
+		$(forms).eq(5).removeAttr('value');
 	}
 
 	function snakeBack () {

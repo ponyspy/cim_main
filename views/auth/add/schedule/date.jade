@@ -14,8 +14,12 @@ block content_right
 
 block content
 	.form_block
+		- var d = schedule.date.getDate()
+		- d = d < 10 ? '0' + d : d
+		- var m = schedule.date.getMonth() + 1
+		- m = m < 10 ? '0' + m : m
 		a.back_link(href='/auth/add/schedule/' + schedule.date.getFullYear()) < Назад
-		.title= 'РАСПИСАНИЕ НА ' + schedule.date.getDate() + '.' + (schedule.date.getMonth() + 1)
+		.title= 'ДОБАВИТЬ СОБЫТИЯ НА ' + d + '.' + m
 		form(action="", method="post", enctype="multipart/form-data")
 			.form_section События
 			.date_event
