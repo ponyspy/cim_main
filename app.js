@@ -200,11 +200,14 @@ app.get('/afisha/:year/:month', function (req, res) {
 
 
 app.get('/afisha/archive', function (req, res) {
+  var year = 2014;
+  var month = 2;
 
-  Schedule.find().sort('date').populate('events.event').exec(function(err, schedule) {
-    Schedule.populate(schedule, {path:'events.event.members.m_id', model: 'Member'}, function(err, schedule) {
-      res.render('afisha/archive.jade', {schedule: schedule});
-    });
+  var start = new Date(year, month, 0);
+  var end = new Date(year, (month + 1), 0);
+
+  Schedule.distinct('events.event', {'date': {'$gte': start, '$lte': end}}).exec(function(err, schedule) {
+    res.render('afisha/archive.jade', {schedule: schedule});
   });
 });
 
