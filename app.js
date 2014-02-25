@@ -462,6 +462,30 @@ app.get('/auth/edit/projects/:id', checkAuth, function (req, res) {
   });
 });
 
+app.post('/auth/edit/projects/:id', function (req, res) {
+  var post = req.body;
+  var id = req.params.id;
+
+  Project.findById(id, function(err, project) {
+    project.ru.title = post.ru.title;
+    project.ru.description = post.ru.description;
+
+    if (post.en) {
+      project.en.title = post.en.title;
+      project.en.description = post.en.description;
+    };
+
+    if (post.events != '')
+      project.events = post.events;
+    else
+      project.events = [];
+
+    project.save(function(err) {
+      res.redirect('back');
+    });
+  });
+});
+
 
 // ------------------------
 // *** Add Schedule Block ***

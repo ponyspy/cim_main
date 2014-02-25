@@ -18,7 +18,7 @@ block content
 	.main_menu_block
 		each project in projects
 			.project
-				a.rm_member(href='#', id=project._id)= 'удалить '
+				a.rm_project(href='#', id=project._id)= 'удалить '
 				||&nbsp;
 				a(href='/auth/edit/projects/' + project._id)= project.ru.title
 				//- b= ' ---> '
