@@ -345,10 +345,12 @@ app.get('/auth/edit/events/:id', checkAuth, photoStream, function (req, res) {
 app.post('/rm_event', function (req, res) {
   var id = req.body.id;
 
-  Schedule.update({'events.event':id}, { $pull: { 'events': { event: id } } }, { multi: true }).exec(function() {
-    Event.findByIdAndRemove(id, function() {
-      deleteFolderRecursive(__dirname + '/public/images/events/' + id);
-      res.send('ok');
+  Project.update({'events.event':id}, { $pull: { 'events': { event: id } } }, { multi: true }).exec(function() {
+    Schedule.update({'events.event':id}, { $pull: { 'events': { event: id } } }, { multi: true }).exec(function() {
+      Event.findByIdAndRemove(id, function() {
+        deleteFolderRecursive(__dirname + '/public/images/events/' + id);
+        res.send('ok');
+      });
     });
   });
 });
@@ -459,6 +461,14 @@ app.get('/auth/edit/projects/:id', checkAuth, function (req, res) {
     Event.find().sort('-date').exec(function(err, events) {
       res.render('auth/edit/projects/e_project.jade', {project: projects[0], events: events});
     });
+  });
+});
+
+app.post('/rm_project', function (req, res) {
+  var id = req.body.id;
+
+  Project.findByIdAndRemove(id, function() {
+    res.send('ok');
   });
 });
 

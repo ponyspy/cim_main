@@ -7,6 +7,7 @@ block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/add.css')
 
 block content_scripts
+	script(type='text/javascript', src='/scripts/schedule.js')
 	script(type='text/javascript', src='/scripts/add.js')
 
 block content_right
@@ -32,10 +33,13 @@ block content
 			textarea.ru(name="ru[description]", rows="8",)= project.ru.description
 			textarea.en(name="en[description]", rows="8", disabled)
 			.form_title Cобытия:
-			.snake
-				input.back(type="button", value="<")
-				select(name='events')
-					option(value='') нет
-					each event in events
-						option(value=event._id)= event.ru.title
-				input.forward(type="button", value=">")
+			each p_event in project.events
+				.snake
+					input.minus(type="button", value="-")
+					select(name='events')
+						option(value='') нет
+						each event in events
+							option(value=event._id, selected=(p_event._id.toString() == event._id.toString()))= event.ru.title
+					br
+			br
+			input.plus(type="button", value="+")
