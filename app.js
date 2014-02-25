@@ -442,6 +442,28 @@ app.post('/auth/add/project', function (req, res) {
 
 
 // ------------------------
+// *** Edit Project Block ***
+// ------------------------
+
+
+app.get('/auth/edit/projects', checkAuth, function (req, res) {
+  Project.find().sort('-date').exec(function(err, projects) {
+    res.render('auth/edit/projects', {projects: projects});
+  });
+});
+
+app.get('/auth/edit/projects/:id', checkAuth, function (req, res) {
+  var id = req.params.id;
+
+  Project.find({'_id': id}).sort('-date').populate('events').exec(function(err, projects) {
+    Event.find().sort('-date').exec(function(err, events) {
+      res.render('auth/edit/projects/e_project.jade', {project: projects[0], events: events});
+    });
+  });
+});
+
+
+// ------------------------
 // *** Add Schedule Block ***
 // ------------------------
 
