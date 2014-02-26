@@ -341,17 +341,35 @@ html, body, .maket {
  */
 
 .photo_stream {
-	width: 35px;
-	height: 35px;
-	background-image: url('/images/design/ps_w.png');
-	background-size: cover;
 	position: fixed;
 	cursor: pointer;
 	top: 95%;
+	left: 5px;
 	z-index: 90000;
 }
 
-.photo_stream:hover {
+.stream_title {
+	float: left;
+	color: white;
+	margin-top: 8px;
+	margin-left: 10px;
+	display: none;
+	font: 10pt/12pt 'PragmaticaB';
+}
+
+.stream_roller {
+	width: 35px;
+	height: 35px;
+	float: left;
+	background-image: url('/images/design/ps_w.png');
+	background-size: cover;
+	transform:rotate(-10deg);
+	-ms-transform:rotate(-10deg);
+	-webkit-transform:rotate(-10deg);
+	-webkit-transition-duration: 0.8s;
+}
+
+.stream_roller:hover {
 	/*background-image: url('/images/design/ps_b.png');*/
 	transform:rotate(180deg);
 	-ms-transform:rotate(180deg);

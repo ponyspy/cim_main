@@ -47,11 +47,13 @@ function backScroller () {
 
 function showStream () {
 	$('.maket').fadeIn('fast');
+	$('.stream_title').hide();
 	$('.background_description_block').stop(true, true).fadeOut('fast');
 }
 
 function hideStream () {
 	$('.maket').fadeOut('fast');
+	$('.stream_title').show();
 	$('.background_description_block').stop(true, true).fadeIn('fast');
 }
 
