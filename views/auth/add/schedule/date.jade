@@ -41,8 +41,6 @@ block content
 								- for (var i=10; i<60; i+=10)
 									option(value=i, selected=(item.time.minutes == i))= i
 							select(name='events[' + index + '][event]')
-								option(value='') -- Программы
-								option(value='') Страшно интересно
 								option(value='') -- События
 								each event in events
 									option(value=event._id, selected=(event._id.toString() == item.event._id.toString()))= event.ru.title.slice(0, 30)
@@ -64,8 +62,6 @@ block content
 							- for (var i=10; i<60; i+=10)
 								option(value=i)= i
 						select(name='events[0][event]')
-							option(value='') -- Программы
-							option(value='') Страшно интересно
 							option(value='') -- События
 							each event in events
 								option(value=event._id)= event.ru.title.slice(0, 30)
