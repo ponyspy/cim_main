@@ -35,6 +35,7 @@ var Member = models.Member;
 var Event = models.Event;
 var News = models.News;
 var Press = models.Press;
+var Partner = models.Partner;
 var Photo = models.Photo;
 var Schedule = models.Schedule;
 var Project = models.Project;
@@ -817,6 +818,103 @@ app.post('/auth/edit/press/:id', function (req, res) {
     press.save(function(err) {
       res.redirect('back');
     });
+  });
+});
+
+
+// ------------------------
+// *** Add Partner Block ***
+// ------------------------
+
+
+app.get('/auth/add/partner', checkAuth, function (req, res) {
+  res.render('auth/add/partner.jade');
+});
+
+app.post('/auth/add/partner', function (req, res) {
+  var post = req.body;
+  var files = req.files;
+  var partner = new Partner();
+
+  partner.ru.name = post.ru.name;
+  partner.ru.description = post.ru.description;
+  partner.link = post.link;
+
+  if (post.en) {
+    partner.en.name = post.en.name;
+    partner.en.description = post.en.description;
+  };
+
+  if (files.logo.size != 0) {
+    var newPath = __dirname + '/public/images/partners/' + partner._id + '.jpg';
+    gm(files.logo.path).resize(300, false).noProfile().write(newPath, function() {
+      partner.logo = '/images/partners/' + partner._id + '.jpg';
+      fs.unlink(files.logo.path);
+      partner.save(function(err) {
+        res.redirect('back');
+      });
+    });
+  }
+  else {
+    fs.unlink(files.logo.path);
+    partner.save(function(err) {
+      res.redirect('back');
+    });
+  }
+});
+
+
+// ------------------------
+// *** Edit Partners Block ***
+// ------------------------
+
+
+app.get('/auth/edit/partners', checkAuth, function (req, res) {
+  Partner.find().sort('-date').exec(function(err, partners) {
+    res.render('auth/edit/partners', {partners: partners});
+  });
+});
+
+app.get('/auth/edit/partners/:id', checkAuth, function (req, res) {
+  var id = req.params.id;
+
+  Partner.findById(id, function(err, partner) {
+    res.render('auth/edit/partners/partner.jade', {partner: partner});
+  });
+});
+
+app.post('/auth/edit/partners/:id', function (req, res) {
+  var id = req.params.id;
+  var post = req.body;
+  var files = req.files;
+
+  Partner.findById(id, function(err, partner) {
+
+    partner.ru.name = post.ru.name;
+    partner.ru.description = post.ru.description;
+    partner.link = post.link;
+
+    if (post.en) {
+      partner.en.name = post.en.name;
+      partner.en.description = post.en.description;
+    };
+
+    if (files.logo.size != 0) {
+      var newPath = __dirname + '/public/images/partners/' + partner._id + '.jpg';
+      gm(files.logo.path).resize(300, false).noProfile().write(newPath, function() {
+        partner.logo = '/images/partners/' + partner._id + '.jpg';
+        fs.unlink(files.logo.path);
+        partner.save(function(err) {
+          res.redirect('back');
+        });
+      });
+    }
+    else {
+      fs.unlink(files.logo.path);
+      partner.save(function(err) {
+        res.redirect('back');
+      });
+    }
   });
 });
 

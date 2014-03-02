@@ -36,6 +36,26 @@ var presSchema = new Schema({
       date: {type: Date, default: Date.now}
 });
 
+var partnerSchema = new Schema({
+  ru: {
+    name: String,
+    description: String
+  },
+  en: {
+    name: String,
+    description: String
+  },
+  logo: String,
+  link: String,
+  key: String,
+  services: {
+    tickets: {type: Boolean, default: false},
+    api: {type: Boolean, default: false},
+    list: {type: Boolean, default: false}
+  },
+  date: {type: Date, default: Date.now}
+});
+
 var photoSchema = new Schema({
       ru: {
         description: String,
@@ -144,6 +164,7 @@ module.exports.Member = mongoose.model('Member', memberSchema);
 module.exports.Event = mongoose.model('Event', eventSchema);
 module.exports.News = mongoose.model('News', newsSchema);
 module.exports.Press = mongoose.model('Press', presSchema);
+module.exports.Partner = mongoose.model('Partner', partnerSchema);
 module.exports.Photo = mongoose.model('Photo', photoSchema);
 module.exports.Schedule = mongoose.model('Schedule', scheduleSchema);
 module.exports.Project = mongoose.model('Project', projectSchema);
