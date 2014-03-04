@@ -44,7 +44,6 @@ block content
 								option(value='') -- События
 								each event in events
 									option(value=event._id, selected=(event._id.toString() == item.event._id.toString()))= event.ru.title.slice(0, 30)
-							//- input(type='text', name='events[' + index + '][ticket]', style='font-size: 12px; width: 210px;', value= item.ticket, placeholder='ссылка на билет')
 							input.toggle_tickets(type='button', value='билеты')
 							.tickets_list
 								each partner, pindex in partners
@@ -71,11 +70,12 @@ block content
 							option(value='') -- События
 							each event in events
 								option(value=event._id)= event.ru.title.slice(0, 30)
-						//- input(type='text', name='events[0][ticket]', style='font-size: 12px; width: 210px;', placeholder='ссылка на билет')
 						input.toggle_tickets(type='button', value='билеты')
-						//- each partner in partners
-						//- 	input(type='text', name='tickets[link]', placeholder=partner.ru.name)
-						//- 	input(type='hidden', name='tickets[partner]', value=partner._id)
+						.tickets_list
+							each partner, pindex in partners
+								.ticket
+									input.t_link(type='text', name='events[0][tickets]['+pindex+'][link]', placeholder=partner.ru.name)
+									input.t_partner(type='hidden', name='events[0][tickets]['+pindex+'][partner]', value=partner._id)
 				br
 				input.plus(type="button", value="+")
 				br
