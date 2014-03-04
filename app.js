@@ -841,6 +841,7 @@ app.post('/auth/add/partner', function (req, res) {
   partner.ru.name = post.ru.name;
   partner.ru.description = post.ru.description;
   partner.link = post.link;
+  partner.services = post.services;
 
   if (post.en) {
     partner.en.name = post.en.name;
@@ -895,6 +896,7 @@ app.post('/auth/edit/partners/:id', function (req, res) {
     partner.ru.name = post.ru.name;
     partner.ru.description = post.ru.description;
     partner.link = post.link;
+    partner.services = post.services;
 
     if (post.en) {
       partner.en.name = post.en.name;
@@ -1253,7 +1255,8 @@ app.get('*', function(req, res) {
 });
 
 app.post('/cool', function(req, res) {
-  console.log(req.body.events[0].tickets);
+  // console.log(req.body.events[0].tickets);
+  console.log(req.body)
   res.redirect('back')
 });
 

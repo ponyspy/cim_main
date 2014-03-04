@@ -16,12 +16,6 @@ block content_right
 		br
 		b.nav_settings_title настройки
 		.toggle_eng перевод
-		//- input(type='checkbox', name='services[list]', value='true')
-		//- |список
-		//- input(type='checkbox', name='services[api]', value='true')
-		//- |api
-		//- input(type='checkbox', name='services[tickets]', value='true')
-		//- |билеты
 		br
 		b.form_submit ОТПРАВИТЬ
 
@@ -40,3 +34,12 @@ block content
 			input(type="text", name="link", size='60')
 			.form_title Логотип:
 			input(type="file", name="logo")
+			.form_title Доступ:
+			input(type='checkbox', name='services[list]', value='true')
+			|список
+			br
+			input(type='checkbox', name='services[api]', value='true')
+			|api
+			br
+			input(type='checkbox', name='services[tickets]', value='true')
+			|билеты
