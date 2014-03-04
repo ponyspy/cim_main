@@ -12,7 +12,7 @@ $(document).ready(function() {
 			$(this).filter(':checked').prop('checked', false);
 			$(this).children('option').eq(0).attr('selected', true);
 		});
-		$(forms).eq(5).removeAttr('value');
+		// $(forms).eq(5).removeAttr('value');
 	}
 
 	function snakeBack () {
@@ -20,6 +20,11 @@ $(document).ready(function() {
 		$(this).parent('.snake').remove();
 	}
 
+	function ticketsList () {
+		$(this).next('.tickets_list').toggle()
+	}
+
 	$(document).on('click', '.minus', snakeBack);
 	$('.plus').on('click', snakeForward);
+	$(document).on('click', '.toggle_tickets', ticketsList);
 });

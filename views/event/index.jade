@@ -72,14 +72,14 @@ block content
 						if (date.date.getMonth() == now.getMonth())
 								+calItem(date)
 				.cal_inner_title= months[(now.getMonth() + 1)]
-				.cal_month_block.current
+				.cal_month_block.next
 					each date in schedule
-						if (date.date.getMonth() == now.getMonth())
+						if (date.date.getMonth() == now.getMonth() + 1)
 							+calItem(date)
 				.cal_inner_title= months[(now.getMonth() + 2)]
 				.cal_month_block.after
 					each date in schedule
-						if (date.date.getMonth() == (now.getMonth() + 2))
+						if (date.date.getMonth() == now.getMonth() + 2)
 								+calItem(date)
 	.content_body
 		.title(lang='ru')= event.ru.title.toUpperCase()

@@ -537,8 +537,10 @@ app.get('/auth/add/schedule/:year/:id', checkAuth, function (req, res) {
   var id = req.params.id;
 
   Event.find(function(err, events) {
-    Schedule.find({'_id':id}).populate('events.event').exec(function(err, result) {
-      res.render('auth/add/schedule/date.jade', {schedule: result[0], events: events});
+    Partner.find(function(err, partners) {
+      Schedule.find({'_id':id}).populate('events.event').exec(function(err, result) {
+        res.render('auth/add/schedule/date.jade', {schedule: result[0], events: events, partners: partners});
+      });
     });
   });
 });
