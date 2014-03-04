@@ -1252,6 +1252,11 @@ app.get('*', function(req, res) {
   res.render('error');
 });
 
+app.post('/cool', function(req, res) {
+  console.log(req.body.events[0].tickets);
+  res.redirect('back')
+});
+
 
 app.listen(3000);
 console.log('http://127.0.0.1:3000')

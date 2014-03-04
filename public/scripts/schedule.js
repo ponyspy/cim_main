@@ -24,6 +24,18 @@ $(document).ready(function() {
 		$(this).next('.tickets_list').toggle()
 	}
 
+	function checkForms () {
+		var t_links = $('.t_link');
+
+		t_links.each(function() {
+			if ($(this).val() == '') {
+				$(this).next('.t_partner').remove();
+				$(this).remove();
+			}
+		});
+	}
+
+	$(document).on('submit','form', checkForms);
 	$(document).on('click', '.minus', snakeBack);
 	$('.plus').on('click', snakeForward);
 	$(document).on('click', '.toggle_tickets', ticketsList);

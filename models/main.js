@@ -150,7 +150,10 @@ var scheduleSchema = new Schema({
     event: { type: Schema.Types.ObjectId, ref: 'Event' },
     premiere: String,
     banner: String,
-    ticket: String,
+    tickets: [{
+      link: String,
+      partner: { type: Schema.Types.ObjectId, ref: 'Partner' }
+    }],
     time: {
       hours: String,
       minutes: String
