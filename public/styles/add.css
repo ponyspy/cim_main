@@ -178,3 +178,8 @@ input, textarea, select {
 	margin-right: 5px;
 	font-size: 12pt;
 }
+
+.tickets_list {
+	display: none;
+	margin-left: 40px;
+}

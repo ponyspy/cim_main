@@ -35,8 +35,10 @@ var Member = models.Member;
 var Event = models.Event;
 var News = models.News;
 var Press = models.Press;
+var Partner = models.Partner;
 var Photo = models.Photo;
 var Schedule = models.Schedule;
+var Project = models.Project;
 
 
 // ------------------------
@@ -177,27 +179,38 @@ app.get('/news/:id', photoStream, function (req, res) {
 // ------------------------
 
 
-app.get('/afisha/:position', function (req, res) {
-  var position = req.params.position;
-  var start = new Date();
-  var end = new Date();
-
-  if (position == 'current') {
-    start.setDate(0);
-    end.setFullYear(end.getFullYear(), (end.getMonth()+1), 0);
-  }
-  else if (position == 'next') {
-    start.setFullYear(start.getFullYear(), (start.getMonth()+1), 0);
-    end.setFullYear(end.getFullYear(), (end.getMonth()+2), 0);
-  }
-  else res.render('error');
+app.get('/afisha/:year/:month', function (req, res) {
+  var year = req.params.year;
+  var month = req.params.month - 1;
+  var start = new Date(year, month, 0);
+  var end = new Date(year, (month + 1), 0);
 
   Schedule.find({'date': {'$gte': start, '$lte': end}}).sort('date').populate('events.event').exec(function(err, schedule) {
     Schedule.populate(schedule, {path:'events.event.members.m_id', model: 'Member'}, function(err, schedule) {
-      res.render('afisha', {schedule: schedule, month: start.getMonth()+1});
+      Project.find().exec(function(err, projects) {
+        res.render('afisha', {schedule: schedule, projects: projects, month: month});
+      });
     });
   });
 });
+
+
+// ------------------------
+// *** Afisha Archive Block ***
+// ------------------------
+
+
+// app.get('/afisha/archive', function (req, res) {
+//   var year = 2014;
+//   var month = 2;
+
+//   var start = new Date(year, month, 0);
+//   var end = new Date(year, (month + 1), 0);
+
+//   Schedule.distinct('events.event', {'date': {'$gte': start, '$lte': end}}).exec(function(err, schedule) {
+//     res.render('afisha/archive.jade', {schedule: schedule});
+//   });
+// });
 
 
 // ------------------------
@@ -210,7 +223,7 @@ app.get('/event/:id', photoStream, function (req, res) {
   var start = new Date();
   var end = new Date();
   start.setDate(start.getDate() - 1);
-  end.setFullYear(end.getFullYear(), (end.getMonth()+1), 0);
+  end.setFullYear(end.getFullYear(), (end.getMonth()+3), 0);
 
   Schedule.find({'date': {'$gte': start, '$lt': end}, 'events.event': id}, {'events.$': 1}).limit(10).select('date').sort('date').exec(function(err, schedule) {
     Press.find({'events': id}).sort('-date').exec(function(err, press) {
@@ -282,7 +295,7 @@ app.post('/auth/add/event', function(req, res) {
     event.en.p_author = post.en.p_author;
   };
 
-  event.tag = post.tag;
+  event.category = post.category;
   event.hall = post.hall;
   event.age = post.age;
   event.members = post.members;
@@ -333,10 +346,12 @@ app.get('/auth/edit/events/:id', checkAuth, photoStream, function (req, res) {
 app.post('/rm_event', function (req, res) {
   var id = req.body.id;
 
-  Schedule.update({'events.event':id}, { $pull: { 'events': { event: id } } }, { multi: true }).exec(function() {
-    Event.findByIdAndRemove(id, function() {
-      deleteFolderRecursive(__dirname + '/public/images/events/' + id);
-      res.send('ok');
+  Project.update({'events.event':id}, { $pull: { 'events': { event: id } } }, { multi: true }).exec(function() {
+    Schedule.update({'events.event':id}, { $pull: { 'events': { event: id } } }, { multi: true }).exec(function() {
+      Event.findByIdAndRemove(id, function() {
+        deleteFolderRecursive(__dirname + '/public/images/events/' + id);
+        res.send('ok');
+      });
     });
   });
 });
@@ -348,8 +363,8 @@ app.post('/auth/edit/events/:id', function (req, res) {
 
   Event.findById(id, function(err, event) {
 
+    event.category = post.category;
     event.members = post.members;
-    event.tag = post.tag;
     event.hall = post.hall;
     event.age = post.age;
     event.duration = post.duration;
@@ -395,6 +410,95 @@ app.post('/auth/edit/events/:id', function (req, res) {
 
 
 // ------------------------
+// *** Add Project Block ***
+// ------------------------
+
+
+app.get('/auth/add/project', checkAuth, function (req, res) {
+  Event.find().sort('-date').exec(function(err, events) {
+    res.render('auth/add/project.jade', {events: events});
+  });
+});
+
+app.post('/auth/add/project', function (req, res) {
+  var post = req.body;
+  var files = req.files;
+  var project = new Project();
+
+  project.ru.title = post.ru.title;
+  project.ru.description = post.ru.description;
+
+  if (post.en) {
+    project.en.title = post.en.title;
+    project.en.description = post.en.description;
+  };
+
+  if (post.events != '')
+    project.events = post.events;
+  else
+    project.events = [];
+
+  project.save(function(err) {
+    res.redirect('back');
+  });
+});
+
+
+// ------------------------
+// *** Edit Project Block ***
+// ------------------------
+
+
+app.get('/auth/edit/projects', checkAuth, function (req, res) {
+  Project.find().sort('-date').exec(function(err, projects) {
+    res.render('auth/edit/projects', {projects: projects});
+  });
+});
+
+app.get('/auth/edit/projects/:id', checkAuth, function (req, res) {
+  var id = req.params.id;
+
+  Project.find({'_id': id}).sort('-date').populate('events').exec(function(err, projects) {
+    Event.find().sort('-date').exec(function(err, events) {
+      res.render('auth/edit/projects/e_project.jade', {project: projects[0], events: events});
+    });
+  });
+});
+
+app.post('/rm_project', function (req, res) {
+  var id = req.body.id;
+
+  Project.findByIdAndRemove(id, function() {
+    res.send('ok');
+  });
+});
+
+app.post('/auth/edit/projects/:id', function (req, res) {
+  var post = req.body;
+  var id = req.params.id;
+
+  Project.findById(id, function(err, project) {
+    project.ru.title = post.ru.title;
+    project.ru.description = post.ru.description;
+
+    if (post.en) {
+      project.en.title = post.en.title;
+      project.en.description = post.en.description;
+    };
+
+    if (post.events != '')
+      project.events = post.events;
+    else
+      project.events = [];
+
+    project.save(function(err) {
+      res.redirect('back');
+    });
+  });
+});
+
+
+// ------------------------
 // *** Add Schedule Block ***
 // ------------------------
 
@@ -434,7 +538,7 @@ app.get('/auth/add/schedule/:year/:id', checkAuth, function (req, res) {
 
   Event.find(function(err, events) {
     Schedule.find({'_id':id}).populate('events.event').exec(function(err, result) {
-      res.render('auth/add/schedule/date.jade', {result: result, events: events});
+      res.render('auth/add/schedule/date.jade', {schedule: result[0], events: events});
     });
   });
 });
@@ -714,6 +818,105 @@ app.post('/auth/edit/press/:id', function (req, res) {
     press.save(function(err) {
       res.redirect('back');
     });
+  });
+});
+
+
+// ------------------------
+// *** Add Partner Block ***
+// ------------------------
+
+
+app.get('/auth/add/partner', checkAuth, function (req, res) {
+  res.render('auth/add/partner.jade');
+});
+
+app.post('/auth/add/partner', function (req, res) {
+  var post = req.body;
+  var files = req.files;
+  var partner = new Partner();
+
+  partner.ru.name = post.ru.name;
+  partner.ru.description = post.ru.description;
+  partner.link = post.link;
+  partner.services = post.services;
+
+  if (post.en) {
+    partner.en.name = post.en.name;
+    partner.en.description = post.en.description;
+  };
+
+  if (files.logo.size != 0) {
+    var newPath = __dirname + '/public/images/partners/' + partner._id + '.jpg';
+    gm(files.logo.path).resize(300, false).noProfile().write(newPath, function() {
+      partner.logo = '/images/partners/' + partner._id + '.jpg';
+      fs.unlink(files.logo.path);
+      partner.save(function(err) {
+        res.redirect('back');
+      });
+    });
+  }
+  else {
+    fs.unlink(files.logo.path);
+    partner.save(function(err) {
+      res.redirect('back');
+    });
+  }
+});
+
+
+// ------------------------
+// *** Edit Partners Block ***
+// ------------------------
+
+
+app.get('/auth/edit/partners', checkAuth, function (req, res) {
+  Partner.find().sort('-date').exec(function(err, partners) {
+    res.render('auth/edit/partners', {partners: partners});
+  });
+});
+
+app.get('/auth/edit/partners/:id', checkAuth, function (req, res) {
+  var id = req.params.id;
+
+  Partner.findById(id, function(err, partner) {
+    res.render('auth/edit/partners/partner.jade', {partner: partner});
+  });
+});
+
+app.post('/auth/edit/partners/:id', function (req, res) {
+  var id = req.params.id;
+  var post = req.body;
+  var files = req.files;
+
+  Partner.findById(id, function(err, partner) {
+
+    partner.ru.name = post.ru.name;
+    partner.ru.description = post.ru.description;
+    partner.link = post.link;
+    partner.services = post.services;
+
+    if (post.en) {
+      partner.en.name = post.en.name;
+      partner.en.description = post.en.description;
+    };
+
+    if (files.logo.size != 0) {
+      var newPath = __dirname + '/public/images/partners/' + partner._id + '.jpg';
+      gm(files.logo.path).resize(300, false).noProfile().write(newPath, function() {
+        partner.logo = '/images/partners/' + partner._id + '.jpg';
+        fs.unlink(files.logo.path);
+        partner.save(function(err) {
+          res.redirect('back');
+        });
+      });
+    }
+    else {
+      fs.unlink(files.logo.path);
+      partner.save(function(err) {
+        res.redirect('back');
+      });
+    }
   });
 });
 

@@ -1,25 +1,42 @@
 $(document).ready(function() {
-	var count = 0;
 
 	function snakeForward () {
-		count +=1;
-
 		var elem = $('.snake');
 		elem.first().clone().insertAfter(elem.last());
 
-		var forms = $('.snake').eq(count).children('select, input');
+		var forms = $('.snake').eq(elem.length).children('select, input').filter(':not(.minus)');
 		forms.each(function() {
 			var value = $(this).attr('name');
-			value = value.replace('0', count);
+			value = value.replace('0', elem.length);
 			$(this).attr('name', value);
+			$(this).filter(':checked').prop('checked', false);
+			$(this).children('option').eq(0).attr('selected', true);
 		});
+		// $(forms).eq(5).removeAttr('value');
 	}
 
 	function snakeBack () {
 		if ($('.snake').size() == 1) return null;
-		$('.snake').last().remove();
+		$(this).parent('.snake').remove();
 	}
 
-	$('.plus').on('click', snakeBack);
-	$('.minus').on('click', snakeForward);
+	function ticketsList () {
+		$(this).next('.tickets_list').toggle()
+	}
+
+	function checkForms () {
+		var t_links = $('.t_link');
+
+		t_links.each(function() {
+			if ($(this).val() == '') {
+				$(this).next('.t_partner').remove();
+				$(this).remove();
+			}
+		});
+	}
+
+	$(document).on('submit','form', checkForms);
+	$(document).on('click', '.minus', snakeBack);
+	$('.plus').on('click', snakeForward);
+	$(document).on('click', '.toggle_tickets', ticketsList);
 });

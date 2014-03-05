@@ -37,6 +37,22 @@ mixin memberList(marker, status)
 						a(href= '/member/' + member.m_id._id, id=member.m_id._id)= member.m_id.ru.name
 						.m_comment(lang='ru')= member.comment.ru
 
+
+mixin calItem(date)
+	- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ'];
+	- var hall = {'main': 'большой зал', 'black': 'черный зал', 'white': 'белый зал', 'cafe': 'кафе', 'lobby': 'фойе', '301': 'комната 301', '306': 'комната 306'}
+	- var d = date.date.getDate()
+	- d = d < 10 ? '0' + d : d
+	.cal_item
+		.cal_date= days[date.date.getDay()] + '.' + d
+		.cal_schedule
+			.cal_time= date.events[0].time.hours + ':' + date.events[0].time.minutes
+			.cal_hall= hall[event.hall]
+			//- if (date.events[0].ticket)
+				a.cal_ticket(href=date.events[0].ticket, rel='nofollow', target='_blank') купить билет
+	.cal_spacer
+
+
 block content
 	- var ru_column_one = {'director': 'Режиссер', 'author': 'Автор', 'playwright': 'Драматург', 'choreographer': 'Хореограф', 'composer': 'Композитор', 'artist': 'Художник', 'actor': 'Исполнители', 'producer': 'Продюсер', 'curator': 'Куратор', 'lecturer': 'Лектор', 'theoretician': 'Теоретик', 'art_director': 'Художественный руководитель', 'scenographer': 'Сценограф'}
 	- var ru_column_two = {'photographer': 'Фотограф', 'sub_director': 'Помощник режисера', 'tech_director': 'Технический директор', 'video_artist': 'Видеохудожник', 'light_artist': 'Художник по свету', 'audio_director': 'Звукорежисер', 'multi_artist': 'Мультимедиахудожник', 'consultant': 'Консультант', 'effects': 'Спецэффекты'}
@@ -49,16 +65,22 @@ block content
 	if (schedule.length > 0)
 		.calendar
 			.inner
-				each date,i in schedule
-					- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ'];
-					- var hall = {'main': 'основная сцена', 'black': 'черный зал', 'white': 'белый зал', 'cafe': 'кафе', 'lobby': 'фойе', '301': 'комната 301', '306': 'комната 306'}
-					- var d = date.date.getDate()
-					- d = d < 10 ? '0' + d : d
-					.cal_date= days[date.date.getDay()] + '.' + d
-					.cal_schedule
-						.cal_time= date.events[0].time.hours + ':' + date.events[0].time.minutes
-						.cal_hall= hall[event.hall]
-					.cal_spacer
+				- var months = ['ЯНВАРЬ', 'ФЕВРАЛЬ', 'МАРТ', 'АПРЕЛЬ', 'МАЙ', 'ИЮНЬ', 'ИЮЛЬ', 'АВГУСТ', 'СЕНТЯБРЬ', 'ОКТЯБРЬ', 'НОЯБРЬ', 'ДЕКАБРЬ'];
+				- var now = new Date()
+				.cal_month_block.current
+					each date in schedule
+						if (date.date.getMonth() == now.getMonth())
+								+calItem(date)
+				.cal_inner_title= months[(now.getMonth() + 1)]
+				.cal_month_block.next
+					each date in schedule
+						if (date.date.getMonth() == now.getMonth() + 1)
+							+calItem(date)
+				.cal_inner_title= months[(now.getMonth() + 2)]
+				.cal_month_block.after
+					each date in schedule
+						if (date.date.getMonth() == now.getMonth() + 2)
+								+calItem(date)
 	.content_body
 		.title(lang='ru')= event.ru.title.toUpperCase()
 		if (event.ru.s_title)

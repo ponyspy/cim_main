@@ -15,5 +15,6 @@ $(document).ready(function() {
 	$('.rm_schedule').on('click', {path: '/rm_schedule', description: 'Удалить?'}, remove);
 	$('.rm_press').on('click', {path: '/rm_press', description: 'Удалить источник?\n\nИсточник будет удален из всех событий!'}, remove);
 	$('.rm_photo').on('click', {path: '/rm_photo', description: 'Удалить фотографию?'}, remove);
+	$('.rm_project').on('click', {path: '/rm_project', description: 'Удалить спецпроект?'}, remove);
 
 });

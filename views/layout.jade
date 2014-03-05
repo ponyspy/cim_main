@@ -6,6 +6,8 @@ html
 		include counters
 		if (photos)
 			.photo_stream
+				.stream_roller
+				.stream_title ФОТОПОТОК
 			.background_block
 				.background_description_block
 					if (photos.length != 0)
@@ -24,27 +26,26 @@ html
 					.menu_block
 						.pay БИЛЕТЫ ON-line
 							.pay_drop
-								a(href='http://bigbilet.ru/company/card?id=A88F2473BE633D61E040115529B0081A#_', target='_blank') BIGBILET
+								a(href='http://bigbilet.ru/company/card?id=A88F2473BE633D61E040115529B0081A#_', rel='nofollow', target='_blank') BIGBILET
 								!=' &nbsp;|&nbsp; '
-								a(href='http://www.ticketland.ru/buildinfo/1571/', target='_blank') TICKETLAND
-						.menu_item
-							.menu_item_title афиша
-							.menu_item_arrow ▼
+								a(href='http://www.ticketland.ru/buildinfo/1571/', rel='nofollow', target='_blank') TICKETLAND
+						.menu_item афиша
 							.menu_drop
 								- var months = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
 								- var date = new Date()
-								a(href='/afisha/current')=  months[date.getMonth()]
-								a(href='/afisha/next')= months[date.getMonth()+1]
-								//- a(href='/afisha/archive')  архив
-						.menu_item
-							.menu_item_title цим
-							.menu_item_arrow ▼
+								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+1))=  months[date.getMonth()]
+								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+2))= months[date.getMonth()+1]
+								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+3))= months[date.getMonth()+2]
+								//- a(href='/afisha/archive') архив
+						.menu_item цим
 							.menu_drop
 								if (session.user_id)
 									a(href='/auth') звездочет
 								a(href='/') новости
 								a(href='/now') цим сегодня
-								//- a(href='/gogo') команда
+								//- a(href='/team') команда
+								//- a(href='/members') участники
+								//- a(href='/partners') партнеры
 								a(href='http://shtl.meyerhold.ru') штл
 								//- a(href='/magistr') магистратура
 								a(href='http://old.meyerhold.ru') старый сайт

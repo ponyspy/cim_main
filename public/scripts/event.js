@@ -13,13 +13,4 @@ $(document).ready(function() {
 		});
 	}
 
-	$('.cal_date').on({
-		mouseover: function() {
-			$(this).next('.cal_schedule').stop().animate({'margin-left':'0px'}, 200)
-		},
-		mouseout: function() {
-			$(this).next('.cal_schedule').stop().animate({'margin-left':'-120px'}, 200)
-		},
-	})
-
 });

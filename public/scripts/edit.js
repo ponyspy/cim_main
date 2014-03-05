@@ -36,9 +36,10 @@ $(document).ready(function() {
 		var age = $('.age').html();
 		var duration = $('.duration').html();
 		var hall = $('.hall').val();
-		var tag = $('.tag').val();
+		// var project = $('.project').val();
 		var markers = $('.marker .m_list').children('a');
 		var members = [];
+		var category = [];
 		var m_columns = $('.marker');
 		var columns = {
 			'one': [],
@@ -69,6 +70,10 @@ $(document).ready(function() {
 			members.push(member);
 		});
 
+		$('.category input:checked').each(function() {
+			category.push($(this).val())
+		});
+
 		var ru = {
 			title: title,
 			s_title: s_title,
@@ -82,7 +87,7 @@ $(document).ready(function() {
 		age = checkField(age);
 
 
-		$.post('', {img: img_preview, ru: ru, members: members, tag: tag, hall: hall, age: age, duration: duration, columns: columns}).done(function(result) {
+		$.post('', {img: img_preview, ru: ru, members: members, category: category, hall: hall, age: age, duration: duration, columns: columns}).done(function(result) {
 			var btn_title = $('.upload').text();
 			if (btn_title == 'СОЗДАТЬ')
 				 location.reload();

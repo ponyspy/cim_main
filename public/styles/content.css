@@ -22,15 +22,25 @@ body {
 }
 
 .p_author {
-	margin-top: 602px;
-	margin-left: -40px;
-	padding: 2px;
+	margin-top: 620px;
+	margin-left: -46px;
+	padding: 5px;
 	position: absolute;
+	font: 11pt/13pt 'Pragmatica';
 	background-color: white;
-	-webkit-transform-origin: left;
+	-webkit-transform-origin: 0 0;
+	-moz-transform-origin: 0 0;
 	-webkit-transform: rotate(-90deg);
 	-moz-transform: rotate(-90deg);
 	transform: rotate(-90deg);
+}
+
+.a_name, .a_title {
+	float: left;
+}
+
+.a_title {
+	margin-right: 5px;
 }
 
 .calendar {
@@ -42,14 +52,17 @@ body {
 
 .cal_date {
 	/*width: 230px;*/
-	margin-right: 25px;
+	/*margin-right: 20px;*/
 	height: 80px;
 	float: left;
 	color: white;
 	margin-left: 0px;
  	font: 56pt/51pt 'PragmaticaM';
  	letter-spacing: -1px;
- 	padding: 5px;
+ 	padding-right: 15px;
+ 	padding-top: 5px;
+ 	padding-left: 5px;
+ 	padding-bottom: 5px;
  	cursor: default;
 	display: inline-block;
 	overflow: hidden;
@@ -62,37 +75,86 @@ body {
 .cal_schedule {
 	width: 110px;
 	height: 75px;
-	padding-top: 5px;
+	padding-top: 10px;
+	padding-left: 5px;
+	margin-right: 10px;
 	float: left;
 	color: white;
 	cursor: default;
-	margin-left: -120px;
-	/*background-color: green;*/
 	position: relative;
 	z-index: 0;
+}
+
+.cal_item:hover .cal_date {
+	background-color: white;
+	color: black;
+}
+
+.cal_item .cal_schedule {
+	-webkit-transition: 0.2s;
+	-moz-transition: 0.2s;
+	transition: 0.2s;
+	margin-left: -121px;
+}
+
+.cal_item:hover .cal_schedule {
+	-webkit-transition: 0.2s;
+	-moz-transition: 0.2s;
+	transition: 0.2s;
+	background-color: white;
+	color: black;
+	margin-left: 0px;
 }
 
 .cal_time {
 	font: 11pt/12pt 'Pragmatica';
 	letter-spacing: 0px;
-	margin-top: 1px;
-	padding: 5px;
+	padding-bottom: 9px;
 	font-weight: bold;
 }
 
 .cal_hall {
-	font: 11pt/12pt 'Pragmatica';
+	font: 11pt/13pt 'Pragmatica';
 	letter-spacing: 0px;
-	padding: 5px;
+}
+
+.cal_ticket {
+	width: 90px;
+	margin-top: 5px;
+	border: 1px solid black;
+	font: 10pt/12pt 'Pragmatica';
+	display: block;
+	text-align: center;
+}
+
+.cal_ticket:hover {
+	border: 1px solid red;
+	color: white;
+	background-color: red;
+	cursor: pointer;
+	text-decoration: none;
 }
 
 .cal_spacer {
 	width: 2px;
 	height: 55px;
 	margin-top: 13px;
-	margin-right: 25px;
+	margin-right: 10px;
 	float: left;
 	background-color: white;
+}
+
+.cal_inner_title {
+	float: left;
+	color: white;
+	font: 8pt/10pt 'Pragmatica';
+	text-align: center;
+	margin-right: 8px;
+	cursor: default;
+	display: block;
+	height: 80px;
+	-webkit-writing-mode: vertical-lr;
+	-webkit-transform: scale(-1, -1);
 }
 
 .cal_spacer:last-child {
@@ -102,18 +164,6 @@ body {
 .inner {
 	width: 1500px;
 }
-
-/*.date:hover {
-	background-color: white;
-	color: black;
-	cursor: pointer;
-}
-
-.date2:hover {
-	background-color: white;
-	color: black;
-	cursor: pointer;
-}*/
 
 .content_body {
 	padding-top: 12px;

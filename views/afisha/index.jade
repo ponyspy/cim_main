@@ -22,6 +22,8 @@ block content_right
 - var actors = false
 
 mixin getSchedule(date, out)
+	- var hall = {'main': 'большой зал', 'black': 'черный зал', 'white': 'белый зал', 'cafe': 'кафе', 'lobby': 'фойе', '301': 'комната 301', '306': 'комната 306'}
+	- var categorys = {'lecture': 'ЛЕКЦИЯ', 'masterclass': 'МАСТЕР-КЛАСС', 'exhibition': 'ВЫСТАВКА', 'concert': 'КОНЦЕРТ', 'storytallyng': 'СТОРИТЕЛЛИНГ'}
 	.afisha_item_block(class=out ? 'out' : '')
 		- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ']
 		- var d = date.date.getDate()
@@ -32,15 +34,20 @@ mixin getSchedule(date, out)
 				.afisha_description_block
 					.afisha_schedule_block
 						.afisha_time= event.time.hours + ':' + event.time.minutes
-						- var hall = {'main': 'основная сцена', 'black': 'черный зал', 'white': 'белый зал', 'cafe': 'кафе', 'lobby': 'фойе', '301': 'комната 301', '306': 'комната 306'}
 						.afisha_hall= hall[event.event.hall]
-
+						//- if (event.ticket && !out)
+							a.afisha_ticket(href=event.ticket, rel='nofollow', target='_blank') купить билет
 					.afisha_all_block
 						.afisha_tags_block
 							if (event.premiere == 'true')
 								.tag.premiere ПРЕМЬЕРА
-							//- if (event.event.ru.comment == '<br>')
-								.tag.nocomment NO COMMENT
+							each project in projects
+								each p_event in project.events
+									if (p_event.toString() == event.event._id.toString())
+										.tag(class=project._id)= project.ru.title.toUpperCase()
+							each category in event.event.category
+								if (category != 'performance')
+									.tag(class=category)= categorys[category]
 						.afisha_event
 							a.title(href='/event/' + event.event._id)= event.event.ru.title.toUpperCase()
 							.s_title= event.event.ru.s_title.toUpperCase()
