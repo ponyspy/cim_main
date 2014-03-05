@@ -37,9 +37,9 @@ block content
 									option(value=i, selected=(item.time.hours == i))= i
 							select(name='events[' + index + '][time][minutes]')
 								option(value='') Минуты
-								option(value='00') 00
-								- for (var i=10; i<60; i+=10)
-									option(value=i, selected=(item.time.minutes == i))= i
+								- for (var i=0; i<=50; i+=10)
+									- var mm = (i == 0 ? '00' : i)
+									option(value=mm, selected=(item.time.minutes == mm))= mm
 							select(name='events[' + index + '][event]')
 								option(value='') -- События
 								each event in events
