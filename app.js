@@ -187,10 +187,8 @@ app.get('/afisha/:year/:month', function (req, res) {
 
   Schedule.find({'date': {'$gte': start, '$lte': end}}).sort('date').populate('events.event').exec(function(err, schedule) {
     Schedule.populate(schedule, {path:'events.event.members.m_id', model: 'Member'}, function(err, schedule) {
-      Schedule.populate(schedule, {path:'events.tickets.partner', model: 'Partner'}, function(err, schedule) {
-        Project.find().exec(function(err, projects) {
-          res.render('afisha', {schedule: schedule, projects: projects, month: month});
-        });
+      Project.find().exec(function(err, projects) {
+        res.render('afisha', {schedule: schedule, projects: projects, month: month});
       });
     });
   });
@@ -202,17 +200,17 @@ app.get('/afisha/:year/:month', function (req, res) {
 // ------------------------
 
 
-app.get('/afisha/archive', function (req, res) {
-  var year = 2014;
-  var month = 2;
+// app.get('/afisha/archive', function (req, res) {
+//   var year = 2014;
+//   var month = 2;
 
-  var start = new Date(year, month, 0);
-  var end = new Date(year, (month + 1), 0);
+//   var start = new Date(year, month, 0);
+//   var end = new Date(year, (month + 1), 0);
 
-  Schedule.distinct('events.event', {'date': {'$gte': start, '$lte': end}}).exec(function(err, schedule) {
-    res.render('afisha/archive.jade', {schedule: schedule});
-  });
-});
+//   Schedule.distinct('events.event', {'date': {'$gte': start, '$lte': end}}).exec(function(err, schedule) {
+//     res.render('afisha/archive.jade', {schedule: schedule});
+//   });
+// });
 
 
 // ------------------------
@@ -539,10 +537,8 @@ app.get('/auth/add/schedule/:year/:id', checkAuth, function (req, res) {
   var id = req.params.id;
 
   Event.find(function(err, events) {
-    Partner.find({'services.tickets':true}).exec(function(err, partners) {
-      Schedule.find({'_id':id}).populate('events.event').exec(function(err, result) {
-        res.render('auth/add/schedule/date.jade', {schedule: result[0], events: events, partners: partners});
-      });
+    Schedule.find({'_id':id}).populate('events.event').exec(function(err, result) {
+      res.render('auth/add/schedule/date.jade', {schedule: result[0], events: events});
     });
   });
 });
@@ -1254,12 +1250,6 @@ app.get('/error', function (req, res) {
 
 app.get('*', function(req, res) {
   res.render('error');
-});
-
-app.post('/cool', function(req, res) {
-  // console.log(req.body.events[0].tickets);
-  console.log(req.body)
-  res.redirect('back')
 });
 
 

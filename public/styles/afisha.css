@@ -69,14 +69,11 @@ body {
 .afisha_time {
  	font: 11pt/12pt 'PragmaticaB';
  	letter-spacing: 0px;
-/* 	margin-top: 0px;*/
- 	/*padding-top: 1px;*/
 }
 
 .afisha_hall {
  	font: 11pt/13pt 'Pragmatica';
- 	padding-top: 9px;
- 	/*padding-bottom: 5px;*/
+ 	padding-top: 10px;
 }
 
 .tag {
@@ -224,19 +221,4 @@ body {
 	background-color: red;
 	text-decoration: none;
 	cursor: default;
-}
-
-.afisha_ticket:hover .afisha_tickets_list {
-	display: block;
-}
-
-.afisha_tickets_list {
-	display: none;
-	z-index: 99999999999;
-	position: relative;
-}
-
-.afisha_tickets_list a {
-	display: block;
-	color: white;
 }

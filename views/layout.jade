@@ -36,14 +36,16 @@ html
 								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+1))=  months[date.getMonth()]
 								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+2))= months[date.getMonth()+1]
 								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+3))= months[date.getMonth()+2]
-								a(href='/afisha/archive') архив
+								//- a(href='/afisha/archive') архив
 						.menu_item цим
 							.menu_drop
 								if (session.user_id)
 									a(href='/auth') звездочет
 								a(href='/') новости
 								a(href='/now') цим сегодня
-								//- a(href='/gogo') команда
+								//- a(href='/team') команда
+								//- a(href='/members') участники
+								//- a(href='/partners') партнеры
 								a(href='http://shtl.meyerhold.ru') штл
 								//- a(href='/magistr') магистратура
 								a(href='http://old.meyerhold.ru') старый сайт

@@ -48,8 +48,8 @@ mixin calItem(date)
 		.cal_schedule
 			.cal_time= date.events[0].time.hours + ':' + date.events[0].time.minutes
 			.cal_hall= hall[event.hall]
-			if (date.events[0].ticket)
-				a.cal_ticket(href=date.events[0].ticket, target='_blank') купить билет
+			//- if (date.events[0].ticket)
+				a.cal_ticket(href=date.events[0].ticket, rel='nofollow', target='_blank') купить билет
 	.cal_spacer
 
 

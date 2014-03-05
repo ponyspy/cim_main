@@ -44,32 +44,6 @@ block content
 								option(value='') -- События
 								each event in events
 									option(value=event._id, selected=(event._id.toString() == item.event._id.toString()))= event.ru.title.slice(0, 30)
-							input.toggle_tickets(type='button', value='билеты')
-							.tickets_list
-								each partner, pindex in partners
-									b= item.tickets[pindex]
-									.ticket
-										input.t_link(type='text', name='events[' + index + '][tickets][' + pindex + '][link]', placeholder=partner.ru.name)
-										input.t_partner(type='hidden', name='events[' + index + '][tickets][' + pindex + '][partner]', value=partner._id)
-
-
-
-
-
-
-							//- .tickets_list
-							//- 	if (!item.tickets || item.tickets.lenght == 0)
-							//- 		b= item.tickets.length
-							//- 		each partner, pindex in partners
-							//- 			.ticket
-							//- 				input.t_link(type='text', name='events[' + index + '][tickets]['+pindex+'][link]', placeholder=partner.ru.name)
-							//- 				input.t_partner(type='hidden', name='events[' + index + '][tickets]['+pindex+'][partner]', value=partner._id)
-							//- 	else
-							//- 		each partner, pindex in partners
-							//- 			each ticket in item.tickets
-							//- 				.ticket
-							//- 					input.t_link(type='text', name='events[' + index + '][tickets]['+pindex+'][link]', value=(partner._id.toString() == ticket.partner ? ticket.link : ''),  placeholder=partner.ru.name)
-							//- 					input.t_partner(type='hidden', name='events[' + index + '][tickets]['+pindex+'][partner]', value=ticket.partner)
 				else
 					.snake
 						input.minus(type="button", value="-")
@@ -90,12 +64,6 @@ block content
 							option(value='') -- События
 							each event in events
 								option(value=event._id)= event.ru.title.slice(0, 30)
-						input.toggle_tickets(type='button', value='билеты')
-						.tickets_list
-							each partner, pindex in partners
-								.ticket
-									input.t_link(type='text', name='events[0][tickets]['+pindex+'][link]', placeholder=partner.ru.name)
-									input.t_partner(type='hidden', name='events[0][tickets]['+pindex+'][partner]', value=partner._id)
 				br
 				input.plus(type="button", value="+")
 				br
