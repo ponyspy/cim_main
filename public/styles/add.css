@@ -181,4 +181,5 @@ input, textarea, select {
 
 .tickets_list {
 	display: none;
+	margin-left: 40px;
 }

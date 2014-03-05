@@ -20,7 +20,7 @@ block content
 		- m = m < 10 ? '0' + m : m
 		a.back_link(href='/auth/add/schedule/' + schedule.date.getFullYear()) < Назад
 		.title= 'ДОБАВИТЬ СОБЫТИЯ НА ' + d + '.' + m
-		form(action="/cool", method="post", enctype="multipart/form-data")
+		form(action="", method="post", enctype="multipart/form-data")
 			.form_section События
 			.date_event
 				if (schedule.events.length > 0)
@@ -47,9 +47,29 @@ block content
 							input.toggle_tickets(type='button', value='билеты')
 							.tickets_list
 								each partner, pindex in partners
+									b= item.tickets[pindex]
 									.ticket
-										input.t_link(type='text', name='events[' + index + '][tickets]['+pindex+'][link]', placeholder=partner.ru.name)
-										input.t_partner(type='hidden', name='events[' + index + '][tickets]['+pindex+'][partner]', value=partner._id)
+										input.t_link(type='text', name='events[' + index + '][tickets][' + pindex + '][link]', placeholder=partner.ru.name)
+										input.t_partner(type='hidden', name='events[' + index + '][tickets][' + pindex + '][partner]', value=partner._id)
+
+
+
+
+
+
+							//- .tickets_list
+							//- 	if (!item.tickets || item.tickets.lenght == 0)
+							//- 		b= item.tickets.length
+							//- 		each partner, pindex in partners
+							//- 			.ticket
+							//- 				input.t_link(type='text', name='events[' + index + '][tickets]['+pindex+'][link]', placeholder=partner.ru.name)
+							//- 				input.t_partner(type='hidden', name='events[' + index + '][tickets]['+pindex+'][partner]', value=partner._id)
+							//- 	else
+							//- 		each partner, pindex in partners
+							//- 			each ticket in item.tickets
+							//- 				.ticket
+							//- 					input.t_link(type='text', name='events[' + index + '][tickets]['+pindex+'][link]', value=(partner._id.toString() == ticket.partner ? ticket.link : ''),  placeholder=partner.ru.name)
+							//- 					input.t_partner(type='hidden', name='events[' + index + '][tickets]['+pindex+'][partner]', value=ticket.partner)
 				else
 					.snake
 						input.minus(type="button", value="-")

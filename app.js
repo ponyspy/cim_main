@@ -537,7 +537,7 @@ app.get('/auth/add/schedule/:year/:id', checkAuth, function (req, res) {
   var id = req.params.id;
 
   Event.find(function(err, events) {
-    Partner.find(function(err, partners) {
+    Partner.find({'services.tickets':true}).exec(function(err, partners) {
       Schedule.find({'_id':id}).populate('events.event').exec(function(err, result) {
         res.render('auth/add/schedule/date.jade', {schedule: result[0], events: events, partners: partners});
       });
