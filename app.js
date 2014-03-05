@@ -187,8 +187,10 @@ app.get('/afisha/:year/:month', function (req, res) {
 
   Schedule.find({'date': {'$gte': start, '$lte': end}}).sort('date').populate('events.event').exec(function(err, schedule) {
     Schedule.populate(schedule, {path:'events.event.members.m_id', model: 'Member'}, function(err, schedule) {
-      Project.find().exec(function(err, projects) {
-        res.render('afisha', {schedule: schedule, projects: projects, month: month});
+      Schedule.populate(schedule, {path:'events.tickets.partner', model: 'Partner'}, function(err, schedule) {
+        Project.find().exec(function(err, projects) {
+          res.render('afisha', {schedule: schedule, projects: projects, month: month});
+        });
       });
     });
   });

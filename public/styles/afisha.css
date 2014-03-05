@@ -79,22 +79,6 @@ body {
  	/*padding-bottom: 5px;*/
 }
 
-.afisha_ticket {
-	width: 90px;
-	display: block;
-	margin-top: 5px;
-	border: 1px solid black;
-	text-align: center;
-	font: 10pt/12pt 'Pragmatica';
-}
-
-.afisha_ticket:hover {
-	border: 1px solid red;
-	color: white;
-	background-color: red;
-	text-decoration: none;
-}
-
 .tag {
 	float: left;
 	margin-right: 10px;
@@ -218,4 +202,41 @@ body {
 .color {
 	color: black;
 	background-color: white;
+}
+
+
+/*
+	Ticket Broken
+ */
+
+.afisha_ticket {
+	width: 90px;
+	display: block;
+	margin-top: 5px;
+	border: 1px solid black;
+	text-align: center;
+	font: 10pt/12pt 'Pragmatica';
+}
+
+.afisha_ticket:hover {
+	border: 1px solid red;
+	color: white;
+	background-color: red;
+	text-decoration: none;
+	cursor: default;
+}
+
+.afisha_ticket:hover .afisha_tickets_list {
+	display: block;
+}
+
+.afisha_tickets_list {
+	display: none;
+	z-index: 99999999999;
+	position: relative;
+}
+
+.afisha_tickets_list a {
+	display: block;
+	color: white;
 }

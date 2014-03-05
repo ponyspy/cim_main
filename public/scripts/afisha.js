@@ -36,4 +36,10 @@ $(document).ready(function() {
 			}
 		}
 	});
+
+	// Tickets
+
+	// $('.afisha_ticket').click(function(event) {
+	// 	$(this).children('a').clone().appendTo('.maket');
+	// });
 });
