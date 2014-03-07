@@ -182,7 +182,7 @@ app.get('/news/:id', photoStream, function (req, res) {
 app.get('/afisha/:year/:month', function (req, res) {
   var year = req.params.year;
   var month = req.params.month - 1;
-  var start = new Date(year, month, 0);
+  var start = new Date(year, month, 1);
   var end = new Date(year, (month + 1), 0);
 
   Schedule.find({'date': {'$gte': start, '$lte': end}}).sort('date').populate('events.event').exec(function(err, schedule) {
