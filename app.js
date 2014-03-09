@@ -548,7 +548,15 @@ app.post('/auth/add/schedule/:year/:id', function (req, res) {
   var id = req.params.id;
 
   Schedule.findById(id, function(err, date) {
-    date.events = post.events;
+    date.events = post.events.sort(function (a, b) {
+      if (+a.time.hours < +b.time.hours) return -1;
+      if (+a.time.hours > +b.time.hours) return 1;
+
+      if (+a.time.minutes < +b.time.minutes) return -1;
+      if (+a.time.minutes > +b.time.minutes) return 1;
+
+      return 0;
+    });
 
     date.save(function(err) {
       res.redirect('back');
