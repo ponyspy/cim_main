@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+	$('.cal_month_block').not(':has(.cal_item)').prev('.cal_inner_title').hide();
+
 	if ($('.cal_date').size() > 3) {
 		$('.calendar').mousemove(function(event) {
 			var duration = event.pageX;
@@ -12,5 +14,13 @@ $(document).ready(function() {
 			$('.stat').text(size)
 		});
 	}
+	else {
+		$('.calendar').mouseenter(function(event) {
+			$('.inner').animate({'margin-left': '0px'}, 200);
+		});
+	}
 
+	$('.calendar').mouseleave(function(event) {
+		$('.inner').animate({'margin-left': '-29px'}, 200);
+	});
 });

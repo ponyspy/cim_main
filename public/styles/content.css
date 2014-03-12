@@ -77,7 +77,7 @@ body {
 	height: 75px;
 	padding-top: 10px;
 	padding-left: 5px;
-	margin-right: 10px;
+	/*margin-right: 10px;*/
 	float: left;
 	color: white;
 	cursor: default;
@@ -139,6 +139,7 @@ body {
 	width: 2px;
 	height: 55px;
 	margin-top: 13px;
+	margin-left: 10px;
 	margin-right: 10px;
 	float: left;
 	background-color: white;
@@ -150,6 +151,7 @@ body {
 	font: 8pt/10pt 'Pragmatica';
 	text-align: center;
 	margin-right: 8px;
+	margin-left: 8px;
 	cursor: default;
 	display: block;
 	height: 80px;
@@ -163,6 +165,7 @@ body {
 
 .inner {
 	width: 1500px;
+	margin-left: -29px;
 }
 
 .content_body {

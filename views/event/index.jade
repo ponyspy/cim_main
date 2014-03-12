@@ -67,6 +67,7 @@ block content
 			.inner
 				- var months = ['ЯНВАРЬ', 'ФЕВРАЛЬ', 'МАРТ', 'АПРЕЛЬ', 'МАЙ', 'ИЮНЬ', 'ИЮЛЬ', 'АВГУСТ', 'СЕНТЯБРЬ', 'ОКТЯБРЬ', 'НОЯБРЬ', 'ДЕКАБРЬ'];
 				- var now = new Date()
+				.cal_inner_title= months[(now.getMonth())]
 				.cal_month_block.current
 					each date in schedule
 						if (date.date.getMonth() == now.getMonth())
