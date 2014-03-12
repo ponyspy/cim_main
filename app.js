@@ -25,6 +25,33 @@ app.use(function(req, res, next) {
 app.use(app.router);
 
 
+app.use(function(req, res, next) {
+  res.status(404);
+
+  // respond with html page
+  if (req.accepts('html')) {
+    res.render('error', { url: req.url, status: 404 });
+    return;
+  }
+
+  // respond with json
+  if (req.accepts('json')) {
+    res.send({ error: 'Not found' });
+    return;
+  }
+
+  // default to plain-text
+  res.type('txt').send('Not found');
+});
+
+app.use(function(err, req, res, next) {
+  var status = err.status || 500;
+
+  res.status(status);
+  res.render('error', { error: err, status: status });
+});
+
+
 // -------------------
 // *** Model Block ***
 // -------------------
@@ -77,9 +104,9 @@ var deleteFolderRecursive = function(path) {
   if( fs.existsSync(path) ) {
     fs.readdirSync(path).forEach(function(file,index){
       var curPath = path + "/" + file;
-      if(fs.statSync(curPath).isDirectory()) { // recurse
+      if(fs.statSync(curPath).isDirectory()) {
         deleteFolderRecursive(curPath);
-      } else { // delete file
+      } else {
         fs.unlinkSync(curPath);
       }
     });
@@ -164,11 +191,11 @@ app.post('/', function (req, res) {
 // ------------------------
 
 
-app.get('/news/:id', photoStream, function (req, res) {
+app.get('/news/:id', photoStream, function (req, res, next) {
   var id = req.params.id;
 
   News.find({'_id':id}).populate('events').exec(function(err, news) {
-    if (!news) return res.render('error');
+    if (!news) return next(err);
     res.render('news', {news: news[0]});
   });
 });
@@ -218,7 +245,7 @@ app.get('/afisha/:year/:month', function (req, res) {
 // ------------------------
 
 
-app.get('/event/:id', photoStream, function (req, res) {
+app.get('/event/:id', photoStream, function (req, res, next) {
   var id = req.params.id;
   var start = new Date();
   var end = new Date();
@@ -228,7 +255,7 @@ app.get('/event/:id', photoStream, function (req, res) {
   Schedule.find({'date': {'$gte': start, '$lt': end}, 'events.event': id}, {'events.$': 1}).limit(10).select('date').sort('date').exec(function(err, schedule) {
     Press.find({'events': id}).sort('-date').exec(function(err, press) {
       Event.find({'_id':id}).populate('members.m_id').exec(function(err, event) {
-         if (!event) return res.render('error');
+         if (!event) return next(err);
         res.render('event', {event: event[0], schedule: schedule, press: press});
       });
     })
@@ -241,11 +268,11 @@ app.get('/event/:id', photoStream, function (req, res) {
 // ------------------------
 
 
-app.get('/member/:id', photoStream, function (req, res) {
+app.get('/member/:id', photoStream, function (req, res, next) {
   var id = req.params.id;
 
   Member.findById(id, function(err, member) {
-    if (!member) return res.render('error');
+    if (!member) return next(err);
     Event.find({'members.m_id': id}, {'members.$': 1}).select('ru').sort('-date').exec(function(err, events) {
       res.render('members/member.jade', {member:member, events: events})
     });
@@ -337,6 +364,7 @@ app.get('/auth/edit/events/:id', checkAuth, photoStream, function (req, res) {
   var id = req.params.id;
 
   Event.find({'_id':id}).populate('members.m_id').exec(function(err, event) {
+    if (!event) return next(err);
     Member.find().exec(function(err, members) {
       res.render('auth/edit/events/event.jade', {event: event[0], members: members});
     });
@@ -356,7 +384,7 @@ app.post('/rm_event', function (req, res) {
   });
 });
 
-app.post('/auth/edit/events/:id', function (req, res) {
+app.post('/auth/edit/events/:id', function (req, res, next) {
   var id = req.params.id;
   var post = req.body;
   var files = req.files;
@@ -455,10 +483,11 @@ app.get('/auth/edit/projects', checkAuth, function (req, res) {
   });
 });
 
-app.get('/auth/edit/projects/:id', checkAuth, function (req, res) {
+app.get('/auth/edit/projects/:id', checkAuth, function (req, res, next) {
   var id = req.params.id;
 
   Project.find({'_id': id}).sort('-date').populate('events').exec(function(err, projects) {
+    if (!projects) return next(err);
     Event.find().sort('-date').exec(function(err, events) {
       res.render('auth/edit/projects/e_project.jade', {project: projects[0], events: events});
     });
@@ -533,11 +562,12 @@ app.post('/rm_schedule', function (req, res) {
   });
 });
 
-app.get('/auth/add/schedule/:year/:id', checkAuth, function (req, res) {
+app.get('/auth/add/schedule/:year/:id', checkAuth, function (req, res, next) {
   var id = req.params.id;
 
   Event.find(function(err, events) {
     Schedule.find({'_id':id}).populate('events.event').exec(function(err, result) {
+      if (!result) return next(err);
       res.render('auth/add/schedule/date.jade', {schedule: result[0], events: events});
     });
   });
@@ -656,7 +686,8 @@ app.get('/auth/edit/news', checkAuth, function (req, res) {
 app.get('/auth/edit/news/:id', checkAuth, function (req, res) {
   var id = req.params.id;
 
-  News.find({'_id':id}).populate('events').exec(function(err, news) {
+  News.find({'_id': id}).populate('events').exec(function(err, news) {
+    if (!news) return next(err);
     Event.find(function(err, events){
       res.render('auth/edit/news/e_news.jade', {news: news[0], events: events});
     });
@@ -790,6 +821,7 @@ app.get('/auth/edit/press/:id', checkAuth, function (req, res) {
   var id = req.params.id;
 
   Press.find({'_id':id}).populate('events').exec(function(err, press) {
+    if (!press) return next(err);
     Event.find(function(err, events){
       res.render('auth/edit/press/e_press.jade', {press: press[0], events: events});
     });
@@ -888,6 +920,7 @@ app.get('/auth/edit/partners/:id', checkAuth, function (req, res) {
   var id = req.params.id;
 
   Partner.findById(id, function(err, partner) {
+    if (!partner) return next(err);
     res.render('auth/edit/partners/partner.jade', {partner: partner});
   });
 });
@@ -1094,6 +1127,7 @@ app.get('/auth/edit/photos/:id', checkAuth, editPhotoStream, function (req, res)
   var id = req.params.id;
 
   Photo.findById(id, function(err, photo) {
+    if (!photo) return next(err);
     res.render('auth/edit/photos/photo.jade', {photo: photo});
   });
 });
@@ -1214,6 +1248,7 @@ app.get('/logout', function (req, res) {
 // *** Static Block ***
 // ------------------------
 
+
 app.get('/contacts', photoStream, function (req, res) {
   res.render('static/contacts.jade');
 });
@@ -1238,27 +1273,10 @@ app.get('/history', photoStream, function (req, res) {
   res.render('static/history.jade');
 });
 
-app.get('/fa83f41cd8b1.html', function (req, res) {
-  res.render('yandex/mail.jade');
-});
-
-app.get('/yandex_67a4a7cf92fb328f.html', function (req, res) {
-  res.render('yandex/webmaster.jade');
-});
-
 
 // ------------------------
 // *** Other Block ***
 // ------------------------
-
-
-app.get('/error', function (req, res) {
-  res.render('error');
-});
-
-app.get('*', function(req, res) {
-  res.render('error');
-});
 
 
 app.listen(3000);

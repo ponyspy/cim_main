@@ -9,7 +9,7 @@
 }
 
 .error_title {
-	width: 85px;
+	width: 120px;
 	/*padding-top: 100px;*/
 	margin-left: 10px;
 	/*margin: 0 auto;*/
@@ -20,7 +20,7 @@
 }
 
 .error_s_title {
-	width: 165px;
+	/*width: 200px;*/
 	font-family: 'Times New Roman';
 	margin-left: 10px;
 	/*margin: 0 auto;*/
