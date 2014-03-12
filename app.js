@@ -1253,16 +1253,8 @@ app.get('/contacts', photoStream, function (req, res) {
   res.render('static/contacts.jade');
 });
 
-app.get('/institute', photoStream, function (req, res) {
-  res.render('static/institute.jade');
-});
-
 app.get('/now', photoStream, function (req, res) {
   res.render('static/now.jade');
-});
-
-app.get('/halls', photoStream, function (req, res) {
-  res.render('static/halls.jade');
 });
 
 app.get('/fokin', photoStream, function (req, res) {
