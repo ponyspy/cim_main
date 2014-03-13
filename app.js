@@ -1271,5 +1271,10 @@ app.get('/history', photoStream, function (req, res) {
 // ------------------------
 
 
+app.get('/google6f2c73e02ca5facd.html', function(req, res){
+  res.sendfile('google6f2c73e02ca5facd.html',  {root: './public'});
+});
+
+
 app.listen(3000);
 console.log('http://127.0.0.1:3000')
