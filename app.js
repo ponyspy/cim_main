@@ -151,6 +151,25 @@ app.post('/mlist', function (req, res) {
 
 
 // ------------------------
+// *** API Block ***
+// ------------------------
+
+
+app.get('/api/v1/:path', function(req, res) {
+  var properties = req.params.path.split('&');
+  var obj = {};
+
+  properties.forEach(function(property) {
+    var tup = property.split('=');
+    obj[tup[0]] = tup[1];
+  });
+
+  console.log(obj)
+  res.render('/error');
+});
+
+
+// ------------------------
 // *** Main Block ***
 // ------------------------
 
