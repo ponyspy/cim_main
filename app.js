@@ -157,15 +157,21 @@ app.post('/mlist', function (req, res) {
 
 app.get('/api/v1/:path', function(req, res) {
   var properties = req.params.path.split('&');
-  var obj = {};
+  var params = {};
+  var query = {};
 
   properties.forEach(function(property) {
     var tup = property.split('=');
-    obj[tup[0]] = tup[1];
+    params[tup[0]] = tup[1];
   });
 
-  console.log(obj)
-  res.render('/error');
+  if (params.id)
+    query = {'_id': params.id}
+
+
+  Event.find(query, '-__v -meta.columns.one -meta.columns.two -en -date -members._id').skip(params.skip).limit(params.limit).exec(function(err, events) {
+    res.send(events);
+  });
 });
 
 
