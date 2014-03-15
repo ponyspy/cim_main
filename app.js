@@ -170,7 +170,7 @@ app.get('/api/v1/:path', function(req, res) {
   if (params.location == 'events') {
     var exclude = params.fields ? params.fields.replace(/\,/g,' ') : '-__v -meta.columns.one -meta.columns.two -en -date -members._id';
 
-    Event.find(query, exclude).skip(params.skip).limit(params.limit || 10).exec(function(err, events) {
+    Event.find(query, exclude).sort(params.sort).skip(params.skip).limit(params.limit || 10).exec(function(err, events) {
       res.send(events);
     });
   }
@@ -178,7 +178,7 @@ app.get('/api/v1/:path', function(req, res) {
   else if (params.location == 'schedule') {
     var exclude = params.fields ? params.fields.replace(/\,/g,' ') : '-__v -events._id -events.banner';
 
-    Schedule.find(query, exclude).gte(params.start).lte(params.end).exec(function(err, schedule) {
+    Schedule.find(query, exclude).sort(params.sort).gte(params.start).lte(params.end).exec(function(err, schedule) {
       res.send(schedule);
     });
   }
