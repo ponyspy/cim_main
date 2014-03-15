@@ -168,13 +168,17 @@ app.get('/api/v1/:path', function(req, res) {
   query = params.id ? {'_id': params.id} : {}
 
   if (params.location == 'events') {
-    Event.find(query, '-__v -meta.columns.one -meta.columns.two -en -date -members._id').skip(params.skip).limit(params.limit || 10).exec(function(err, events) {
+    var exclude = params.fields ? params.fields.replace(/\,/g,' ') : '-__v -meta.columns.one -meta.columns.two -en -date -members._id';
+
+    Event.find(query, exclude).skip(params.skip).limit(params.limit || 10).exec(function(err, events) {
       res.send(events);
     });
   }
 
   else if (params.location == 'schedule') {
-    Schedule.find(query, '-__v').gte(params.start).lte(params.end).exec(function(err, schedule) {
+    var exclude = params.fields ? params.fields.replace(/\,/g,' ') : '-__v -events._id -events.banner';
+
+    Schedule.find(query, exclude).gte(params.start).lte(params.end).exec(function(err, schedule) {
       res.send(schedule);
     });
   }
