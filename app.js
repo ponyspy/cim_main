@@ -168,18 +168,18 @@ app.get('/api/v1/:path', function(req, res) {
   query = params.id ? {'_id': params.id} : {}
 
   if (params.location == 'events') {
-    Event.find(query, '-__v -meta.columns.one -meta.columns.two -en -date -members._id').skip(params.skip).limit(params.limit).exec(function(err, events) {
+    Event.find(query, '-__v -meta.columns.one -meta.columns.two -en -date -members._id').skip(params.skip).limit(params.limit || 10).exec(function(err, events) {
       res.send(events);
     });
   }
 
-  if (params.location == 'schedule') {
+  else if (params.location == 'schedule') {
     Schedule.find(query, '-__v').gte(params.start).lte(params.end).exec(function(err, schedule) {
       res.send(schedule);
     });
   }
 
-  if (!params.location) return next(err);
+  else return next(err);
 });
 
 
