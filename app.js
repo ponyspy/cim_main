@@ -158,27 +158,28 @@ app.post('/mlist', function (req, res) {
 app.get('/api/v1/:path', function(req, res) {
   var properties = req.params.path.split('&');
   var params = {};
-  var query = {};
 
   properties.forEach(function(property) {
     var tup = property.split('=');
     params[tup[0]] = tup[1];
   });
 
-  query = params.id ? {'_id': params.id} : {}
-
   if (params.location == 'events') {
+    var query = params.id ? {'_id': params.id} : {}
     var exclude = params.fields ? params.fields.replace(/\,/g,' ') : '-__v -meta.columns.one -meta.columns.two -en -date -members._id';
+    var populated = params.populate == 'true' ? 'members.m_id' : '';
 
-    Event.find(query, exclude).sort(params.sort).skip(params.skip).limit(params.limit || 10).exec(function(err, events) {
+    Event.find(query, exclude).populate(populated).sort(params.sort).skip(params.skip).limit(params.limit || 10).exec(function(err, events) {
       res.send(events);
     });
   }
 
   else if (params.location == 'schedule') {
+    var query = params.id ? {'_id': params.id} : {}
     var exclude = params.fields ? params.fields.replace(/\,/g,' ') : '-__v -events._id -events.banner';
+    var populated = params.populate == 'true' ? 'events.event' : '';
 
-    Schedule.find(query, exclude).sort(params.sort).gte(params.start).lte(params.end).exec(function(err, schedule) {
+    Schedule.find(query, exclude).populate(populated).sort(params.sort).gte(params.start).lte(params.end).exec(function(err, schedule) {
       res.send(schedule);
     });
   }
