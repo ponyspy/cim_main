@@ -165,13 +165,21 @@ app.get('/api/v1/:path', function(req, res) {
     params[tup[0]] = tup[1];
   });
 
-  if (params.id)
-    query = {'_id': params.id}
+  query = params.id ? {'_id': params.id} : {}
 
+  if (params.location == 'events') {
+    Event.find(query, '-__v -meta.columns.one -meta.columns.two -en -date -members._id').skip(params.skip).limit(params.limit).exec(function(err, events) {
+      res.send(events);
+    });
+  }
 
-  Event.find(query, '-__v -meta.columns.one -meta.columns.two -en -date -members._id').skip(params.skip).limit(params.limit).exec(function(err, events) {
-    res.send(events);
-  });
+  if (params.location == 'schedule') {
+    Schedule.find(query, '-__v').gte(params.start).lte(params.end).exec(function(err, schedule) {
+      res.send(schedule);
+    });
+  }
+
+  if (!params.location) return next(err);
 });
 
 
