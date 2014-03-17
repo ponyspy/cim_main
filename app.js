@@ -36,7 +36,11 @@ app.use(function(req, res, next) {
 
   // respond with json
   if (req.accepts('json')) {
-    res.send({ error: 'Not found' });
+      res.send({
+      error: {
+        status: 'Not found'
+      }
+    });
     return;
   }
 
@@ -85,10 +89,16 @@ function checkPartner (req, res, next) {
   var params = splitParams(properties);
 
   Partner.find({'key': params.secret}).exec(function(err, partner) {
-    if (partner.length != 0 && partner[0].services.api == true)
+    if (partner.length != 0 && partner[0].services.api == true) {
       next();
-    else
-      res.send('bad key');
+    }
+    else {
+      res.send({
+        error:{
+          status: 'bad key'
+        }
+      });
+    }
   });
 }
 
