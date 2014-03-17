@@ -80,6 +80,18 @@ function checkAuth (req, res, next) {
     res.redirect('/login');
 }
 
+function checkPartner (req, res, next) {
+  var properties = req.params.path.split('&');
+  var params = splitParams(properties);
+
+  Partner.find({'key': params.secret}).exec(function(err, partner) {
+    if (partner.length != 0 && partner[0].services.api == true)
+      next();
+    else
+      res.send('bad key');
+  });
+}
+
 function photoStream (req, res, next) {
   Photo.find().sort('-date').limit(3).exec(function(err, photos) {
     res.locals.photos = photos;
@@ -113,6 +125,17 @@ var deleteFolderRecursive = function(path) {
     fs.rmdirSync(path);
   }
 };
+
+function splitParams (properties) {
+  var params = {};
+
+  properties.forEach(function(property) {
+    var tup = property.split('=');
+    params[tup[0]] = tup[1];
+  });
+
+  return params;
+}
 
 
 // ------------------------
@@ -155,14 +178,9 @@ app.post('/mlist', function (req, res) {
 // ------------------------
 
 
-app.get('/api/v1/:path', function(req, res) {
+app.get('/api/v1/:path', checkPartner, function(req, res) {
   var properties = req.params.path.split('&');
-  var params = {};
-
-  properties.forEach(function(property) {
-    var tup = property.split('=');
-    params[tup[0]] = tup[1];
-  });
+  var params = splitParams(properties);
 
   if (params.location == 'events') {
     var query = params.id ? {'_id': params.id} : {}
