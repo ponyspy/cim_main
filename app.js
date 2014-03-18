@@ -88,16 +88,15 @@ function checkPartner (req, res, next) {
   var properties = req.params.path.split('&');
   var params = splitParams(properties);
 
-  Partner.find({'key': params.secret}).exec(function(err, partner) {
-    if (partner.length != 0 && partner[0].services.api == true) {
+  Partner.find({'secret': params.secret}).exec(function(err, partner) {
+    if (!partner) {
+      res.send({ error: { status: 'Key Not Found'} });
+    }
+    else if (partner.length != 0 && partner[0].services.api == true) {
       next();
     }
     else {
-      res.send({
-        error:{
-          status: 'bad key'
-        }
-      });
+      res.send({ error: { status: 'Not Key Param'} });
     }
   });
 }
@@ -1335,11 +1334,6 @@ app.get('/history', photoStream, function (req, res) {
 // ------------------------
 // *** Other Block ***
 // ------------------------
-
-
-app.get('/google6f2c73e02ca5facd.html', function(req, res){
-  res.sendfile('google6f2c73e02ca5facd.html',  {root: './public'});
-});
 
 
 app.listen(3000);

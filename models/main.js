@@ -47,7 +47,7 @@ var partnerSchema = new Schema({
   },
   logo: String,
   link: String,
-  key: String,
+  secret: {type: Schema.Types.ObjectId, default: mongoose.Types.ObjectId},
   services: {
     tickets: {type: Boolean, default: false},
     api: {type: Boolean, default: false},

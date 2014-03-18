@@ -35,11 +35,13 @@ block content
 			.form_title Логотип:
 			input(type="file", name="logo")
 			.form_title Доступ:
-			input(type='checkbox', name='services[list]', value='true', checked=partner.services.list)
-			|список
-			br
 			input(type='checkbox', name='services[api]', value='true', checked=partner.services.api)
-			|api
+			|api | ключ:
+			b &nbsp;#{partner.secret}
 			br
 			input(type='checkbox', name='services[tickets]', value='true', checked=partner.services.tickets)
 			|билеты
+			br
+			input(type='checkbox', name='services[list]', value='true', checked=partner.services.list)
+			|список
+			br
