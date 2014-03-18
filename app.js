@@ -16,7 +16,16 @@ app.locals.pretty = true;
 app.use(express.bodyParser({ keepExtensions: true, uploadDir:__dirname + '/uploads' }));
 app.use(express.methodOverride());
 app.use(express.cookieParser());
-app.use(express.session({ secret: 'keyboard cat' }));
+
+app.use(express.session({
+  key: 'cim.sess',
+  secret: 'keyboard cat',
+  cookie: {
+    path: '/',
+    maxAge: 1000 * 60 * 60 // 1 hour
+  }
+}));
+
 app.use(express.static(__dirname + '/public'));
 app.use(function(req, res, next) {
   res.locals.session = req.session;
