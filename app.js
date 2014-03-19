@@ -220,7 +220,20 @@ app.get('/api/v1/:path', checkPartner, function(req, res) {
     });
   }
 
-  else return next(err);
+  else res.send({ error: { status: 'Wrong Location'} });
+});
+
+app.get('/api/doc/:secret', photoStream, function (req, res) {
+  var secret = req.params.secret;
+
+  Partner.find({'secret': secret}).exec(function(err, partner) {
+    if (partner.length != 0 && partner[0].services.api == true) {
+      res.render('static/api.jade', {secret: secret});
+    }
+    else {
+      next(err);
+    }
+  });
 });
 
 
