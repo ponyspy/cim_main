@@ -223,7 +223,7 @@ app.get('/api/v1/:path', checkPartner, function(req, res) {
   else res.send({ error: { status: 'Wrong Location'} });
 });
 
-app.get('/api/doc/:secret', photoStream, function (req, res) {
+app.get('/api/doc/:secret', photoStream, function (req, res, next) {
   var secret = req.params.secret;
 
   Partner.find({'secret': secret}).exec(function(err, partner) {
@@ -1009,6 +1009,16 @@ app.get('/auth/edit/partners/:id', checkAuth, function (req, res) {
   Partner.findById(id, function(err, partner) {
     if (!partner) return next(err);
     res.render('auth/edit/partners/partner.jade', {partner: partner});
+  });
+});
+
+app.post('/rm_partner', function (req, res) {
+  var id = req.body.id;
+
+  Partner.findByIdAndRemove(id, function() {
+    fs.unlink(__dirname + '/public/images/partners/' + id + '.jpg', function() {
+      res.send('ok');
+    });
   });
 });
 

@@ -37,7 +37,8 @@ block content
 			.form_title Доступ:
 			input(type='checkbox', name='services[api]', value='true', checked=partner.services.api)
 			|api | ключ:
-			b &nbsp;#{partner.secret}
+			b &nbsp;#{partner.secret}&nbsp;
+			a(href='/api/doc/' + partner.secret, target='_blank') документация
 			br
 			input(type='checkbox', name='services[tickets]', value='true', checked=partner.services.tickets)
 			|билеты
