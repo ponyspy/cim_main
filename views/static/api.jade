@@ -27,10 +27,6 @@ block content
 			.description
 				pre
 					|location: {
-					|   auth: {
-					|     secret: secret_key,
-					|     session: 'init' || 'update' || 'destroy'
-					|   },
 					|   events: {
 					|     id: event_id,
 					|     sort: 'event_param' || '-event_param',
@@ -62,9 +58,9 @@ block content
 				i= '/api/v1/param1=value&param2=value1,value2'
 				br
 				br
-				p Параметры имеют вид param=value и разделяются знаком '&' если параметры может принимать несколько значений, все они разделяются знаком ','
-				p Порядок перечисления параметров значения не имеет
-				p Параметры имеющие неправильный формат не обрабатываются
+				p Параметры имеют вид param=value и разделяются знаком '&' если параметры может принимать несколько значений, все они разделяются знаком ','.
+				p Порядок перечисления параметров значения не имеет.
+				p Параметры имеющие неправильный формат не обрабатываются.
 			.s_title Параметры API
 			.description
 				br
@@ -76,6 +72,18 @@ block content
 				br
 				br
 				p Обозначает раздел к которому происходит обращение
+				br
+				br
+
+
+				b secret
+				br
+				i Статус - Обязательный
+				br
+				i Значение: secret_key
+				br
+				br
+				p Секретный ключ, необходимый для доступа к api
 
 
 				br
@@ -321,7 +329,7 @@ block content
 				br
 				br
 
-				b Получить список событий в порядке: {event_param} начиная с {Number} и заканчивая {Number}
+				b Получить список событий в порядке: {date} начиная с {2} и заканчивая {15}
 				br
 				i /api/v1/location=events&sort={date}&skip={Number}&limit={Number}
 				br
@@ -330,9 +338,9 @@ block content
 				br
 
 
-				b Получить список событий в порядке {event_param} с наcелением полей участников {Boolean} и исключением полей "зал" и "подзаголовок события"
+				b Получить список событий в порядке {date} с наcелением полей участников {true} и исключением полей {hall} и {ru.s_title}
 				br
-				i /api/v1/location=events&sort={date}&populate={Boolean}&fields={-schedule_param_1,-schedule_param_2,-schedule_param_n}
+				i /api/v1/location=events&sort={date}&populate={true}&fields={-hall,-ru.s_title}
 				br
 				a(href='/api/v1/location=events&sort=date&populate=true&fields=-hall,-ru.s_title&secret=' + secret, target='_blank') запрос
 				br
@@ -341,9 +349,9 @@ block content
 
 
 
-				b Получить список событий и отсеить все поля кроме "возраст" и "заголовок события"
+				b Получить список событий и отсеить все поля кроме {age} и {ru.title}
 				br
-				i /api/v1/location=events&fields={schedule_param_1,schedule_param_2,schedule_param_n}
+				i /api/v1/location=events&fields={age, ru.title}
 				br
 				a(href='/api/v1/location=events&fields=age,ru.title&secret=' + secret, target='_blank') запрос
 				br
