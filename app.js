@@ -214,8 +214,10 @@ app.get('/api/v1/:path', checkPartner, function(req, res) {
     var query = params.id ? {'_id': params.id} : {}
     var exclude = params.fields ? params.fields.replace(/\,/g,' ') : '-__v -events._id -events.banner';
     var populated = params.populate == 'true' ? 'events.event' : '';
+    var start = params.start ? new Date(params.start) : {};
+    var end = params.end ? new Date(params.end) : {};
 
-    Schedule.find(query, exclude).populate(populated).sort(params.sort).gte(params.start).lte(params.end).exec(function(err, schedule) {
+    Schedule.find(query, exclude).populate(populated).sort(params.sort).gte(start).lte(end).exec(function(err, schedule) {
       res.send(schedule);
     });
   }
