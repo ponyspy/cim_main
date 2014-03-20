@@ -46,39 +46,39 @@ function backScroller () {
 }
 
 function showStream () {
-	$('.maket').fadeIn('fast');
+	$('.maket').dequeue().stop(true, true).fadeIn('fast');
 	$('.stream_title').hide();
-	$('.background_description_block').stop(true, true).fadeOut('fast');
+	$('.background_description_block').dequeue().stop(true, true).fadeOut('fast');
 }
 
 function hideStream () {
-	$('.maket').fadeOut('fast');
+	$('.maket').dequeue().stop(true, true).fadeOut('fast');
 	$('.stream_title').show();
-	$('.background_description_block').stop(true, true).fadeIn('fast');
+	$('.background_description_block').dequeue().stop(true, true).fadeIn('fast');
 }
 
 function fixStream () {
 	$(this).data('clicked', !$(this).data('clicked'));
 
 	if ($(this).data('clicked')) {
-		$(this).off('mouseout mouseover');
-		$(this).on('mouseover', showStream)
-					 .on('mouseout', hideStream);
+		$(this).off('mouseleave mouseenter');
+		$(this).on('mouseenter', showStream)
+					 .on('mouseleave', hideStream);
 		$('.background_block').on('scroll', backScroller);
 	}
 	else {
-		$(this).off('mouseover mouseout');
+		$(this).off('mouseenter mouseleave');
 		$('.background_block').off('scroll');
-		$(this).on('mouseover', hideStream)
-					 .on('mouseout', showStream);
+		$(this).on('mouseenter', hideStream)
+					 .on('mouseleave', showStream);
 		$('.background_item').eq(counter).scrollintoview();
 	}
 }
 
 $(document).ready(function() {
 
-	$('.photo_stream').on('mouseover', hideStream)
-										.on('mouseout', showStream)
+	$('.photo_stream').on('mouseenter', hideStream)
+										.on('mouseleave', showStream)
 										.on('click', fixStream);
 
 
