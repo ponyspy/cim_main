@@ -27,7 +27,7 @@ p {
 	display:block;
 	overflow: hidden;
 	position: relative;
-	background-color: white;
+	background-color: black;
 }
 
 .layer {
@@ -46,10 +46,19 @@ p {
 	border-radius: 360px;
 }
 
+.r_white {
+	background-color: white;
+}
+
+.afisha_skip {
+	margin-left: 5px;
+	text-transform: uppercase;
+}
+
 .main_poster_cal {
 	width: 930px;
 	height: 80px;
-	display: none;
+	background-color: black;
 }
 
 .hide {

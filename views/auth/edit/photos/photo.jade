@@ -36,5 +36,5 @@ block content
 		input(type="file", name="img")
 		.form_title Стиль:
 		select(name='style')
-			option(value='black') Черный
-			option(value='white') Белый
+			option(value='black', selected=photo.style=='black') Черный
+			option(value='white', selected=photo.style=='white') Белый

@@ -5,9 +5,13 @@ block title
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/add.css')
+	if (session.user_id == '51e3a88603ba37c589000001')
+		link(rel='stylesheet', type='text/css', href='/styles/lol/bazova.css')
 
 block content_scripts
 	script(type='text/javascript', src='/scripts/add.js')
+	if (session.user_id == '51e3a88603ba37c589000001')
+		script(type='text/javascript', src='/scripts/lol/bazova.js')
 
 block content_right
 	.navigator
