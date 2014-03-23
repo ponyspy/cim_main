@@ -216,9 +216,8 @@ app.get('/api/v1/:path', checkPartner, function(req, res) {
     var populated = params.populate == 'true' ? 'events.event' : '';
     var def = new Date();
 
-    var start = params.start ? new Date(+params.start) : new Date(def.setFullYear(def.getFullYear(), def.getMonth(), 1));
+    var start = params.start ? new Date(+params.start) : new Date();
     var end = params.end ? new Date(+params.end) : new Date(def.setFullYear(def.getFullYear(), (def.getMonth()+1), 0));
-
 
     Schedule.find(query, exclude).populate(populated).sort(params.sort).gte('date', start).lte('date', end).exec(function(err, schedule) {
       res.send(schedule);
