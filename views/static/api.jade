@@ -306,6 +306,7 @@ block content
 					|{
 					|_id: ObjectId,	// Идентификатор даты в расписании
 					|  events: [{	// Массив событий
+					|      _id: ObjectId // Идентификатор показа
 					|    event: { ObjectId, ref: 'Event' },	// Идентификатор события
 					|    premiere: String,	// Премьера или не премьера
 					|    banner: String,
