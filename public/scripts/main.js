@@ -1,6 +1,5 @@
 $(document).ready(function() {
 	var skip = 6;
-	var last_rand = 0;
 
 	function preload(arrayOfImages) {
 		$(arrayOfImages).each(function(){
@@ -8,23 +7,24 @@ $(document).ready(function() {
 		});
 	}
 
-	function getRandom (min, max) {
-		var rand = min - 0.5 + Math.random()*(max-min+1)
-		return Math.round(rand);
+	var random = {
+		randNum: 0,
+		randNumOld: 0,
+		oMin: 0,
+		oMax: 0,
+		getRandomInt: function (min, max) {
+			random.oMin = min;
+			random.oMax = max;
+			random.randNum = Math.floor(Math.random() * (max - min + 1)) + min;
+			if (random.randNum == random.randNumOld) random.getRandomInt(random.oMin, random.oMax );
+			random.randNumOld = random.randNum;
+			return random.randNum;
+		}
 	}
 
 	function generatePoster () {
 		var hide_items = $('.hide').size() - 1;
-		var rand_items = getRandom(0, hide_items);
-
-		if (rand_items == last_rand) {
-			rand_items = rand_items + 1;
-			if (rand_items > hide_items) rand_items = 0;
-			last_rand = rand_items;
-		}
-		else {
-			last_rand = rand_items;
-		}
+		var rand_items = random.getRandomInt(0, hide_items);
 
 		var atr = $('.hide').eq(rand_items).attr('src');
 		$('.image').attr('src', atr);
@@ -39,7 +39,7 @@ $(document).ready(function() {
 	}, {frameDuration:'50'}, {xparallax: '600px', yparallax: '600px'});
 
 	$('.layer').click(function() {
-		var rand_radius = getRandom(200, 600);
+		var rand_radius = random.getRandomInt(200, 600);
 		generatePoster();
 
 		$('.round').animate({
@@ -56,41 +56,34 @@ $(document).ready(function() {
 		}
 	}
 
-	function zeroDate (date) {
-		if (date < 10)
-			return '0' + date;
-		else
-			return date;
-	}
-
 	function ItemConstructor(data, event) {
 		skip = skip + event.data.offset;
 		var t = 0;
 
 		if (data != 'exit') {
 			for (var i in data) {
-				var d2 = new Date(data[i].date)
-						var d3 = d2.getDate();
-						var month = d2.getMonth()+1;
+				var data_date = new Date(data[i].date)
+						var d3 = data_date.getDate() < 10 ? '0' + data_date.getDate() : data_date.getDate();
+						var month = (data_date.getMonth() + 1) < 10 ? '0' + (data_date.getMonth() + 1) : data_date.getMonth() + 1
 
 
 				if (t == 3) t = 0;
 				var item = $('<div />', {'class':'infinite-item'});
 				var link = $('<a />', {'class':'item_link', 'href':'/news/' + data[i]._id});
 				var title = $('<div />', {'class':'item_title', 'text': data[i].ru.title.toUpperCase()});
-				// var tag = $('<div />', {'class':'item_date', 'text': data[i].tag});
 				var date = $('<div />', {'class':'item_date'});
-				var d = $('<div />', {'class':'date', 'text': zeroDate(d3)});
+				var d = $('<div />', {'class':'date', 'text': d3});
 				var dot = $('<div />', {'class':'dot', 'text': '.'});
-				var m = $('<div />', {'class':'month', 'text': zeroDate(month)});
+				var m = $('<div />', {'class':'month', 'text': month});
+
 				if (data[i].poster)
 					var img = $('<img />', {'class':'item_img', 'src': data[i].poster});
 				else
 					if(data[i].ru.title.length < 20)
 						var img = $('<div />', {'class':'item_body', 'lang':'ru', 'html': trimString(data[i].ru.body)});
-				// $('.infinite-container').append(item.append(link).append(title).append(date).append(img));
+
 				$('.infinite-column').eq(t).append(item.append(link.append(title)).append(date.append(d, dot, m)).append(img));
-				// $('.infinite-column').eq(t).append(item.append(link.append(title, date, img)));
+
 				t++;
 			}
 			$('.loader').hide();
