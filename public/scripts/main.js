@@ -8,20 +8,17 @@ $(document).ready(function() {
 	}
 
 	var random = {
-		randNum: 0, randNumOld: 0,
-		oMin: 0, oMax: 0,
+		andNumOld: 0,
 
 		getRandomInt: function (min, max) {
-			random.oMin = min;
-			random.oMax = max;
+			var randNum = Math.floor(Math.random() * (max - min + 1)) + min;
 
-			random.randNum = Math.floor(Math.random() * (max - min + 1)) + min;
-			if (random.randNum == random.randNumOld) random.getRandomInt(random.oMin, random.oMax);
-			random.randNumOld = random.randNum;
+			if (randNum == random.randNumOld) return random.getRandomInt(min, max);
+			random.randNumOld = randNum;
 
-			return random.randNum;
+			return randNum;
 		}
-	}
+	};
 
 	function generatePoster () {
 		var hide_items = $('.hide').size() - 1;
