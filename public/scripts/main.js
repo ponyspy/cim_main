@@ -8,7 +8,7 @@ $(document).ready(function() {
 	}
 
 	var random = {
-		andNumOld: 0,
+		randNumOld: 0,
 
 		getRandomInt: function (min, max) {
 			var randNum = Math.floor(Math.random() * (max - min + 1)) + min;
