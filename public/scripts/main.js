@@ -1,5 +1,8 @@
 $(document).ready(function() {
 	var skip = 6;
+	var hide_items = $('.hide').size();
+	var roundRandom = rund(600, 200);
+	var itemsRandom = rund(hide_items, 0);
 
 	function preload(arrayOfImages) {
 		$(arrayOfImages).each(function(){
@@ -7,23 +10,33 @@ $(document).ready(function() {
 		});
 	}
 
-	var random = {
-		randNumOld: 0,
-
-		getRandomInt: function (min, max) {
-			var randNum = Math.floor(Math.random() * (max - min + 1)) + min;
-
-			if (randNum == random.randNumOld) return random.getRandomInt(min, max);
-			random.randNumOld = randNum;
-
-			return randNum;
+	function rund(len, min) {
+		function shuffle(arr) {
+				for (var i = len = arr.length, elem; elem = arr[--i];) {
+						var num = Math.floor(Math.random() * len);
+								arr[i] = arr[num];
+								arr[num] = elem;
+				}
+				return arr
+		} //функция для перемешивания массива
+		var base = [], // основной массив
+				temp = [], // запасной массив
+				i ;
+		for (i = 0; i < len; i++) base[i] = i + min; // формирование значений основного массива[1, 2, 3, 4, 5]
+		shuffle(base); // первый раз перемешали основной массив [4, 3, 2, 1, 5]
+		return function () {
+				var elem = base.shift(); // берём первый элемент основного массива
+				temp.push(elem); //добавляем в запасной
+				1 == base.length && (shuffle(temp), base = base.concat(temp), temp = []);
+				// если в основном остался 1 элемент, перемешиваем запасной и добавляем к основному, очищаем запасной
+				return elem
 		}
 	};
 
 	function generatePoster () {
-		var hide_items = $('.hide').size() - 1;
-		var rand_items = random.getRandomInt(0, hide_items);
-		var rand_radius = random.getRandomInt(200, 600);
+
+		var rand_items = itemsRandom();
+		var rand_radius = roundRandom();
 
 		var atr = $('.hide').eq(rand_items).attr('src');
 		$('.image').attr('src', atr);
