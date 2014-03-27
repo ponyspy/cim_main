@@ -55,13 +55,6 @@ $(document).ready(function() {
 		mouseport: $('.main_poster_img')
 	}, {frameDuration:'50'}, {xparallax: '600px', yparallax: '600px'});
 
-
-
-
-
-
-
-
 	function trimString (str) {
 		for (var i = 150; i < str.length; i++) {
 			if (str[i] == '.' || str[i] == '?' || str[i] == '!') {
@@ -85,10 +78,7 @@ $(document).ready(function() {
 				var item = $('<div />', {'class':'infinite-item'});
 				var link = $('<a />', {'class':'item_link', 'href':'/news/' + data[i]._id});
 				var title = $('<div />', {'class':'item_title', 'text': data[i].ru.title.toUpperCase()});
-				var date = $('<div />', {'class':'item_date'});
-				var d = $('<div />', {'class':'date', 'text': d3});
-				var dot = $('<div />', {'class':'dot', 'text': '.'});
-				var m = $('<div />', {'class':'month', 'text': month});
+				var date = $('<div />', {'class':'item_date', 'text': d3 + ' ⋅ ' + month});
 
 				if (data[i].poster)
 					var img = $('<img />', {'class':'item_img', 'src': data[i].poster});
@@ -96,7 +86,7 @@ $(document).ready(function() {
 					if(data[i].ru.title.length < 20)
 						var img = $('<div />', {'class':'item_body', 'lang':'ru', 'html': trimString(data[i].ru.body)});
 
-				$('.infinite-column').eq(t).append(item.append(link.append(title)).append(date.append(d, dot, m)).append(img));
+				$('.infinite-column').eq(t).append(item.append(link.append(title)).append(date, img));
 
 				t++;
 			}
