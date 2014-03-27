@@ -137,7 +137,7 @@ p {
 
 .tag_navigator {
 	width: 150px;
-	height: 200px;
+	min-height: 200px;
 	float: right;
 	background-color: black;
 	color: white;
@@ -159,6 +159,11 @@ p {
 
 .tag_item {
 	cursor: pointer;
+}
+
+.tag_title {
+	margin-top: 8px;
+	margin-bottom: 5px;
 }
 
 .tag_item:hover {

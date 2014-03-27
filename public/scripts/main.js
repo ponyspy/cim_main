@@ -1,7 +1,7 @@
 $(document).ready(function() {
 	var skip = 6;
 	var hide_items = $('.hide').size();
-	var roundRandom = rund(600, 200);
+	var roundRandom = rund(500, 200);
 	var itemsRandom = rund(hide_items, 0);
 
 	function preload(arrayOfImages) {
