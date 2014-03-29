@@ -15,11 +15,12 @@ block content_right
 			a.edit_btn(href='/auth/edit/news/' + news._id, target='_blank') РЕДАКТИРОВАТЬ
 		if (news.events)
 			.pin_events_block
-				each event in news.events
-					a.pin_event_link(href='/event/' + event._id)
-						.pin_event
-							.pin_event_titile= event.ru.title.toUpperCase()
-							.pin_event_s_titile= event.ru.s_title.toUpperCase()
+				.pin_events_scroll
+					each event in news.events
+						a.pin_event_link(href='/event/' + event._id)
+							.pin_event
+								.pin_event_titile= event.ru.title.toUpperCase()
+								.pin_event_s_titile= event.ru.s_title.toUpperCase()
 
 block content
 	if (news.photo)

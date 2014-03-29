@@ -367,12 +367,15 @@ body {
  */
 
 .pin_events_block {
-	/*width: 160px;*/
-	/*margin-top: 20px;*/
-	min-height: 20px;
-	/*float: right;*/
-	position: fixed;
-	/*margin-left: 950px;*/
+	width: 170px;
+	overflow: hidden;
+}
+
+.pin_events_scroll {
+	width: 200px;
+	overflow: auto;
+	height: 450px;
+	position: relative;
 }
 
 a.pin_event_link {
