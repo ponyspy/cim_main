@@ -252,7 +252,7 @@ app.get('/', photoStream, function(req, res) {
   start.setDate(start.getDate()-1);
   end.setFullYear(end.getFullYear(), (end.getMonth()+1), 0);
 
-  Schedule.find({'date': {'$gte': start, '$lt': end}}).populate('events.event').where('events.banner').equals('true').exec(function(err, schedule) {
+  Schedule.find().where('date').gte(start).lt(end).where('events.banner').equals('true').populate('events.event').exec(function(err, schedule) {
     News.find().sort('-date').limit(6).exec(function(err, news) {
       res.render('index', {news: news, schedule: schedule});
     });
