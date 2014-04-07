@@ -65,24 +65,26 @@ block content
 						.cal_title.cal_title_big= months[date.getMonth()+2]
 			each date in schedule
 				each event in date.events
-					img.hide(src=event.event.photo)
+					if (event.banner == 'true')
+						img.hide(src=event.event.photo)
 			.layer.round(style=schedule.length == 0 ? 'background-color: white;' : '')
 		if (schedule.length != 0)
 			each date in schedule
 				each event in date.events
-					.main_poster_cal
-						- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ']
-						- var d = date.date.getDate()
-						- d = d < 10 ? '0' + d : d
-						.cal_date= days[date.date.getDay()] + '.' + d
-						- var hall = {'main': 'большой зал', 'black': 'черный зал', 'white': 'белый зал', 'cafe': 'кафе', 'lobby': 'фойе', '301': 'комната 301', '306': 'комната 306'}
-						.cal_schedule
-							.cal_time= event.time.hours + ':' + event.time.minutes
-							.cal_hall= hall[event.event.hall]
-							//- if (event.ticket)
-								a.cal_ticket(href=event.ticket, rel='nofollow', target='_blank') купить билет
-						a(href='/event/' + event.event._id)
-							.cal_title(class=event.event.ru.title.length < 12 ? 'cal_title_big' : '')= event.event.ru.title.toUpperCase()
+					if (event.banner == 'true')
+						.main_poster_cal
+							- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ']
+							- var d = date.date.getDate()
+							- d = d < 10 ? '0' + d : d
+							.cal_date= days[date.date.getDay()] + '.' + d
+							- var hall = {'main': 'большой зал', 'black': 'черный зал', 'white': 'белый зал', 'cafe': 'кафе', 'lobby': 'фойе', '301': 'комната 301', '306': 'комната 306'}
+							.cal_schedule
+								.cal_time= event.time.hours + ':' + event.time.minutes
+								.cal_hall= hall[event.event.hall]
+								//- if (event.ticket)
+									a.cal_ticket(href=event.ticket, rel='nofollow', target='_blank') купить билет
+							a(href='/event/' + event.event._id)
+								.cal_title(class=event.event.ru.title.length < 12 ? 'cal_title_big' : '')= event.event.ru.title.toUpperCase()
 
 
 	.infinite-container
