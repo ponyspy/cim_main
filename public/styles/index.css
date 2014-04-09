@@ -16,9 +16,41 @@ p {
 .main_poster_block {
 	width: 930px;
 	height: 700px;
+	float: left;
 	/*display: none;*/
 	/*margin-top: -1px;*/
 	/*position: absolute;*/
+}
+
+.pin_news_block {
+	margin-left: 950px;
+	width: 170px;
+	height: 620px;
+	background-color: red;
+}
+
+.pin_news_scroll {
+	width: 200px;
+	overflow: auto;
+	height: 450px;
+	position: relative;
+}
+
+.pin_news {
+	width: 150px;
+	padding: 10px;
+	margin-bottom: 20px;
+	background-color: black;
+	color: white;
+}
+
+.pin_news:hover {
+	background-color: white;
+	color: black;
+}
+
+.pin_news_title {
+	font: 10pt/12pt 'PragmaticaM';
 }
 
 .main_poster_img {
