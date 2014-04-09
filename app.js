@@ -303,7 +303,7 @@ app.get('/afisha/:year/:month', function (req, res) {
   var start = new Date(year, month, 1);
   var end = new Date(year, (month + 1), 0);
 
-  Schedule.find({'date': {'$gte': start, '$lte': end}}).sort('date').populate('events.event').exec(function(err, schedule) {
+  Schedule.find().where('date').gte(start).lte(end).sort('date').populate('events.event').exec(function(err, schedule) {
     Schedule.populate(schedule, {path:'events.event.members.m_id', model: 'Member'}, function(err, schedule) {
       Project.find().exec(function(err, projects) {
         res.render('afisha', {schedule: schedule, projects: projects, month: month});
