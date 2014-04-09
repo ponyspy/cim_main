@@ -88,7 +88,7 @@ block content
 	.pin_news_block
 		.pin_news_scroll
 			each n in news
-				if (n.status == 'hot')
+				if (n.status == 'pin')
 					a.pin_news(href='/news/' + n._id)= n.ru.title.toUpperCase()
 
 	.infinite-container

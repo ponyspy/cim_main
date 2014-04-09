@@ -43,8 +43,10 @@ block content
 			input.ru(type="text", name="ru[p_author]", value=news.ru.p_author)
 			input.en(type="text", name="en[p_author]", value=news.en.p_author, disabled)
 			.form_title Статус:
-			input(type='checkbox', name='status', value='hot', checked=(news.status == 'hot' ? "checked" : undefined))
-			|важная
+			select(name='status')
+				option(value='') нет
+				option(value='hot', selected=news.status=='hot') важная
+				option(value='pin', selected=news.status=='pin') закрепленная
 			.form_title Прикрепить события
 			.snake
 				input.back(type="button", value="<")
