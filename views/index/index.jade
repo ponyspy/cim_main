@@ -87,16 +87,9 @@ block content
 								.cal_title(class=event.event.ru.title.length < 12 ? 'cal_title_big' : '')= event.event.ru.title.toUpperCase()
 	.pin_news_block
 		.pin_news_scroll
-			a.pin_news(href="#") НОВЫЙ ОБРАЗОВАТЕЛЬНЫЙ МОДУЛЬ ОТ ШКОЛЫ ТЕАТРАЛЬНОГО ЛИДЕРА!
-			a.pin_news(href="#") ОТКРЫТ НАБОР В МАГИСТРАТУРУ
-			a.pin_news(href="#") НОВЫЙ ОБРАЗОВАТЕЛЬНЫЙ МОДУЛЬ ОТ ШКОЛЫ ТЕАТРАЛЬНОГО ЛИДЕРА!
-			a.pin_news(href="#") ОТКРЫТ НАБОР В МАГИСТРАТУРУ
-			a.pin_news(href="#") НОВЫЙ ОБРАЗОВАТЕЛЬНЫЙ МОДУЛЬ ОТ ШКОЛЫ ТЕАТРАЛЬНОГО ЛИДЕРА!
-			a.pin_news(href="#") ОТКРЫТ НАБОР В МАГИСТРАТУРУ
-			a.pin_news(href="#") НОВЫЙ ОБРАЗОВАТЕЛЬНЫЙ МОДУЛЬ ОТ ШКОЛЫ ТЕАТРАЛЬНОГО ЛИДЕРА!
-			a.pin_news(href="#") ОТКРЫТ НАБОР В МАГИСТРАТУРУ
-			a.pin_news(href="#") НОВЫЙ ОБРАЗОВАТЕЛЬНЫЙ МОДУЛЬ ОТ ШКОЛЫ ТЕАТРАЛЬНОГО ЛИДЕРА!
-			a.pin_news(href="#") ОТКРЫТ НАБОР В МАГИСТРАТУРУ
+			each n in news
+				if (n.status == 'hot')
+					a.pin_news(href='/news/' + n._id)= n.ru.title.toUpperCase()
 
 	.infinite-container
 		.infinite-column
