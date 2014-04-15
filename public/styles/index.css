@@ -181,13 +181,14 @@ p {
 	margin-top: 720px;
 	margin-left: 950px;
 	position: absolute;
+	display: none;
 }
 
 .tag_navigator_sroll {
 	margin-top: -25px;
 	margin-left: 950px;
 	position: fixed;
-	/*float: right;*/
+	display: block;
 }
 
 .tag_item {
