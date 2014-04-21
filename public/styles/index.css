@@ -203,6 +203,7 @@ p {
 .tag_item:hover {
 	text-decoration: underline;
 }
+
 /*
 	Infiniti
 */
@@ -256,7 +257,7 @@ p {
 .infinite-container  {
 	width: 930px;
 	overflow: auto;
-	min-height: 800px;
+	min-height: 200px;
 }
 
 .infinite-column {
@@ -311,11 +312,26 @@ p {
 	clear: both;
 }
 
+/*
+	Loader
+*/
+
 .loader {
-	text-align: center;
 	margin-top: 20px;
+	margin-left: 315px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	text-align: center;
+	width: 300px;
+	font: 11pt/12pt 'Pragmatica';
+	background-color: white;
 }
 
-.footer_block {
-	display: none;
+.active {
+	cursor: pointer;
+}
+
+.active:hover {
+	background-color: black;
+	color: white;
 }

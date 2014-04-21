@@ -38,7 +38,7 @@ block content
 				select(name='events')
 					option(value='') нет
 					each event in events
-						option(value=event._id)= event.ru.title
+						option(value=event._id)= event.ru.title.length <= 30 ? event.ru.title : event.ru.title.slice(0,30) + '...'
 				br
 			br
 			input.plus(type="button", value="+")
