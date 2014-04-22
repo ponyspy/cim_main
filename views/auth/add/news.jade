@@ -52,7 +52,7 @@ block content
 				select(name='events')
 					option(value='') нет
 					each event in events
-						option(value=event._id)= event.ru.title
+						option(value=event._id)= event.ru.title.length <= 50 ? event.ru.title : event.ru.title.slice(0, 50) + '...'
 				input.forward(type="button", value=">")
 			.form_title Категория:
 			select(name='tag')

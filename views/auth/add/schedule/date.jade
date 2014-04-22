@@ -43,7 +43,7 @@ block content
 							select(name='events[' + index + '][event]')
 								option(value='') -- События
 								each event in events
-									option(value=event._id, selected=(event._id.toString() == item.event._id.toString()))= event.ru.title.slice(0, 30)
+									option(value=event._id, selected=(event._id.toString() == item.event._id.toString()))= event.ru.title.length <= 50 ? event.ru.title : event.ru.title.slice(0, 50) + '...'
 				else
 					.snake
 						input.minus(type="button", value="-")
@@ -63,7 +63,7 @@ block content
 						select(name='events[0][event]')
 							option(value='') -- События
 							each event in events
-								option(value=event._id)= event.ru.title.slice(0, 30)
+								option(value=event._id)= event.ru.title.length <= 50 ? event.ru.title : event.ru.title.slice(0, 50) + '...'
 				br
 				input.plus(type="button", value="+")
 				br
