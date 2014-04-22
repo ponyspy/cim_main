@@ -21,6 +21,9 @@ block content_right
 		b.form_submit ОТПРАВИТЬ
 
 block content
+	- var months = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
+	- var year = new Date()
+	- year = year.getFullYear()
 	.form_block
 		a.back_link(href='/auth/edit/news') < Назад
 		.title РЕДАКТИРОВАТЬ НОВОСТЬ
@@ -42,6 +45,19 @@ block content
 			.form_title Автор фото:
 			input.ru(type="text", name="ru[p_author]", value=news.ru.p_author)
 			input.en(type="text", name="en[p_author]", value=news.en.p_author, disabled)
+			.form_title Дата:
+			select(name='date[date]')
+				option(value='') Дата
+				- for (var i=1; i<32; i++)
+					option(value=i, selected=(i == news.date.getDate()))= i
+			select(name='date[month]')
+				option(value='') Месяц
+				each month, i in months
+					option(value=i, selected=(i == news.date.getMonth()))= month
+			select(name='date[year]')
+				option(value='') Год
+				option(value=year, selected=(year == news.date.getFullYear()))= year
+				option(value=year - 1, selected=(year - 1 == news.date.getFullYear()))= year - 1
 			.form_title Статус:
 			select(name='status')
 				option(value='') нет

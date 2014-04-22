@@ -812,6 +812,7 @@ app.post('/auth/edit/news/:id', function (req, res) {
       news.en.p_author = post.en.p_author;
     }
 
+    news.date = new Date(post.date.year, post.date.month, post.date.date)
     news.tag = post.tag;
     news.status = post.status;
     if (post.events != '')
