@@ -95,7 +95,7 @@ $(document).ready(function() {
 		else {
 			$('.loader').text('больше нет новостей').show();
 			$('.maket').off('scroll', ScrollLoader);
-			$('.footer_block, .banner_block').show();
+			$('.footer_block').show();
 		}
 	}
 
@@ -103,7 +103,8 @@ $(document).ready(function() {
 		var tag = this.className.slice(9);
 		skip = 0;
 
-		$('.footer_block, .banner_block').hide();
+		$('.footer_block').hide();
+		$('.infinite-container').css('min-height', '800px');
 		$('.maket').off('scroll', ScrollLoader);
 		$('.maket').animate({
 			scrollTop: $('.infinite-container').offset().top + $('.maket').scrollTop()
@@ -157,8 +158,16 @@ $(document).ready(function() {
 		}
 	};
 
+	$('.loader').on('click', {tag:'all', offset: 6}, ScrollLoader);
+	$('.loader').click(function(event) {
+		$(this).removeClass('active');
+		$(this).off();
+		$('.maket').on('scroll', {tag:'all', offset: 12}, ScrollLoader);
+	});
+
+
 	$('.layer').on('click', generatePoster);
 	$('.maket').on('scroll', StickyTags);
-	$('.maket').on('scroll', {tag:'all', offset: 6}, ScrollLoader);
+	// $('.maket').on('scroll', {tag:'all', offset: 6}, ScrollLoader);
 	$('.tag_item').on('click', {offset: 0}, TagLoader);
 });
