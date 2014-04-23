@@ -254,7 +254,9 @@ app.get('/', photoStream, function(req, res) {
 
   Schedule.find().where('date').gte(start).lt(end).where('events.banner').equals('true').populate('events.event').exec(function(err, schedule) {
     News.find().sort('-date').limit(6).exec(function(err, news) {
-      res.render('index', {news: news, schedule: schedule});
+      News.find().sort('-date').where('status').equals('pin').exec(function(err, pins) {
+        res.render('index', {news: news, schedule: schedule, pins: pins});
+      });
     });
   });
 });

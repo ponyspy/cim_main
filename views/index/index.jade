@@ -87,9 +87,8 @@ block content
 								.cal_title(class=event.event.ru.title.length < 12 ? 'cal_title_big' : '')= event.event.ru.title.toUpperCase()
 	.pin_news_block
 		.pin_news_scroll
-			each n in news
-				if (n.status == 'pin')
-					a.pin_news(href='/news/' + n._id)= n.ru.title.toUpperCase()
+			each pin in pins
+				a.pin_news(href='/news/' + pin._id)= pin.ru.title.toUpperCase()
 
 	.infinite-container
 		.infinite-column
