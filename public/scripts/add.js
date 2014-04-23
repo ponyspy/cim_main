@@ -33,6 +33,20 @@ $(document).ready(function() {
 
 
 // ------------------------
+// *** Autofill Block ***
+// ------------------------
+
+
+$('textarea').bind('keyup', function() {
+    var text = $(this).val();
+    text = text.replace(/<</g, '«');
+    text = text.replace(/>>/g, '»');
+    text = text.replace(/link/g, "<a href=\"http://адрес_ссылки\" target=\"_blank\">имя_ссылки</a>");
+    $(this).val(text);
+});
+
+
+// ------------------------
 // *** Navigator Block ***
 // ------------------------
 
