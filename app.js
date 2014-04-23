@@ -261,19 +261,12 @@ app.get('/', photoStream, function(req, res) {
 
 app.post('/', function (req, res) {
   var post = req.body;
+  var query = post.tag != 'all' ? {'tag': post.tag} : {}
 
-  if (post.tag == 'all') {
-    News.find().skip(post.offset).limit(6).sort('-date').exec(function(err, news) {
-      if (news.length == 0) return res.send('exit')
-      res.send(news);
-    });
-  }
-  else {
-    News.find({'tag':post.tag}).skip(post.offset).limit(6).sort('-date').exec(function(err, news) {
-      if (news.length == 0) return res.send('exit')
-      res.send(news);
-    });
-  }
+  News.find(query).skip(post.offset).limit(6).sort('-date').exec(function(err, news) {
+    if (news.length == 0) return res.send('exit')
+    res.send(news);
+  });
 });
 
 
@@ -716,10 +709,7 @@ app.post('/auth/add/news', function (req, res) {
 
   news.tag = post.tag;
   news.status = post.status;
-  if (post.events != '')
-    news.events = post.events;
-  else
-    news.events = [];
+  news.events = post.events != '' ? post.events : []
 
   async.parallel({
     photo: function(callback) {
@@ -815,10 +805,7 @@ app.post('/auth/edit/news/:id', function (req, res) {
     news.date = new Date(post.date.year, post.date.month, post.date.date)
     news.tag = post.tag;
     news.status = post.status;
-    if (post.events != '')
-      news.events = post.events;
-    else
-      news.events = [];
+    news.events = post.events != '' ? post.events : []
 
     async.parallel({
       photo: function(callback) {
@@ -880,17 +867,14 @@ app.post('/auth/add/press', function (req, res) {
 
   press.ru.author = post.ru.author;
   press.ru.body = post.ru.body;
-  press.link = post.link;
 
   if (post.en) {
     press.en.author = post.en.author;
     press.en.body = post.en.body;
   };
 
-  if (post.events != '')
-    press.events = post.events;
-  else
-    press.events = [];
+  press.link = post.link;
+  press.events = post.events != '' ? post.events : []
 
   press.save(function(err) {
     res.redirect('back');
@@ -935,17 +919,14 @@ app.post('/auth/edit/press/:id', function (req, res) {
   Press.findById(id, function(err, press) {
     press.ru.author = post.ru.author;
     press.ru.body = post.ru.body;
-    press.link = post.link;
 
     if (post.en) {
       press.en.author = post.en.author;
       press.en.body = post.en.body;
     };
 
-    if (post.events != '')
-      press.events = post.events;
-    else
-      press.events = [];
+    press.link = post.link;
+    press.events = post.events != '' ? post.events : []
 
     press.save(function(err) {
       res.redirect('back');
