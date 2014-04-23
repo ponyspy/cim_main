@@ -1,5 +1,11 @@
+function getRand (arr) {
+	var min = 0, max = arr.length - 1;
+	var rand = min - 0.5 + Math.random()*(max-min+1)
+	return Math.round(rand);
+}
+
 $(document).ready(function() {
-	var images = ['pink_love.jpg', 'angry.jpg', 'godzilla.png', 'ashtar.jpg', 'chen.jpg', 'su.gif', 'pos.jpg', 'gogol.jpg', 'mazo.jpg'];
+	var images = ['pink_love.jpg', 'angry.jpg', 'godzilla.png', 'ashtar.jpg', 'chen.jpg', 'su.gif', 'pos.jpg', 'gogol.jpg', 'mazo.jpg', 'omar.jpg'];
 	var texts = [
 	'Здравствуй Кирилл, ты сегодня слегка напряжен, не переживай, я очень умная система, я даже могу исцелять деревья.',
 	'Сегодня всю ночь вращала Эйлеровы углы и борясь с шарнирными замками мирилась с бессилием от глубины твоих глаз.',
@@ -9,14 +15,15 @@ $(document).ready(function() {
 	'',
 	'Каждая задача имеет два фундаментальных подхода к поиску решения, либо оно будет на столько простым, что очевидно не будет проблем, либо на столько сложным, что очевидных проблем не будет.',
 	'',
-	'Ядерных реакторов на свете больше чем ответственных женщин.'
+	'Ядерных реакторов на свете больше чем ответственных женщин.',
+	'Из ничего ничего и проистекает.'
 	];
-	var min = 0, max = images.length - 1;
-	var rand = min - 0.5 + Math.random()*(max-min+1)
-	rand = Math.round(rand);
 
-	$('body').css('background-image','url(/images/design/backgrounds/lol/' + images[rand] +')');
-	$('.lol_title').text(texts[rand]);
+	var rand_images = getRand(images);
+	var rand_texts = getRand(texts);
+
+	$('body').css('background-image','url(/images/design/backgrounds/lol/' + images[rand_images] +')');
+	$('.lol_title').text(texts[rand_texts]);
 
 	$('.star').hover(function() {
 		$('.lol_title').css('opacity', '1');
