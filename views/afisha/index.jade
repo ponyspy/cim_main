@@ -1,7 +1,6 @@
 extends ../layout
 
 block title
-	- var months = ['ЯНВАРЬ', 'ФЕВРАЛЬ', 'МАРТ', 'АПРЕЛЬ', 'МАЙ', 'ИЮНЬ', 'ИЮЛЬ', 'АВГУСТ', 'СЕНТЯБРЬ', 'ОКТЯБРЬ', 'НОЯБРЬ', 'ДЕКАБРЬ'];
 	if (month == 12)
 		- month = 0
 	title= 'АФИША | ' + months[month]
@@ -22,10 +21,7 @@ block content_right
 - var actors = false
 
 mixin getSchedule(date, out)
-	- var hall = {'main': 'большой зал', 'black': 'черный зал', 'white': 'белый зал', 'cafe': 'кафе', 'lobby': 'фойе', '301': 'комната 301', '306': 'комната 306'}
-	- var categorys = {'lecture': 'ЛЕКЦИЯ', 'masterclass': 'МАСТЕР-КЛАСС', 'exhibition': 'ВЫСТАВКА', 'concert': 'КОНЦЕРТ', 'storytallyng': 'СТОРИТЕЛЛИНГ'}
 	.afisha_item_block(class=out ? 'out' : '')
-		- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ']
 		- var d = date.date.getDate()
 		- d = d < 10 ? '0' + d : d
 		.afisha_date_block= days[date.date.getDay()] + '.' + d

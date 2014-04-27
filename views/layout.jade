@@ -1,5 +1,6 @@
 doctype 5
 html
+	include vars
 	head
 		include header
 	body
@@ -32,11 +33,10 @@ html
 								//- .phone	касса т. (495) 363 10 48
 						.menu_item афиша
 							.menu_drop
-								- var months = ['январь', 'февраль', 'март', 'апрель', 'май', 'июнь', 'июль', 'август', 'сентябрь', 'октябрь', 'ноябрь', 'декабрь'];
 								- var date = new Date()
-								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+1))=  months[date.getMonth()]
-								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+2))= months[date.getMonth()+1]
-								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+3))= months[date.getMonth()+2]
+								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+1))=  months[date.getMonth()].toLowerCase()
+								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+2))= months[date.getMonth()+1].toLowerCase()
+								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+3))= months[date.getMonth()+2].toLowerCase()
 								//- a(href='/afisha/archive') архив
 						.menu_item цим
 							.menu_drop
