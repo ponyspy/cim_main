@@ -1,7 +1,8 @@
 extends ../layout
 
 block title
-	title ЦИМ | СЕГОДНЯ
+	- var title =  'ЦИМ | СЕГОДНЯ'
+	- var menu_cim = ' / сегодня'
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/static.css' + version)

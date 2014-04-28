@@ -1,7 +1,8 @@
 extends ../layout
 
-block title
-	title ЦИМ | ИСТОРИЯ
+block paths
+	- var title = 'ЦИМ | ИСТОРИЯ'
+	- var menu_cim = ' / история'
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/static.css' + version)

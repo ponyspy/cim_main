@@ -1,5 +1,8 @@
 extends ../layout
 
+block paths
+	- var title = 'ОШИБКА ' + status
+
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/error.css' + version)
 
