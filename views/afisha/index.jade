@@ -1,12 +1,9 @@
 extends ../layout
 
 block paths
+	- month = month == 12 ? 0 : month
+	- var title = 'АФИША | ' + months[month]
 	- var menu_afisha = ' / ' + months[month].toLowerCase()
-
-block title
-	if (month == 12)
-		- month = 0
-	title= 'АФИША | ' + months[month]
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/afisha.css' + version)
