@@ -1,7 +1,7 @@
 extends ../layout
 
 block paths
-	- var title = member.ru.name.toUpperCase()
+	- var title = 'ЦИМ | УЧАСТНИКИ | ' + member.ru.name.toUpperCase()
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/members.css')

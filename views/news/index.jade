@@ -1,7 +1,7 @@
 extends ../layout
 
 block paths
-	- var title = news.ru.title.toUpperCase()
+	- var title = 'ЦИМ | НОВОСТИ | ' + news.ru.title.toUpperCase()
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/content.css' + version)
