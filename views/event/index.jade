@@ -39,8 +39,6 @@ mixin memberList(marker, status)
 
 
 mixin calItem(date)
-	- var days = ['ВС','ПН','ВТ','СР','ЧТ','ПТ','СБ'];
-	- var hall = {'main': 'большой зал', 'black': 'черный зал', 'white': 'белый зал', 'cafe': 'кафе', 'lobby': 'фойе', '301': 'комната 301', '306': 'комната 306'}
 	- var d = date.date.getDate()
 	- d = d < 10 ? '0' + d : d
 	.cal_item
@@ -65,7 +63,6 @@ block content
 	if (schedule.length > 0)
 		.calendar
 			.inner
-				- var months = ['ЯНВАРЬ', 'ФЕВРАЛЬ', 'МАРТ', 'АПРЕЛЬ', 'МАЙ', 'ИЮНЬ', 'ИЮЛЬ', 'АВГУСТ', 'СЕНТЯБРЬ', 'ОКТЯБРЬ', 'НОЯБРЬ', 'ДЕКАБРЬ'];
 				- var now = new Date()
 				.cal_inner_title= months[(now.getMonth())]
 				.cal_month_block.current
