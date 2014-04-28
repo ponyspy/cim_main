@@ -1,6 +1,7 @@
-doctype 5
+doctype html
 html
-	include vars
+	include static
+	block paths
 	head
 		include header
 	body
@@ -31,14 +32,14 @@ html
 								!=' &nbsp;|&nbsp; '
 								a(href='http://www.ticketland.ru/buildinfo/1571/', rel='nofollow', target='_blank') TICKETLAND
 								//- .phone	касса т. (495) 363 10 48
-						.menu_item афиша
+						.menu_item= 'афиша' + (menu_afisha || '')
 							.menu_drop
 								- var date = new Date()
 								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+1))=  months[date.getMonth()].toLowerCase()
 								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+2))= months[date.getMonth()+1].toLowerCase()
 								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+3))= months[date.getMonth()+2].toLowerCase()
 								//- a(href='/afisha/archive') архив
-						.menu_item цим
+						.menu_item= 'цим' + (menu_cim || '')
 							.menu_drop
 								if (session.user_id)
 									a(href='/auth') звездочет
