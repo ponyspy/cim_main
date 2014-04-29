@@ -32,31 +32,32 @@ block content
 		.form_title Описание:
 		textarea.ru(name="ru[description]", rows="8",)= member.ru.description
 		textarea.en(name="en[description]", rows="8", disabled)= member.en.description
-		//- .form_title Статус:
-		//- .snake
+		.form_title Статус:
+		.snake
 			input.back(type="button", value="<")
-			select(name='status')
-				option(value='actor') Актер
-				option(value='director') Режисер
-				option(value='author') Автор
-				option(value='playwright') Драматург
-				option(value='choreographer') Хореограф
-				option(value='composer') Композитор
-				option(value='photographer') Фотограф
-				option(value='artist') Художник
-				option(value='producer') Продюссер
-				option(value='curator') Куратор
-				option(value='lecturer') Лектор
-				option(value='theoretician') Теоретик
-				option(value='art_director') Художественный руководитель
-				option(value='sub_director') Помощник режиссера
-				option(value='tech_director') Технический директор
-				option(value='video_artist') Видеохудожник
-				option(value='audio_director') Звукорежиссер
-				option(value='multi_artist') Мультимедиахудожник
-				option(value='scenographer') Сценограф
-				option(value='consultant') Консультант
-				option(value='effects') Спецэффекты
+			each status in member.status
+				select(name='status')
+					option(value='actor', selected=status=='actor') Актер
+					option(value='director', selected=status=='director') Режисер
+					option(value='author', selected=status=='author') Автор
+					option(value='playwright', selected=status=='playwright') Драматург
+					option(value='choreographer', selected=status=='choreographer') Хореограф
+					option(value='composer', selected=status=='composer') Композитор
+					option(value='photographer', selected=status=='photographer') Фотограф
+					option(value='artist', selected=status=='artist') Художник
+					option(value='producer', selected=status=='producer') Продюссер
+					option(value='curator', selected=status=='curator') Куратор
+					option(value='lecturer', selected=status=='lecturer') Лектор
+					option(value='theoretician', selected=status=='theoretician') Теоретик
+					option(value='art_director', selected=status=='art_director') Художественный руководитель
+					option(value='sub_director', selected=status=='sub_director') Помощник режиссера
+					option(value='tech_director', selected=status=='tech_director') Технический директор
+					option(value='video_artist', selected=status=='video_artist') Видеохудожник
+					option(value='audio_director', selected=status=='audio_director') Звукорежиссер
+					option(value='multi_artist', selected=status=='multi_artist') Мультимедиахудожник
+					option(value='scenographer', selected=status=='scenographer') Сценограф
+					option(value='consultant', selected=status=='consultant') Консультант
+					option(value='effects', selected=status=='effects') Спецэффекты
 			input.forward(type="button", value=">")
 		.form_title Фото:
 		input(type="file", name="img")

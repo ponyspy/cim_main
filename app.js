@@ -1128,6 +1128,7 @@ app.post('/auth/edit/members/:id', function (req, res) {
   Member.findById(id, function(err, member) {
     member.ru.name = post.ru.name;
     member.ru.description = post.ru.description;
+    member.status = post.status;
 
     if (post.en) {
       member.en.name = post.en.name;
