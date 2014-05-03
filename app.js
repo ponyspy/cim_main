@@ -249,11 +249,13 @@ app.get('/api/doc/:secret', photoStream, function (req, res, next) {
 app.get('/', photoStream, function(req, res) {
   var start = new Date();
   var end = new Date();
-  start.setDate(start.getDate()-1);
-  end.setFullYear(end.getFullYear(), (end.getMonth()+1), 0);
+  var now = new Date();
+
+  start.setDate(start.getDate() - 1);
+  end.setFullYear(end.getFullYear(), (end.getMonth() + 1), 0);
 
   Schedule.find().where('date').gte(start).lt(end).where('events.banner').equals('true').populate('events.event').exec(function(err, schedule) {
-    News.find().sort('-date').limit(6).exec(function(err, news) {
+    News.find().where('date').lte(now).sort('-date').limit(6).exec(function(err, news) {
       News.find().sort('-date').where('status').equals('pin').exec(function(err, pins) {
         res.render('index', {news: news, schedule: schedule, pins: pins});
       });
@@ -264,8 +266,9 @@ app.get('/', photoStream, function(req, res) {
 app.post('/', function (req, res) {
   var post = req.body;
   var query = post.tag != 'all' ? {'tag': post.tag} : {}
+  var now = new Date();
 
-  News.find(query).skip(post.offset).limit(6).sort('-date').exec(function(err, news) {
+  News.find(query).where('date').lte(now).skip(post.offset).limit(6).sort('-date').exec(function(err, news) {
     if (news.length == 0) return res.send('exit')
     res.send(news);
   });
@@ -709,6 +712,7 @@ app.post('/auth/add/news', function (req, res) {
     news.en.p_author = post.en.p_author;
   };
 
+  news.date = new Date(post.date.year, post.date.month, post.date.date)
   news.tag = post.tag;
   news.status = post.status;
   news.events = post.events != '' ? post.events : []

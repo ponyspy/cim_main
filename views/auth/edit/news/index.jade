@@ -15,9 +15,15 @@ block content
 	br
 	.main_menu_block
 		each n in news
+			- var d = n.date.getDate()
+			- d = d < 10 ? '0' + d : d
+			- var m = n.date.getMonth() + 1
+			- m = m < 10 ? '0' + m : m
 			.news
 				a.rm_news(href='#', id=n._id)= 'удалить '
-				||&nbsp;
+				!=' | '
+				b(style=n.date > new Date() ? 'color: red;' : '')= d + '.' + m + '.' + n.date.getFullYear()
+				!=' | '
 				a(href='/auth/edit/news/' + n._id)= n.ru.title
 				b= ' ---> '
 				a(href='/news/' + n._id, target='_blank') результат
