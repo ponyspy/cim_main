@@ -104,6 +104,7 @@ $(document).ready(function() {
 		skip = 0;
 
 		$('.footer_block').hide();
+		$('.loader').removeClass('active');
 		$('.infinite-container').css('min-height', '800px');
 		$('.maket').off('scroll', ScrollLoader);
 		$('.maket').animate({
