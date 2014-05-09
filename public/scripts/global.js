@@ -82,9 +82,16 @@ $(document).ready(function() {
 										.on('click', fixStream);
 
 
-	$('.pay').on('mouseover mouseout', function() {
-		$('.pay_drop').toggle();
-	});
+	$('.pay_block').on({
+		mouseover: function() {
+			$('.pay_title').text('касса: (495) 363 10 48');
+			$('.pay_drop').show();
+		},
+		mouseout: function() {
+			$('.pay_title').text('БИЛЕТЫ ON-line');
+			$('.pay_drop').hide();
+		}
+	})
 
 
 	$('.menu_item').click(function(event) {
