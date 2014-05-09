@@ -156,6 +156,18 @@ html, body, .maket {
 	padding: 5px;
  }
 
+ .pay_phone {
+	display: none;
+ }
+
+ .pay_block:hover .pay_drop, .pay_block:hover .pay_phone {
+	display: block;
+ }
+
+ .pay_block:hover .pay_title {
+ 	display: none;
+ }
+
  .pay_drop {
 	margin-top: 7px;
 	margin-left: -6px;
