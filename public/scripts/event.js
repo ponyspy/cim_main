@@ -23,4 +23,16 @@ $(document).ready(function() {
 	$('.calendar').mouseleave(function(event) {
 		$('.inner').animate({'margin-left': '-29px'}, 200);
 	});
+
+	$('.video_spin').click(function(event) {
+		$('.photos_inner').animate({
+			'margin-left': '+=930px'
+		}, 500);
+	});
+
+	$('.photos_spin').click(function(event) {
+		$('.photos_inner').animate({
+			'margin-left': '-=930px'
+		}, 500);
+	});
 });

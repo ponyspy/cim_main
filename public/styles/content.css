@@ -10,10 +10,65 @@ body {
 	overflow: visible;
 }
 
+.photos_block {
+	width: 930px;
+	height: 620px;
+	overflow: hidden;
+}
+
+.spinner {
+	padding: 10px;
+	position: absolute;
+	color: white;
+	background-color: black;
+	cursor: pointer;
+	display: none;
+}
+
+.photos_block:hover .spinner {
+	display: block;
+}
+
+.spinner:hover {
+	color: black;
+	background-color: white;
+}
+
+.video_spin {
+	left: 0;
+}
+
+.photos_spin {
+	right: 0;
+}
+
+.photos_inner {
+	width: 10000px;
+	margin-left: -1860px;
+}
+
+.trailers_block {
+	float: left;
+	overflow: hidden;
+}
+
+.trailer {
+	width: 930px;
+	height: 620px;
+	float: left;
+	overflow: hidden;
+	background-color: #50c983;
+}
+
+.images_block {
+	float: left;
+	overflow: hidden;
+}
 
 .image_upload {
 	width: 930px;
 	height: 620px;
+	float: left;
 	/*background: no-repeat center center;*/
   -webkit-background-size: cover;
   -moz-background-size: cover;

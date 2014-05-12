@@ -55,11 +55,21 @@ block content
 	- var ru_column_one = {'director': 'Режиссер', 'author': 'Автор', 'playwright': 'Драматург', 'choreographer': 'Хореограф', 'composer': 'Композитор', 'artist': 'Художник', 'actor': 'Исполнители', 'producer': 'Продюсер', 'curator': 'Куратор', 'lecturer': 'Лектор', 'theoretician': 'Теоретик', 'art_director': 'Художественный руководитель', 'scenographer': 'Сценограф'}
 	- var ru_column_two = {'photographer': 'Фотограф', 'sub_director': 'Помощник режисера', 'tech_director': 'Технический директор', 'video_artist': 'Видеохудожник', 'light_artist': 'Художник по свету', 'audio_director': 'Звукорежисер', 'multi_artist': 'Мультимедиахудожник', 'consultant': 'Консультант', 'effects': 'Спецэффекты'}
 	if (event.photo)
-		.image_upload(style='background-image: url(' + event.photo + ')')
-			if (event.ru.p_author)
-				.p_author
-					.a_title Фото:
-					.a_name= event.ru.p_author
+		.photos_block
+			.spinner.video_spin ❮ ВИДЕО
+			.spinner.photos_spin ФОТО ❯
+			.photos_inner
+				.trailers_block
+					.trailer <iframe width="930" height="620" src="//www.youtube.com/embed/qMBuOcGzBg4" frameborder="0" allowfullscreen=""></iframe>
+					.trailer <iframe width="930" height="620" src="//www.youtube.com/embed/qMBuOcGzBg4" frameborder="0" allowfullscreen=""></iframe>
+				.images_block
+					.image_upload(style='background-image: url(' + event.photo + ')')
+					.image_upload(style='background-image: url(' + event.photo + ')')
+					.image_upload(style='background-image: url(' + event.photo + ')')
+			//- if (event.ru.p_author)
+			//- 	.p_author
+			//- 		.a_title Фото:
+			//- 		.a_name= event.ru.p_author
 	if (schedule.length > 0)
 		.calendar
 			.inner
