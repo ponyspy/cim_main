@@ -24,13 +24,25 @@ $(document).ready(function() {
 		$('.inner').animate({'margin-left': '-29px'}, 200);
 	});
 
+	var img_count = $('.image_upload').length - 1;
+
+	$('.image_upload').parallax({
+		mouseport: $('.images_block'),
+		xparallax: '930px',
+		yparallax: false,
+		xorigin: false,
+		decay: 0.5
+	});
+
+	$('.image_upload:last').trigger('freeze');
+
 	$('.video_spin').click(function(event) {
 		$('.photos_inner').animate({
 			'margin-left': '+=930px'
 		}, 500);
 	});
 
-	$('.photos_spin').click(function(event) {
+	$('.photos_spin, .image_upload').click(function(event) {
 		$('.photos_inner').animate({
 			'margin-left': '-=930px'
 		}, 500);
