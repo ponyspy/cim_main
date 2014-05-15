@@ -28,7 +28,7 @@ $(document).ready(function() {
 
 	$('.image_upload').parallax({
 		mouseport: $('.images_block'),
-		xparallax: '930px',
+		xparallax: img_count * 930 + 'px',
 		yparallax: false,
 		xorigin: false,
 		decay: 0.5
