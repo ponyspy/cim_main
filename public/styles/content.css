@@ -25,9 +25,9 @@ body {
 	display: none;
 }
 
-.photos_block:hover .spinner {
+/*.photos_block:hover .spinner {
 	display: block;
-}
+}*/
 
 .spinner:hover {
 	color: black;
@@ -77,18 +77,21 @@ body {
 }
 
 .p_author {
-	margin-top: 620px;
-	margin-left: -46px;
-	padding: 5px;
-	position: absolute;
+	/*margin-top: 620px;*/
+	/*margin-left: -46px;*/
+	padding: 5px 10px;
+	position: relative;
 	font: 11pt/13pt 'Pragmatica';
-	background-color: white;
-	-webkit-transform-origin: 0 0;
+	background-color: black;
+	color: white;
+	overflow: hidden;
+/*	-webkit-transform-origin: 0 0;
 	-moz-transform-origin: 0 0;
 	-webkit-transform: rotate(-90deg);
 	-moz-transform: rotate(-90deg);
-	transform: rotate(-90deg);
+	transform: rotate(-90deg);*/
 }
+
 
 .a_name, .a_title {
 	float: left;
