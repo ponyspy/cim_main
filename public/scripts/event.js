@@ -28,10 +28,10 @@ $(document).ready(function() {
 
 	$('.image_upload').parallax({
 		mouseport: $('.images_block'),
-		xparallax: img_count * 930 + 'px',
+		xparallax: 930 + 'px',
 		yparallax: false,
 		xorigin: false,
-		decay: 0.66
+		decay: 0.5
 	});
 
 	$('.video_spin').click(function(event) {
@@ -40,13 +40,13 @@ $(document).ready(function() {
 		}, 500);
 	});
 
-	$('.photos_spin').click(function(event) {
+	$('.photos_spin, .image_upload').click(function(event) {
 		$('.photos_inner').animate({
 			'margin-left': '-=930px'
 		}, 500);
 	});
 
-	$('.image_upload').click(function(event) {
-		$('.image_upload').trigger('freeze');
-	});
+	// $('.image_upload').click(function(event) {
+	// 	$('.image_upload').trigger('freeze');
+	// });
 });
