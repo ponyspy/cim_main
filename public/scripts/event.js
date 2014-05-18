@@ -28,25 +28,33 @@ $(document).ready(function() {
 
 	$('.image_upload').parallax({
 		mouseport: $('.images_block'),
-		xparallax: 930 + 'px',
+		xparallax: 1395 + 'px',
 		yparallax: false,
 		xorigin: false,
 		decay: 0.5
 	});
 
-	$('.video_spin').click(function(event) {
-		$('.photos_inner').animate({
-			'margin-left': '+=930px'
-		}, 500);
-	});
-
-	$('.photos_spin, .image_upload').click(function(event) {
-		$('.photos_inner').animate({
-			'margin-left': '-=930px'
-		}, 500);
-	});
-
-	// $('.image_upload').click(function(event) {
-	// 	$('.image_upload').trigger('freeze');
+	// $('.video_spin').click(function(event) {
+	// 	$('.photos_inner').animate({
+	// 		'margin-left': '+=930px'
+	// 	}, 500);
 	// });
+
+	// $('.photos_spin, .image_upload').click(function(event) {
+	// 	$('.photos_inner').animate({
+	// 		'margin-left': '-=1395px'
+	// 	}, 500);
+	// });
+
+	$('.image_upload:odd').click(function(event) {
+		$('.photos_inner').animate({
+			'margin-left': '-=1395px'
+		}, 500);
+	});
+
+	$('.image_upload:even').click(function(event) {
+		$('.photos_inner').animate({
+			'margin-left': '+=1395px'
+		}, 500);
+	});
 });
