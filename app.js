@@ -1362,7 +1362,14 @@ app.get('/upload', function (req, res) {
 
 app.post('/upload', function (req, res) {
   fs.rename(req.files.photo.path, __dirname + '/public/preview/' + req.files.photo.name)
-  res.send('/preview/' + req.files.photo.name)
+  res.send('/preview/' + req.files.photo.name);
+});
+
+app.post('/photo_remove', function (req, res) {
+  console.log(__dirname + '/public' + req.body.path)
+  fs.unlink(__dirname + '/public' + req.body.path, function() {
+    res.send(req.body.path);
+  });
 });
 
 
