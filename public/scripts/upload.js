@@ -32,6 +32,7 @@ $(document).ready(function() {
 	});
 
 	$(document).on('dblclick', '.photo', function() {
+		alert($(this).attr('style'))
 		$(this).remove();
 	});
 

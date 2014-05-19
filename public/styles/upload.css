@@ -14,7 +14,7 @@
 .photo {
 	width: 150px;
 	height: 150px;
-	background-color: #c9b45a;
+	background-color: black;
 	background-size: cover;
 	float: left;
 	-webkit-user-select: none;
