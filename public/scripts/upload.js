@@ -7,7 +7,6 @@ $(document).ready(function() {
 		allowedfileextensions: ['.jpg','.jpeg','.png','.gif'],
 		maxfiles: 5,
 		maxfilesize: 8,
-		queuefiles: 5,
 		dragOver: function() {
 			$(this).css('background-color', '#c9a2ae');
 		},
