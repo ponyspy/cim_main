@@ -1356,6 +1356,16 @@ app.get('/history', photoStream, function (req, res) {
 });
 
 
+app.get('/upload', function (req, res) {
+  res.render('upload');
+});
+
+app.post('/upload', function (req, res) {
+  fs.rename(req.files.photo.path, __dirname + '/public/preview/' + req.files.photo.name)
+  res.send('/preview/' + req.files.photo.name)
+});
+
+
 // ------------------------
 // *** Other Block ***
 // ------------------------

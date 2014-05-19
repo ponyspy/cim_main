@@ -1,0 +1,23 @@
+extends ../layout
+
+block paths
+	- var title =  'ЦИМ | КОНТАКТЫ'
+	- var menu_cim = ' / контакты'
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/styles/static.css' + version)
+	link(rel='stylesheet', type='text/css', href='/styles/upload.css' + version)
+
+block content_scripts
+	script(type='text/javascript', src='/scripts/static.js' + version)
+	script(type='text/javascript', src='/scripts/jquery.filedrop.js' + version)
+	script(type='text/javascript', src='/scripts/upload.js' + version)
+
+block content_right
+
+block content_left
+
+block content
+	input#upload_button(type='file') fallback
+	.photos
+		.dropzone dropzone
