@@ -18,6 +18,7 @@ block content_right
 block content_left
 
 block content
-	input#upload_button(type='file') fallback
+	form(action="/upload", method="post")
+		input#upload_button(type='file')
 	.photos
 		.dropzone dropzone
