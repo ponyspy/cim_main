@@ -16,6 +16,7 @@
 	height: 150px;
 	background-color: black;
 	background-size: cover;
+	display: block;
 	float: left;
 	-webkit-user-select: none;
 }

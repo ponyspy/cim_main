@@ -14,14 +14,14 @@ $(document).ready(function() {
 			$(this).removeAttr('style');
 		},
 		uploadStarted: function(i, file, len) {
-			var photo = $('<img/>', {'class':'photo'});
+			var photo = $('<div/>', {'class':'photo'});
 			var scale = $('<div/>', {'class':'scale'});
 
 			photo.append(scale);
 			$('.photos').prepend(photo);
 		},
 		uploadFinished: function(i, file, response, time) {
-			$('.photo').eq(i).attr('src', response);
+			$('.photo').eq(i).attr('style', 'background-image:url(' + response + ')');
 		},
 		progressUpdated: function(i, file, progress) {
 			$('.photo').eq(i).children('.scale').text(progress + '%').css('width', progress + '%');
@@ -32,7 +32,7 @@ $(document).ready(function() {
 	});
 
 	$(document).on('dblclick', '.photo', function() {
-		var path = $(this).attr('src');
+		var path = $(this).attr('style').slice(21,-1);
 		var ph = $(this);
 
 		$.post('/photo_remove', {path: path}).done(function(data) {
