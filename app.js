@@ -1366,7 +1366,6 @@ app.post('/upload', function (req, res) {
 });
 
 app.post('/photo_remove', function (req, res) {
-  console.log(__dirname + '/public' + req.body.path)
   fs.unlink(__dirname + '/public' + req.body.path, function() {
     res.send(req.body.path);
   });

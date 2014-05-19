@@ -5,8 +5,9 @@ $(document).ready(function() {
 		fallback_id: 'upload_button',
 		allowedfiletypes: ['image/jpeg','image/png','image/gif'],
 		allowedfileextensions: ['.jpg','.jpeg','.png','.gif'],
-		maxfiles: 15,
-		maxfilesize: 20,
+		maxfiles: 5,
+		maxfilesize: 8,
+		queuefiles: 5,
 		dragOver: function() {
 			$(this).css('background-color', '#c9a2ae');
 		},
