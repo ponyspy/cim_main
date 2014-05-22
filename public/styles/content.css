@@ -16,36 +16,33 @@ body {
 	overflow: hidden;
 }
 
-.spinner {
-	padding: 10px;
-	position: absolute;
-	color: white;
-	background-color: black;
-	cursor: pointer;
-	display: none;
+.photos_inner {
+	width: 7500px;      /* params количество трейлеров + количество фотографий */
+	margin-left: -1860px;
 }
 
-/*.photos_block:hover .spinner {
-	display: block;
-}*/
+.switch {
+	background-color: black;
+	color: white;
+	width: 600px;
+	height: 70px;
+	padding: 10px;
+	float: left;
+	position: absolute;
+	text-align: center;
+	cursor: pointer;
+	z-index: 0;
+	font: 56pt/51pt 'PragmaticaM';
+	margin-left: 1860px;      /* params зависит от количества трейлеров */
+	-webkit-transform:rotate(270deg);
+	-webkit-transform-origin: 310px 310px;
+}
 
-.spinner:hover {
+.switch:hover {
 	color: black;
 	background-color: white;
 }
 
-.video_spin {
-	left: 0;
-}
-
-.photos_spin {
-	right: 0;
-}
-
-.photos_inner {
-	width: 7440px;
-	margin-left: -1860px;
-}
 
 .trailers_block {
 	float: left;
@@ -78,29 +75,30 @@ body {
 }
 
 .image_upload:nth-child(odd) {
-	z-index: 0;
+	z-index: 1;
 }
 
 .image_upload:nth-child(even) {
-	z-index: 1;
+	z-index: 2;
 }
 
 .p_author {
 	/*margin-top: 595px;*/
 	/*margin-left: -46px;*/
+	opacity: 0;
 	padding: 5px 10px;
 	position: relative;
 	font: 11pt/13pt 'Pragmatica';
 	background-color: black;
 	color: white;
 	overflow: hidden;
-/*	-webkit-transform-origin: 0 0;
-	-moz-transform-origin: 0 0;
-	-webkit-transform: rotate(-90deg);
-	-moz-transform: rotate(-90deg);
-	transform: rotate(-90deg);*/
+	-webkit-transition-duration: 0.5s;
 }
 
+.photos_block:hover .image_upload > .p_author {
+	opacity: 1;
+	-webkit-transition-duration: 0.5s;
+}
 
 .a_name, .a_title {
 	float: left;
