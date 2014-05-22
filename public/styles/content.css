@@ -69,11 +69,20 @@ body {
 	width: 930px;
 	height: 620px;
 	float: left;
+	position: relative;
 	/*background: no-repeat center center;*/
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+
+.image_upload:nth-child(odd) {
+	z-index: 0;
+}
+
+.image_upload:nth-child(even) {
+	z-index: 1;
 }
 
 .p_author {

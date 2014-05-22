@@ -26,12 +26,19 @@ $(document).ready(function() {
 
 	var img_count = $('.image_upload').length - 1;
 
-	$('.image_upload').parallax({
-		mouseport: $('.images_block'),
-		xparallax: 1395 + 'px',
-		yparallax: false,
-		xorigin: false,
-		decay: 0.5
+	$('.photos_block').zlayer([
+	    {
+	        layer:'.image_upload:odd',
+	        mass: 1,
+	        confine:'y'
+	    },
+	    {
+	        layer:'.image_upload:even',
+	        mass: 5,
+	        confine:'y'
+	    },
+	], {
+	 repositionTransition:'all 0.5s'
 	});
 
 	// $('.video_spin').click(function(event) {
@@ -48,13 +55,13 @@ $(document).ready(function() {
 
 	$('.image_upload:odd').click(function(event) {
 		$('.photos_inner').animate({
-			'margin-left': '-=1395px'
+			'margin-left': '-=1860px'
 		}, 500);
 	});
 
 	$('.image_upload:even').click(function(event) {
 		$('.photos_inner').animate({
-			'margin-left': '+=1395px'
+			'margin-left': '+=1860px'
 		}, 500);
 	});
 });
