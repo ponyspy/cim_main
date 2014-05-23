@@ -38,6 +38,8 @@ body {
 	font: 56pt/51pt 'PragmaticaM';
 	-webkit-transform:rotate(270deg);
 	-webkit-transform-origin: 310px 310px;
+	-moz-transform:rotate(270deg);
+	-moz-transform-origin: 310px 310px;
 }
 
 .switch:hover {

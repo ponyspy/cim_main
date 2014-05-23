@@ -26,16 +26,16 @@ $(document).ready(function() {
 
 
 	$('.photos_block').zlayer([
-	    {
-	        layer:'.image_upload:odd',
-	        mass: 1,
-	        confine:'y'
-	    },
-	    {
-	        layer:'.image_upload:even',
-	        mass: 5,
-	        confine:'y'
-	    },
+			{
+				layer:'.image_upload:odd',
+				mass: 1,
+				confine:'y'
+			},
+			{
+				layer:'.image_upload:even',
+				mass: 5,
+				confine:'y'
+			},
 	], {
 	 repositionTransition:'all 0.5s'
 	});
