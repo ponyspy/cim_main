@@ -24,7 +24,6 @@ $(document).ready(function() {
 		$('.inner').animate({'margin-left': '-29px'}, 200);
 	});
 
-	var img_count = $('.image_upload').length - 1;
 
 	$('.photos_block').zlayer([
 	    {
@@ -41,17 +40,11 @@ $(document).ready(function() {
 	 repositionTransition:'all 0.5s'
 	});
 
-	// $('.video_spin').click(function(event) {
-	// 	$('.photos_inner').animate({
-	// 		'margin-left': '+=930px'
-	// 	}, 500);
-	// });
-
-	// $('.photos_spin, .image_upload').click(function(event) {
-	// 	$('.photos_inner').animate({
-	// 		'margin-left': '-=1395px'
-	// 	}, 500);
-	// });
+	$('.switch').click(function(event) {
+		$('.photos_inner').animate({
+			'margin-left': '+=930px'
+		}, 500);
+	});
 
 	$('.image_upload:odd').click(function(event) {
 		$('.photos_inner').animate({
