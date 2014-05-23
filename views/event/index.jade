@@ -56,11 +56,11 @@ block content
 	- var ru_column_two = {'photographer': 'Фотограф', 'sub_director': 'Помощник режисера', 'tech_director': 'Технический директор', 'video_artist': 'Видеохудожник', 'light_artist': 'Художник по свету', 'audio_director': 'Звукорежисер', 'multi_artist': 'Мультимедиахудожник', 'consultant': 'Консультант', 'effects': 'Спецэффекты'}
 	if (event.photo)
 		.photos_block
+			.switch ВИДЕО
 			.photos_inner
 				.trailers_block
 					.trailer <iframe width="930" height="620" src="//www.youtube.com/embed/qMBuOcGzBg4" frameborder="0" allowfullscreen=""></iframe>
 					.trailer <iframe width="930" height="620" src="//www.youtube.com/embed/qMBuOcGzBg4" frameborder="0" allowfullscreen=""></iframe>
-				.switch ВИДЕО
 				.images_block
 					.image_upload(style='background-image: url(' + event.photo + ')')
 						.p_author
