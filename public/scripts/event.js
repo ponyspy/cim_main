@@ -66,6 +66,8 @@ var reposition = {
 	});
 
 	$('.image_upload:odd').click(function(event) {
+		$('.switch').hide();
+
 		if (mode) {
 			mode = !mode;
 			$('.photos_block').zlayer(parallax_inverse, reposition);
@@ -77,10 +79,14 @@ var reposition = {
 
 		$('.photos_inner').animate({
 			'margin-left': '-=930px'
-		}, 500);
+		}, 500, function() {
+			$('.switch').show();
+		});
 	});
 
 	$('.image_upload:even').click(function(event) {
+		$('.switch').hide();
+
 		if (mode) {
 			mode = !mode;
 			$('.photos_block').zlayer(parallax_inverse, reposition);
@@ -92,6 +98,8 @@ var reposition = {
 
 		$('.photos_inner').animate({
 			'margin-left': '+=930px'
-		}, 500);
+		}, 500, function() {
+			$('.switch').show();
+		});
 	});
 });
