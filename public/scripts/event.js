@@ -25,10 +25,10 @@ $(document).ready(function() {
 	});
 
 
-	$('.photos_block').zlayer([
+var parallax = [
 			{
 				layer:'.image_upload:odd',
-				mass: 1,
+				mass: 2,
 				confine:'y'
 			},
 			{
@@ -36,9 +36,28 @@ $(document).ready(function() {
 				mass: 5,
 				confine:'y'
 			},
-	], {
+	]
+
+var parallax_inverse = [
+			{
+				layer:'.image_upload:odd',
+				mass: 2,
+				confine:'y'
+			},
+			{
+				layer:'.image_upload:even',
+				mass: 1,
+				confine:'y'
+			},
+	]
+
+var reposition = {
 	 repositionTransition:'all 0.5s'
-	});
+	}
+
+	var mode = true;
+
+	$('.photos_block').zlayer(parallax, reposition);
 
 	$('.switch').click(function(event) {
 		$('.photos_inner').animate({
@@ -47,14 +66,32 @@ $(document).ready(function() {
 	});
 
 	$('.image_upload:odd').click(function(event) {
+		if (mode) {
+			mode = !mode;
+			$('.photos_block').zlayer(parallax_inverse, reposition);
+		}
+		else {
+			mode = !mode;
+			$('.photos_block').zlayer(parallax, reposition);
+		}
+
 		$('.photos_inner').animate({
-			'margin-left': '-=1860px'
+			'margin-left': '-=930px'
 		}, 500);
 	});
 
 	$('.image_upload:even').click(function(event) {
+		if (mode) {
+			mode = !mode;
+			$('.photos_block').zlayer(parallax_inverse, reposition);
+		}
+		else {
+			mode = !mode;
+			$('.photos_block').zlayer(parallax, reposition);
+		}
+
 		$('.photos_inner').animate({
-			'margin-left': '+=1860px'
+			'margin-left': '+=930px'
 		}, 500);
 	});
 });
