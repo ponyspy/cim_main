@@ -68,15 +68,17 @@ $(document).ready(function() {
 
 	function slide (event) {
 		$('.switch').hide();
-		$('.image_upload').css({'-webkit-transform': 'translate3d(0, 0, 0)', '-webkit-transition-duration': '0.1s'})
+		$('.image_upload').css({'-webkit-transform': 'translate3d(0, 0, 0)', '-webkit-transition-duration': '0.5s'});
 
 		if (mode) {
 			mode = !mode;
 			$('.photos_block').zlayer(parallax_inverse, reposition);
+			// $('.image_upload:even').css({'-webkit-transform': 'translate3d(-430px, 0, 0)', '-webkit-transition-duration': '0.2s'});
 		}
 		else {
 			mode = !mode;
 			$('.photos_block').zlayer(parallax, reposition);
+			// $('.image_upload:even').css({'-webkit-transform': 'translate3d(100px, 0, 0)', '-webkit-transition-duration': '0.2s'});
 		}
 
 		$('.photos_inner').animate({
