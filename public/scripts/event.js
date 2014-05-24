@@ -65,7 +65,8 @@ var reposition = {
 		}, 500);
 	});
 
-	$('.image_upload:odd').click(function(event) {
+
+	function slide (event) {
 		$('.switch').hide();
 
 		if (mode) {
@@ -78,28 +79,13 @@ var reposition = {
 		}
 
 		$('.photos_inner').animate({
-			'margin-left': '-=930px'
+			'margin-left': event.data.offset
 		}, 500, function() {
 			$('.switch').show();
 		});
-	});
+	}
 
-	$('.image_upload:even').click(function(event) {
-		$('.switch').hide();
+	$('.image_upload:odd').on('click', {offset:'-=930px'}, slide)
+	$('.image_upload:even').on('click', {offset:'+=930px'}, slide)
 
-		if (mode) {
-			mode = !mode;
-			$('.photos_block').zlayer(parallax_inverse, reposition);
-		}
-		else {
-			mode = !mode;
-			$('.photos_block').zlayer(parallax, reposition);
-		}
-
-		$('.photos_inner').animate({
-			'margin-left': '+=930px'
-		}, 500, function() {
-			$('.switch').show();
-		});
-	});
 });
