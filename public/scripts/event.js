@@ -33,7 +33,7 @@ $(document).ready(function() {
 		},
 		{
 			layer:'.image_upload:even',
-			mass: 5,
+			mass: 5,    // 5 || 4.5
 			confine:'y'
 		},
 	]
@@ -46,7 +46,7 @@ $(document).ready(function() {
 		},
 		{
 			layer:'.image_upload:even',
-			mass: 1,
+			mass: 1,     // 1 || 0.5
 			confine:'y'
 		},
 	]
