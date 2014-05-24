@@ -25,34 +25,34 @@ $(document).ready(function() {
 	});
 
 
-var parallax = [
-			{
-				layer:'.image_upload:odd',
-				mass: 2,
-				confine:'y'
-			},
-			{
-				layer:'.image_upload:even',
-				mass: 5,
-				confine:'y'
-			},
+	var parallax = [
+		{
+			layer:'.image_upload:odd',
+			mass: 2,
+			confine:'y'
+		},
+		{
+			layer:'.image_upload:even',
+			mass: 5,
+			confine:'y'
+		},
 	]
 
-var parallax_inverse = [
-			{
-				layer:'.image_upload:odd',
-				mass: 2,
-				confine:'y'
-			},
-			{
-				layer:'.image_upload:even',
-				mass: 1,
-				confine:'y'
-			},
+	var parallax_inverse = [
+		{
+			layer:'.image_upload:odd',
+			mass: 2,
+			confine:'y'
+		},
+		{
+			layer:'.image_upload:even',
+			mass: 1,
+			confine:'y'
+		},
 	]
 
-var reposition = {
-	 repositionTransition:'all 0.5s'
+	var reposition = {
+		repositionTransition:'all 0.5s'
 	}
 
 	var mode = true;
