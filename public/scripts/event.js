@@ -68,6 +68,7 @@ $(document).ready(function() {
 
 	function slide (event) {
 		$('.switch').hide();
+		$('.image_upload').css({'-webkit-transform': 'translate3d(0, 0, 0)', '-webkit-transition-duration': '0.1s'})
 
 		if (mode) {
 			mode = !mode;
