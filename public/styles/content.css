@@ -26,10 +26,10 @@ body {
 	-webkit-transition-duration: 0.5s;
 }*/
 
-.photos_inner {
-	width: 7500px;              /* params количество трейлеров + количество фотографий */
-	margin-left: -1860px;       /* -params количество трейлеров */
-}
+/*.photos_inner {
+	width: 7440px;
+	margin-left: -1860px;
+}*/
 
 .switch {
 	background-color: black;

@@ -25,6 +25,15 @@ $(document).ready(function() {
 	});
 
 
+	var count_photos = $('.image_upload').length;
+	var count_trailers = $('.trailer').length;
+
+	$('.photos_inner').css({
+		'width': (count_photos + count_trailers) * 930 + 'px',
+		'margin-left': '-' + (count_trailers * 930) + 'px'
+	});
+
+
 	var parallax = [
 		{
 			layer:'.image_upload:odd',
@@ -61,14 +70,28 @@ $(document).ready(function() {
 	$('.photos_block').zlayer(parallax, reposition);
 
 	$('.switch').click(function(event) {
-		$(this).text('ФОТО');
-		$('.switch').animate({
-			'margin-left': '+=850px'
-		}, 500);
+		$(this).data('clicked', !$(this).data('clicked'));
 
-		$('.photos_inner').animate({
-			'margin-left': '+=930px'
-		}, 500);
+		if ($(this).data('clicked')) {
+			$(this).text('ФОТО');
+			$('.switch').animate({
+				'margin-left': '+=850px'
+			}, 500);
+
+			$('.photos_inner').animate({
+				'margin-left': '+=930px'
+			}, 500);
+		}
+		else {
+			$(this).text('ВИДЕО');
+			$('.switch').animate({
+				'margin-left': '0px'
+			}, 500);
+
+			$('.photos_inner').animate({
+				'margin-left': '-=930px'
+			}, 500);
+		}
 	});
 
 
