@@ -100,28 +100,28 @@ $(document).ready(function() {
 		});
 	});
 
-	$('.image_upload').mfupload({
+	// $('.image_upload').mfupload({
 
-		type		: 'jpg,png,tif,jpeg',
-		maxsize		: 6,
-		post_upload	: '/edit',
-		folder		: '',
-		ini_text	: 'Нажми или перетащи',
-		over_text	: 'Отпускай!',
-		over_col	: '',
-		over_bkcol	: 'white',
+	// 	type		: 'jpg,png,tif,jpeg',
+	// 	maxsize		: 6,
+	// 	post_upload	: '/edit',
+	// 	folder		: '',
+	// 	ini_text	: 'Нажми или перетащи',
+	// 	over_text	: 'Отпускай!',
+	// 	over_col	: '',
+	// 	over_bkcol	: 'white',
 
-		init		: function(){ },
-		start		: function(result){ },
-		loaded		: function(result) {
-			$('.image_upload').css('background-image', 'url(' + result.path + ')');
-			img_preview = result.path;
-		},
-		progress	: function(result){ },
-		error		: function(error){ },
-		completed	: function(){ }
+	// 	init		: function(){ },
+	// 	start		: function(result){ },
+	// 	loaded		: function(result) {
+	// 		$('.image_upload').css('background-image', 'url(' + result.path + ')');
+	// 		img_preview = result.path;
+	// 	},
+	// 	progress	: function(result){ },
+	// 	error		: function(error){ },
+	// 	completed	: function(){ }
 
-	});
+	// });
 
 
 	$(document).on('keyup change', '.m_search', function(event) {

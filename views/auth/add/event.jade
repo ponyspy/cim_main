@@ -11,8 +11,9 @@ block content_style
 
 block content_scripts
 	script(type='text/javascript', src='/scripts/edit.js' + version)
-	//- script(type='text/javascript', src='/scripts/back.js' + version)
-	script(type='text/javascript', src='/scripts/mfupload.js' + version)
+	script(type='text/javascript', src='/scripts/event.js' + version)
+	script(type='text/javascript', src='/scripts/jquery.zlayer.min.js' + version)
+	script(type='text/javascript', src='/scripts/jquery.filedrop.js' + version)
 	script(type="text/javascript", src='/scripts/jquery.popline.min.js' + version)
 	script(type="text/javascript", src='/scripts/jquery-ui-1.10.3.custom.min.js' + version)
 
@@ -71,11 +72,21 @@ mixin memberList(marker, status)
 block content
 	- var ru_column_one = {'director': 'Режиссер', 'author': 'Автор', 'playwright': 'Драматург', 'choreographer': 'Хореограф', 'composer': 'Композитор', 'artist': 'Художник', 'actor': 'Исполнители', 'producer': 'Продюсер', 'curator': 'Куратор', 'lecturer': 'Лектор', 'theoretician': 'Теоретик', 'art_director': 'Художественный руководитель', 'scenographer': 'Сценограф'}
 	- var ru_column_two = {'photographer': 'Фотограф', 'sub_director': 'Помощник режисера', 'tech_director': 'Технический директор', 'video_artist': 'Видеохудожник', 'light_artist': 'Художник по свету', 'audio_director': 'Звукорежисер', 'multi_artist': 'Мультимедиахудожник', 'consultant': 'Консультант', 'effects': 'Спецэффекты'}
-	.image_upload
-		.p_author
-			.a_title Фото:
-			.a_name(contenteditable='plaintext-only') Автор фото
-		input(type='file', name='image', data-post='/', data-crop='true')
+	.photos_block
+		.switch ВИДЕО
+		.photos_inner
+			.trailers_block
+				.trailer трейлер
+			.images_block
+				.image_upload фото
+					.p_author
+						.a_title Фото:
+						.a_name Сережа БЕЗРУКОВ
+				.image_upload фото
+					.p_author
+						.a_title Фото:
+						.a_name Сережа БЕЗРУКОВ2
+
 	.content_body
 		.title(lang='ru', contenteditable) Заголовок
 		.s_title(lang='ru', contenteditable) Подзаголовок
