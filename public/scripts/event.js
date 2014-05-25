@@ -95,15 +95,15 @@ $(document).ready(function() {
 	});
 
 
-	$('.title').click(function(event) {
-		var $element = $('.photos_block');
-		$element.zlayer = null;
-		$element.off();
-	});
+	// $('.title').click(function(event) {
+	// 	var $element = $('.photos_block');
+	// 	$element.zlayer = null;
+	// 	$element.off();
+	// });
 
-	$('.ticket').click(function(event) {
-		$('.photos_block').zlayer(parallax, reposition);
-	});
+	// $('.ticket').click(function(event) {
+	// 	$('.photos_block').zlayer(parallax, reposition);
+	// });
 
 
 
