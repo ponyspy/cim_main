@@ -113,7 +113,7 @@ $(document).ready(function() {
 			$(this).css('background-color', '#c9a2ae');
 		},
 		dragLeave: function() {
-			$(this).css('background-color', 'white');
+			$(this).css('background-color', 'black');
 		},
 		uploadStarted: function(i, file, len) {
 
@@ -122,7 +122,7 @@ $(document).ready(function() {
 			var photo = $('<div/>', {'class':'image_upload'});
 			var author = $('<div/>', {'class':'p_author'});
 			var a_title = $('<div/>', {'class':'a_title', 'text':'Фото:'});
-			var a_name = $('<div/>', {'class':'a_name', 'text':'Сережа'});
+			var a_name = $('<div/>', {'class':'a_name', 'text':'Автор фото', 'contenteditable':true});
 			photo.css('background-image', 'url(' + response + ')');
 			photo.append(author.append(a_title, a_name));
 			$('.images_block').append(photo);
@@ -131,6 +131,7 @@ $(document).ready(function() {
 			// $('.image_upload').eq(i).children('.p_author').text(progress + '%');
 		},
 		afterAll: function() {
+			$('.photos_block').css('background-color', 'black');
 			var count_photos = $('.image_upload').length;
 			var count_trailers = $('.trailer').length;
 
