@@ -17,6 +17,15 @@ body {
 	background-color: black;
 }
 
+.photos_block:hover .switch {
+	display: block;
+}
+
+/*.photos_block:hover .trailers_block {
+	margin-left: -20px;
+	-webkit-transition-duration: 0.5s;
+}*/
+
 .photos_inner {
 	width: 7500px;              /* params количество трейлеров + количество фотографий */
 	margin-left: -1860px;       /* -params количество трейлеров */
@@ -27,6 +36,7 @@ body {
 	color: white;
 	width: 600px;
 	height: 70px;
+	display: none;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	padding-left: 10px;
@@ -52,6 +62,9 @@ body {
 .trailers_block {
 	float: left;
 	overflow: hidden;
+/*	z-index: 1;
+	position: relative;
+	-webkit-transition-duration: 0.5s;*/
 }
 
 .trailer {

@@ -51,6 +51,7 @@ $(document).ready(function() {
 		},
 	]
 
+
 	var reposition = {
 		repositionTransition:'all 0.5s'
 	}
@@ -60,6 +61,11 @@ $(document).ready(function() {
 	$('.photos_block').zlayer(parallax, reposition);
 
 	$('.switch').click(function(event) {
+		$(this).text('ФОТО');
+		$('.switch').animate({
+			'margin-left': '+=850px'
+		}, 500);
+
 		$('.photos_inner').animate({
 			'margin-left': '+=930px'
 		}, 500);
