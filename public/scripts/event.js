@@ -129,7 +129,10 @@ $(document).ready(function() {
 		});
 	}
 
-	$('.image_upload:odd').on('click', {offset:'-=930px'}, slide)
-	$('.image_upload:even').on('click', {offset:'+=930px'}, slide)
+	// $('.image_upload:odd').on('click', {offset:'-=930px'}, slide);
+	// $('.image_upload:even').on('click', {offset:'+=930px'}, slide);
+
+	$(document).on('click', '.image_upload:odd', {offset:'-=930px'}, slide);
+	$(document).on('click', '.image_upload:even', {offset:'+=930px'}, slide);
 
 });

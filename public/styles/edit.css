@@ -55,9 +55,8 @@
 	Upload img
  */
 
-.image_upload input {
-	opacity: 0;
-	position: absolute;
+.image_upload {
+	background-color: #5fa4c9;
 }
 
 

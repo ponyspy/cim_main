@@ -100,7 +100,8 @@ $(document).ready(function() {
 		});
 	});
 
-	$('.dropzone').filedrop({
+
+	$('.photos_block').filedrop({
 		url: '/upload',
 		paramname: 'photo',
 		fallback_id: 'upload_button',
@@ -112,28 +113,38 @@ $(document).ready(function() {
 			$(this).css('background-color', '#c9a2ae');
 		},
 		dragLeave: function() {
-			$(this).removeAttr('style');
+			$(this).css('background-color', 'white');
 		},
 		uploadStarted: function(i, file, len) {
-			var photo = $('<div/>', {'class':'photo'});
-			var scale = $('<div/>', {'class':'scale'});
 
-			photo.append(scale);
-			$('.photos').prepend(photo);
 		},
 		uploadFinished: function(i, file, response, time) {
-			$('.photo').eq(i).attr('style', 'background-image:url(' + response + ')');
+			var photo = $('<div/>', {'class':'image_upload'});
+			var author = $('<div/>', {'class':'p_author'});
+			var a_title = $('<div/>', {'class':'a_title', 'text':'Фото:'});
+			var a_name = $('<div/>', {'class':'a_name', 'text':'Сережа'});
+			photo.css('background-image', 'url(' + response + ')');
+			photo.append(author.append(a_title, a_name));
+			$('.images_block').append(photo);
 		},
 		progressUpdated: function(i, file, progress) {
-			$('.photo').eq(i).children('.scale').text(progress + '%').css('width', progress + '%');
+			// $('.image_upload').eq(i).children('.p_author').text(progress + '%');
 		},
 		afterAll: function() {
-			$('.dropzone').removeAttr('style');
+			var count_photos = $('.image_upload').length;
+			var count_trailers = $('.trailer').length;
+
+			$('.photos_inner').css({
+				'width': (count_photos + count_trailers) * 930 + 'px',
+				'margin-left': '-' + (count_trailers * 930) + 'px'
+			});
 		}
 	});
 
-	$(document).on('dblclick', '.photo', function() {
-		var path = $(this).attr('style').slice(21,-1);
+	$(document).on('dblclick', '.image_upload', function() {
+		// var path = $(this).attr('style').slice(21,-1);
+		var style = $(this).css('background-image');
+		alert(style)
 		var ph = $(this);
 
 		$.post('/photo_remove', {path: path}).done(function(data) {
