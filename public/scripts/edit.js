@@ -119,6 +119,7 @@ $(document).ready(function() {
 
 		},
 		uploadFinished: function(i, file, response, time) {
+
 			var photo = $('<div/>', {'class':'image_upload'});
 			var author = $('<div/>', {'class':'p_author'});
 			var a_title = $('<div/>', {'class':'a_title', 'text':'Фото:'});
@@ -143,9 +144,7 @@ $(document).ready(function() {
 	});
 
 	$(document).on('dblclick', '.image_upload', function() {
-		// var path = $(this).attr('style').slice(21,-1);
-		var style = $(this).css('background-image');
-		alert(style)
+		var path = $(this).css('background-image').slice(4,-1);
 		var ph = $(this);
 
 		$.post('/photo_remove', {path: path}).done(function(data) {
