@@ -116,20 +116,21 @@ $(document).ready(function() {
 			$(this).css('background-color', 'black');
 		},
 		uploadStarted: function(i, file, len) {
-
-		},
-		uploadFinished: function(i, file, response, time) {
-
 			var photo = $('<div/>', {'class':'image_upload'});
 			var author = $('<div/>', {'class':'p_author'});
+			photo.append(author);
+			$('.images_block').prepend(photo);
+		},
+		uploadFinished: function(i, file, response, time) {
+			var photo = $('.image_upload').eq(i);
 			var a_title = $('<div/>', {'class':'a_title', 'text':'Фото:'});
 			var a_name = $('<div/>', {'class':'a_name', 'text':'Автор фото', 'contenteditable':true});
-			photo.css('background-image', 'url(' + response + ')');
-			photo.append(author.append(a_title, a_name));
-			$('.images_block').append(photo);
+			photo.attr('style', 'background-image:url(' + response + ')');
+			photo.children('.p_author').empty();
+			photo.children('.p_author').append(a_title, a_name);
 		},
 		progressUpdated: function(i, file, progress) {
-			// $('.image_upload').eq(i).children('.p_author').text(progress + '%');
+			$('.image_upload').eq(i).children('.p_author').text(progress + '%');
 		},
 		afterAll: function() {
 			$('.photos_block').css('background-color', 'black');
@@ -144,7 +145,8 @@ $(document).ready(function() {
 	});
 
 	$(document).on('dblclick', '.image_upload', function() {
-		var path = $(this).css('background-image').slice(4,-1);
+		var host = window.location.host;
+		var path = $(this).css('background-image').slice(4,-1).replace('http://' + host, '');
 		var ph = $(this);
 
 		$.post('/photo_remove', {path: path}).done(function(data) {
