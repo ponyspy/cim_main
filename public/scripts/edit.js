@@ -9,7 +9,8 @@
 // }
 
 $(document).ready(function() {
-	var img_preview = 'null';
+	var images_upload = [];
+	var host = window.location.host;
 	$('.description, .comment, .ticket').popline({disable:['color']});
 
 	$('#one').sortable({connectWith: '#two', placeholder: 'column_placeholder', cancel: '.m_comment, .m_search'});
@@ -36,7 +37,7 @@ $(document).ready(function() {
 		var age = $('.age').html();
 		var duration = $('.duration').html();
 		var hall = $('.hall').val();
-		// var project = $('.project').val();
+		var images = $('.image_upload');
 		var markers = $('.marker .m_list').children('a');
 		var members = [];
 		var category = [];
@@ -45,6 +46,17 @@ $(document).ready(function() {
 			'one': [],
 			'two': []
 		}
+
+		images.each(function(index, image) {
+			var img = $(this).css('background-image').slice(4,-1).replace('http://' + host, '');
+			var author = $(this).find('.a_name').text();
+			images_upload.push({
+				path: img,
+				author: {
+					ru: checkField(author)
+				}
+			});
+		});
 
 		m_columns.each(function(index, el) {
 			var col = $(this).parent('.column').index();
@@ -87,7 +99,7 @@ $(document).ready(function() {
 		age = checkField(age);
 
 
-		$.post('', {img: img_preview, ru: ru, members: members, category: category, hall: hall, age: age, duration: duration, columns: columns}).done(function(result) {
+		$.post('', {images: images_upload, ru: ru, members: members, category: category, hall: hall, age: age, duration: duration, columns: columns}).done(function(result) {
 			var btn_title = $('.upload').text();
 			if (btn_title == 'СОЗДАТЬ')
 				 location.reload();
@@ -145,7 +157,6 @@ $(document).ready(function() {
 	});
 
 	$(document).on('dblclick', '.image_upload', function() {
-		var host = window.location.host;
 		var path = $(this).css('background-image').slice(4,-1).replace('http://' + host, '');
 		var ph = $(this);
 

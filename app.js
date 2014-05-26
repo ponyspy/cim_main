@@ -400,7 +400,6 @@ app.post('/auth/add/event', function(req, res) {
   event.ru.body = post.ru.body;
   event.ru.ticket = post.ru.ticket;
   event.ru.comment = post.ru.comment;
-  event.ru.p_author = post.ru.p_author;
 
   if (post.en) {
     event.en.title = post.en.title;
@@ -408,7 +407,6 @@ app.post('/auth/add/event', function(req, res) {
     event.en.body = post.en.body;
     event.en.ticket = post.en.ticket;
     event.en.comment = post.en.comment;
-    event.en.p_author = post.en.p_author;
   };
 
   event.category = post.category;
@@ -418,23 +416,33 @@ app.post('/auth/add/event', function(req, res) {
   event.duration = post.duration;
   event.meta.columns = post.columns;
 
-  if (post.img != 'null') {
-    fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
-      var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
-      gm(__dirname + '/public' + post.img).write(newPath, function() {
-        event.photo = '/images/events/' + event._id + '/photo.jpg';
-        fs.unlink(__dirname + '/public' + post.img);
-        event.save(function() {
-          res.redirect('back');
-        });
-      });
-    });
-  }
-  else {
-    event.save(function(err, event) {
-      res.redirect('back');
-    });
-  }
+  if (post.images.length > 0)
+    event.photos = post.images;
+  else
+    events.photos = [];
+
+  event.save(function(err, event) {
+    res.redirect('back');
+  });
+
+
+  // if (post.img != 'null') {
+  //   fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
+  //     var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
+  //     gm(__dirname + '/public' + post.img).write(newPath, function() {
+  //       event.photo = '/images/events/' + event._id + '/photo.jpg';
+  //       fs.unlink(__dirname + '/public' + post.img);
+  //       event.save(function() {
+  //         res.redirect('back');
+  //       });
+  //     });
+  //   });
+  // }
+  // else {
+  //   event.save(function(err, event) {
+  //     res.redirect('back');
+  //   });
+  // }
 });
 
 

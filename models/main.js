@@ -76,18 +76,23 @@ var eventSchema = new Schema({
       s_title: String,
          body: String,
          ticket: String,
-         comment: String,
-         p_author: String
+         comment: String
       },
       en: {
         title: String,
       s_title: String,
          body: String,
          ticket: String,
-         comment: String,
-         p_author: String
+         comment: String
       },
-      photo: String,
+      photos: [{
+        path: String,
+        author: {
+          ru: String,
+          en: String
+        }
+      }],
+      trailers: [String],
       poster: String,
       hall: String,
       age: Number,
