@@ -93,7 +93,6 @@ $(document).ready(function() {
 			comment: comment
 		}
 
-		ru.p_author = checkField(p_author);
 		ru.ticket = checkField(ticket);
 		duration = checkField(duration);
 		age = checkField(age);

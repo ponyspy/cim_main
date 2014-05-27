@@ -416,10 +416,7 @@ app.post('/auth/add/event', function(req, res) {
   event.duration = post.duration;
   event.meta.columns = post.columns;
 
-  if (post.images.length > 0)
-    event.photos = post.images;
-  else
-    events.photos = [];
+  event.photos = post.images ? post.images : []
 
   event.save(function(err, event) {
     res.redirect('back');
