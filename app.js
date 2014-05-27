@@ -416,11 +416,45 @@ app.post('/auth/add/event', function(req, res) {
   event.duration = post.duration;
   event.meta.columns = post.columns;
 
-  event.photos = post.images ? post.images : []
+  // event.photos = post.images ? post.images : []
 
-  event.save(function(err, event) {
-    res.redirect('back');
-  });
+  // event.save(function(err, event) {
+  //   res.redirect('back');
+  // });
+
+
+
+  if (post.images) {
+    fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
+      fs.mkdir(__dirname + '/public/images/events/' + event._id + '/photos', function() {
+        async.forEach(post.images, function(image, callback) {
+          var ph = image.path.split('/')[2];
+          var newPath = __dirname + '/public/images/events/' + event._id + '/photos/' + ph;
+
+          gm(__dirname + '/public' + image.path).write(newPath, function() {
+            image.path = image.path.replace(image.path, '/images/events/' + event._id + '/photos/' + ph);
+            callback();
+          });
+
+        }, function() {
+          event.photos = post.images;
+          event.save(function(err, event) {
+            res.redirect('back');
+          });
+
+        });
+      });
+    });
+  }
+  else {
+    event.save(function(err, event) {
+      res.redirect('back');
+    });
+  }
+
+
+
+
 
 
   // if (post.img != 'null') {
