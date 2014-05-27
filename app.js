@@ -1366,8 +1366,15 @@ app.get('/upload', function (req, res) {
 });
 
 app.post('/upload', function (req, res) {
-  fs.rename(req.files.photo.path, __dirname + '/public/preview/' + req.files.photo.name)
-  res.send('/preview/' + req.files.photo.name);
+  var files = req.files;
+  var ext = req.files.photo.name.split('.')[1];
+  var name = new Date();
+  name = name.getTime()
+
+  var newPath = __dirname + '/public/preview/' + name + '.' + ext;
+  gm(files.photo.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
+    res.send('/preview/' + name + '.' + ext);
+  });
 });
 
 app.post('/photo_remove', function (req, res) {
