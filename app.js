@@ -451,29 +451,6 @@ app.post('/auth/add/event', function(req, res) {
       res.redirect('back');
     });
   }
-
-
-
-
-
-
-  // if (post.img != 'null') {
-  //   fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
-  //     var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
-  //     gm(__dirname + '/public' + post.img).write(newPath, function() {
-  //       event.photo = '/images/events/' + event._id + '/photo.jpg';
-  //       fs.unlink(__dirname + '/public' + post.img);
-  //       event.save(function() {
-  //         res.redirect('back');
-  //       });
-  //     });
-  //   });
-  // }
-  // else {
-  //   event.save(function(err, event) {
-  //     res.redirect('back');
-  //   });
-  // }
 });
 
 
