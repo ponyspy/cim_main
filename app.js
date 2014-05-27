@@ -1369,7 +1369,7 @@ app.post('/upload', function (req, res) {
   var files = req.files;
   var ext = req.files.photo.name.split('.')[1];
   var name = new Date();
-  name = name.getTime()
+  name = name.getTime();
 
   var newPath = __dirname + '/public/preview/' + name + '.' + ext;
   gm(files.photo.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
