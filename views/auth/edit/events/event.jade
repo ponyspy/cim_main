@@ -11,8 +11,9 @@ block content_style
 
 block content_scripts
 	script(type='text/javascript', src='/scripts/edit.js' + version)
-	//- script(type='text/javascript', src='/scripts/back.js' + version)
-	script(type='text/javascript', src='/scripts/mfupload.js' + version)
+	script(type='text/javascript', src='/scripts/event.js' + version)
+	script(type='text/javascript', src='/scripts/jquery.zlayer.min.js' + version)
+	script(type='text/javascript', src='/scripts/jquery.filedrop.js' + version)
 	script(type="text/javascript", src='/scripts/jquery.popline.min.js' + version)
 	script(type="text/javascript", src='/scripts/jquery-ui-1.10.3.custom.min.js' + version)
 
@@ -72,11 +73,19 @@ mixin memberList(marker, status)
 block content
 	- var ru_column_one = {'director': 'Режиссер', 'author': 'Автор', 'playwright': 'Драматург', 'choreographer': 'Хореограф', 'composer': 'Композитор', 'artist': 'Художник', 'actor': 'Исполнители', 'producer': 'Продюсер', 'curator': 'Куратор', 'lecturer': 'Лектор', 'theoretician': 'Теоретик', 'art_director': 'Художественный руководитель', 'scenographer': 'Сценограф'}
 	- var ru_column_two = {'photographer': 'Фотограф', 'sub_director': 'Помощник режисера', 'tech_director': 'Технический директор', 'video_artist': 'Видеохудожник', 'light_artist': 'Художник по свету', 'audio_director': 'Звукорежисер', 'multi_artist': 'Мультимедиахудожник', 'consultant': 'Консультант', 'effects': 'Спецэффекты'}
-	.image_upload(style=event.photo ? 'background-image: url(' + event.photo + ')' : '')
-		.p_author
-			.a_title Фото:
-			.a_name(contenteditable='plaintext-only')= event.ru.p_author
-		input(type='file', name='image', data-post='/', data-crop='true')
+	//- form(action="/upload", method="post")
+		input#upload_button(type='file')
+	.photos_block
+		.switch ВИДЕО
+		.photos_inner
+			.trailers_block
+				.trailer трейлер
+			.images_block
+				each photo in event.photos
+					.image_upload(style='background-image: url(' + photo.path + ')')
+						.p_author
+							.a_title Фото:
+							.a_name(contenteditable='plaintext-only')= photo.author.ru
 	.content_body
 		.title(lang='ru', contenteditable)= event.ru.title.toUpperCase()
 		if (event.ru.s_title)
