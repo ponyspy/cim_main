@@ -79,7 +79,7 @@ block content
 		.switch ВИДЕО
 		.photos_inner
 			.trailers_block
-				.trailer
+				.trailer(contenteditable='plaintext-only')
 					!=event.trailers[0]
 			.images_block
 				each photo,i in event.photos
