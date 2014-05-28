@@ -59,42 +59,15 @@ block content
 			.switch ВИДЕО
 			.photos_inner
 				.trailers_block
-					.trailer <iframe width="930" height="620" src="//www.youtube.com/embed/qMBuOcGzBg4" frameborder="0" allowfullscreen=""></iframe>
-					.trailer <iframe width="930" height="620" src="//www.youtube.com/embed/qMBuOcGzBg4" frameborder="0" allowfullscreen=""></iframe>
+					.trailer
+						!= event.trailers[0]
+					//- .trailer <iframe width="930" height="620" src="//www.youtube.com/embed/qMBuOcGzBg4" frameborder="0" allowfullscreen=""></iframe>
 				.images_block
 					each photo in event.photos
 						.image_upload(style='background-image: url(' + photo.path + ')')
 							.p_author
 								.a_title Фото:
 								.a_name= photo.author.ru
-					//- .image_upload(style='background-image: url(' + event.photo + ')')
-					//- 	.p_author
-					//- 		.a_title Фото:
-					//- 		.a_name Сережа БЕЗРУКОВ
-					//- .image_upload(style='background-image: url(' + '/images/events/522dc6c1d8c598bf62000004/photo.jpg' + ')')
-					//- 	.p_author
-					//- 		.a_title Фото:
-					//- 		.a_name Вася КОНДРАШОВ
-					//- .image_upload(style='background-image: url(' + '/images/events/52f9db2eac7ad4a793000003/photo.jpg' + ')')
-					//- 	if (event.ru.p_author)
-					//- 		.p_author
-					//- 			.a_title Фото:
-					//- 			.a_name= event.ru.p_author
-					//- .image_upload(style='background-image: url(' + '/images/events/5237fb3ea1d4ff8086000003/photo.jpg' + ')')
-					//- 	if (event.ru.p_author)
-					//- 		.p_author
-					//- 			.a_title Фото:
-					//- 			.a_name= event.ru.p_author
-					//- .image_upload(style='background-image: url(' + '/images/events/52316cd5225a740000000003/photo.jpg' + ')')
-					//- 	if (event.ru.p_author)
-					//- 		.p_author
-					//- 			.a_title Фото:
-					//- 			.a_name= event.ru.p_author
-					//- .image_upload(style='background-image: url(' + '/images/events/52373ee2712f311b50000003/photo.jpg' + ')')
-					//- 	if (event.ru.p_author)
-					//- 		.p_author
-					//- 			.a_title Фото:
-					//- 			.a_name= event.ru.p_author
 
 	if (schedule.length > 0)
 		.calendar

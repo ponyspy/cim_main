@@ -9,7 +9,6 @@
 // }
 
 $(document).ready(function() {
-	var images_upload = [];
 	var host = window.location.host;
 	$('.description, .comment, .ticket').popline({disable:['color']});
 
@@ -28,6 +27,8 @@ $(document).ready(function() {
 	}
 
 	$('.upload').click(function(event) {
+		var images_upload = [];
+		var trailers_upload = [];
 		var title = $('.title').html();
 		var s_title = $('.s_title').html();
 		var description = $('.description').html();
@@ -38,6 +39,7 @@ $(document).ready(function() {
 		var duration = $('.duration').html();
 		var hall = $('.hall').val();
 		var images = $('.image_upload');
+		var trailers = $('.trailer');
 		var markers = $('.marker .m_list').children('a');
 		var members = [];
 		var category = [];
@@ -46,6 +48,12 @@ $(document).ready(function() {
 			'one': [],
 			'two': []
 		}
+
+
+		trailers.each(function(index, trailer) {
+			var trailer = $(this).html();
+			trailers_upload.push(trailer);
+		});
 
 		images.each(function(index, image) {
 			var img = $(this).css('background-image').slice(4,-1).replace('http://' + host, '');
@@ -98,7 +106,7 @@ $(document).ready(function() {
 		age = checkField(age);
 
 
-		$.post('', {images: images_upload, ru: ru, members: members, category: category, hall: hall, age: age, duration: duration, columns: columns}).done(function(result) {
+		$.post('', {images: images_upload, trailers: trailers_upload, ru: ru, members: members, category: category, hall: hall, age: age, duration: duration, columns: columns}).done(function(result) {
 			var btn_title = $('.upload').text();
 			if (btn_title == 'СОЗДАТЬ')
 				 location.reload();
@@ -270,10 +278,20 @@ $(document).ready(function() {
 		if ($(this).data('clicked')) {
 			var raw = $('.description').html();
 			$('.description').empty().text(raw);
+
+
+			var trailer = $('.trailer').html();
+			$('.trailer').empty().text(trailer);
 		}
 		else {
 			var raw = $('.description').text();
 			$('.description').empty().append(raw);
+
+
+			var trailer = $('.trailer').text();
+			$('.trailer').empty().append(trailer);
+
+
 
 			// $('.description').youtube()
 

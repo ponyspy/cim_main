@@ -409,6 +409,7 @@ app.post('/auth/add/event', function(req, res) {
     event.en.comment = post.en.comment;
   };
 
+  event.trailers = post.trailers;
   event.category = post.category;
   event.hall = post.hall;
   event.age = post.age;
