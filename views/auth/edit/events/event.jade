@@ -82,8 +82,8 @@ block content
 				.trailer
 					!=event.trailers[0]
 			.images_block
-				each photo in event.photos
-					.image_upload(style='background-image: url(' + photo.path + ')')
+				each photo,i in event.photos
+					.image_upload(style='background-image: url(' + images_preview[i] + ')')
 						.p_author
 							.a_title Фото:
 							.a_name(contenteditable='plaintext-only')= photo.author.ru
