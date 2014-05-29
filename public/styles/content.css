@@ -13,7 +13,8 @@ body {
 .photos_block {
 	width: 930px;
 	height: 620px;
-	overflow: hidden;
+  overflow: hidden;
+  white-space: nowrap;
 	background-color: black;
 }
 
@@ -26,10 +27,11 @@ body {
 	-webkit-transition-duration: 0.5s;
 }*/
 
-/*.photos_inner {
-	width: 7440px;
-	margin-left: -1860px;
-}*/
+.photos_inner {
+	/*overflow: hidden;*/
+	display: inline-block;
+	/*margin-left: -930px;*/
+}
 
 .switch {
 	background-color: black;
@@ -60,8 +62,7 @@ body {
 
 
 .trailers_block {
-	float: left;
-	overflow: hidden;
+ 	display: inline-block;
 /*	z-index: 1;
 	position: relative;
 	-webkit-transition-duration: 0.5s;*/
@@ -70,20 +71,19 @@ body {
 .trailer {
 	width: 930px;
 	height: 620px;
-	float: left;
+	display: inline-block;
 	overflow: hidden;
 	background-color: #50c983;
 }
 
 .images_block {
-	float: left;
-	overflow: hidden;
+ display: inline-block;
 }
 
 .image_upload {
 	width: 930px;
 	height: 620px;
-	float: left;
+	 display: inline-block;
 	position: relative;
 	/*background: no-repeat center center;*/
   -webkit-background-size: cover;

@@ -25,13 +25,13 @@ $(document).ready(function() {
 	});
 
 
-	var count_photos = $('.image_upload').length;
-	var count_trailers = $('.trailer').length;
+	// var count_photos = $('.image_upload').length;
+	// var count_trailers = $('.trailer').length;
 
-	$('.photos_inner').css({
-		'width': (count_photos + count_trailers) * 930 + 'px',
-		'margin-left': '-' + (count_trailers * 930) + 'px'
-	});
+	// $('.photos_inner').css({
+	// 	'width': (count_photos + count_trailers) * 930 + 'px',
+	// 	'margin-left': '-' + (count_trailers * 930) + 'px'
+	// });
 
 
 	var parallax = [
@@ -109,30 +109,24 @@ $(document).ready(function() {
 
 	function slide (event) {
 		$('.switch').hide();
-		$('.image_upload').css({'-webkit-transform': 'translate3d(0, 0, 0)', '-webkit-transition-duration': '0.5s'});
 
 		if (mode) {
 			mode = !mode;
 			$('.photos_block').zlayer(parallax_inverse, reposition);
-			// $('.image_upload:even').css({'-webkit-transform': 'translate3d(-430px, 0, 0)', '-webkit-transition-duration': '0.2s'});
 		}
 		else {
 			mode = !mode;
 			$('.photos_block').zlayer(parallax, reposition);
-			// $('.image_upload:even').css({'-webkit-transform': 'translate3d(100px, 0, 0)', '-webkit-transition-duration': '0.2s'});
 		}
 
-		$('.photos_inner').animate({
-			'margin-left': event.data.offset
+		var index = $(this).index();
+		$('.photos_block').animate({
+		    scrollLeft: index * 930
 		}, 500, function() {
 			$('.switch').show();
 		});
 	}
 
-	// $('.image_upload:odd').on('click', {offset:'-=930px'}, slide);
-	// $('.image_upload:even').on('click', {offset:'+=930px'}, slide);
-
-	$(document).on('click', '.image_upload:odd', {offset:'-=930px'}, slide);
-	$(document).on('click', '.image_upload:even', {offset:'+=930px'}, slide);
+	$(document).on('click', '.image_upload', slide);
 
 });
