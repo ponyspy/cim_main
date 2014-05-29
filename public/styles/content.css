@@ -1,6 +1,6 @@
 body {
- 	font: 11pt/12pt 'Pragmatica';
- 	/*letter-spacing: 0px;*/
+	font: 11pt/12pt 'Pragmatica';
+	/*letter-spacing: 0px;*/
 }
 
 .content_block {
@@ -13,8 +13,8 @@ body {
 .photos_block {
 	width: 930px;
 	height: 620px;
-  overflow: hidden;
-  white-space: nowrap;
+	overflow: hidden;
+	white-space: nowrap;
 	background-color: black;
 }
 
@@ -22,15 +22,10 @@ body {
 	display: block;
 }
 
-/*.photos_block:hover .trailers_block {
-	margin-left: -20px;
-	-webkit-transition-duration: 0.5s;
-}*/
-
 .photos_inner {
 	/*overflow: hidden;*/
 	display: inline-block;
-	/*margin-left: -930px;*/
+	background-color: black;
 }
 
 .switch {
@@ -39,11 +34,8 @@ body {
 	width: 600px;
 	height: 70px;
 	display: none;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	padding-left: 10px;
-	padding-right: 10px;
-	float: left;
+	padding: 5px 10px 5px 10px;
+	/*float: left;*/
 	position: absolute;
 	text-align: center;
 	cursor: pointer;
@@ -62,10 +54,7 @@ body {
 
 
 .trailers_block {
- 	display: inline-block;
-/*	z-index: 1;
-	position: relative;
-	-webkit-transition-duration: 0.5s;*/
+	display: inline-block;
 }
 
 .trailer {
@@ -86,10 +75,10 @@ body {
 	 display: inline-block;
 	position: relative;
 	/*background: no-repeat center center;*/
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
 }
 
 .image_upload:nth-child(odd) {
@@ -140,13 +129,13 @@ body {
 	float: left;
 	color: white;
 	margin-left: 0px;
- 	font: 56pt/51pt 'PragmaticaM';
- 	letter-spacing: -1px;
- 	padding-right: 15px;
- 	padding-top: 5px;
- 	padding-left: 5px;
- 	padding-bottom: 5px;
- 	cursor: default;
+	font: 56pt/51pt 'PragmaticaM';
+	letter-spacing: -1px;
+	padding-right: 15px;
+	padding-top: 5px;
+	padding-left: 5px;
+	padding-bottom: 5px;
+	cursor: default;
 	display: inline-block;
 	overflow: hidden;
 	background-color: black;
@@ -286,9 +275,9 @@ body {
 	padding-left: 10px;
 	margin-right: 10px;
 	float: left;
- 	font: 11pt/13pt 'Pragmatica';
- 	letter-spacing: 0px;
- 	/*font-weight: bold;*/
+	font: 11pt/13pt 'Pragmatica';
+	letter-spacing: 0px;
+	/*font-weight: bold;*/
 	hyphens: auto;
 	-webkit-hyphens: auto;
 	/*background-color: #62ffb1;*/
@@ -317,40 +306,40 @@ body {
 
 .title {
 	width: 922px;
- 	font: 56pt/51pt 'PragmaticaM';
- 	/*letter-spacing: 0px;*/
- 	padding-left: 4px;
- 	padding-right: 4px;
- 	/*padding-top: 12px;*/
- 	/*border: 1px solid black;*/
- 	/*font-weight: bold;*/
+	font: 56pt/51pt 'PragmaticaM';
+	/*letter-spacing: 0px;*/
+	padding-left: 4px;
+	padding-right: 4px;
+	/*padding-top: 12px;*/
+	/*border: 1px solid black;*/
+	/*font-weight: bold;*/
 /*	hyphens: auto;
 	-webkit-hyphens: auto;*/
- 	/*white-space: pre-wrap;*/
+	/*white-space: pre-wrap;*/
 }
 
 .s_title {
- 	font: 26pt/28pt 'PragmaticaM';
- 	/*letter-spacing: 0px;*/
- 	padding-left: 7px;
- 	padding-right: 7px;
- 	padding-top: 7px;
- 	padding-bottom: 9px;
- 	font-weight: bold;
+	font: 26pt/28pt 'PragmaticaM';
+	/*letter-spacing: 0px;*/
+	padding-left: 7px;
+	padding-right: 7px;
+	padding-top: 7px;
+	padding-bottom: 9px;
+	font-weight: bold;
 }
 
 .description {
 	clear: both;
 	width: 910px;
- 	font: 12pt/13pt 'Pragmatica';
- 	/*letter-spacing: 0px;*/
+	font: 12pt/13pt 'Pragmatica';
+	/*letter-spacing: 0px;*/
 	hyphens: auto;
 	-webkit-hyphens: auto;
- 	margin-top: 5px;
- 	/*padding-top: 2px;*/
- 	padding-bottom: 2px;
- 	padding-left: 10px;
- 	padding-right: 10px;
+	margin-top: 5px;
+	/*padding-top: 2px;*/
+	padding-bottom: 2px;
+	padding-left: 10px;
+	padding-right: 10px;
 	/*border: 1px solid black;*/
 }
 

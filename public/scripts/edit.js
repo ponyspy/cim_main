@@ -153,13 +153,6 @@ $(document).ready(function() {
 		},
 		afterAll: function() {
 			$('.photos_block').css('background-color', 'black');
-			// var count_photos = $('.image_upload').length;
-			// var count_trailers = $('.trailer').length;
-
-			// $('.photos_inner').css({
-			// 	'width': (count_photos + count_trailers) * 930 + 'px',
-			// 	'margin-left': '-' + (count_trailers * 930) + 'px'
-			// });
 		}
 	});
 
