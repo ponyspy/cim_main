@@ -101,7 +101,7 @@ $(document).ready(function() {
 
 	function slide (event) {
 		$('.switch').hide();
-		$('.image_upload').css({'-webkit-transform': 'translate3d(0, 0, 0)', '-webkit-transition-duration': '0.3s'});
+		$('.image_upload').css({'-webkit-transform': 'translate3d(0, 0, 0)', '-webkit-transition-duration': '0.5s'});
 
 		if (mode) {
 			mode = !mode;
