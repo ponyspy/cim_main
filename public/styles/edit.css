@@ -63,6 +63,17 @@
 	color: white;
 }
 
+.photos_inner {
+	width: 10000px;
+}
+
+.images_block, .trailers_block {
+	display: block;
+	float: left;
+	background-color: #c985af;
+	min-width: 930px;
+}
+
 /*
 	Edit Members
  */
