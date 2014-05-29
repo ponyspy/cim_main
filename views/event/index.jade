@@ -54,20 +54,21 @@ mixin calItem(date)
 block content
 	- var ru_column_one = {'director': 'Режиссер', 'author': 'Автор', 'playwright': 'Драматург', 'choreographer': 'Хореограф', 'composer': 'Композитор', 'artist': 'Художник', 'actor': 'Исполнители', 'producer': 'Продюсер', 'curator': 'Куратор', 'lecturer': 'Лектор', 'theoretician': 'Теоретик', 'art_director': 'Художественный руководитель', 'scenographer': 'Сценограф'}
 	- var ru_column_two = {'photographer': 'Фотограф', 'sub_director': 'Помощник режисера', 'tech_director': 'Технический директор', 'video_artist': 'Видеохудожник', 'light_artist': 'Художник по свету', 'audio_director': 'Звукорежисер', 'multi_artist': 'Мультимедиахудожник', 'consultant': 'Консультант', 'effects': 'Спецэффекты'}
-	if (event.photos.length > 0)
+	if (event.photos.length > 0 || event.trailers.length > 0)
 		.photos_block
 			.switch ВИДЕО
 			.photos_inner
-				.trailers_block
-					.trailer
-						!= event.trailers[0]
-					//- .trailer <iframe width="930" height="620" src="//www.youtube.com/embed/qMBuOcGzBg4" frameborder="0" allowfullscreen=""></iframe>
-				.images_block
-					each photo in event.photos
-						.image_upload(style='background-image: url(' + photo.path + ')')
-							.p_author
-								.a_title Фото:
-								.a_name= photo.author.ru
+				if (event.trailers.length > 0)
+					.trailers_block
+						.trailer
+							!= event.trailers[0]
+				if (event.photos.length > 0)
+					.images_block
+							each photo in event.photos
+								.image_upload(style='background-image: url(' + photo.path + ')')
+									.p_author
+										.a_title Фото:
+										.a_name= photo.author.ru
 
 	if (schedule.length > 0)
 		.calendar
