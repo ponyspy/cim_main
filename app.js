@@ -1421,7 +1421,14 @@ app.get('/schema', function (req, res) {
 
       fs.mkdir(__dirname + '/public/images/events/' + event._id + '/photos', function() {
         fs.rename(__dirname + '/public/images/events/' + event._id + '/photo.jpg', __dirname + '/public/images/events/' + event._id + '/photos/' + name + '.jpg', function() {
-          event.photo = '/images/events/' + event._id + '/photos/' + name + '.jpg';
+          event.photos.push({
+            path: '/images/events/' + event._id + '/photos/' + name + '.jpg',
+            author: {
+              ru: event.ru.p_author
+            }
+          });
+          event.photo = undefined;
+          event.ru.p_author = undefined;
           event.save(function(err, event) {
             callback();
           });
