@@ -1421,13 +1421,11 @@ app.get('/schema', function (req, res) {
 
       fs.mkdir(__dirname + '/public/images/events/' + event._id + '/photos', function() {
         fs.rename(__dirname + '/public/images/events/' + event._id + '/photo.jpg', __dirname + '/public/images/events/' + event._id + '/photos/' + name + '.jpg');
-
+        event.photo = '/images/events/' + event._id + '/photos/' + name + '.jpg';
+        event.save(function() {
+          callback();
+        });
       });
-
-      event.photo = '/images/events/' + event._id + '/photos/' + name + '.jpg';
-      event.save();
-
-      callback();
 
     }, function() {
       var date = new Date();
