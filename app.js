@@ -1419,22 +1419,25 @@ app.get('/schema', function (req, res) {
       var name = new Date();
       name = name.getTime();
 
-      fs.mkdir(__dirname + '/public/images/events/' + event._id + '/photos', function() {
-        fs.rename(__dirname + '/public/images/events/' + event._id + '/photo.jpg', __dirname + '/public/images/events/' + event._id + '/photos/' + name + '.jpg', function() {
-          event.photos.push({
-            path: '/images/events/' + event._id + '/photos/' + name + '.jpg',
-            author: {
-              ru: event.ru.p_author
-            }
-          });
-          event.photo = undefined;
-          event.ru.p_author = undefined;
-          event.save(function(err, event) {
-            callback();
+      if (event.photo) {
+        fs.mkdir(__dirname + '/public/images/events/' + event._id + '/photos', function() {
+          fs.rename(__dirname + '/public/images/events/' + event._id + '/photo.jpg', __dirname + '/public/images/events/' + event._id + '/photos/' + name + '.jpg', function() {
+            event.photos.push({
+              path: '/images/events/' + event._id + '/photos/' + name + '.jpg',
+              author: {
+                ru: event.ru.p_author
+              }
+            });
+
+            event.photo = undefined;
+            event.ru.p_author = undefined;
+            event.save(function(err, event) {
+              callback();
+            });
           });
         });
-      });
-
+      }
+      else callback();
     }, function() {
       var date = new Date();
       res.send('ok! -- ' + date)
