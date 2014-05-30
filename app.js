@@ -1413,6 +1413,29 @@ app.post('/photo_remove', function (req, res) {
   });
 });
 
+app.get('/schema', function (req, res) {
+  Event.find().exec(function(err, events) {
+    async.forEach(events, function(event, callback) {
+      var name = new Date();
+      name = name.getTime();
+
+      fs.mkdir(__dirname + '/public/images/events/' + event._id + '/photos', function() {
+        fs.rename(__dirname + '/public/images/events/' + event._id + '/photo.jpg', __dirname + '/public/images/events/' + event._id + '/photos/' + name + '.jpg');
+
+      });
+
+      event.photo = '/images/events/' + event._id + '/photos/' + name + '.jpg';
+      event.save();
+
+      callback();
+
+    }, function() {
+      var date = new Date();
+      res.send('ok! -- ' + date)
+    });
+  });
+});
+
 
 // ------------------------
 // *** Other Block ***
