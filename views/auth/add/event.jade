@@ -73,7 +73,7 @@ block content
 	- var ru_column_one = {'director': 'Режиссер', 'author': 'Автор', 'playwright': 'Драматург', 'choreographer': 'Хореограф', 'composer': 'Композитор', 'artist': 'Художник', 'actor': 'Исполнители', 'producer': 'Продюсер', 'curator': 'Куратор', 'lecturer': 'Лектор', 'theoretician': 'Теоретик', 'art_director': 'Художественный руководитель', 'scenographer': 'Сценограф'}
 	- var ru_column_two = {'photographer': 'Фотограф', 'sub_director': 'Помощник режисера', 'tech_director': 'Технический директор', 'video_artist': 'Видеохудожник', 'light_artist': 'Художник по свету', 'audio_director': 'Звукорежисер', 'multi_artist': 'Мультимедиахудожник', 'consultant': 'Консультант', 'effects': 'Спецэффекты'}
 	//- form(action="/upload", method="post")
-		input#upload_button(type='file')
+		input#upload_fallback(type='file')
 	.photos_block
 		.switch ВИДЕО
 		.photos_inner

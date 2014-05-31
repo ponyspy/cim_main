@@ -70,7 +70,7 @@
 .images_block, .trailers_block {
 	display: block;
 	float: left;
-	background-color: #c985af;
+	/*background-color: #c985af;*/
 	min-width: 930px;
 }
 

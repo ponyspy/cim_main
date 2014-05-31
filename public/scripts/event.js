@@ -96,6 +96,9 @@ $(document).ready(function() {
 	// 	$('.photos_block').zlayer(parallax, reposition);
 	// });
 
+
+
+
 	trailer_length = $('.trailer').length;
 	$('.photos_block').scrollLeft(trailer_length * 930)
 

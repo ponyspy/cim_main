@@ -123,16 +123,16 @@ $(document).ready(function() {
 	$('.photos_block').filedrop({
 		url: '/upload',
 		paramname: 'photo',
-		fallback_id: 'upload_button',
+		fallback_id: 'upload_fallback',
 		allowedfiletypes: ['image/jpeg','image/png','image/gif'],
 		allowedfileextensions: ['.jpg','.jpeg','.png','.gif'],
 		maxfiles: 5,
 		maxfilesize: 8,
 		dragOver: function() {
-			$(this).css('background-color', '#c9a2ae');
+			$(this).css('outline', '3px solid red');
 		},
 		dragLeave: function() {
-			$(this).css('background-color', 'black');
+			$(this).css('outline', 'none');
 		},
 		uploadStarted: function(i, file, len) {
 			var photo = $('<div/>', {'class':'image_upload'});
@@ -152,7 +152,7 @@ $(document).ready(function() {
 			$('.image_upload').eq(i).children('.p_author').text(progress + '%');
 		},
 		afterAll: function() {
-			$('.photos_block').css('background-color', 'black');
+			$('.photos_block').css('outline', 'none');
 		}
 	});
 
