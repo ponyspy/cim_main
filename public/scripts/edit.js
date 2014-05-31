@@ -144,9 +144,10 @@ $(document).ready(function() {
 			var photo = $('.image_upload').eq(i);
 			var a_title = $('<div/>', {'class':'a_title', 'text':'Фото:'});
 			var a_name = $('<div/>', {'class':'a_name', 'text':'Автор фото', 'contenteditable':true});
+			var rm_image = $('<div/>', {'class':'rm_image', 'text':'Удалить'});
 			photo.attr('style', 'background-image:url(' + response + ')');
 			photo.children('.p_author').empty();
-			photo.children('.p_author').append(a_title, a_name);
+			photo.children('.p_author').append(a_title, a_name, rm_image);
 		},
 		progressUpdated: function(i, file, progress) {
 			$('.image_upload').eq(i).children('.p_author').text(progress + '%');
@@ -156,9 +157,9 @@ $(document).ready(function() {
 		}
 	});
 
-	$(document).on('dblclick', '.image_upload', function() {
-		var path = $(this).css('background-image').slice(4,-1).replace('http://' + host, '');
-		var ph = $(this);
+	$(document).on('click', '.rm_image', function() {
+		var ph = $(this).closest('.image_upload');
+		var path = $(ph).css('background-image').slice(4,-1).replace('http://' + host, '');
 
 		$.post('/photo_remove', {path: path}).done(function(data) {
 			ph.remove();

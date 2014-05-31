@@ -74,6 +74,15 @@
 	min-width: 930px;
 }
 
+.rm_image {
+	float: right;
+}
+
+.rm_image:hover {
+	background-color: red;
+	cursor: pointer;
+}
+
 /*
 	Edit Members
  */
