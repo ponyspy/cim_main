@@ -51,12 +51,10 @@ $(document).ready(function() {
 		},
 	]
 
-
 	var reposition = {
 		repositionTransition:'all 0.5s'
 	}
 
-	var mode = true;
 
 	$('.photos_block').zlayer(parallax, reposition);
 
@@ -96,8 +94,8 @@ $(document).ready(function() {
 	// 	$('.photos_block').zlayer(parallax, reposition);
 	// });
 
-
-
+	var mode = true;
+	var old_index = 0;
 
 	trailer_length = $('.trailer').length;
 	$('.photos_block').scrollLeft(trailer_length * 930)
@@ -105,17 +103,20 @@ $(document).ready(function() {
 	function slide (event) {
 		$('.switch').hide();
 		$('.image_upload').css({'-webkit-transform': 'translate3d(0, 0, 0)', '-webkit-transition-duration': '0.5s'});
-
-		if (mode) {
-			mode = !mode;
-			$('.photos_block').zlayer(parallax_inverse, reposition);
-		}
-		else {
-			mode = !mode;
-			$('.photos_block').zlayer(parallax, reposition);
-		}
-
 		var index = $(this).index();
+
+		if (index != old_index) {
+			if (mode) {
+				mode = !mode;
+				$('.photos_block').zlayer(parallax_inverse, reposition);
+			}
+			else {
+				mode = !mode;
+				$('.photos_block').zlayer(parallax, reposition);
+			}
+			old_index = index;
+		}
+
 		$('.photos_block').animate({
 		    'scrollLeft': (index * 930) + (trailer_length * 930)
 		}, 500, function() {
