@@ -56,32 +56,9 @@ $(document).ready(function() {
 	}
 
 
+	trailer_length = $('.trailer').length;
+	$('.photos_block').scrollLeft(trailer_length * 930);
 	$('.photos_block').zlayer(parallax, reposition);
-
-	$('.switch').click(function(event) {
-		$(this).data('clicked', !$(this).data('clicked'));
-
-		if ($(this).data('clicked')) {
-			$(this).text('ФОТО');
-			$('.switch').animate({
-				'margin-left': '+=850px'
-			}, 500);
-
-			$('.photos_block').animate({
-				'scrollLeft': 0
-			}, 500);
-		}
-		else {
-			$(this).text('ВИДЕО');
-			$('.switch').animate({
-				'margin-left': '0px'
-			}, 500);
-
-			$('.photos_block').animate({
-				'scrollLeft': 930
-			}, 500);
-		}
-	});
 
 
 	// $('.title').click(function(event) {
@@ -90,17 +67,11 @@ $(document).ready(function() {
 	// 	$element.off();
 	// });
 
-	// $('.ticket').click(function(event) {
-	// 	$('.photos_block').zlayer(parallax, reposition);
-	// });
 
 	var mode = true;
 	var old_index = 0;
 
-	trailer_length = $('.trailer').length;
-	$('.photos_block').scrollLeft(trailer_length * 930)
-
-	function slide (event) {
+	function getSlide (event) {
 		$('.switch').hide();
 		$('.image_upload').css({'-webkit-transform': 'translate3d(0, 0, 0)', '-webkit-transition-duration': '0.5s'});
 		var index = $(this).index();
@@ -124,6 +95,24 @@ $(document).ready(function() {
 		});
 	}
 
-	$(document).on('click', '.image_upload', slide);
+	function getSwitch () {
+		$(this).data('clicked', !$(this).data('clicked'));
 
+		var sw = $(this).data('clicked');
+		var sw_text = sw ? 'ФОТО' : 'ВИДЕО';
+		var sw_margin = sw ? '850px' : '0px';
+		var sw_scroll = sw ? 0 : 930;
+
+		$(this).text(sw_text);
+		$('.switch').animate({
+			'margin-left': sw_margin
+		}, 500);
+
+		$('.photos_block').animate({
+			'scrollLeft': sw_scroll
+		}, 500);
+	}
+
+	$(document).on('click', '.image_upload', getSlide);
+	$('.switch').on('click', getSwitch)
 });
