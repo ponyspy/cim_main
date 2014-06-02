@@ -62,7 +62,8 @@ body {
 	height: 620px;
 	display: inline-block;
 	overflow: hidden;
-	background-color: #50c983;
+	background-color: white;
+	color: black;
 }
 
 .images_block {

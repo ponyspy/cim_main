@@ -56,11 +56,16 @@
  */
 
 .image_upload {
-	background-color: #5fa4c9;
+	background-color: #9eadc9;
 }
 
-.photos_block {
+.photos_block:before {
+	content: 'Пока только перетащи';
 	color: white;
+	display: block;
+	position: absolute;
+	margin-top: 10px;
+	margin-left: 380px;
 }
 
 .photos_inner {
@@ -70,8 +75,8 @@
 .images_block, .trailers_block {
 	display: block;
 	float: left;
-	/*background-color: #c985af;*/
 	min-width: 930px;
+	/*background-color: #c985af;*/
 }
 
 .a_title, .a_name {
