@@ -66,6 +66,8 @@
 	position: absolute;
 	margin-top: 10px;
 	margin-left: 380px;
+	padding: 3px;
+	border: 1px solid white;
 }
 
 .photos_inner {
