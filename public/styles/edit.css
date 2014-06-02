@@ -74,8 +74,33 @@
 	min-width: 930px;
 }
 
+.a_title, .a_name {
+	background-color: black;
+	position: relative;
+	z-index: 1;
+	-webkit-transition-duration: 0.3s;
+}
+
+.p_author:hover .a_title {
+	margin-left: 80px;
+	-webkit-transition-duration: 0.3s;
+}
+
 .rm_image {
+	position: absolute;
+	z-index: 0;
+	display: block;
+	float: left;
+}
+
+.rm_image:after {
+	content: '|';
+	padding-bottom: 1px;
+	padding-left: 9px;
+	background-color: black;
+	display: block;
 	float: right;
+	font: 10pt/12pt 'PragmaticaB';
 }
 
 .rm_image:hover {

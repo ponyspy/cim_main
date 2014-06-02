@@ -108,12 +108,14 @@ body {
 	-webkit-transition-duration: 0.5s;
 }
 
-.a_name, .a_title {
+.a_title {
 	float: left;
+	padding-right: 5px;
 }
 
-.a_title {
-	margin-right: 5px;
+.a_name {
+	float: left;
+	min-width: 100px;
 }
 
 .calendar {
