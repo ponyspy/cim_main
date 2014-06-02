@@ -172,13 +172,31 @@ app.post('/photo_stream', function (req, res) {
   });
 });
 
-app.post('/edit', function (req, res) {
+// app.post('/edit', function (req, res) {
+//   var files = req.files;
+//   var name = files.mf_file_undefined.path.slice(33);
+//   var newPath = __dirname + '/public/preview/' + name;
+//   gm(files.mf_file_undefined.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
+//     var path = {'path':'/preview/' + name}
+//     res.send(path);
+//   });
+// });
+
+app.post('/upload', function (req, res) {
   var files = req.files;
-  var name = files.mf_file_undefined.path.slice(33);
-  var newPath = __dirname + '/public/preview/' + name;
-  gm(files.mf_file_undefined.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
-    var path = {'path':'/preview/' + name}
-    res.send(path);
+  var ext = req.files.photo.name.split('.')[1];
+  var name = new Date();
+  name = name.getTime();
+
+  var newPath = __dirname + '/public/preview/' + name + '.' + ext;
+  gm(files.photo.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
+    res.send('/preview/' + name + '.' + ext);
+  });
+});
+
+app.post('/photo_remove', function (req, res) {
+  fs.unlink(__dirname + '/public' + req.body.path, function() {
+    res.send(req.body.path);
   });
 });
 
@@ -1391,27 +1409,10 @@ app.get('/history', photoStream, function (req, res) {
 });
 
 
-app.get('/upload', function (req, res) {
-  res.render('upload');
-});
+// ------------------------
+// *** Update schema Block ***
+// ------------------------
 
-app.post('/upload', function (req, res) {
-  var files = req.files;
-  var ext = req.files.photo.name.split('.')[1];
-  var name = new Date();
-  name = name.getTime();
-
-  var newPath = __dirname + '/public/preview/' + name + '.' + ext;
-  gm(files.photo.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
-    res.send('/preview/' + name + '.' + ext);
-  });
-});
-
-app.post('/photo_remove', function (req, res) {
-  fs.unlink(__dirname + '/public' + req.body.path, function() {
-    res.send(req.body.path);
-  });
-});
 
 app.get('/schema', function (req, res) {
   Event.find().exec(function(err, events) {
