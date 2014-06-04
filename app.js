@@ -172,16 +172,6 @@ app.post('/photo_stream', function (req, res) {
   });
 });
 
-// app.post('/edit', function (req, res) {
-//   var files = req.files;
-//   var name = files.mf_file_undefined.path.slice(33);
-//   var newPath = __dirname + '/public/preview/' + name;
-//   gm(files.mf_file_undefined.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
-//     var path = {'path':'/preview/' + name}
-//     res.send(path);
-//   });
-// });
-
 app.post('/upload', function (req, res) {
   var files = req.files;
   var ext = req.files.photo.name.split('.')[1];
