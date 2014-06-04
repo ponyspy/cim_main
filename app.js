@@ -172,13 +172,31 @@ app.post('/photo_stream', function (req, res) {
   });
 });
 
-app.post('/edit', function (req, res) {
+// app.post('/edit', function (req, res) {
+//   var files = req.files;
+//   var name = files.mf_file_undefined.path.slice(33);
+//   var newPath = __dirname + '/public/preview/' + name;
+//   gm(files.mf_file_undefined.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
+//     var path = {'path':'/preview/' + name}
+//     res.send(path);
+//   });
+// });
+
+app.post('/upload', function (req, res) {
   var files = req.files;
-  var name = files.mf_file_undefined.path.slice(33);
-  var newPath = __dirname + '/public/preview/' + name;
-  gm(files.mf_file_undefined.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
-    var path = {'path':'/preview/' + name}
-    res.send(path);
+  var ext = req.files.photo.name.split('.')[1];
+  var name = new Date();
+  name = name.getTime();
+
+  var newPath = __dirname + '/public/preview/' + name + '.' + ext;
+  gm(files.photo.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
+    res.send('/preview/' + name + '.' + ext);
+  });
+});
+
+app.post('/photo_remove', function (req, res) {
+  fs.unlink(__dirname + '/public' + req.body.path, function() {
+    res.send(req.body.path);
   });
 });
 
@@ -400,7 +418,6 @@ app.post('/auth/add/event', function(req, res) {
   event.ru.body = post.ru.body;
   event.ru.ticket = post.ru.ticket;
   event.ru.comment = post.ru.comment;
-  event.ru.p_author = post.ru.p_author;
 
   if (post.en) {
     event.en.title = post.en.title;
@@ -408,9 +425,9 @@ app.post('/auth/add/event', function(req, res) {
     event.en.body = post.en.body;
     event.en.ticket = post.en.ticket;
     event.en.comment = post.en.comment;
-    event.en.p_author = post.en.p_author;
   };
 
+  event.trailers = post.trailers;
   event.category = post.category;
   event.hall = post.hall;
   event.age = post.age;
@@ -418,14 +435,32 @@ app.post('/auth/add/event', function(req, res) {
   event.duration = post.duration;
   event.meta.columns = post.columns;
 
-  if (post.img != 'null') {
+  // event.photos = post.images ? post.images : []
+
+  // event.save(function(err, event) {
+  //   res.redirect('back');
+  // });
+
+
+
+  if (post.images) {
     fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
-      var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
-      gm(__dirname + '/public' + post.img).write(newPath, function() {
-        event.photo = '/images/events/' + event._id + '/photo.jpg';
-        fs.unlink(__dirname + '/public' + post.img);
-        event.save(function() {
-          res.redirect('back');
+      fs.mkdir(__dirname + '/public/images/events/' + event._id + '/photos', function() {
+        async.forEach(post.images, function(image, callback) {
+          var ph = image.path.split('/')[2];
+          var newPath = __dirname + '/public/images/events/' + event._id + '/photos/' + ph;
+
+          gm(__dirname + '/public' + image.path).write(newPath, function() {
+            image.path = image.path.replace(image.path, '/images/events/' + event._id + '/photos/' + ph);
+            callback();
+          });
+
+        }, function() {
+          event.photos = post.images;
+          event.save(function(err, event) {
+            res.redirect('back');
+          });
+
         });
       });
     });
@@ -451,11 +486,19 @@ app.get('/auth/edit/events', checkAuth, function (req, res) {
 
 app.get('/auth/edit/events/:id', checkAuth, photoStream, function (req, res) {
   var id = req.params.id;
+  var images_preview = [];
 
   Event.find({'_id':id}).populate('members.m_id').exec(function(err, event) {
     if (!event) return next(err);
     Member.find().exec(function(err, members) {
-      res.render('auth/edit/events/event.jade', {event: event[0], members: members});
+      async.forEach(event[0].photos, function(photo, callback) {
+        var name = photo.path.split('/')[5];
+        fs.createReadStream(__dirname + '/public/' + photo.path).pipe(fs.createWriteStream(__dirname + '/public/preview/' + name));
+        images_preview.push('/preview/' + name);
+        callback();
+      }, function() {
+        res.render('auth/edit/events/event.jade', {event: event[0], images_preview: images_preview, members: members});
+      });
     });
   });
 });
@@ -480,6 +523,7 @@ app.post('/auth/edit/events/:id', function (req, res, next) {
 
   Event.findById(id, function(err, event) {
 
+    event.trailers = post.trailers;
     event.category = post.category;
     event.members = post.members;
     event.hall = post.hall;
@@ -493,7 +537,6 @@ app.post('/auth/edit/events/:id', function (req, res, next) {
       event.ru.body = post.ru.body;
       event.ru.ticket = post.ru.ticket;
       event.ru.comment = post.ru.comment;
-      event.ru.p_author = post.ru.p_author;
     }
 
     if (post.en) {
@@ -502,24 +545,34 @@ app.post('/auth/edit/events/:id', function (req, res, next) {
       event.en.body = post.en.body;
       event.en.ticket = post.en.ticket;
       event.en.comment = post.en.comment;
-      event.en.p_author = post.en.p_author;
     }
 
-    if (post.img != 'null') {
+    if (post.images) {
       fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
-        var newPath = __dirname + '/public/images/events/' + event._id + '/photo.jpg';
-        gm(__dirname + '/public' + post.img).write(newPath, function() {
-          event.photo = '/images/events/' + event._id + '/photo.jpg';
-          fs.unlink(__dirname + '/public' + post.img);
-          event.save(function() {
-            res.send('ok_img');
+        fs.mkdir(__dirname + '/public/images/events/' + event._id + '/photos', function() {
+          async.forEach(post.images, function(image, callback) {
+            var ph = image.path.split('/')[2];
+            var newPath = __dirname + '/public/images/events/' + event._id + '/photos/' + ph;
+
+            gm(__dirname + '/public' + image.path).write(newPath, function() {
+              image.path = image.path.replace(image.path, '/images/events/' + event._id + '/photos/' + ph);
+              callback();
+            });
+
+          }, function() {
+            event.photos = post.images;
+            event.save(function(err, event) {
+              res.redirect('back');
+            });
+
           });
         });
       });
     }
     else {
+      event.photos = [];
       event.save(function(err, event) {
-        res.send('ok')
+        res.redirect('back');
       });
     }
   });
@@ -1353,6 +1406,49 @@ app.get('/fokin', photoStream, function (req, res) {
 
 app.get('/history', photoStream, function (req, res) {
   res.render('static/history.jade');
+});
+
+
+// ------------------------
+// *** Update schema Block ***
+// ------------------------
+
+
+app.get('/schema', function (req, res) {
+  Event.find().exec(function(err, events) {
+    async.forEach(events, function(event, callback) {
+      var name = new Date();
+      name = name.getTime();
+
+      if (event.photo) {
+        fs.mkdir(__dirname + '/public/images/events/' + event._id + '/photos', function() {
+          fs.rename(__dirname + '/public/images/events/' + event._id + '/photo.jpg', __dirname + '/public/images/events/' + event._id + '/photos/' + name + '.jpg', function() {
+            event.photos.push({
+              path: '/images/events/' + event._id + '/photos/' + name + '.jpg',
+              author: {
+                ru: event.ru.p_author
+              }
+            });
+
+            event.photo = undefined;
+            event.ru.p_author = undefined;
+            event.save(function(err, event) {
+              callback();
+            });
+          });
+        });
+      }
+      else {
+        event.ru.p_author = undefined;
+        event.save(function(err, event) {
+          callback();
+        });
+      }
+    }, function() {
+      var date = new Date();
+      res.send('ok! -- ' + date)
+    });
+  });
 });
 
 

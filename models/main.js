@@ -72,22 +72,29 @@ var photoSchema = new Schema({
 
 var eventSchema = new Schema({
       ru: {
+        p_author: String,   //remove
         title: String,
       s_title: String,
          body: String,
          ticket: String,
-         comment: String,
-         p_author: String
+         comment: String
       },
       en: {
         title: String,
       s_title: String,
          body: String,
          ticket: String,
-         comment: String,
-         p_author: String
+         comment: String
       },
-      photo: String,
+      photo: String,   // remove
+      photos: [{
+        path: String,
+        author: {
+          ru: String,
+          en: String
+        }
+      }],
+      trailers: [String],
       poster: String,
       hall: String,
       age: Number,

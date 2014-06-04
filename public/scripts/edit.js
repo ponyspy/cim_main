@@ -9,7 +9,7 @@
 // }
 
 $(document).ready(function() {
-	var img_preview = 'null';
+	var host = window.location.host;
 	$('.description, .comment, .ticket').popline({disable:['color']});
 
 	$('#one').sortable({connectWith: '#two', placeholder: 'column_placeholder', cancel: '.m_comment, .m_search'});
@@ -19,14 +19,30 @@ $(document).ready(function() {
 	// 	console.log('колонка: ' + $(this).parent('.column').index() + '\nэлемент: ' + $(this).index())
 	// });
 
+
+	$('.ticket').keyup(function () {
+		if ($input.text().length == 0) {
+			$input.empty();
+		}
+	});
+
+	$('.trailer').keyup(function () {
+		if ($input.text().length == 0) {
+			$input.empty();
+		}
+	});
+
+
 	function checkField (field) {
-		if (field == '<br>' || field == '')
-			return '';
+		if (field == '<br>' || field == '' || field == 'трейлер')
+			return undefined;
 		else
 			return field;
 	}
 
 	$('.upload').click(function(event) {
+		var images_upload = [];
+		var trailers_upload = [];
 		var title = $('.title').html();
 		var s_title = $('.s_title').html();
 		var description = $('.description').html();
@@ -36,7 +52,8 @@ $(document).ready(function() {
 		var age = $('.age').html();
 		var duration = $('.duration').html();
 		var hall = $('.hall').val();
-		// var project = $('.project').val();
+		var images = $('.image_upload');
+		var trailers = $('.trailer');
 		var markers = $('.marker .m_list').children('a');
 		var members = [];
 		var category = [];
@@ -45,6 +62,24 @@ $(document).ready(function() {
 			'one': [],
 			'two': []
 		}
+
+
+		trailers.each(function(index, trailer) {
+			var trailer = $(this).html();
+			trailer = checkField(trailer);
+			trailers_upload.push(trailer);
+		});
+
+		images.each(function(index, image) {
+			var img = $(this).css('background-image').slice(4,-1).replace('http://' + host, '');
+			var author = $(this).find('.a_name').text();
+			images_upload.push({
+				path: img,
+				author: {
+					ru: checkField(author)
+				}
+			});
+		});
 
 		m_columns.each(function(index, el) {
 			var col = $(this).parent('.column').index();
@@ -81,13 +116,12 @@ $(document).ready(function() {
 			comment: comment
 		}
 
-		ru.p_author = checkField(p_author);
 		ru.ticket = checkField(ticket);
 		duration = checkField(duration);
 		age = checkField(age);
 
 
-		$.post('', {img: img_preview, ru: ru, members: members, category: category, hall: hall, age: age, duration: duration, columns: columns}).done(function(result) {
+		$.post('', {images: images_upload, trailers: trailers_upload, ru: ru, members: members, category: category, hall: hall, age: age, duration: duration, columns: columns}).done(function(result) {
 			var btn_title = $('.upload').text();
 			if (btn_title == 'СОЗДАТЬ')
 				 location.reload();
@@ -100,27 +134,51 @@ $(document).ready(function() {
 		});
 	});
 
-	$('.image_upload').mfupload({
 
-		type		: 'jpg,png,tif,jpeg',
-		maxsize		: 6,
-		post_upload	: '/edit',
-		folder		: '',
-		ini_text	: 'Нажми или перетащи',
-		over_text	: 'Отпускай!',
-		over_col	: '',
-		over_bkcol	: 'white',
-
-		init		: function(){ },
-		start		: function(result){ },
-		loaded		: function(result) {
-			$('.image_upload').css('background-image', 'url(' + result.path + ')');
-			img_preview = result.path;
+	$('.photos_block').filedrop({
+		url: '/upload',
+		paramname: 'photo',
+		fallback_id: 'upload_fallback',
+		allowedfiletypes: ['image/jpeg','image/png','image/gif'],
+		allowedfileextensions: ['.jpg','.jpeg','.png','.gif'],
+		maxfiles: 5,
+		maxfilesize: 8,
+		dragOver: function() {
+			$(this).css('outline', '3px solid red');
 		},
-		progress	: function(result){ },
-		error		: function(error){ },
-		completed	: function(){ }
+		dragLeave: function() {
+			$(this).css('outline', 'none');
+		},
+		uploadStarted: function(i, file, len) {
+			var photo = $('<div/>', {'class':'image_upload'});
+			var author = $('<div/>', {'class':'p_author'});
+			photo.append(author);
+			$('.images_block').prepend(photo);
+		},
+		uploadFinished: function(i, file, response, time) {
+			var photo = $('.image_upload').eq(i);
+			var a_title = $('<div/>', {'class':'a_title', 'text':'Фото:'});
+			var a_name = $('<div/>', {'class':'a_name', 'text':'Автор фото', 'contenteditable':true});
+			var rm_image = $('<div/>', {'class':'rm_image', 'text':'Удалить'});
+			photo.attr('style', 'background-image:url(' + response + ')');
+			photo.children('.p_author').empty();
+			photo.children('.p_author').append(a_title, a_name, rm_image);
+		},
+		progressUpdated: function(i, file, progress) {
+			$('.image_upload').eq(i).children('.p_author').text(progress + '%');
+		},
+		afterAll: function() {
+			$('.photos_block').css('outline', 'none');
+		}
+	});
 
+	$(document).on('click', '.rm_image', function() {
+		var ph = $(this).closest('.image_upload');
+		var path = $(ph).css('background-image').slice(4,-1).replace('http://' + host, '');
+
+		$.post('/photo_remove', {path: path}).done(function(data) {
+			ph.remove();
+		});
 	});
 
 
@@ -229,10 +287,20 @@ $(document).ready(function() {
 		if ($(this).data('clicked')) {
 			var raw = $('.description').html();
 			$('.description').empty().text(raw);
+
+
+			var trailer = $('.trailer').html();
+			$('.trailer').empty().text(trailer);
 		}
 		else {
 			var raw = $('.description').text();
 			$('.description').empty().append(raw);
+
+
+			var trailer = $('.trailer').text();
+			$('.trailer').empty().append(trailer);
+
+
 
 			// $('.description').youtube()
 

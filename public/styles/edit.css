@@ -55,11 +55,65 @@
 	Upload img
  */
 
-.image_upload input {
-	opacity: 0;
-	position: absolute;
+.image_upload {
+	background-color: #9eadc9;
 }
 
+.photos_block:before {
+	content: 'Пока только перетащи';
+	color: white;
+	display: block;
+	position: absolute;
+	margin-top: 10px;
+	margin-left: 380px;
+	padding: 3px;
+	border: 1px solid white;
+}
+
+.photos_inner {
+	width: 10000px;
+}
+
+.images_block, .trailers_block {
+	display: block;
+	float: left;
+	min-width: 930px;
+	/*background-color: #c985af;*/
+}
+
+.a_title, .a_name {
+	background-color: black;
+	position: relative;
+	z-index: 1;
+	-webkit-transition-duration: 0.3s;
+}
+
+.p_author:hover .a_title {
+	margin-left: 80px;
+	-webkit-transition-duration: 0.3s;
+}
+
+.rm_image {
+	position: absolute;
+	z-index: 0;
+	display: block;
+	float: left;
+}
+
+.rm_image:after {
+	content: '|';
+	padding-bottom: 1px;
+	padding-left: 9px;
+	background-color: black;
+	display: block;
+	float: right;
+	font: 10pt/12pt 'PragmaticaB';
+}
+
+.rm_image:hover {
+	background-color: red;
+	cursor: pointer;
+}
 
 /*
 	Edit Members
