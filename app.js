@@ -1404,42 +1404,42 @@ app.get('/history', photoStream, function (req, res) {
 // ------------------------
 
 
-app.get('/schema', function (req, res) {
-  Event.find().exec(function(err, events) {
-    async.forEach(events, function(event, callback) {
-      var name = new Date();
-      name = name.getTime();
+// app.get('/schema', function (req, res) {
+//   Event.find().exec(function(err, events) {
+//     async.forEach(events, function(event, callback) {
+//       var name = new Date();
+//       name = name.getTime();
 
-      if (event.photo) {
-        fs.mkdir(__dirname + '/public/images/events/' + event._id + '/photos', function() {
-          fs.rename(__dirname + '/public/images/events/' + event._id + '/photo.jpg', __dirname + '/public/images/events/' + event._id + '/photos/' + name + '.jpg', function() {
-            event.photos.push({
-              path: '/images/events/' + event._id + '/photos/' + name + '.jpg',
-              author: {
-                ru: event.ru.p_author
-              }
-            });
+//       if (event.photo) {
+//         fs.mkdir(__dirname + '/public/images/events/' + event._id + '/photos', function() {
+//           fs.rename(__dirname + '/public/images/events/' + event._id + '/photo.jpg', __dirname + '/public/images/events/' + event._id + '/photos/' + name + '.jpg', function() {
+//             event.photos.push({
+//               path: '/images/events/' + event._id + '/photos/' + name + '.jpg',
+//               author: {
+//                 ru: event.ru.p_author
+//               }
+//             });
 
-            event.photo = undefined;
-            event.ru.p_author = undefined;
-            event.save(function(err, event) {
-              callback();
-            });
-          });
-        });
-      }
-      else {
-        event.ru.p_author = undefined;
-        event.save(function(err, event) {
-          callback();
-        });
-      }
-    }, function() {
-      var date = new Date();
-      res.send('ok! -- ' + date)
-    });
-  });
-});
+//             event.photo = undefined;
+//             event.ru.p_author = undefined;
+//             event.save(function(err, event) {
+//               callback();
+//             });
+//           });
+//         });
+//       }
+//       else {
+//         event.ru.p_author = undefined;
+//         event.save(function(err, event) {
+//           callback();
+//         });
+//       }
+//     }, function() {
+//       var date = new Date();
+//       res.send('ok! -- ' + date)
+//     });
+//   });
+// });
 
 
 // ------------------------
