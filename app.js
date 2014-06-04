@@ -1438,7 +1438,12 @@ app.get('/schema', function (req, res) {
           });
         });
       }
-      else callback();
+      else {
+        event.ru.p_author = undefined;
+        event.save(function(err, event) {
+          callback();
+        });
+      }
     }, function() {
       var date = new Date();
       res.send('ok! -- ' + date)
