@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
 	$('.cal_month_block').not(':has(.cal_item)').prev('.cal_inner_title').hide();
+	$('.photos_inner').not(':has(.trailers_block)').prev('.switch').hide();
 
 	if ($('.cal_date').size() > 3) {
 		$('.calendar').mousemove(function(event) {

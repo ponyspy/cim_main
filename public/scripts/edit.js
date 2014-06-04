@@ -19,9 +19,23 @@ $(document).ready(function() {
 	// 	console.log('колонка: ' + $(this).parent('.column').index() + '\nэлемент: ' + $(this).index())
 	// });
 
+
+	$('.ticket').keyup(function () {
+		if ($input.text().length == 0) {
+			$input.empty();
+		}
+	});
+
+	$('.trailer').keyup(function () {
+		if ($input.text().length == 0) {
+			$input.empty();
+		}
+	});
+
+
 	function checkField (field) {
-		if (field == '<br>' || field == '')
-			return '';
+		if (field == '<br>' || field == '' || field == 'трейлер')
+			return undefined;
 		else
 			return field;
 	}
@@ -52,6 +66,7 @@ $(document).ready(function() {
 
 		trailers.each(function(index, trailer) {
 			var trailer = $(this).html();
+			trailer = checkField(trailer);
 			trailers_upload.push(trailer);
 		});
 
