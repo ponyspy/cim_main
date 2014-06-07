@@ -17,10 +17,6 @@
 	padding-right: 10px;
 }
 
-[contenteditable=true]:empty:before {
-  content: attr(placeholder);
-}
-
 .member_search_title {
 	font: 56pt/72pt 'PragmaticaM';
 	float: left;
@@ -54,6 +50,10 @@
 	margin-bottom: 30px;
 }
 
+.members_group:last-child {
+	margin-bottom: 0px;
+}
+
 .members_column {
 	float: left;
 	width: 215px;
@@ -63,8 +63,4 @@
 
 .members_column:nth-child(4n) {
 	margin-right: 0px;
-}
-
-.c_title {
-	/*margin-bottom: 24px;*/
 }
