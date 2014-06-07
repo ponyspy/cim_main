@@ -10,8 +10,9 @@
 .content_block {
 	background-color: black;
 	color: white;
-	width: 930px;
-	min-height: 620px;
+	width: 910px;
+	font: 11pt/13pt 'Pragmatica';
+	min-height: 650px;
 	padding-left: 10px;
 	padding-right: 10px;
 }
@@ -20,12 +21,22 @@
   content: attr(placeholder);
 }
 
+.member_search_title {
+	font: 56pt/72pt 'PragmaticaM';
+	float: left;
+	margin-top: 5px;
+}
+
 .member_search {
 	font: 56pt/72pt 'PragmaticaM';
-	/*background-color: #c19d7a;*/
+	background-color: black;
 	outline: none;
-	width: 800px;
+	width: 600px;
 	color: white;
+}
+
+.title {
+	font: 26pt/28pt 'PragmaticaM';
 }
 
 .member {
@@ -34,9 +45,26 @@
 	font: 11pt/13pt 'PragmaticaM';
 }
 
+.member:hover {
+	text-decoration: none;
+}
+
+.members_group {
+	overflow: hidden;
+	margin-bottom: 30px;
+}
+
 .members_column {
 	float: left;
-	width: 300px;
+	width: 215px;
 	/*background-color: #d2987c;*/
-	margin-right: 10px;
+	margin-right: 15px;
+}
+
+.members_column:nth-child(4n) {
+	margin-right: 0px;
+}
+
+.c_title {
+	/*margin-bottom: 24px;*/
 }

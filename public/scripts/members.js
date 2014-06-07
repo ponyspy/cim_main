@@ -1,9 +1,19 @@
 $(document).ready(function() {
-	$('.member_search').keyup(function () {
-		if ($(this).text().length == 0) {
-			$(this).empty();
-		}
+	$('.member').mouseover(function(event) {
+		var id = $(this).attr('class').split(' ')[1];
+		$('.' + id).css('color', 'red');
 	});
+
+	$('.member').on({
+		mouseover: function() {
+			var id = $(this).attr('class').split(' ')[1];
+			$('.' + id).css({'background-color': 'white', 'color': 'black'});
+		},
+		mouseout: function() {
+			var id = $(this).attr('class').split(' ')[1];
+			$('.' + id).removeAttr('style');
+		}
+	})
 
 	$('.member_search').on('keyup change', function(event) {
 			var value = $(this).val();

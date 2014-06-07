@@ -10,29 +10,36 @@ block content_scripts
 	script(type='text/javascript', src='/scripts/members.js')
 
 
-mixin membersColumn(status)
+mixin membersColumn(status, title)
+	.c_title(class=status)= title
 	each member in members
 		each st in member.status
 			if st == status
-				a.member(href='/members/' + member._id)= member.ru.name
+				a.member(href='/members/' + member._id, class=member._id)= member.ru.name
 
 
 block content
-	//- input.member_search(type='text', placeholder='ПОИСК...')
-	.member_search(contenteditable='true', placeholder='ПОИСК...')
-	br
-	br
+	.member_search_title НАЙТИ:
+	input.member_search(type='text', autofocus, )
+	//- .member_search(contenteditable='true', placeholder='ПОИСК...')
 	.title ЛЮБИМ И ГОРДИМСЯ
 	br
-	.members_columns
+	.members_group
 		.members_column
-			.director Режиссеры
-				+membersColumn('director')
-			.actor Актеры
-				+membersColumn('actor')
+				+membersColumn('director', 'Режиссеры')
+				+membersColumn('author', 'Авторы')
 		.members_column
-			.author Авторы
-				+membersColumn('author')
+				+membersColumn('actor', 'Актеры')
 		.members_column
-			.curator Кураторы
-				+membersColumn('curator')
+				+membersColumn('photographer', 'Фотографы')
+		.members_column
+				+membersColumn('curator', 'Кураторы')
+	.members_group
+		.members_column
+				+membersColumn('artist', 'Художники')
+		.members_column
+				+membersColumn('composer',  'Композиторы')
+		.members_column
+				+membersColumn('choreographer', 'Хореографы')
+		.members_column
+				+membersColumn('playwright', 'Драматурги')

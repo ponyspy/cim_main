@@ -377,7 +377,7 @@ app.get('/members', photoStream, function (req, res) {
 // ------------------------
 
 
-app.get('/member/:id', photoStream, function (req, res, next) {
+app.get('/members/:id', photoStream, function (req, res, next) {
   var id = req.params.id;
 
   Member.findById(id, function(err, member) {
