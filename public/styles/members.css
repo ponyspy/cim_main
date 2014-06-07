@@ -1,109 +1,42 @@
+*::-webkit-input-placeholder {
+    color: white;
+}
+
+*::-moz-placeholder {
+    /* FF 19+ */
+    color: white;
+}
+
 .content_block {
-	background-color: white;
+	background-color: black;
+	color: white;
 	width: 930px;
-}
-
-img {
-	width: 930px;
-	display: block;
-}
-
-.content_body {
-	padding-top: 12px;
-	padding-bottom: 16px;
-	/*padding-left: 10px;*/
-	/*padding-right: 10px;*/
-	/*position: absolute;*/
-	/*border: 1px solid black;*/
-}
-
-.name {
- 	font: 56pt/51pt 'PragmaticaM';
- 	padding-left: 4px;
- 	padding-right: 4px;
-}
-
-.description {
-	clear: both;
-	width: 910px;
- 	font: 12pt/13pt 'Pragmatica';
- 	/*letter-spacing: 0px;*/
-	hyphens: auto;
-	-webkit-hyphens: auto;
- 	margin-top: 25px;
- 	/*padding-top: 2px;*/
- 	padding-bottom: 2px;
- 	padding-left: 10px;
- 	padding-right: 10px;
-	/*border: 1px solid black;*/
-}
-
-.description b {
-	font: 12pt/13pt 'PragmaticaB';
-}
-
-.events {
-	width: 289px;
-	padding-top: 20px;
-	padding-bottom: 11px;
+	min-height: 620px;
 	padding-left: 10px;
 	padding-right: 10px;
-	/*float: left;*/
- 	font: 11pt/13pt 'Pragmatica';
- 	/*letter-spacing: 0px;*/
- 	/*font-weight: bold;*/
-	hyphens: auto;
-	-webkit-hyphens: auto;
-	/*background-color: #62ffb1;*/
-	/*border: 1px solid black;*/
 }
 
-.events a {
-	font: 11pt/13pt 'PragmaticaB';
-	display: block;
+[contenteditable=true]:empty:before {
+  content: attr(placeholder);
 }
 
-/*
-	Pin Events
- */
-
-.pin_events_block {
-	position: fixed;
-	margin-left: 950px;
-	width: 170px;
-	overflow: hidden;
-}
-
-.pin_events_scroll {
-	width: 200px;
-	overflow: auto;
-	height: 450px;
-	position: relative;
-}
-
-a.pin_event_link {
-	text-decoration: none;
-}
-
-.pin_event {
-	width: 150px;
-	margin-bottom: 20px;
-	background-color: black;
-	padding: 10px;
+.member_search {
+	font: 56pt/72pt 'PragmaticaM';
+	/*background-color: #c19d7a;*/
+	outline: none;
+	width: 800px;
 	color: white;
-	cursor: pointer;
 }
 
-.pin_event:hover {
-	color: black;
-	background-color: white;
+.member {
+	display: block;
+	color: white;
+	font: 11pt/13pt 'PragmaticaM';
 }
 
-.pin_event_titile {
-	font: 10pt/12pt 'PragmaticaM';
-}
-
-.pin_event_s_titile {
-	font: 8pt/11pt 'PragmaticaM';
-	padding-top: 2px;
+.members_column {
+	float: left;
+	width: 300px;
+	/*background-color: #d2987c;*/
+	margin-right: 10px;
 }

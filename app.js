@@ -361,6 +361,18 @@ app.get('/event/:id', photoStream, function (req, res, next) {
 
 
 // ------------------------
+// *** Members Block ***
+// ------------------------
+
+
+app.get('/members', photoStream, function (req, res) {
+  Member.find().exec(function(err, members) {
+    res.render('members', {members: members});
+  });
+});
+
+
+// ------------------------
 // *** Member Block ***
 // ------------------------
 

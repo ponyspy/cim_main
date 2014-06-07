@@ -1,0 +1,38 @@
+extends ../layout
+
+block paths
+	- var title = 'ЦИМ | УЧАСТНИКИ'
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/styles/members.css')
+
+block content_scripts
+	script(type='text/javascript', src='/scripts/members.js')
+
+
+mixin membersColumn(status)
+	each member in members
+		each st in member.status
+			if st == status
+				a.member(href='/members/' + member._id)= member.ru.name
+
+
+block content
+	//- input.member_search(type='text', placeholder='ПОИСК...')
+	.member_search(contenteditable='true', placeholder='ПОИСК...')
+	br
+	br
+	.title ЛЮБИМ И ГОРДИМСЯ
+	br
+	.members_columns
+		.members_column
+			.director Режиссеры
+				+membersColumn('director')
+			.actor Актеры
+				+membersColumn('actor')
+		.members_column
+			.author Авторы
+				+membersColumn('author')
+		.members_column
+			.curator Кураторы
+				+membersColumn('curator')
