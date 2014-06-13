@@ -3,17 +3,17 @@
 }
 
 *::-moz-placeholder {
-    /* FF 19+ */
     color: white;
 }
 
 .content_block {
+	/*background-color: #976857;*/
 	background-color: black;
 	color: white;
-	width: 910px;
+	width: 920px;
 	font: 11pt/13pt 'Pragmatica';
 	min-height: 650px;
-	padding-left: 10px;
+	/*padding-left: 5px;*/
 	padding-right: 10px;
 }
 
@@ -21,6 +21,7 @@
 	font: 56pt/72pt 'PragmaticaM';
 	float: left;
 	margin-top: 5px;
+	margin-left: 5px;
 }
 
 .member_search {
@@ -33,12 +34,18 @@
 
 .title {
 	font: 26pt/28pt 'PragmaticaM';
+	margin-left: 5px;
+}
+
+.c_title {
+	padding-left: 10px;
 }
 
 .member {
 	display: block;
 	color: white;
 	font: 11pt/13pt 'PragmaticaM';
+	padding-left: 10px;
 }
 
 .member:hover {
@@ -57,8 +64,9 @@
 .members_column {
 	float: left;
 	width: 215px;
-	/*background-color: #d2987c;*/
-	margin-right: 15px;
+	/*background-color: #6f77d2;*/
+	background-color: black;
+	margin-right: 20px;
 }
 
 .members_column:nth-child(4n) {
