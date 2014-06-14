@@ -6,9 +6,17 @@
     color: white;
 }
 
+.background_block {
+	display: none;
+}
+
+.main_block {
+	background-image: url(/images/gridinator.png);
+}
+
 .content_block {
 	/*background-color: #976857;*/
-	background-color: black;
+	/*background-color: black;*/
 	color: white;
 	width: 920px;
 	font: 11pt/13pt 'Pragmatica';
@@ -26,9 +34,10 @@
 
 .member_search {
 	font: 56pt/72pt 'PragmaticaM';
-	background-color: black;
+	background: none;
 	outline: none;
-	width: 600px;
+	border: 0;
+	width: 620px;
 	color: white;
 }
 
@@ -63,10 +72,10 @@
 
 .members_column {
 	float: left;
-	width: 215px;
+	width: 185px;
 	/*background-color: #6f77d2;*/
 	background-color: black;
-	margin-right: 20px;
+	margin-right: 60px;
 }
 
 .members_column:nth-child(4n) {
