@@ -72,12 +72,12 @@
 
 .members_column {
 	float: left;
-	width: 185px;
+	width: 180px;
 	/*background-color: #6f77d2;*/
 	background-color: black;
-	margin-right: 60px;
+	margin-right: 190px;
 }
 
-.members_column:nth-child(4n) {
+.members_column:nth-child(3n) {
 	margin-right: 0px;
 }
