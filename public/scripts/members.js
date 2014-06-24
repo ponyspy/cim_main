@@ -23,8 +23,16 @@ $(document).ready(function() {
 	});
 
 	$('.category').click(function(event) {
+		$(this).data('clicked', !$(this).data('clicked'));
+		$(this).toggleClass('active');
 		var category = '.' + $(this).attr('class').split(' ')[1];
-		$('.member').not(category).slideUp(200);
+
+		if ($(this).data('clicked')) {
+			$('.member').not(category).slideUp(200);
+		}
+		else {
+			$('.member').not(category).slideDown(200);
+		}
 	});
 
 	$('.member_search').on('keyup change', function(event) {
