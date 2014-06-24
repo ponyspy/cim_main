@@ -1,17 +1,15 @@
 $(document).ready(function() {
-	$('.member').mouseover(function(event) {
-		var id = $(this).attr('class').split(' ')[1];
-		$('.' + id).css('color', 'red');
-	});
-
 	$('.member').on({
 		mouseover: function() {
-			var id = $(this).attr('class').split(' ')[1];
-			$('.' + id).css({'background-color': 'white', 'color': 'black'});
+			var cat = [];
+			var categorys = $(this).attr('class').split(' ');
+			$.each(categorys, function(index, category) {
+				cat.push('.' + category)
+			});
+			$('.categorys').children(cat.join(',')).css({'background-color': 'white', 'color': 'black'});
 		},
 		mouseout: function() {
-			var id = $(this).attr('class').split(' ')[1];
-			$('.' + id).removeAttr('style');
+			$('.categorys').children().removeAttr('style');
 		}
 	});
 
@@ -22,7 +20,12 @@ $(document).ready(function() {
 		mouseleave: function() {
 			$(this).animate({'scrollTop': 0}, 300);
 		}
-	})
+	});
+
+	$('.category').click(function(event) {
+		var category = '.' + $(this).attr('class').split(' ')[1];
+		$('.member').not(category).slideUp(200);
+	});
 
 	$('.member_search').on('keyup change', function(event) {
 			var value = $(this).val();

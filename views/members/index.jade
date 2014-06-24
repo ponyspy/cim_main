@@ -15,7 +15,7 @@ mixin membersColumn(letter)
 	.members_column
 		.c_title= letter
 		each member in members.sort(function(a, b) {var srt = a.ru.name.toLowerCase() > b.ru.name.toLowerCase() ? 1 : -1; return srt})
-			if member.ru.name.charAt(0) == letter
+			if member.ru.name.charAt(0).toUpperCase() == letter
 				a.member(href='/members/' + member._id, class=member.status)= member.ru.name
 
 
@@ -24,32 +24,50 @@ block content
 	.members_search_block
 		.member_search_title НАЙТИ:
 		input.member_search(type='text', autofocus, )
-		.alphabet А Б В Г Д Е Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Щ Ь Ъ Э Ю Я
-	.members_groups_block
-		.members_group
-			+membersColumn('А')
-			+membersColumn('Б')
-			+membersColumn('В')
-			+membersColumn('Г')
-		.members_group
-			+membersColumn('Д')
-			+membersColumn('Е')
-			+membersColumn('Ё')
-			+membersColumn('Ж')
-		.members_group
-			+membersColumn('З')
-			+membersColumn('И')
-			+membersColumn('Й')
-			+membersColumn('К')
-		.members_group
-			+membersColumn('Л')
-			+membersColumn('М')
-			+membersColumn('Н')
-			+membersColumn('О')
-		.members_group
-			+membersColumn('П')
-			+membersColumn('Р')
-			+membersColumn('С')
-			+membersColumn('Т')
-	.members_groups_block.actors
-		+membersColumn('Категории', 'Категории')
+		.categorys
+			.category.director Режиссер
+			.category.actor Актер
+			.category.author Автор
+			.category.composer Композитор
+			.category.lecturer Лектор
+			.category.playwright Драматург
+			.category.curator Куратор
+			.category.artist Художник
+			.category.choreographer Хореограф
+			.category.audio_director Звукорежиссер
+	.members_group
+		+membersColumn('А')
+		+membersColumn('Б')
+		+membersColumn('В')
+		+membersColumn('Г')
+		+membersColumn('Д')
+	.members_group
+		+membersColumn('Е')
+		+membersColumn('Ё')
+		+membersColumn('Ж')
+		+membersColumn('З')
+		+membersColumn('И')
+	.members_group
+		+membersColumn('Й')
+		+membersColumn('К')
+		+membersColumn('Л')
+		+membersColumn('М')
+		+membersColumn('Н')
+	.members_group
+		+membersColumn('О')
+		+membersColumn('П')
+		+membersColumn('Р')
+		+membersColumn('С')
+		+membersColumn('Т')
+	.members_group
+		+membersColumn('У')
+		+membersColumn('Ф')
+		+membersColumn('Х')
+		+membersColumn('Ц')
+		+membersColumn('Ч')
+	.members_group
+		+membersColumn('Ш')
+		+membersColumn('Щ')
+		+membersColumn('Э')
+		+membersColumn('Ю')
+		+membersColumn('Я')
