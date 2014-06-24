@@ -12,38 +12,45 @@ block content_scripts
 
 
 mixin membersColumn(status, title)
-	.c_title(class=status)= title
-	each member in members
-		each st in member.status
-			if st == status
-				a.member(href='/members/' + member._id, class=member._id)= member.ru.name
+	.members_column
+		.c_title(class=status)= title
+		each member in members.sort(function(a, b) {var srt = a.ru.name.toLowerCase() > b.ru.name.toLowerCase() ? 1 : -1; return srt})
+			each st in member.status
+				if st == status
+					a.member(href='/members/' + member._id, class=member._id)= member.ru.name
 
 
 block content
-	.member_search_title НАЙТИ:
-	input.member_search(type='text', autofocus, )
-	//- .member_search(contenteditable='true', placeholder='ПОИСК...')
-	.title ЛЮБИМ И ГОРДИМСЯ
-	br
-	br
-	//- br
-	//- .alphabet категории / алфавит -  А Б В Г Д Е Ё Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Щ Ш Ь Ъ Э Ю Я
-	//- br
-	.members_group
-		.members_column
-				+membersColumn('director', 'Режиссеры')
-		.members_column
-				+membersColumn('actor', 'Актеры')
-		.members_column
-				+membersColumn('photographer', 'Фотографы')
-		//- .members_column
-				+membersColumn('curator', 'Кураторы')
-	.members_group
-		.members_column
-				+membersColumn('artist', 'Художники')
-		.members_column
-				+membersColumn('composer',  'Композиторы')
-		.members_column
-				+membersColumn('choreographer', 'Хореографы')
-		//- .members_column
-				+membersColumn('playwright', 'Драматурги')
+	.title НАШИ УЧАСТНИКИ
+	.members_search_block
+		.member_search_title НАЙТИ:
+		input.member_search(type='text', autofocus, )
+		.alphabet А Б В Г Д Е Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Щ Ь Ъ Э Ю Я
+	.members_groups_block
+		.members_group
+			+membersColumn('director', 'Режиссеры')
+			+membersColumn('actor', 'Актеры')
+			+membersColumn('photographer', 'Фотографы')
+			+membersColumn('producer', 'Продюсеры')
+		.members_group
+			+membersColumn('artist', 'Художники')
+			+membersColumn('composer',  'Композиторы')
+			+membersColumn('choreographer', 'Хореографы')
+			+membersColumn('playwright', 'Драматурги')
+		.members_group
+			+membersColumn('artist', 'Художники')
+			+membersColumn('composer',  'Композиторы')
+			+membersColumn('choreographer', 'Хореографы')
+			+membersColumn('playwright', 'Драматурги')
+		.members_group
+			+membersColumn('artist', 'Художники')
+			+membersColumn('composer',  'Композиторы')
+			+membersColumn('choreographer', 'Хореографы')
+			+membersColumn('playwright', 'Драматурги')
+		.members_group
+			+membersColumn('artist', 'Художники')
+			+membersColumn('composer',  'Композиторы')
+			+membersColumn('choreographer', 'Хореографы')
+			+membersColumn('playwright', 'Драматурги')
+	.members_groups_block.actors
+		+membersColumn('actor', 'Актеры')

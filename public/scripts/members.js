@@ -13,6 +13,15 @@ $(document).ready(function() {
 			var id = $(this).attr('class').split(' ')[1];
 			$('.' + id).removeAttr('style');
 		}
+	});
+
+	$('.members_column').on({
+		mousemove: function(event) {
+			$(this).scrollTop(event.pageY - 330);
+		},
+		mouseleave: function() {
+			$(this).animate({'scrollTop': 0}, 300);
+		}
 	})
 
 	$('.member_search').on('keyup change', function(event) {
