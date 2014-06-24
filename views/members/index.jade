@@ -11,13 +11,12 @@ block content_scripts
 	script(type='text/javascript', src='/scripts/members.js')
 
 
-mixin membersColumn(status, title)
+mixin membersColumn(letter)
 	.members_column
-		.c_title(class=status)= title
+		.c_title= letter
 		each member in members.sort(function(a, b) {var srt = a.ru.name.toLowerCase() > b.ru.name.toLowerCase() ? 1 : -1; return srt})
-			each st in member.status
-				if st == status
-					a.member(href='/members/' + member._id, class=member._id)= member.ru.name
+			if member.ru.name.charAt(0) == letter
+				a.member(href='/members/' + member._id, class=member.status)= member.ru.name
 
 
 block content
@@ -28,29 +27,29 @@ block content
 		.alphabet А Б В Г Д Е Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Щ Ь Ъ Э Ю Я
 	.members_groups_block
 		.members_group
-			+membersColumn('director', 'Режиссеры')
-			+membersColumn('actor', 'Актеры')
-			+membersColumn('photographer', 'Фотографы')
-			+membersColumn('producer', 'Продюсеры')
+			+membersColumn('А')
+			+membersColumn('Б')
+			+membersColumn('В')
+			+membersColumn('Г')
 		.members_group
-			+membersColumn('artist', 'Художники')
-			+membersColumn('composer',  'Композиторы')
-			+membersColumn('choreographer', 'Хореографы')
-			+membersColumn('playwright', 'Драматурги')
+			+membersColumn('Д')
+			+membersColumn('Е')
+			+membersColumn('Ё')
+			+membersColumn('Ж')
 		.members_group
-			+membersColumn('artist', 'Художники')
-			+membersColumn('composer',  'Композиторы')
-			+membersColumn('choreographer', 'Хореографы')
-			+membersColumn('playwright', 'Драматурги')
+			+membersColumn('З')
+			+membersColumn('И')
+			+membersColumn('Й')
+			+membersColumn('К')
 		.members_group
-			+membersColumn('artist', 'Художники')
-			+membersColumn('composer',  'Композиторы')
-			+membersColumn('choreographer', 'Хореографы')
-			+membersColumn('playwright', 'Драматурги')
+			+membersColumn('Л')
+			+membersColumn('М')
+			+membersColumn('Н')
+			+membersColumn('О')
 		.members_group
-			+membersColumn('artist', 'Художники')
-			+membersColumn('composer',  'Композиторы')
-			+membersColumn('choreographer', 'Хореографы')
-			+membersColumn('playwright', 'Драматурги')
+			+membersColumn('П')
+			+membersColumn('Р')
+			+membersColumn('С')
+			+membersColumn('Т')
 	.members_groups_block.actors
-		+membersColumn('actor', 'Актеры')
+		+membersColumn('Категории', 'Категории')
