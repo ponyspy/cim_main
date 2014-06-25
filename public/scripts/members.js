@@ -18,7 +18,7 @@ $(document).ready(function() {
 			$(this).scrollTop(event.pageY - 330);
 		},
 		mouseleave: function() {
-			$(this).animate({'scrollTop': 0}, 300);
+			$(this).animate({'scrollTop': 0}, 200);
 		}
 	});
 
