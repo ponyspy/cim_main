@@ -24,7 +24,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$('.category').click(function(event) {
+	$('.category').on('click', function(event) {
 		var category = '.' + $(this).attr('class').split(' ')[1];
 		$(this).data('clicked', !$(this).data('clicked')).toggleClass('active');
 
@@ -39,12 +39,12 @@ $(document).ready(function() {
 	});
 
 	$('.member_search').on('keyup change', function(event) {
-		var value = $(this).val();
+		var value = $(this).val().toLowerCase();
 		var elems = set.length > 0 ? set : $('.member');
 
 		elems.each(function(index, el) {
-			var el_val = $(el).html().toLowerCase();
-			if (el_val.search(value.toLowerCase()) != -1) {
+			var el_val = $(el).text().toLowerCase();
+			if (el_val.search(value) != -1) {
 					$(el).slideDown(200);
 			}
 			else {
