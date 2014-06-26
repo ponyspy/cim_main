@@ -1,10 +1,12 @@
 $(document).ready(function() {
 	var set = $();
+	var search = $('.member');
 
 	$('.member').on({
 		mouseover: function() {
 			var cat = [];
-			var categorys = $(this).attr('class').split(' ');
+			var categorys = this.className.split(' ');
+
 			$.each(categorys, function(index, category) {
 				cat.push('.' + category)
 			});
@@ -25,16 +27,16 @@ $(document).ready(function() {
 	});
 
 	$('.category').on('click', function(event) {
-		var category = '.' + $(this).attr('class').split(' ')[1];
+		var category = '.' + this.className.split(' ')[1];
 		$(this).data('clicked', !$(this).data('clicked')).toggleClass('active');
 
 		if ($(this).data('clicked')) {
 			set = set.add(category).not('.category');
-			$('.member').not(category).slideUp(200);
+			search.not(category).slideUp(200);
 		}
 		else {
 			set = set.not(category);
-			$('.member').not(category).slideDown(200);
+			search.not(category).slideDown(200);
 		}
 	});
 
@@ -42,13 +44,15 @@ $(document).ready(function() {
 		var value = $(this).val().toLowerCase();
 		var elems = set.length > 0 ? set : $('.member');
 
-		elems.each(function(index, el) {
-			var el_val = $(el).text().toLowerCase();
+		$.each(elems, function(index, elem) {
+			var el_val = $(elem).text().toLowerCase();
 			if (el_val.search(value) != -1) {
-					$(el).slideDown(200);
+					$(elem).slideDown(200);
+					search = search.add(elem);
 			}
 			else {
-					$(el).slideUp(200);
+					$(elem).slideUp(200);
+					search = search.not(elem)
 			}
 		});
 	});
