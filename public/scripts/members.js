@@ -17,14 +17,14 @@ $(document).ready(function() {
 		}
 	});
 
-	$('.members_column').on({
-		mousemove: function(event) {
-			$(this).scrollTop(event.pageY - 330);
-		},
-		mouseleave: function() {
-			$(this).animate({'scrollTop': 0}, 200);
-		}
-	});
+	// $('.members_column').on({
+	// 	mousemove: function(event) {
+	// 		$(this).scrollTop(event.pageY - 330);
+	// 	},
+	// 	mouseleave: function() {
+	// 		$(this).animate({'scrollTop': 0}, 200);
+	// 	}
+	// });
 
 	$('.category').on('click', function(event) {
 		var category = '.' + this.className.split(' ')[1];
