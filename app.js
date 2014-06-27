@@ -366,7 +366,8 @@ app.get('/event/:id', photoStream, function (req, res, next) {
 
 
 app.get('/member', photoStream, function (req, res) {
-  Member.find().exec(function(err, members) {
+  Member.find({}, '-ru.description -date -__v').sort('ru.name').lean().exec(function(err, members) {
+    // members = members.sort(function(a, b) {var srt = a.ru.name.toLowerCase() > b.ru.name.toLowerCase() ? 1 : -1; return srt});
     res.render('members', {members: members});
   });
 });

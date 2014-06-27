@@ -14,7 +14,7 @@ block content_scripts
 mixin membersColumn(letter)
 	.members_column
 		.c_title= letter
-		each member in members.sort(function(a, b) {var srt = a.ru.name.toLowerCase() > b.ru.name.toLowerCase() ? 1 : -1; return srt})
+		each member in members
 			if member.ru.name.charAt(0).toUpperCase() == letter
 				a.member(href='/member/' + member._id, class=member.status)= member.ru.name
 
