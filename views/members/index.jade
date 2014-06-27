@@ -5,10 +5,10 @@ block paths
 	- var menu_cim = ' / участники'
 
 block content_style
-	link(rel='stylesheet', type='text/css', href='/styles/members.css')
+	link(rel='stylesheet', type='text/css', href='/styles/members.css' + version)
 
 block content_scripts
-	script(type='text/javascript', src='/scripts/members.js')
+	script(type='text/javascript', src='/scripts/members.js' + version)
 
 
 mixin membersColumn(letter)
