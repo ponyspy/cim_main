@@ -365,7 +365,7 @@ app.get('/event/:id', photoStream, function (req, res, next) {
 // ------------------------
 
 
-app.get('/members', photoStream, function (req, res) {
+app.get('/member', photoStream, function (req, res) {
   Member.find().exec(function(err, members) {
     res.render('members', {members: members});
   });
@@ -377,7 +377,7 @@ app.get('/members', photoStream, function (req, res) {
 // ------------------------
 
 
-app.get('/members/:id', photoStream, function (req, res, next) {
+app.get('/member/:id', photoStream, function (req, res, next) {
   var id = req.params.id;
 
   Member.findById(id, function(err, member) {
