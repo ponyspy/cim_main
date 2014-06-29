@@ -7,6 +7,7 @@ block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/add.css')
 
 block content_scripts
+	script(type='text/javascript', src='/scripts/schedule.js')
 	script(type='text/javascript', src='/scripts/add.js')
 
 block content_right
@@ -24,7 +25,7 @@ block content
 		a.back_link(href='/auth') < Назад
 		.title ДОБАВИТЬ ПАРТНЕРА
 		form(action="/auth/add/partner", method="post", enctype="multipart/form-data")
-			.form_title Имя:
+			.form_title Название:
 			input.ru(type="text", name="ru[name]",)
 			input.en(type="text", name="en[name]", disabled)
 			.form_title Описание:
@@ -44,3 +45,13 @@ block content
 			input(type='checkbox', name='services[list]', value='true')
 			|список
 			br
+			.form_title Cобытия:
+			.snake
+				input.minus(type="button", value="-")
+				select(name='events')
+					option(value='') нет
+					each event in events
+						option(value=event._id)= event.ru.title.length <= 50 ? event.ru.title : event.ru.title.slice(0, 50) + '...'
+				br
+			br
+			input.plus(type="button", value="+")

@@ -48,6 +48,7 @@ var partnerSchema = new Schema({
   logo: String,
   link: String,
   secret: {type: Schema.Types.ObjectId, default: mongoose.Types.ObjectId},
+  events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
   services: {
     tickets: {type: Boolean, default: false},
     api: {type: Boolean, default: false},

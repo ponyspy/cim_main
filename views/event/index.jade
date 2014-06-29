@@ -19,6 +19,11 @@ block content_right
 			a.edit_btn(href='/auth/edit/events/' + event._id, target='_blank') РЕДАКТИРОВАТЬ
 
 block content_under
+	.partners_block
+		each item in partners
+			.partner_item
+				a.partner_link(href=item.link, target='_blank')
+					img.partner_logo(src=item.logo)
 	.press_block
 		each item in press
 			.press_item

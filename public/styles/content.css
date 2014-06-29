@@ -509,3 +509,20 @@ a.pin_event_link {
 	font-style:italic;
 	display: inline;
 }
+
+/*
+	Press
+ */
+
+ .partners_block {
+ 	margin-top: 20px;
+	width: 910px;
+	background-color: white;
+	overflow: hidden;
+	padding: 10px;
+ }
+
+.partner_link {
+	float: left;
+	margin-right: 10px;
+}
