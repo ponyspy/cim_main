@@ -515,14 +515,21 @@ a.pin_event_link {
  */
 
  .partners_block {
- 	margin-top: 20px;
+	margin-top: 15px;
 	width: 910px;
 	background-color: white;
 	overflow: hidden;
 	padding: 10px;
  }
 
+ .partner_item {
+	width: 100px;
+	height: 100px;
+	background-size: cover;
+	background-position: center;
+ }
+
 .partner_link {
 	float: left;
-	margin-right: 10px;
+	margin-right: 20px;
 }

@@ -21,9 +21,8 @@ block content_right
 block content_under
 	.partners_block
 		each item in partners
-			.partner_item
-				a.partner_link(href=item.link, target='_blank')
-					img.partner_logo(src=item.logo)
+			a.partner_link(href=item.link, target='_blank')
+				.partner_item(style='background-image:url(' + item.logo + ')')
 	.press_block
 		each item in press
 			.press_item
