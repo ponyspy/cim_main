@@ -19,14 +19,16 @@ block content_right
 			a.edit_btn(href='/auth/edit/events/' + event._id, target='_blank') РЕДАКТИРОВАТЬ
 
 block content_under
-	.partners_block
-		each item in partners
-			a.partner_item(href=item.link, target='_blank', style='background-image:url(' + item.logo + ')')
-	.press_block
-		each item in press
-			.press_item
-				a.press_author(href=item.link, target='_blank')= item.ru.author + ':'
-				.press_body= '«' + item.ru.body + '»'
+	if (partners.length > 0)
+		.partners_block
+			each item in partners
+				a.partner_item(href=item.link, target='_blank', style='background-image:url(' + item.logo + ')')
+	if (press.length > 0)
+		.press_block
+			each item in press
+				.press_item
+					a.press_author(href=item.link, target='_blank')= item.ru.author + ':'
+					.press_body= '«' + item.ru.body + '»'
 
 mixin memberList(marker, status)
 	- var flag = false
