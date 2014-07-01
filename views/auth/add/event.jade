@@ -36,12 +36,6 @@ block content_right
 				option(value='lobby') фойе
 				option(value='301') комната 301
 				option(value='306') комната 306
-			//- .s_cat спецпроект:
-			//- select.project(name='project')
-			//- 	option(value='false') нет
-			//- 	option(value='education') институт театра
-			//- 	option(value='blackbox') blackbox
-			//- 	option(value='children') детский цим
 			.s_cat категория:
 			.category
 				input(type='checkbox', name='category', value='performance')
@@ -62,6 +56,12 @@ block content_right
 				input(type='checkbox', name='category', value='storytallyng')
 				|сторителлинг
 		.upload СОЗДАТЬ
+
+block content_under
+	.partners_block
+	.partners_list
+		each partner in partners
+			a.partner_item(href=partner.link, id=partner._id, target='_blank', style='background-image:url(' + partner.logo + ')')
 
 mixin memberList(marker, status)
 	.marker(class=status)

@@ -47,23 +47,3 @@ block content
 			input(type='checkbox', name='services[list]', value='true', checked=partner.services.list)
 			|список
 			br
-			.form_title Cобытия:
-			if (partner.events.length > 0)
-				each p_event in partner.events
-					.snake
-						input.minus(type="button", value="-")
-						select(name='events')
-							option(value='') нет
-							each event in events
-								option(value=event._id, selected=(p_event._id.toString() == event._id.toString()))= event.ru.title.length <= 50 ? event.ru.title : event.ru.title.slice(0, 50) + '...'
-						br
-			else
-				.snake
-					input.minus(type="button", value="-")
-					select(name='events')
-						option(value='') нет
-						each event in events
-							option(value=event._id)= event.ru.title
-					br
-			br
-			input.plus(type="button", value="+")

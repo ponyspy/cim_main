@@ -22,7 +22,7 @@ block content_right
 
 block content
 	.form_block
-		a.back_link(href='/auth/add/partner') < Назад
+		a.back_link(href='/auth') < Назад
 		.title ДОБАВИТЬ ПАРТНЕРА
 		form(action="/auth/add/partner", method="post", enctype="multipart/form-data")
 			.form_title Название:
@@ -45,13 +45,3 @@ block content
 			input(type='checkbox', name='services[list]', value='true')
 			|список
 			br
-			.form_title Cобытия:
-			.snake
-				input.minus(type="button", value="-")
-				select(name='events')
-					option(value='') нет
-					each event in events
-						option(value=event._id)= event.ru.title.length <= 50 ? event.ru.title : event.ru.title.slice(0, 50) + '...'
-				br
-			br
-			input.plus(type="button", value="+")

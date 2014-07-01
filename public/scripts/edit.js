@@ -15,6 +15,9 @@ $(document).ready(function() {
 	$('#one').sortable({connectWith: '#two', placeholder: 'column_placeholder', cancel: '.m_comment, .m_search'});
 	$('#two').sortable({connectWith: '#one', placeholder: 'column_placeholder', cancel: '.m_comment, .m_search'});
 
+	$('.partners_block').sortable({connectWith: '.partners_list'});
+	$('.partners_list').sortable({connectWith: '.partners_block'});
+
 	// $('.marker').click(function() {
 	// 	console.log('колонка: ' + $(this).parent('.column').index() + '\nэлемент: ' + $(this).index())
 	// });
@@ -55,6 +58,7 @@ $(document).ready(function() {
 		var images = $('.image_upload');
 		var trailers = $('.trailer');
 		var markers = $('.marker .m_list').children('a');
+		var partners = $('.partners_block').children('a').map(function() { return this.id; }).get();
 		var members = [];
 		var category = [];
 		var m_columns = $('.marker');
@@ -121,7 +125,18 @@ $(document).ready(function() {
 		age = checkField(age);
 
 
-		$.post('', {images: images_upload, trailers: trailers_upload, ru: ru, members: members, category: category, hall: hall, age: age, duration: duration, columns: columns}).done(function(result) {
+		$.post('', {
+			images: images_upload,
+			trailers: trailers_upload,
+			ru: ru,
+			members: members,
+			partners: partners,
+			category: category,
+			hall: hall,
+			age: age,
+			duration: duration,
+			columns: columns
+		}).done(function(result) {
 			var btn_title = $('.upload').text();
 			if (btn_title == 'СОЗДАТЬ')
 				 location.reload();

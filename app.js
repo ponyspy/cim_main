@@ -351,11 +351,9 @@ app.get('/event/:id', photoStream, function (req, res, next) {
 
   Schedule.find({'date': {'$gte': start, '$lt': end}, 'events.event': id}, {'events.$': 1}).limit(10).select('date').sort('date').exec(function(err, schedule) {
     Press.find({'events': id}).sort('-date').exec(function(err, press) {
-      Partner.find({'events': id}).sort('-date').exec(function(err, partners) {
-        Event.find({'_id':id}).populate('members.m_id').exec(function(err, event) {
-           if (!event) return next(err);
-          res.render('event', {event: event[0], schedule: schedule, press: press, partners: partners});
-        });
+      Event.find({'_id':id}).populate('members.m_id partners').exec(function(err, event) {
+         if (!event) return next(err);
+        res.render('event', {event: event[0], schedule: schedule, press: press});
       });
     });
   });
@@ -409,7 +407,9 @@ app.get('/auth', checkAuth, function (req, res) {
 
 app.get('/auth/add/event', photoStream, checkAuth, function (req, res) {
   Member.find(function(err, members) {
-    res.render('auth/add/event.jade', {members: members});
+    Partner.find(function(err, partners) {
+      res.render('auth/add/event.jade', {members: members, partners: partners});
+    });
   });
 });
 
@@ -439,13 +439,7 @@ app.post('/auth/add/event', function(req, res) {
   event.members = post.members;
   event.duration = post.duration;
   event.meta.columns = post.columns;
-
-  // event.photos = post.images ? post.images : []
-
-  // event.save(function(err, event) {
-  //   res.redirect('back');
-  // });
-
+  event.partners = post.partners;
 
 
   if (post.images) {
@@ -493,16 +487,18 @@ app.get('/auth/edit/events/:id', checkAuth, photoStream, function (req, res) {
   var id = req.params.id;
   var images_preview = [];
 
-  Event.find({'_id':id}).populate('members.m_id').exec(function(err, event) {
+  Event.find({'_id':id}).populate('members.m_id partners').exec(function(err, event) {
     if (!event) return next(err);
     Member.find().exec(function(err, members) {
-      async.forEach(event[0].photos, function(photo, callback) {
-        var name = photo.path.split('/')[5];
-        fs.createReadStream(__dirname + '/public/' + photo.path).pipe(fs.createWriteStream(__dirname + '/public/preview/' + name));
-        images_preview.push('/preview/' + name);
-        callback();
-      }, function() {
-        res.render('auth/edit/events/event.jade', {event: event[0], images_preview: images_preview, members: members});
+      Partner.find().exec(function(err, partners) {
+        async.forEach(event[0].photos, function(photo, callback) {
+          var name = photo.path.split('/')[5];
+          fs.createReadStream(__dirname + '/public/' + photo.path).pipe(fs.createWriteStream(__dirname + '/public/preview/' + name));
+          images_preview.push('/preview/' + name);
+          callback();
+        }, function() {
+          res.render('auth/edit/events/event.jade', {event: event[0], images_preview: images_preview, members: members, partners: partners});
+        });
       });
     });
   });
@@ -535,6 +531,7 @@ app.post('/auth/edit/events/:id', function (req, res, next) {
     event.age = post.age;
     event.duration = post.duration;
     event.meta.columns = post.columns;
+    event.partners = post.partners;
 
     if (post.ru) {
       event.ru.title = post.ru.title;
@@ -1005,9 +1002,7 @@ app.post('/auth/edit/press/:id', function (req, res) {
 
 
 app.get('/auth/add/partner', checkAuth, function (req, res) {
-  Event.find().exec(function(err, events) {
-    res.render('auth/add/partner.jade', {events: events});
-  });
+  res.render('auth/add/partner.jade');
 });
 
 app.post('/auth/add/partner', function (req, res) {
@@ -1019,11 +1014,6 @@ app.post('/auth/add/partner', function (req, res) {
   partner.ru.description = post.ru.description;
   partner.link = post.link;
   partner.services = post.services;
-
-  if (post.events != '')
-    partner.events = post.events;
-  else
-    partner.events = [];
 
   if (post.en) {
     partner.en.name = post.en.name;
@@ -1063,11 +1053,9 @@ app.get('/auth/edit/partners', checkAuth, function (req, res) {
 app.get('/auth/edit/partners/:id', checkAuth, function (req, res) {
   var id = req.params.id;
 
-  Partner.find({'_id': id}).populate('events').exec(function(err, partner) {
+  Partner.find({'_id': id}).exec(function(err, partner) {
     if (!partner) return next(err);
-    Event.find().exec(function(err, events) {
-      res.render('auth/edit/partners/partner.jade', {partner: partner[0], events: events});
-    });
+    res.render('auth/edit/partners/partner.jade', {partner: partner[0]});
   });
 });
 
@@ -1092,11 +1080,6 @@ app.post('/auth/edit/partners/:id', function (req, res) {
     partner.ru.description = post.ru.description;
     partner.link = post.link;
     partner.services = post.services;
-
-    if (post.events != '')
-      partner.events = post.events;
-    else
-      partner.events = [];
 
     if (post.en) {
       partner.en.name = post.en.name;

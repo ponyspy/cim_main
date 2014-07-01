@@ -59,6 +59,13 @@ block content_right
 				+boxCategory('storytallyng', 'сторителлинг')
 		.upload СОХРАНИТЬ
 
+block content_under
+	.partners_block
+		each partner in event.partners
+			a.partner_item(href=partner.link, id=partner._id, target='_blank', style='background-image:url(' + partner.logo + ')')
+	.partners_list
+		each partner in partners
+			a.partner_item(href=partner.link, id=partner._id, target='_blank', style='background-image:url(' + partner.logo + ')')
 
 mixin memberList(marker, status)
 	.marker(class=status)

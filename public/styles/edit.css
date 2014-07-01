@@ -206,6 +206,24 @@
 	height: 2px;
 }
 
+/*
+	Partners Block
+ */
+
+.partners_block {
+	min-height: 100px;
+}
+
+.partners_list {
+	height: 200px;
+	border-top: 2px dotted black;
+	width: 910px;
+	background-color: white;
+	overflow: auto;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
 
 /*
 	Grids block
