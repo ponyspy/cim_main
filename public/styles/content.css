@@ -519,7 +519,9 @@ a.pin_event_link {
 	width: 910px;
 	background-color: white;
 	overflow: hidden;
-	padding: 10px;
+	padding-top: 10px;
+	padding-left: 10px;
+	padding-right: 10px;
  }
 
  .partner_item {
@@ -529,7 +531,7 @@ a.pin_event_link {
 	margin-bottom: 10px;
 	float: left;
 	display: block;
-	outline: 1px solid red;
+	/*outline: 1px solid red;*/
 	background-repeat: no-repeat;
 	background-position: center;
  }
@@ -539,10 +541,10 @@ a.pin_event_link {
  }
 
 
-.background_block {
+/*.background_block {
 	display: none;
 }
 
 .main_block {
 	background-image: url(/images/gridinator.png);
-}
+}*/
