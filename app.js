@@ -1062,9 +1062,11 @@ app.get('/auth/edit/partners/:id', checkAuth, function (req, res) {
 app.post('/rm_partner', function (req, res) {
   var id = req.body.id;
 
-  Partner.findByIdAndRemove(id, function() {
-    fs.unlink(__dirname + '/public/images/partners/' + id + '.jpg', function() {
-      res.send('ok');
+  Event.update({'partners':id}, { $pull: { 'partners': id } }, { multi: true }).exec(function() {
+    Partner.findByIdAndRemove(id, function() {
+      fs.unlink(__dirname + '/public/images/partners/' + id + '.jpg', function() {
+        res.send('ok');
+      });
     });
   });
 });
