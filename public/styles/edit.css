@@ -211,11 +211,11 @@
  */
 
 .partners_block {
-	min-height: 120px;
+	min-height: 100px;
 }
 
 .partners_list {
-	height: 200px;
+	height: 180px;
 	border-top: 2px dotted black;
 	width: 910px;
 	background-color: white;

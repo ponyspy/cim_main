@@ -1022,7 +1022,7 @@ app.post('/auth/add/partner', function (req, res) {
 
   if (files.logo.size != 0) {
     var newPath = __dirname + '/public/images/partners/' + partner._id + '.jpg';
-    gm(files.logo.path).resize(270, false).noProfile().command('convert', 'JPG').write(newPath, function() {
+    gm(files.logo.path).resize(220, false).noProfile().command('convert', 'JPG').write(newPath, function() {
       partner.logo = '/images/partners/' + partner._id + '.jpg';
       fs.unlink(files.logo.path);
       partner.save(function(err) {
@@ -1090,7 +1090,7 @@ app.post('/auth/edit/partners/:id', function (req, res) {
 
     if (files.logo.size != 0) {
       var newPath = __dirname + '/public/images/partners/' + partner._id + '.jpg';
-      gm(files.logo.path).resize(270, false).noProfile().command('convert', 'JPG').write(newPath, function() {
+      gm(files.logo.path).resize(220, false).noProfile().command('convert', 'JPG').write(newPath, function() {
         partner.logo = '/images/partners/' + partner._id + '.jpg';
         fs.unlink(files.logo.path);
         partner.save(function(err) {
