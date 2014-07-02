@@ -487,17 +487,17 @@ app.get('/auth/edit/events/:id', checkAuth, photoStream, function (req, res) {
   var id = req.params.id;
   var images_preview = [];
 
-  Event.find({'_id':id}).populate('members.m_id partners').exec(function(err, event) {
+  Event.findById(id).populate('members.m_id partners').exec(function(err, event) {
     if (!event) return next(err);
     Member.find().exec(function(err, members) {
-      Partner.find().exec(function(err, partners) {
-        async.forEach(event[0].photos, function(photo, callback) {
+      Partner.find().where('_id').nin(event.partners.map(function(partner) {return partner._id})).exec(function(err, partners) {
+        async.forEach(event.photos, function(photo, callback) {
           var name = photo.path.split('/')[5];
           fs.createReadStream(__dirname + '/public/' + photo.path).pipe(fs.createWriteStream(__dirname + '/public/preview/' + name));
           images_preview.push('/preview/' + name);
           callback();
         }, function() {
-          res.render('auth/edit/events/event.jade', {event: event[0], images_preview: images_preview, members: members, partners: partners});
+          res.render('auth/edit/events/event.jade', {event: event, images_preview: images_preview, members: members, partners: partners});
         });
       });
     });
