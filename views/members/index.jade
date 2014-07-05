@@ -15,7 +15,9 @@ mixin membersColumn(letter)
 	.members_column
 		.c_title= letter
 		each member in members
-			if member.ru.name.charAt(0).toUpperCase() == letter
+			- var name = member.ru.name.split(' ')
+			name = name[1] ? name[1] : name[0]
+			if name.charAt(0).toUpperCase() == letter
 				a.member(href='/member/' + member._id, class=member.status)= member.ru.name
 
 
