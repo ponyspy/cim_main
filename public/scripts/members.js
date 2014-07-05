@@ -4,11 +4,15 @@ $(document).ready(function() {
 
 	$('.maket').on('scroll', function(event) {
 		var scrollTop = $(this).scrollTop();
-		// alert($('.members_search_block').offset().top)
+
 		if (scrollTop >= 143)
 			$('.members_search_block').addClass('fixed');
 		else
 			$('.members_search_block').removeClass('fixed');
+	});
+
+	$('.member_search_title').click(function(event) {
+		$('.member_search').focus();
 	});
 
 	$('.all').click(function(event) {
