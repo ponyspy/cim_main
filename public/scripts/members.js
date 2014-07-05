@@ -37,11 +37,11 @@ $(document).ready(function() {
 
 		if ($(this).data('clicked')) {
 			set = set.add(category).not('.category');
-			search.not(category).slideUp(200);
+			search.not(category).hide();
 		}
 		else {
 			set = set.not(category);
-			search.not(category).slideDown(200);
+			search.not(category).show();
 		}
 	});
 
@@ -52,11 +52,11 @@ $(document).ready(function() {
 		$.each(elems, function(index, elem) {
 			var el_val = $(elem).text().toLowerCase();
 			if (el_val.search(value) != -1) {
-					$(elem).slideDown(200);
+					$(elem).show();
 					search = search.add(elem);
 			}
 			else {
-					$(elem).slideUp(200);
+					$(elem).hide();
 					search = search.not(elem)
 			}
 		});
