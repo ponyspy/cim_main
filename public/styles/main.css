@@ -62,6 +62,11 @@ html, body, .maket {
 	/*background-image: url('/images/gridinator.png');*/
 }
 
+.header_block {
+	display: table;
+	margin-bottom: 9px;
+}
+
 .content_block {
 	z-index: 0;
 	position: relative;
@@ -235,23 +240,29 @@ html, body, .maket {
 
 .head_title_block {
 	width: 350px;
-	height: 22px;
 	margin-right: 20px;
+	margin-top: 8px;
 	float: left;
-	cursor: pointer;
-	color: white;
 	padding-left: 10px;
-	font: 14pt/20pt 'PragmaticaM';
-	letter-spacing: 0px;
-	/*border: 1px solid black;*/
  }
 
- /*.head_logo {
-	width: 170px;
-	height: 130px;
-	margin-left: 380px;
-	border: 1px solid black;
- }*/
+ .head_title_block a {
+	color: white;
+	text-decoration: none;
+ }
+
+a.head_logo {
+	font: 14pt/20pt 'PragmaticaM';
+}
+
+a.head_culture_logo {
+	font: 8pt/10pt 'Pragmatica';
+	display: block;
+}
+
+a.head_culture_logo:hover {
+	text-decoration: underline;
+}
 
 /*
 	Footer

@@ -2,7 +2,7 @@ body {
  	font: 11pt/13pt 'Pragmatica';
 }
 
-.head_title_block {
+.head_title_block a {
 	color: black;
 }
 
