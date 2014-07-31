@@ -4,32 +4,27 @@ block title
 	title= 'РЕДАКТИРОВАТЬ РАЗДЕЛ: ' + content.ru.title.toUpperCase()
 
 block content_style
-	link(rel='stylesheet', type='text/css', href='/styles/edit_content.css')
+	link(rel='stylesheet', type='text/css', href='/styles/edit_content.css' + version)
+	link(rel="stylesheet", type="text/css", href="/styles/font-awesome/css/font-awesome.min.css" + version)
+	link(rel="stylesheet", type="text/css", href="/styles/popclip.css" + version)
 
 block content_scripts
-	script(type='text/javascript', src='/scripts/edit_content.js')
-
-block content_right
-	.navigator
-		.nav_title= content.ru.title.toUpperCase()
-		.nav_project_children
-		br
-		b.nav_settings_title настройки
-		.toggle_eng перевод
-		br
-		b.form_submit ОТПРАВИТЬ
+	script(type="text/javascript", src='/scripts/jquery.popline.min.js' + version)
+	script(type='text/javascript', src='/scripts/edit_content.js' + version)
 
 block content
+	.content_title= content.ru.title.toLowerCase()
 	.sections_block
 		.section_block
-			.section_title Заголовок секции 1
+			.section_title(contenteditable=true) Заголовок секции 1
 			.section_content
 				.content_section_block
-					.content_section_title Контент 1
-					.content_section_description Описание 1
-					.content_section_ticket Тикет 1
+					.content_section_title(contenteditable=true) Заголовок 1
+					.content_section_description(contenteditable=true) Описание 1
+					.content_section_ticket(contenteditable=true) Тикет 1
 				.content_section_block
-					.content_section_title Контент 2
-					.content_section_description Описание 2
-					.content_section_ticket Тикет 2
-			.section_under Футер секции 1
+					.content_section_title(contenteditable=true) Заголовок 2
+					.content_section_description(contenteditable=true) Описание 2
+					.content_section_ticket(contenteditable=true) Тикет 2
+			.section_under(contenteditable=true) Футер секции 1
+	.submit РЕДАКТИРОВАТЬ

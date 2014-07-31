@@ -1,19 +1,54 @@
-.navigator {
-	background-color: white;
+.content_block div {
+	outline: none;
 }
 
+.content_block {
+	width: 920px;
+	background-color: white;
+	padding-left: 10px;
+	padding-bottom: 10px;
+}
+
+.content_title {
+	font-size: 30px;
+	margin-bottom: 30px;
+}
 
 .sections_block {
-	width: 930px;
+	width: 880px;
 	background-color: #6eb9cc;
 }
 
 .section_title {
-	margin-bottom: 10px;
+	margin-bottom: 30px;
 }
 
 .content_section_block {
-	width: 930px;
+	width: 880px;
 	background-color: #48cc8f;
+	margin-bottom: 30px;
+}
+
+.content_section_title,  .content_section_description, .content_section_ticket {
+	min-height: 60px;
 	margin-bottom: 10px;
+	background-color: #b38ccc;
+}
+
+
+.section_under {
+	background-color: black;
+	color: white;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.submit {
+	width: 160px;
+	margin-top: 30px;
+	cursor: pointer;
+}
+
+.submit:hover {
+	text-decoration: underline;
 }

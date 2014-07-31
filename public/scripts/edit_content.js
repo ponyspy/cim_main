@@ -1,6 +1,8 @@
 $(document).ready(function() {
 
-	$('.navigator').click(function(event) {
+	$('.content_section_description, .content_section_ticket').popline({disable:['color']});
+
+	$('.submit').click(function(event) {
 		var sections_upload = [];
 
 		var sections = $('.section_block');
