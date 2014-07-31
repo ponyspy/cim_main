@@ -150,7 +150,23 @@ var projectSchema = new Schema({
     description: String,
   },
   events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
-    date: {type: Date, default: Date.now}
+  date: {type: Date, default: Date.now}
+});
+
+var contentSchema = new Schema({
+  ru: {
+    title: String,
+    description: String,
+    ticket: String
+  },
+  en: {
+    title: String,
+    description: String,
+    ticket: String
+  },
+  content: [{ type: Schema.Types.ObjectId, ref: 'Content' }],
+  events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
+  date: {type: Date, default: Date.now}
 });
 
 var scheduleSchema = new Schema({
@@ -175,3 +191,4 @@ module.exports.Partner = mongoose.model('Partner', partnerSchema);
 module.exports.Photo = mongoose.model('Photo', photoSchema);
 module.exports.Schedule = mongoose.model('Schedule', scheduleSchema);
 module.exports.Project = mongoose.model('Project', projectSchema);
+module.exports.Content = mongoose.model('Content', contentSchema);

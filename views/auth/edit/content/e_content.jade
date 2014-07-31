@@ -1,0 +1,54 @@
+extends ../../../layout
+
+block title
+	title= 'РЕДАКТИРОВАТЬ РАЗДЕЛ: ' + content.ru.title.toUpperCase()
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/styles/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/scripts/schedule.js')
+	script(type='text/javascript', src='/scripts/add.js')
+
+block content_right
+	.navigator
+		.nav_title СПЕЦПРОЕКТ
+		.nav_project_children
+		br
+		b.nav_settings_title настройки
+		//- .draft черновик
+		.toggle_eng перевод
+		br
+		b.form_submit ОТПРАВИТЬ
+
+block content
+	.form_block
+		a.back_link(href='/auth/edit/content') < Назад
+		.title РЕДАКТИРОВАТЬ РАЗДЕЛ
+		form(action="", method="post", enctype="multipart/form-data")
+			.form_title Название:
+			input.ru(type="text", name="ru[title]", value=content.ru.title)
+			input.en(type="text", name="en[title]", disabled)
+			.form_title Описание:
+			textarea.ru(name="ru[description]", rows="8",)= content.ru.description
+			textarea.en(name="en[description]", rows="8", disabled)
+			.form_title Cобытия:
+			if (content.events.length > 0)
+				each c_event in content.events
+					.snake
+						input.minus(type="button", value="-")
+						select(name='events')
+							option(value='') нет
+							each event in events
+								option(value=event._id, selected=(c_event._id.toString() == event._id.toString()))= event.ru.title.length <= 50 ? event.ru.title : event.ru.title.slice(0, 50) + '...'
+						br
+			else
+				.snake
+					input.minus(type="button", value="-")
+					select(name='events')
+						option(value='') нет
+						each event in events
+							option(value=event._id)= event.ru.title
+					br
+			br
+			input.plus(type="button", value="+")

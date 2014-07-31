@@ -34,35 +34,35 @@ app.use(function(req, res, next) {
 app.use(app.router);
 
 
-app.use(function(req, res, next) {
-  res.status(404);
+// app.use(function(req, res, next) {
+//   res.status(404);
 
-  // respond with html page
-  if (req.accepts('html')) {
-    res.render('error', { url: req.url, status: 404 });
-    return;
-  }
+//   // respond with html page
+//   if (req.accepts('html')) {
+//     res.render('error', { url: req.url, status: 404 });
+//     return;
+//   }
 
-  // respond with json
-  if (req.accepts('json')) {
-      res.send({
-      error: {
-        status: 'Not found'
-      }
-    });
-    return;
-  }
+//   // respond with json
+//   if (req.accepts('json')) {
+//       res.send({
+//       error: {
+//         status: 'Not found'
+//       }
+//     });
+//     return;
+//   }
 
-  // default to plain-text
-  res.type('txt').send('Not found');
-});
+//   // default to plain-text
+//   res.type('txt').send('Not found');
+// });
 
-app.use(function(err, req, res, next) {
-  var status = err.status || 500;
+// app.use(function(err, req, res, next) {
+//   var status = err.status || 500;
 
-  res.status(status);
-  res.render('error', { error: err, status: status });
-});
+//   res.status(status);
+//   res.render('error', { error: err, status: status });
+// });
 
 
 // -------------------
@@ -79,6 +79,7 @@ var Partner = models.Partner;
 var Photo = models.Photo;
 var Schedule = models.Schedule;
 var Project = models.Project;
+var Content = models.Content;
 
 
 // ------------------------
@@ -665,6 +666,96 @@ app.post('/auth/edit/projects/:id', function (req, res) {
       project.events = [];
 
     project.save(function(err) {
+      res.redirect('back');
+    });
+  });
+});
+
+
+// ------------------------
+// *** Add Content Block ***
+// ------------------------
+
+
+app.get('/auth/add/content', checkAuth, function (req, res) {
+  Event.find().sort('-date').exec(function(err, events) {
+    res.render('auth/add/content.jade', {events: events});
+  });
+});
+
+app.post('/auth/add/content', function (req, res) {
+  var post = req.body;
+  var files = req.files;
+  var content = new Content();
+
+  content.ru.title = post.ru.title;
+  content.ru.description = post.ru.description;
+
+  if (post.en) {
+    content.en.title = post.en.title;
+    content.en.description = post.en.description;
+  };
+
+  if (post.events != '')
+    content.events = post.events;
+  else
+    content.events = [];
+
+  content.save(function(err) {
+    res.redirect('back');
+  });
+});
+
+
+// ------------------------
+// *** Edit Content Block ***
+// ------------------------
+
+
+app.get('/auth/edit/content', checkAuth, function (req, res) {
+  Content.find().sort('-date').exec(function(err, content) {
+    res.render('auth/edit/content', {content: content});
+  });
+});
+
+app.get('/auth/edit/content/:id', checkAuth, function (req, res, next) {
+  var id = req.params.id;
+
+  Content.findById(id).populate('events').exec(function(err, content) {
+    if (!content) return next(err);
+    Event.find().sort('-date').exec(function(err, events) {
+      res.render('auth/edit/content/e_content.jade', {content: content, events: events});
+    });
+  });
+});
+
+app.post('/rm_content', function (req, res) {
+  var id = req.body.id;
+
+  Content.findByIdAndRemove(id, function() {
+    res.send('ok');
+  });
+});
+
+app.post('/auth/edit/content/:id', function (req, res) {
+  var post = req.body;
+  var id = req.params.id;
+
+  Content.findById(id, function(err, content) {
+    content.ru.title = post.ru.title;
+    content.ru.description = post.ru.description;
+
+    if (post.en) {
+      content.en.title = post.en.title;
+      content.en.description = post.en.description;
+    };
+
+    if (post.events != '')
+      content.events = post.events;
+    else
+      content.events = [];
+
+    content.save(function(err) {
       res.redirect('back');
     });
   });

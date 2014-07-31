@@ -1,0 +1,27 @@
+extends ../../../layout
+
+block title
+	title СПИСОК КОНТЕНТ РАЗДЕЛОВ
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/styles/add.css')
+
+block content_scripts
+	script(type='text/javascript', src='/scripts/lists.js')
+
+block content_right
+
+block content
+	a.back_link(href='/auth') < Назад
+	.title СПИСОК КОНТЕНТ РАЗДЕЛОВ
+	br
+	.main_menu_block
+		each item in content
+			.project
+				a.rm_content(href='#', id=item._id)= 'удалить '
+				||&nbsp;
+				a(href='/auth/edit/content/' + item._id)= item.ru.title
+				//- b= ' ---> '
+				//- a(href='/project/' + project._id, target='_blank') результат
+				br
+				br
