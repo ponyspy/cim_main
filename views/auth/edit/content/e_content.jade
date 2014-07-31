@@ -12,7 +12,7 @@ block content_scripts
 
 block content_right
 	.navigator
-		.nav_title СПЕЦПРОЕКТ
+		.nav_title= content.ru.title.toUpperCase()
 		.nav_project_children
 		br
 		b.nav_settings_title настройки
@@ -32,23 +32,3 @@ block content
 			.form_title Описание:
 			textarea.ru(name="ru[description]", rows="8",)= content.ru.description
 			textarea.en(name="en[description]", rows="8", disabled)
-			.form_title Cобытия:
-			if (content.events.length > 0)
-				each c_event in content.events
-					.snake
-						input.minus(type="button", value="-")
-						select(name='events')
-							option(value='') нет
-							each event in events
-								option(value=event._id, selected=(c_event._id.toString() == event._id.toString()))= event.ru.title.length <= 50 ? event.ru.title : event.ru.title.slice(0, 50) + '...'
-						br
-			else
-				.snake
-					input.minus(type="button", value="-")
-					select(name='events')
-						option(value='') нет
-						each event in events
-							option(value=event._id)= event.ru.title
-					br
-			br
-			input.plus(type="button", value="+")

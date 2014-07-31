@@ -678,9 +678,7 @@ app.post('/auth/edit/projects/:id', function (req, res) {
 
 
 app.get('/auth/add/content', checkAuth, function (req, res) {
-  Event.find().sort('-date').exec(function(err, events) {
-    res.render('auth/add/content.jade', {events: events});
-  });
+  res.render('auth/add/content.jade');
 });
 
 app.post('/auth/add/content', function (req, res) {
@@ -695,11 +693,6 @@ app.post('/auth/add/content', function (req, res) {
     content.en.title = post.en.title;
     content.en.description = post.en.description;
   };
-
-  if (post.events != '')
-    content.events = post.events;
-  else
-    content.events = [];
 
   content.save(function(err) {
     res.redirect('back');
@@ -721,11 +714,9 @@ app.get('/auth/edit/content', checkAuth, function (req, res) {
 app.get('/auth/edit/content/:id', checkAuth, function (req, res, next) {
   var id = req.params.id;
 
-  Content.findById(id).populate('events').exec(function(err, content) {
+  Content.findById(id).exec(function(err, content) {
     if (!content) return next(err);
-    Event.find().sort('-date').exec(function(err, events) {
-      res.render('auth/edit/content/e_content.jade', {content: content, events: events});
-    });
+    res.render('auth/edit/content/e_content.jade', {content: content});
   });
 });
 
@@ -758,6 +749,15 @@ app.post('/auth/edit/content/:id', function (req, res) {
     content.save(function(err) {
       res.redirect('back');
     });
+  });
+});
+
+app.get('/auth/edit/content/:id/content_edit', checkAuth, photoStream, function (req, res, next) {
+  var id = req.params.id;
+
+  Content.findById(id).exec(function(err, content) {
+    if (!content) return next(err);
+    res.render('auth/edit/content/c_editor.jade', {content: content});
   });
 });
 

@@ -1,7 +1,7 @@
 extends ../../layout
 
 block title
-	title ДОБАВИТЬ КОНТЕНТ
+	title ДОБАВИТЬ КОНТЕНТ РАЗДЕЛ
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/add.css')
@@ -24,7 +24,7 @@ block content_right
 block content
 	.form_block
 		a.back_link(href='/auth') < Назад
-		.title ДОБАВИТЬ КОНТЕНТ
+		.title ДОБАВИТЬ КОНТЕНТ РАЗДЕЛ
 		form(action="/auth/add/content", method="post", enctype="multipart/form-data")
 			.form_title Название:
 			input.ru(type="text", name="ru[title]",)
@@ -32,13 +32,3 @@ block content
 			.form_title Описание:
 			textarea.ru(name="ru[description]", rows="8",)
 			textarea.en(name="en[description]", rows="8", disabled)
-			.form_title Cобытия:
-			.snake
-				input.minus(type="button", value="-")
-				select(name='events')
-					option(value='') нет
-					each event in events
-						option(value=event._id)= event.ru.title.length <= 50 ? event.ru.title : event.ru.title.slice(0, 50) + '...'
-				br
-			br
-			input.plus(type="button", value="+")

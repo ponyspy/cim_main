@@ -1,0 +1,19 @@
+.navigator {
+	background-color: white;
+}
+
+
+.sections_block {
+	width: 930px;
+	background-color: #6eb9cc;
+}
+
+.section_title {
+	margin-bottom: 10px;
+}
+
+.content_section_block {
+	width: 930px;
+	background-color: #48cc8f;
+	margin-bottom: 10px;
+}

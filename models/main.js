@@ -157,15 +157,31 @@ var contentSchema = new Schema({
   ru: {
     title: String,
     description: String,
-    ticket: String
+    sections: [{
+      title: String,
+      under: String,
+      content: [{
+        title: String,
+        s_title: String,
+        description: String,
+        ticket: String,
+      }]
+    }]
   },
   en: {
     title: String,
     description: String,
-    ticket: String
+    sections: [{
+      title: String,
+      under: String,
+      content: [{
+        title: String,
+        s_title: String,
+        description: String,
+        ticket: String,
+      }]
+    }]
   },
-  content: [{ type: Schema.Types.ObjectId, ref: 'Content' }],
-  events: [{ type: Schema.Types.ObjectId, ref: 'Event' }],
   date: {type: Date, default: Date.now}
 });
 

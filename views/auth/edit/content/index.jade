@@ -21,7 +21,7 @@ block content
 				a.rm_content(href='#', id=item._id)= 'удалить '
 				||&nbsp;
 				a(href='/auth/edit/content/' + item._id)= item.ru.title
-				//- b= ' ---> '
-				//- a(href='/project/' + project._id, target='_blank') результат
+				b= ' ---> '
+				a(href='/auth/edit/content/' + item._id + '/content_edit', target='_blank') контент
 				br
 				br
