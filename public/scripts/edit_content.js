@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
 	$('.content_section_description, .content_section_ticket, .section_under').popline({disable:['color']});
+	$('.section_content').sortable({cancel: '.content_section_title, .content_section_description, .content_section_ticket, .add_content'});
 
 	$('.submit').click(function(event) {
 		var sections_upload = [];

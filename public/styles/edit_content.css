@@ -21,18 +21,37 @@
 
 .section_title {
 	margin-bottom: 30px;
+	font-size: 16pt;
+	text-transform: uppercase;
 }
 
 .content_section_block {
 	width: 880px;
 	background-color: #48cc8f;
 	margin-bottom: 30px;
+	cursor: move;
 }
 
 .content_section_title,  .content_section_description, .content_section_ticket {
-	min-height: 60px;
 	margin-bottom: 10px;
-	background-color: #b38ccc;
+	background-color: white;
+	border: 3px solid #b38ccc;
+	cursor: text;
+}
+
+.content_section_title {
+	font-size: 26pt;
+	text-transform: uppercase;
+}
+
+.content_section_description {
+	min-height: 120px;
+	font-size: 12pt;
+}
+
+.content_section_ticket {
+	width: 180px;
+	min-height: 60px;
 }
 
 .add_content {
