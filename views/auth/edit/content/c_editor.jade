@@ -15,13 +15,26 @@ block content_scripts
 block content
 	.content_title= content.ru.title.toLowerCase()
 	.sections_block
-		.section_block
-			.section_title(contenteditable=true) Заголовок секции 1
-			.section_content
-				.content_section_block
-					.content_section_title(contenteditable=true) Заголовок
-					.content_section_description(contenteditable=true) Описание
-					.content_section_ticket(contenteditable=true) Тикет
-				.add_content Добавить блок
-			.section_under(contenteditable=true) Футер секции 1
-	.submit РЕДАКТИРОВАТЬ
+		if (content.ru.sections.length > 0)
+			each section in content.ru.sections
+				.section_block
+					.section_title(contenteditable=true)= section.title
+					.section_content
+						each content in section.content
+							.content_section_block
+								.content_section_title(contenteditable=true)= content.title
+								.content_section_description(contenteditable=true)!= content.description
+								.content_section_ticket(contenteditable=true)!= content.ticket
+						.add_content Добавить блок
+					.section_under(contenteditable=true)!= section.under
+		else
+			.section_block
+				.section_title(contenteditable=true) Заголовок секции
+				.section_content
+					.content_section_block
+						.content_section_title(contenteditable=true) Заголовок
+						.content_section_description(contenteditable=true) Описание
+						.content_section_ticket(contenteditable=true) Тикет
+					.add_content Добавить блок
+				.section_under(contenteditable=true) Футер секциии
+		.submit РЕДАКТИРОВАТЬ
