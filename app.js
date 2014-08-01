@@ -199,6 +199,19 @@ app.post('/mlist', function (req, res) {
   });
 });
 
+app.post('/auth/edit/content/:id/content_edit', function (req, res) {
+  var id = req.params.id;
+  var post = req.body;
+
+  Content.findById(id).exec(function(err, content) {
+    content.ru.sections = post.sections;
+
+    content.save(function(err, content) {
+      res.send('ok');
+    });
+  });
+});
+
 
 // ------------------------
 // *** API Block ***

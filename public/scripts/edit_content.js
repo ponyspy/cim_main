@@ -35,7 +35,9 @@ $(document).ready(function() {
 
 		});
 
-		console.log(sections_upload)
+		$.post('', {sections: sections_upload}).done(function(data) {
+			console.log(data);
+		});
 	});
 
 	$('.add_content').click(function(event) {
