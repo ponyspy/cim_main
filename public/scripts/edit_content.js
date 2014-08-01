@@ -68,7 +68,14 @@ $(document).ready(function() {
 		var content_description = $('<div/>', {'class':'content_section_description', 'contenteditable': true, 'text': 'Описание'});
 		var content_ticket = $('<div/>', {'class':'content_section_ticket', 'contenteditable': true, 'text': 'Тикет'});
 
-		$('.content_section_block:last').after(content_block.append(content_title, content_description, content_ticket));
+		var content_menu = $('<div/>', {'class': 'content_section_menu'});
+		var menu_hide = $('<div/>', {'class': 'menu_hide', 'text': 'скрыть'});
+		var menu_remove = $('<div/>', {'class': 'menu_remove', 'text': 'удалить'});
+
+		content_menu.append(menu_hide, menu_remove);
+
+
+		$('.content_section_block:last').after(content_block.append(content_menu, content_title, content_description, content_ticket));
 		$('.content_section_description, .content_section_ticket, .section_under').popline({disable:['color']});
 	});
 
