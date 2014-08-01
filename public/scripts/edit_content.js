@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	$('.content_section_description, .content_section_ticket').popline({disable:['color']});
+	$('.content_section_description, .content_section_ticket, .section_under').popline({disable:['color']});
 
 	$('.submit').click(function(event) {
 		var sections_upload = [];
@@ -36,6 +36,16 @@ $(document).ready(function() {
 		});
 
 		console.log(sections_upload)
+	});
+
+	$('.add_content').click(function(event) {
+		var content_block = $('<div/>', {'class': 'content_section_block'});
+		var content_title = $('<div/>', {'class':'content_section_title', 'contenteditable': true, 'text': 'Заголовок'});
+		var content_description = $('<div/>', {'class':'content_section_description', 'contenteditable': true, 'text': 'Описание'});
+		var content_ticket = $('<div/>', {'class':'content_section_ticket', 'contenteditable': true, 'text': 'Тикет'});
+
+		$('.content_section_block:last').after(content_block.append(content_title, content_description, content_ticket));
+		$('.content_section_description, .content_section_ticket, .section_under').popline({disable:['color']});
 	});
 
 });

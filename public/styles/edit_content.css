@@ -35,6 +35,14 @@
 	background-color: #b38ccc;
 }
 
+.add_content {
+	margin-bottom: 10px;
+	cursor: pointer;
+}
+
+.add_content:hover {
+	text-decoration: underline;
+}
 
 .section_under {
 	background-color: black;
