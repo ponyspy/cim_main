@@ -71,12 +71,19 @@
 }
 
 .add_content {
+	width: 180px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border: 3px solid #cfab39;
 	margin-bottom: 10px;
+	text-align: center;
 	cursor: pointer;
+	text-transform: uppercase;
 }
 
 .add_content:hover {
-	text-decoration: underline;
+	background-color: #cfab39;
+	color: white;
 }
 
 .section_under {
@@ -87,11 +94,18 @@
 }
 
 .submit {
-	width: 160px;
 	margin-top: 30px;
+	width: 180px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border: 3px solid red;
+	margin-bottom: 10px;
+	text-align: center;
 	cursor: pointer;
+	text-transform: uppercase;
 }
 
 .submit:hover {
-	text-decoration: underline;
+	background-color: red;
+	color: white;
 }
