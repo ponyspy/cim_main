@@ -75,7 +75,7 @@ $(document).ready(function() {
 		content_menu.append(menu_hide, menu_remove);
 
 
-		$('.content_section_block:last').after(content_block.append(content_menu, content_title, content_description, content_ticket));
+		$('.add_content').before(content_block.append(content_menu, content_title, content_description, content_ticket));
 		$('.content_section_description, .content_section_ticket, .section_under').popline({disable:['color']});
 	});
 
