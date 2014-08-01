@@ -41,6 +41,27 @@ $(document).ready(function() {
 		});
 	});
 
+
+	function removeContent (event) {
+		if (confirm('Удалить блок?')) {
+			$(this).closest('.content_section_block').remove();
+		}
+	}
+
+	function hideContent (event) {
+		$(this).data('clicked', !$(this).data('clicked'));
+
+		if ($(this).data('clicked')) {
+			var title = $(this).closest('.content_section_block').find('.content_section_title').text();
+			$(this).text(title);
+			$(this).closest('.content_section_block').children(':not(.content_section_menu)').hide();
+		}
+		else {
+			$(this).text('скрыть');
+			$(this).closest('.content_section_block').children().show();
+		}
+	}
+
 	$('.add_content').click(function(event) {
 		var content_block = $('<div/>', {'class': 'content_section_block'});
 		var content_title = $('<div/>', {'class':'content_section_title', 'contenteditable': true, 'text': 'Заголовок'});
@@ -50,5 +71,8 @@ $(document).ready(function() {
 		$('.content_section_block:last').after(content_block.append(content_title, content_description, content_ticket));
 		$('.content_section_description, .content_section_ticket, .section_under').popline({disable:['color']});
 	});
+
+	$(document).on('click', '.menu_remove', removeContent);
+	$(document).on('click', '.menu_hide', hideContent);
 
 });

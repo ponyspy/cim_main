@@ -32,6 +32,22 @@
 	cursor: move;
 }
 
+.content_section_menu {
+	overflow: hidden;
+}
+
+.content_section_menu div {
+	float: left;
+	cursor: pointer;
+	margin-right: 10px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+.content_section_menu div:hover {
+	text-decoration: underline;
+}
+
 .content_section_title,  .content_section_description, .content_section_ticket {
 	margin-bottom: 10px;
 	background-color: white;
