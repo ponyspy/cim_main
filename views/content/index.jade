@@ -1,0 +1,39 @@
+extends ../layout
+
+block paths
+	- var title = 'ЦИМ | СЕГОДНЯ'
+	- var menu_cim = ' / сегодня'
+
+block content_style
+	link(rel='stylesheet', type='text/css', href='/styles/static.css' + version)
+
+block content_scripts
+	script(type='text/javascript', src='/scripts/static.js' + version)
+	//- script(type='text/javascript', src='/scripts/back.js' + version)
+
+block content_right
+	.right_block
+		each section in content.ru.sections
+			.r_section
+				each content in section.content
+					.r_item!= content.ticket
+
+block content_under
+	each section in content.ru.sections
+		.under_block!= section.under
+
+block content_left
+	.left_block
+		.content_navigator
+			each section in content.ru.sections
+				.section= section.title.toUpperCase()
+					each content in section.content
+						.nav_item= content.title.toLowerCase()
+
+block content
+	each section in content.ru.sections
+		.section
+			each content in section.content
+				.content
+					.title= content.title.toUpperCase()
+					.description!= content.description

@@ -1,7 +1,8 @@
 $(document).ready(function() {
 
 	$('.content_section_description, .content_section_ticket, .section_under').popline({disable:['color']});
-	$('.section_content').sortable({cancel: '.content_section_title, .content_section_description, .content_section_ticket, .add_content'});
+	$('.section_content').sortable({connectWith: '.section_content', cancel: '.content_section_title, .content_section_description, .content_section_ticket, .add_content'});
+	$('.sections_block').sortable({cancel:'.section_content *, .section_title, .section_under'});
 
 	$('.submit').click(function(event) {
 		var sections_upload = [];
@@ -62,7 +63,7 @@ $(document).ready(function() {
 		}
 	}
 
-	$('.add_content').click(function(event) {
+	function addContent (event) {
 		var content_block = $('<div/>', {'class': 'content_section_block'});
 		var content_title = $('<div/>', {'class':'content_section_title', 'contenteditable': true, 'text': 'Заголовок'});
 		var content_description = $('<div/>', {'class':'content_section_description', 'contenteditable': true, 'text': 'Описание'});
@@ -75,11 +76,23 @@ $(document).ready(function() {
 		content_menu.append(menu_hide, menu_remove);
 
 
-		$('.add_content').before(content_block.append(content_menu, content_title, content_description, content_ticket));
+		$(this).before(content_block.append(content_menu, content_title, content_description, content_ticket));
 		$('.content_section_description, .content_section_ticket, .section_under').popline({disable:['color']});
+	}
+
+	$('.add_section').click(function(event) {
+		var section_block = $('<div/>', {'class': 'section_block'});
+		var section_title = $('<div/>', {'class': 'section_title', 'contenteditable': true, 'text': 'ЗАГОЛОВОК СЕКЦИИ'});
+		var section_content = $('<div/>', {'class': 'section_content'});
+		var section_add_content = $('<div/>', {'class': 'add_content', 'text': 'ДОБАВИТЬ БЛОК'});
+		var section_under = $('<div/>', {'class': 'section_under', 'text': 'Футер секции'});
+
+		$('.sections_block').append(section_block.append(section_title, section_content, section_add_content, section_under));
+		$('.section_content').sortable('refresh');
 	});
 
 	$(document).on('click', '.menu_remove', removeContent);
 	$(document).on('click', '.menu_hide', hideContent);
+	$(document).on('click', '.add_content', addContent);
 
 });

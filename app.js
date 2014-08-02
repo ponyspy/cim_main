@@ -1518,46 +1518,17 @@ app.get('/history', photoStream, function (req, res) {
 
 
 // ------------------------
-// *** Update schema Block ***
+// *** Content Block ***
 // ------------------------
 
 
-// app.get('/schema', function (req, res) {
-//   Event.find().exec(function(err, events) {
-//     async.forEach(events, function(event, callback) {
-//       var name = new Date();
-//       name = name.getTime();
+app.get('/content/:id', photoStream, function (req, res) {
+  var id = req.params.id;
 
-//       if (event.photo) {
-//         fs.mkdir(__dirname + '/public/images/events/' + event._id + '/photos', function() {
-//           fs.rename(__dirname + '/public/images/events/' + event._id + '/photo.jpg', __dirname + '/public/images/events/' + event._id + '/photos/' + name + '.jpg', function() {
-//             event.photos.push({
-//               path: '/images/events/' + event._id + '/photos/' + name + '.jpg',
-//               author: {
-//                 ru: event.ru.p_author
-//               }
-//             });
-
-//             event.photo = undefined;
-//             event.ru.p_author = undefined;
-//             event.save(function(err, event) {
-//               callback();
-//             });
-//           });
-//         });
-//       }
-//       else {
-//         event.ru.p_author = undefined;
-//         event.save(function(err, event) {
-//           callback();
-//         });
-//       }
-//     }, function() {
-//       var date = new Date();
-//       res.send('ok! -- ' + date)
-//     });
-//   });
-// });
+  Content.findById(id).exec(function(err, content) {
+    res.render('content/index.jade', {content: content});
+  });
+});
 
 
 // ------------------------

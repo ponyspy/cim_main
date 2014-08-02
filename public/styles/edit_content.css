@@ -16,7 +16,11 @@
 
 .sections_block {
 	width: 880px;
+}
+
+.section_block {
 	background-color: #6eb9cc;
+	margin-bottom: 30px;
 }
 
 .section_title {
