@@ -182,6 +182,7 @@ var contentSchema = new Schema({
       }]
     }]
   },
+  alias: String,
   date: {type: Date, default: Date.now}
 });
 

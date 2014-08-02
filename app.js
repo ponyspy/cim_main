@@ -700,11 +700,10 @@ app.post('/auth/add/content', function (req, res) {
   var content = new Content();
 
   content.ru.title = post.ru.title;
-  content.ru.description = post.ru.description;
+  content.alias = post.alias;
 
   if (post.en) {
     content.en.title = post.en.title;
-    content.en.description = post.en.description;
   };
 
   content.save(function(err) {
@@ -747,17 +746,11 @@ app.post('/auth/edit/content/:id', function (req, res) {
 
   Content.findById(id, function(err, content) {
     content.ru.title = post.ru.title;
-    content.ru.description = post.ru.description;
+    content.alias = post.alias;
 
     if (post.en) {
       content.en.title = post.en.title;
-      content.en.description = post.en.description;
     };
-
-    if (post.events != '')
-      content.events = post.events;
-    else
-      content.events = [];
 
     content.save(function(err) {
       res.redirect('back');
@@ -1522,11 +1515,11 @@ app.get('/history', photoStream, function (req, res) {
 // ------------------------
 
 
-app.get('/content/:id', photoStream, function (req, res) {
-  var id = req.params.id;
+app.get('/content/:alias', photoStream, function (req, res) {
+  var alias = req.params.alias;
 
-  Content.findById(id).exec(function(err, content) {
-    res.render('content/index.jade', {content: content});
+  Content.find({alias: alias}).exec(function(err, content) {
+    res.render('content/index.jade', {content: content[0]});
   });
 });
 
