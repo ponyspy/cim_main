@@ -63,6 +63,18 @@ $(document).ready(function() {
 		}
 	}
 
+	$('.hide_blocks').click(function() {
+		var content = $('.content_section_block');
+
+		content.each(function(index, el) {
+			var title = $(this).find('.content_section_title').text();
+
+			$(this).data('clicked', true);
+			$(this).find('.menu_hide').text(title);
+			$(this).children(':not(.content_section_menu)').hide();
+		});
+	});
+
 	function addContent (event) {
 		var content_block = $('<div/>', {'class': 'content_section_block'});
 		var content_title = $('<div/>', {'class':'content_section_title', 'contenteditable': true, 'text': 'Заголовок'});

@@ -13,8 +13,15 @@ block content_scripts
 	script(type="text/javascript", src='/scripts/jquery-ui-1.10.3.custom.min.js' + version)
 	script(type='text/javascript', src='/scripts/edit_content.js' + version)
 
+block content_right
+	.content_right
+		.options_block
+			.hide_blocks свернуть все блоки
+		.submit СОХРАНИТЬ
+
 block content
-	.content_title= content.ru.title.toLowerCase()
+	a.back_link(href='/auth/edit/content') < Назад
+	.content_title= 'КОНТЕНТ РАЗДЕЛА: ' + content.ru.title.toUpperCase()
 	.sections_block
 		if (content.ru.sections.length > 0)
 			each section in content.ru.sections
@@ -45,4 +52,3 @@ block content
 					.add_content Добавить блок
 				.section_under(contenteditable=true) Футер секциии
 	.add_section ДОБАВИТЬ СЕКЦИЮ
-	.submit СОХРАНИТЬ
