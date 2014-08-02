@@ -25,17 +25,17 @@
 }
 
 .content_title {
+	margin-top: 20px;
 	font-size: 30px;
-	margin-bottom: 30px;
 }
 
 .sections_block {
-	width: 880px;
+	width: 910px;
 }
 
 .section_block {
-	background-color: #6eb9cc;
-	margin-bottom: 30px;
+	background-color: #a7cbcf;
+	margin-top: 30px;
 }
 
 .section_title {
@@ -45,14 +45,16 @@
 }
 
 .content_section_block {
-	width: 880px;
+	width: 910px;
 	background-color: #48cc8f;
-	margin-bottom: 30px;
+	margin-top: 30px;
 	cursor: move;
 }
 
 .content_section_menu {
 	overflow: hidden;
+	border-bottom: 1px solid black;
+	margin-bottom: 10px;
 }
 
 .content_section_menu div {
@@ -75,11 +77,13 @@
 }
 
 .content_section_title {
+	width: 700px;
 	font-size: 26pt;
 	text-transform: uppercase;
 }
 
 .content_section_description {
+	width: 700px;
 	min-height: 120px;
 	font-size: 12pt;
 }
@@ -89,18 +93,20 @@
 	min-height: 60px;
 }
 
-.add_content {
+.add_content, .add_section {
 	width: 180px;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	border: 3px solid #cfab39;
-	margin-bottom: 10px;
+	margin: 30px auto;
+	/*margin-top: 30px;*/
+	/*margin-bottom: 10px;*/
 	text-align: center;
 	cursor: pointer;
 	text-transform: uppercase;
 }
 
-.add_content:hover {
+.add_content:hover, .add_section:hover {
 	background-color: #cfab39;
 	color: white;
 }
