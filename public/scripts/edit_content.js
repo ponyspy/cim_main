@@ -70,7 +70,7 @@ $(document).ready(function() {
 			var title = $(this).find('.content_section_title').text();
 
 			$(this).data('clicked', true);
-			$(this).find('.menu_hide').text(title);
+			$(this).find('.content_hide').text(title);
 			$(this).children(':not(.content_section_menu)').hide();
 		});
 	});
@@ -82,10 +82,10 @@ $(document).ready(function() {
 		var content_ticket = $('<div/>', {'class':'content_section_ticket', 'contenteditable': true, 'text': 'Тикет'});
 
 		var content_menu = $('<div/>', {'class': 'content_section_menu'});
-		var menu_hide = $('<div/>', {'class': 'menu_hide', 'text': 'скрыть'});
-		var menu_remove = $('<div/>', {'class': 'menu_remove', 'text': 'удалить'});
+		var content_hide = $('<div/>', {'class': 'content_hide', 'text': 'скрыть'});
+		var content_remove = $('<div/>', {'class': 'content_remove', 'text': 'удалить'});
 
-		content_menu.append(menu_hide, menu_remove);
+		content_menu.append(content_hide, content_remove);
 
 
 		$(this).before(content_block.append(content_menu, content_title, content_description, content_ticket));
@@ -99,12 +99,24 @@ $(document).ready(function() {
 		var section_add_content = $('<div/>', {'class': 'add_content', 'text': 'ДОБАВИТЬ БЛОК'});
 		var section_under = $('<div/>', {'class': 'section_under', 'text': 'Футер секции'});
 
-		$('.sections_block').append(section_block.append(section_title, section_content, section_add_content, section_under));
-		$('.section_content').sortable('refresh');
+		var section_menu = $('<div/>', {'class': 'section_menu_block'});
+		var section_remove = $('<div/>', {'class': 'section_remove', 'text': 'удалить'});
+
+		section_menu.append(section_remove);
+
+		$('.sections_block').append(section_block.append(section_menu, section_title, section_content, section_add_content, section_under));
+		$('.sections_block, .section_content').sortable('refresh');
 	});
 
-	$(document).on('click', '.menu_remove', removeContent);
-	$(document).on('click', '.menu_hide', hideContent);
+	function removeSection (event) {
+		if (confirm('Удалить секцию?')) {
+			$(this).closest('.section_block').remove();
+		}
+	}
+
+	$(document).on('click', '.content_remove', removeContent);
+	$(document).on('click', '.content_hide', hideContent);
 	$(document).on('click', '.add_content', addContent);
+	$(document).on('click', '.section_remove', removeSection);
 
 });

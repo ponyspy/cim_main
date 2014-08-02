@@ -26,13 +26,15 @@ block content
 		if (content.ru.sections.length > 0)
 			each section in content.ru.sections
 				.section_block
+					.section_menu_block
+						.section_remove удалить
 					.section_title(contenteditable=true)= section.title
 					.section_content
 						each content in section.content
 							.content_section_block
 								.content_section_menu
-									.menu_hide скрыть
-									.menu_remove удалить
+									.content_hide скрыть
+									.content_remove удалить
 								.content_section_title(contenteditable=true)= content.title
 								.content_section_description(contenteditable=true)!= content.description
 								.content_section_ticket(contenteditable=true)!= content.ticket
@@ -44,8 +46,8 @@ block content
 				.section_content
 					.content_section_block
 						.content_section_menu
-							.menu_hide скрыть
-							.menu_remove удалить
+							.content_hide скрыть
+							.content_remove удалить
 						.content_section_title(contenteditable=true) Заголовок
 						.content_section_description(contenteditable=true) Описание
 						.content_section_ticket(contenteditable=true) Тикет

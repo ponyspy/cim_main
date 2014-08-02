@@ -51,13 +51,13 @@
 	cursor: move;
 }
 
-.content_section_menu {
+.content_section_menu, .section_menu_block {
 	overflow: hidden;
 	border-bottom: 1px solid black;
 	margin-bottom: 10px;
 }
 
-.content_section_menu div {
+.content_section_menu div, .section_menu_block div {
 	float: left;
 	cursor: pointer;
 	margin-right: 10px;
@@ -65,7 +65,7 @@
 	padding-bottom: 3px;
 }
 
-.content_section_menu div:hover {
+.content_section_menu div:hover, .section_menu_block div:hover {
 	text-decoration: underline;
 }
 
@@ -77,13 +77,13 @@
 }
 
 .content_section_title {
-	width: 700px;
+	width: 720px;
 	font-size: 26pt;
 	text-transform: uppercase;
 }
 
 .content_section_description {
-	width: 700px;
+	width: 720px;
 	min-height: 120px;
 	font-size: 12pt;
 }
