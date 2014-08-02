@@ -38,7 +38,10 @@ $(document).ready(function() {
 		});
 
 		$.post('', {sections: sections_upload}).done(function(data) {
-			console.log(data);
+			$('.submit').text('ГОТОВО!')
+			setTimeout(function() {
+				$('.submit').text('СОХРАНИТЬ');
+			}, 500);
 		});
 	});
 
