@@ -5,10 +5,10 @@ block paths
 	- var menu_cim = ' / сегодня'
 
 block content_style
-	link(rel='stylesheet', type='text/css', href='/styles/static.css' + version)
+	link(rel='stylesheet', type='text/css', href='/styles/content.css' + version)
 
 block content_scripts
-	script(type='text/javascript', src='/scripts/static.js' + version)
+	script(type='text/javascript', src='/scripts/content.js' + version)
 
 block content_right
 	.right_block
@@ -18,14 +18,15 @@ block content_right
 					.r_item!= content.ticket
 
 block content_under
-	each section in content.ru.sections
-		.under_block!= section.under
+	.under_block
+		each section in content.ru.sections
+			.under_section!= section.under
 
 block content_left
 	.left_block
 		.content_navigator
 			each section in content.ru.sections
-				.section= section.title.toUpperCase()
+				.nav_section= section.title.toUpperCase()
 					each content in section.content
 						.nav_item= content.title.toLowerCase()
 
