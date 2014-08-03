@@ -1522,8 +1522,8 @@ app.get('/history', photoStream, function (req, res) {
 app.get('/content/:alias', photoStream, function (req, res) {
   var alias = req.params.alias;
 
-  Content.find({alias: alias}).exec(function(err, content) {
-    res.render('content/index.jade', {content: content[0]});
+  Content.findOne({alias: alias}).exec(function(err, content) {
+    res.render('content/index.jade', {content: content});
   });
 });
 
