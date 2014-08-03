@@ -1,8 +1,8 @@
 extends ../layout
 
 block paths
-	- var title = 'ЦИМ | СЕГОДНЯ'
-	- var menu_cim = ' / сегодня'
+	- var title = 'ЦИМ | ' + content.ru.meta.title.toUpperCase()
+	- var menu_cim = ' / ' + content.ru.meta.menu.toLowerCase()
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/content.css' + version)

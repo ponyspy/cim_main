@@ -156,7 +156,10 @@ var projectSchema = new Schema({
 var contentSchema = new Schema({
   ru: {
     title: String,
-    description: String,
+    meta: {
+      title: String,
+      menu: String
+    },
     sections: [{
       title: String,
       under: String,
@@ -170,7 +173,10 @@ var contentSchema = new Schema({
   },
   en: {
     title: String,
-    description: String,
+    meta: {
+      title: String,
+      menu: String
+    },
     sections: [{
       title: String,
       under: String,

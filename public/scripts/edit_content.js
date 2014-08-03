@@ -91,7 +91,9 @@ $(document).ready(function() {
 		content_menu.append(content_hide, content_remove);
 
 
-		$(this).before(content_block.append(content_menu, content_title, content_description, content_ticket));
+		$(this).before(content_block.append(content_menu, content_title, content_description, content_ticket), function() {
+			$('.sections_block, .section_content').sortable('refresh');
+		});
 		$('.content_section_description, .content_section_ticket, .section_under').popline({disable:['color']});
 	}
 
@@ -107,8 +109,9 @@ $(document).ready(function() {
 
 		section_menu.append(section_remove);
 
-		$('.sections_block').append(section_block.append(section_menu, section_title, section_content, section_add_content, section_under));
-		$('.sections_block, .section_content').sortable('refresh');
+		$('.sections_block').append(section_block.append(section_menu, section_title, section_content, section_add_content, section_under), function() {
+			$('.sections_block, .section_content').sortable('refresh');
+		});
 	});
 
 	function removeSection (event) {
@@ -117,9 +120,9 @@ $(document).ready(function() {
 		}
 	}
 
+	$(document).on('click', '.section_remove', removeSection);
 	$(document).on('click', '.content_remove', removeContent);
 	$(document).on('click', '.content_hide', hideContent);
 	$(document).on('click', '.add_content', addContent);
-	$(document).on('click', '.section_remove', removeSection);
 
 });

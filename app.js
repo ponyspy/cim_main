@@ -700,6 +700,8 @@ app.post('/auth/add/content', function (req, res) {
   var content = new Content();
 
   content.ru.title = post.ru.title;
+  content.ru.meta.title = post.ru.meta.title;
+  content.ru.meta.menu = post.ru.meta.menu;
   content.alias = post.alias;
 
   if (post.en) {
@@ -746,6 +748,8 @@ app.post('/auth/edit/content/:id', function (req, res) {
 
   Content.findById(id, function(err, content) {
     content.ru.title = post.ru.title;
+    content.ru.meta.title = post.ru.meta.title;
+    content.ru.meta.menu = post.ru.meta.menu;
     content.alias = post.alias;
 
     if (post.en) {
