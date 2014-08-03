@@ -46,7 +46,7 @@ small {
 
 .title {
 	font: 20pt/20pt 'PragmaticaM';
-	margin-top: 5px;
+	margin-top: 1px;
 	letter-spacing: 0px;
 	font-weight: bold;
 }
@@ -76,6 +76,7 @@ small {
 }
 
 .nav_section {
+	margin-top: 1px;
 	margin-bottom: 15px;
 }
 
