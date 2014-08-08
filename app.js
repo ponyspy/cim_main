@@ -460,11 +460,11 @@ app.post('/auth/add/event', function(req, res) {
     fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
       fs.mkdir(__dirname + '/public/images/events/' + event._id + '/photos', function() {
         async.forEach(post.images, function(image, callback) {
-          var ph = image.path.split('/')[2];
-          var newPath = __dirname + '/public/images/events/' + event._id + '/photos/' + ph;
+          var pubPath = __dirname + '/public';
+          var newPath = '/images/events/' + event._id + '/photos/' + image.path.split('/')[2];
 
-          gm(__dirname + '/public' + image.path).write(newPath, function() {
-            image.path = image.path.replace(image.path, '/images/events/' + event._id + '/photos/' + ph);
+          gm(pubPath + image.path).write(pubPath + newPath, function() {
+            image.path = newPath;
             callback();
           });
 
@@ -473,7 +473,6 @@ app.post('/auth/add/event', function(req, res) {
           event.save(function(err, event) {
             res.redirect('back');
           });
-
         });
       });
     });
@@ -567,11 +566,11 @@ app.post('/auth/edit/events/:id', function (req, res, next) {
       fs.mkdir(__dirname + '/public/images/events/' + event._id, function() {
         fs.mkdir(__dirname + '/public/images/events/' + event._id + '/photos', function() {
           async.forEach(post.images, function(image, callback) {
-            var ph = image.path.split('/')[2];
-            var newPath = __dirname + '/public/images/events/' + event._id + '/photos/' + ph;
+            var pubPath = __dirname + '/public';
+            var newPath = '/images/events/' + event._id + '/photos/' + image.path.split('/')[2];
 
-            gm(__dirname + '/public' + image.path).write(newPath, function() {
-              image.path = image.path.replace(image.path, '/images/events/' + event._id + '/photos/' + ph);
+            gm(pubPath + image.path).write(pubPath + newPath, function() {
+              image.path = newPath;
               callback();
             });
 

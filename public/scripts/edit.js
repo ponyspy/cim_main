@@ -75,7 +75,7 @@ $(document).ready(function() {
 		});
 
 		images.each(function(index, image) {
-			var img = $(this).css('background-image').slice(4,-1).replace('http://' + host, '');
+			var img = $(this).attr('path');
 			var author = $(this).find('.a_name').text();
 			images_upload.push({
 				path: img,
@@ -175,7 +175,7 @@ $(document).ready(function() {
 			var a_title = $('<div/>', {'class':'a_title', 'text':'Фото:'});
 			var a_name = $('<div/>', {'class':'a_name', 'text':'Автор фото', 'contenteditable':true});
 			var rm_image = $('<div/>', {'class':'rm_image', 'text':'Удалить'});
-			photo.attr('style', 'background-image:url(' + response + ')');
+			photo.attr({'style': 'background-image:url(' + response + ')', 'path': response});
 			photo.children('.p_author').empty();
 			photo.children('.p_author').append(a_title, a_name, rm_image);
 		},
@@ -189,7 +189,7 @@ $(document).ready(function() {
 
 	$(document).on('click', '.rm_image', function() {
 		var ph = $(this).closest('.image_upload');
-		var path = $(ph).css('background-image').slice(4,-1).replace('http://' + host, '');
+		var path = $(ph).attr('path');
 
 		$.post('/photo_remove', {path: path}).done(function(data) {
 			ph.remove();
