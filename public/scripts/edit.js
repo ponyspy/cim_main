@@ -43,7 +43,7 @@ $(document).ready(function() {
 			return field;
 	}
 
-	$('.upload').click(function(event) {
+	function uploadFields(event) {
 		var images_upload = [];
 		var trailers_upload = [];
 		var title = $('.title').html();
@@ -66,6 +66,8 @@ $(document).ready(function() {
 			'one': [],
 			'two': []
 		}
+
+		$(this).off().css('background-color', 'green');
 
 
 		trailers.each(function(index, trailer) {
@@ -141,13 +143,15 @@ $(document).ready(function() {
 			if (btn_title == 'СОЗДАТЬ')
 				 location.reload();
 			else {
-				$('.upload').text('ГОТОВО!');
+				$('.upload').on('click', uploadFields).text('ГОТОВО!');
 				setTimeout(function() {
-					$('.upload').text(btn_title)
+					$('.upload').text(btn_title).removeAttr('style');
 				}, 1000);
 			}
 		});
-	});
+	}
+
+	$('.upload').on('click', uploadFields);
 
 
 	$('.photos_block').filedrop({
