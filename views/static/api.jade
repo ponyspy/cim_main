@@ -275,7 +275,6 @@ block content
 					|         body: String,	// Описание события
 					|         ticket: String,	// Маленькое объявление
 					|         comment: String,	// Комментарий режиссера
-					|         p_author: String	// Автор фотографии
 					|      },
 					|      en: {
 					|        title: String,
@@ -283,9 +282,14 @@ block content
 					|         body: String,
 					|         ticket: String,
 					|         comment: String,
-					|         p_author: String
 					|      },
-					|      photo: String,	// Путь до фотографии к событию
+					|      photos: [{ //Массив фотографий для события
+					|        path: String // Путь до фотографии к событию
+					|        author: {
+					|          ru: String, // Автор фотографии
+					|          en: String
+					|        }
+					|				}],
 					|      hall: String,	// Зал
 					|      age: Number,	// Минимальный возраст зрителей
 					|      duration: String,	// Продолжительность события
