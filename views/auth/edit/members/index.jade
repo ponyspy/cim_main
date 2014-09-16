@@ -1,7 +1,7 @@
 extends ../../../layout
 
 block title
-	title СПИСОК УЧАСТНИКОВ
+	title СПИСОК РЕЗИДЕНТОВ
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/add.css')
@@ -13,7 +13,7 @@ block content_right
 
 block content
 	a.back_link(href='/auth') < Назад
-	.title СПИСОК УЧАСТНИКОВ
+	.title СПИСОК РЕЗИДЕНТОВ
 	br
 	.main_menu_block
 		each member in members

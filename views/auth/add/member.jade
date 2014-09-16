@@ -1,7 +1,7 @@
 extends ../../layout
 
 block title
-	title ДОБАВИТЬ УЧАСТНИКА
+	title ДОБАВИТЬ РЕЗИДЕНТА
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/add.css')
@@ -11,7 +11,7 @@ block content_scripts
 
 block content_right
 	.navigator
-		.nav_title УЧАСТНИКИ
+		.nav_title РЕЗИДЕНТЫ
 		.nav_project_children
 		br
 		b.nav_settings_title настройки
@@ -23,7 +23,7 @@ block content_right
 
 block content
 	a.back_link(href='/auth') < Назад
-	.title ДОБАВИТЬ УЧАСТНИКА
+	.title ДОБАВИТЬ РЕЗИДЕНТА
 	br
 	form(action="/auth/add/member", method="post", enctype="multipart/form-data")
 		.form_title Имя:

@@ -1,8 +1,8 @@
 extends ../layout
 
 block paths
-	- var title = 'ЦИМ | УЧАСТНИКИ'
-	- var menu_cim = ' / участники'
+	- var title = 'ЦИМ | РЕЗИДЕНТЫ'
+	- var menu_cim = ' / резиденты'
 
 block content_style
 	link(rel='stylesheet', type='text/css', href='/styles/members.css' + version)
@@ -22,7 +22,7 @@ mixin membersColumn(letter)
 
 
 block content
-	.title УЧАСТНИКИ
+	.title РЕЗИДЕНТЫ
 	.members_search_block
 		.member_search_title НАЙТИ:
 		input.member_search(type='text', autofocus, )
