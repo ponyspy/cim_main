@@ -35,6 +35,14 @@ block content
 			input(type="text", name="link", size='60', value=partner.link)
 			.form_title Логотип:
 			input(type="file", name="logo")
+			.form_title Статус:
+			input(type='checkbox', name='meta[status]', value='fixed', checked=partner.meta.status == 'fixed')
+			|Постоянный
+			br
+			.form_title Категория:
+			select(name='meta[category]')
+				option(value='information', selected=partner.meta.category == 'information') Информационные
+				option(value='tickets', selected=partner.meta.category == 'tickets') Билетные
 			.form_title Доступ:
 			input(type='checkbox', name='services[api]', value='true', checked=partner.services.api)
 			|api | ключ:

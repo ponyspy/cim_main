@@ -1117,6 +1117,7 @@ app.post('/auth/add/partner', function (req, res) {
   partner.ru.description = post.ru.description;
   partner.link = post.link;
   partner.services = post.services;
+  partner.meta = post.meta;
 
   if (post.en) {
     partner.en.name = post.en.name;
@@ -1185,6 +1186,7 @@ app.post('/auth/edit/partners/:id', function (req, res) {
     partner.ru.description = post.ru.description;
     partner.link = post.link;
     partner.services = post.services;
+    partner.meta = post.meta;
 
     if (post.en) {
       partner.en.name = post.en.name;

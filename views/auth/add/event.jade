@@ -59,8 +59,11 @@ block content_right
 
 block content_under
 	.partners_block
-	.partners_list
 		each partner in partners
+			if (partner.meta.status == 'fixed')
+				a.partner_item(href=partner.link, id=partner._id, target='_blank', style='background-image:url(' + partner.logo + ')')
+	.partners_list
+		each partner in partners.filter(function(partner) { return partner.meta.status != 'fixed' })
 			a.partner_item(href=partner.link, id=partner._id, target='_blank', style='background-image:url(' + partner.logo + ')')
 
 mixin memberList(marker, status)
@@ -80,11 +83,6 @@ block content
 			.trailers_block
 				.trailer(contenteditable) трейлер
 			.images_block
-				//- .image_upload
-				//- 	.p_author
-				//- 		.a_title Фото:
-				//- 		.a_name Сережа БЕЗРУКОВ
-
 	.content_body
 		.title(lang='ru', contenteditable) Заголовок
 		.s_title(lang='ru', contenteditable) Подзаголовок
