@@ -80,6 +80,11 @@ small {
 	margin-bottom: 15px;
 }
 
+.single:hover {
+	text-decoration: underline;
+	cursor: pointer;
+}
+
 .section:last-child {
 	margin-bottom: 0px;
 }
