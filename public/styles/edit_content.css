@@ -42,6 +42,8 @@
 	margin-bottom: 30px;
 	font-size: 16pt;
 	text-transform: uppercase;
+	background-color: #ff9382;
+	border: 1px solid black;
 }
 
 .content_section_block {

@@ -10,14 +10,14 @@ $(document).ready(function() {
 		var sections = $('.section_block');
 
 		sections.each(function(index, el) {
-			var section_title = $(this).children('.section_title').html();
+			var section_title = $(this).children('.section_title').text();
 			var section_under = $(this).children('.section_under').html();
 			var section_content = $(this).find('.content_section_block');
 
 			var content = [];
 
 			section_content.each(function(index, el) {
-				var c_title = $(this).children('.content_section_title').html();
+				var c_title = $(this).children('.content_section_title').text();
 				var c_description = $(this).children('.content_section_description').html();
 				var c_ticket = $(this).children('.content_section_ticket').html();
 
@@ -66,6 +66,18 @@ $(document).ready(function() {
 		}
 	}
 
+	function cleanContent (event) {
+		var $this_block = $(this).closest('.content_section_block');
+		var raw_description = $this_block.children('.content_section_description').html();
+		var raw_ticket = $this_block.children('.content_section_ticket').html();
+
+		raw_description = raw_description.replace(/(<[^>]*)style\s*=\s*('|")[^\2]*?\2([^>]*>)/g, '$1$3');
+		raw_ticket = raw_ticket.replace(/(<[^>]*)style\s*=\s*('|")[^\2]*?\2([^>]*>)/g, '$1$3');
+
+		$this_block.children('.content_section_description').empty().append(raw_description);
+		$this_block.children('.content_section_ticket').empty().append(raw_ticket);
+	}
+
 	$('.hide_blocks').click(function() {
 		var content = $('.content_section_block');
 
@@ -87,8 +99,9 @@ $(document).ready(function() {
 		var content_menu = $('<div/>', {'class': 'content_section_menu'});
 		var content_hide = $('<div/>', {'class': 'content_hide', 'text': 'скрыть'});
 		var content_remove = $('<div/>', {'class': 'content_remove', 'text': 'удалить'});
+		var content_clean = $('<div/>', {'class': 'content_clean', 'text': 'очистить формат'});
 
-		content_menu.append(content_hide, content_remove);
+		content_menu.append(content_hide, content_remove, content_clean);
 
 
 		$(this).before(content_block.append(content_menu, content_title, content_description, content_ticket), function() {
@@ -123,6 +136,7 @@ $(document).ready(function() {
 	$(document).on('click', '.section_remove', removeSection);
 	$(document).on('click', '.content_remove', removeContent);
 	$(document).on('click', '.content_hide', hideContent);
+	$(document).on('click', '.content_clean', cleanContent);
 	$(document).on('click', '.add_content', addContent);
 
 });
