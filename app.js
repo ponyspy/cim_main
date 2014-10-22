@@ -784,7 +784,7 @@ app.get('/auth/add/schedule/:year', checkAuth, function (req, res) {
   var start = new Date(year,0,1)
   var end = new Date(year,11,31)
 
-  Schedule.find({'date': {'$gte': start, '$lt': end}}).sort('-date').populate('events.event').exec(function(err, schedule) {
+  Schedule.find({'date': {'$gte': start, '$lte': end}}).sort('-date').populate('events.event').exec(function(err, schedule) {
     res.render('auth/add/schedule/add.jade', {schedule: schedule, year: year});
   });
 });
