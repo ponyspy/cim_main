@@ -55,13 +55,11 @@ block content
 			else
 				.layer
 				.main_poster_skip
-					- var date = new Date()
-					a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+1))
-						.cal_title.cal_title_big= months[date.getMonth()]
-					a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+2))
-						.cal_title.cal_title_big= months[date.getMonth()+1]
-					a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+3))
-						.cal_title.cal_title_big= months[date.getMonth()+2]
+					- for (var i = 0; i <= 2; i++)
+						- var date = new Date()
+						- date.setMonth(date.getMonth() + i)
+						a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+1))
+							.cal_title.cal_title_big= months[date.getMonth()]
 			each date in schedule
 				each event in date.events
 					if (event.banner == 'true' && event.event.photos.length > 0)

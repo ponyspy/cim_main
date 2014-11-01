@@ -35,10 +35,10 @@ html
 								a(href='http://www.ticketland.ru/buildinfo/1571/', rel='nofollow', target='_blank') TICKETLAND
 						.menu_item= 'афиша' + (menu_afisha || '')
 							.menu_drop
-								- var date = new Date()
-								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+1))=  months[date.getMonth()].toLowerCase()
-								a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+2))= months[date.getMonth()+1].toLowerCase()
-								//- a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+3))= months[date.getMonth()+2].toLowerCase()
+								- for (var i = 0; i <= 2; i++)
+									- var date = new Date()
+									- date.setMonth(date.getMonth() + i)
+									a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+1))=  months[date.getMonth()].toLowerCase()
 								//- hr
 								//- a(href='/afisha/' + (date.getFullYear()+1) + '/' + 1)= months[0].toLowerCase()
 								//- a(href='/afisha/archive') архив
