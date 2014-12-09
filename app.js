@@ -1505,8 +1505,16 @@ app.get('/contacts', photoStream, function (req, res) {
   res.render('static/contacts.jade');
 });
 
+// app.get('/now', photoStream, function (req, res) {
+//   res.render('static/now.jade');
+// });
+
 app.get('/now', photoStream, function (req, res) {
-  res.render('static/now.jade');
+  var id = '5450eed389a6c5f3350027f3';
+  Content.findById(id).exec(function(err, content) {
+    if (!content) return next(err);
+    res.render('content', {content: content});
+  });
 });
 
 app.get('/fokin', photoStream, function (req, res) {
