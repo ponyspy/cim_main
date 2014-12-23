@@ -76,23 +76,25 @@ block content
 										.a_name= photo.author.ru
 
 	if (schedule.length > 0)
+		- var now = new Date()
+		- var next = new Date(now.setMonth(now.getMonth() + 1))
+		- var after = new Date(now.setMonth(now.getMonth() + 2))
 		.calendar
 			.inner
-				- var now = new Date()
-				.cal_inner_title= months[(now.getMonth())]
+				.cal_inner_title= months[now.getMonth()]
 				.cal_month_block.current
 					each date in schedule
 						if (date.date.getMonth() == now.getMonth())
 								+calItem(date)
-				.cal_inner_title= months[(now.getMonth() + 1)]
+				.cal_inner_title= months[next.getMonth()]
 				.cal_month_block.next
 					each date in schedule
-						if (date.date.getMonth() == now.getMonth() + 1)
+						if (date.date.getMonth() == next.getMonth())
 							+calItem(date)
-				.cal_inner_title= months[(now.getMonth() + 2)]
+				.cal_inner_title= months[after.getMonth()]
 				.cal_month_block.after
 					each date in schedule
-						if (date.date.getMonth() == now.getMonth() + 2)
+						if (date.date.getMonth() == after.getMonth())
 								+calItem(date)
 	.content_body
 		.title(lang='ru')= event.ru.title.toUpperCase()
