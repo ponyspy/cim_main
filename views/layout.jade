@@ -38,8 +38,6 @@ html
 								- for (var i = 0; i <= 2; i++)
 									- var date = new Date()
 									- date.setMonth(date.getMonth() + i)
-									if (date.getMonth() == 2)
-										- date.setMonth(date.getMonth() - 1)
 									a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth() + 1))=  months[date.getMonth()].toLowerCase()
 								//- hr
 								//- a(href='/afisha/' + (date.getFullYear()+1) + '/' + 1)= months[0].toLowerCase()
