@@ -76,9 +76,12 @@ block content
 										.a_name= photo.author.ru
 
 	if (schedule.length > 0)
+		//- b= (new Date().getMonth() + 1)%12 + 1
 		- var now = new Date()
-		- var next = new Date(now.setMonth(now.getMonth() + 1))
-		- var after = new Date(now.setMonth(now.getMonth() + 2))
+		- var next = new Date();
+		- var after = new Date();
+		next = new Date(next.setMonth(next.getMonth() + 1))
+		after = new Date(after.setMonth(after.getMonth() + 2))
 		.calendar
 			.inner
 				.cal_inner_title= months[now.getMonth()]
