@@ -34,35 +34,35 @@ app.use(function(req, res, next) {
 app.use(app.router);
 
 
-app.use(function(req, res, next) {
-  res.status(404);
+// app.use(function(req, res, next) {
+//   res.status(404);
 
-  // respond with html page
-  if (req.accepts('html')) {
-    res.render('error', { url: req.url, status: 404 });
-    return;
-  }
+//   // respond with html page
+//   if (req.accepts('html')) {
+//     res.render('error', { url: req.url, status: 404 });
+//     return;
+//   }
 
-  // respond with json
-  if (req.accepts('json')) {
-      res.send({
-      error: {
-        status: 'Not found'
-      }
-    });
-    return;
-  }
+//   // respond with json
+//   if (req.accepts('json')) {
+//       res.send({
+//       error: {
+//         status: 'Not found'
+//       }
+//     });
+//     return;
+//   }
 
-  // default to plain-text
-  res.type('txt').send('Not found');
-});
+//   // default to plain-text
+//   res.type('txt').send('Not found');
+// });
 
-app.use(function(err, req, res, next) {
-  var status = err.status || 500;
+// app.use(function(err, req, res, next) {
+//   var status = err.status || 500;
 
-  res.status(status);
-  res.render('error', { error: err, status: status });
-});
+//   res.status(status);
+//   res.render('error', { error: err, status: status });
+// });
 
 
 // -------------------
@@ -78,6 +78,7 @@ var Press = models.Press;
 var Partner = models.Partner;
 var Photo = models.Photo;
 var Schedule = models.Schedule;
+var ScheduleM = models.ScheduleM;
 var Project = models.Project;
 var Content = models.Content;
 
@@ -778,6 +779,56 @@ app.get('/auth/edit/content/:id/content_edit', checkAuth, photoStream, function 
 // *** Add Schedule Block ***
 // ------------------------
 
+
+app.get('/auth/schedule', checkAuth, function (req, res) {
+  var start = new Date();
+  start = start.setHours(0, 0, 0);
+  var end = new Date();
+  end = end.setHours(23, 59, 0);
+
+  ScheduleM.find({'date': {'$gte': start, '$lte': end}}).sort('-date').populate('event').exec(function(err, schedule) {
+    Event.find().sort('-date').exec(function(err, events) {
+      res.render('auth/schedule.jade', {schedule: schedule, events: events});
+    });
+  });
+});
+
+
+app.post('/auth/schedule/get', checkAuth, function (req, res) {
+  var post = req.body;
+
+  var start = new Date(+post.date);
+  start = start.setHours(0, 0, 0);
+  var end = new Date(+post.date);
+  end = end.setHours(23, 59, 0);
+
+  ScheduleM.find({'date': {'$gte': start, '$lte': end}}).sort('-date').populate('event').exec(function(err, schedule) {
+    res.send(schedule);
+  });
+});
+
+
+app.post('/auth/schedule/add', checkAuth, function (req, res) {
+  var post = req.body;
+  var item = new ScheduleM();
+
+  item.date = new Date(+post.date);
+  item.event = post.event;
+  item.meta = post.meta;
+
+  item.save(function(err, item) {
+    res.send(item._id);
+  });
+});
+
+
+
+
+
+
+
+
+// ------ !!! --------
 
 app.get('/auth/add/schedule/:year', checkAuth, function (req, res) {
   var year = req.params.year;

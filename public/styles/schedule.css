@@ -1,0 +1,35 @@
+.content_block {
+	height: auto;
+	padding-bottom: 0;
+}
+
+.calendar {
+	font-size: 20.5px;
+	background-color: black;
+}
+
+.schedule_title {
+	font-size: 16pt;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	margin-left: 10px;
+}
+
+.new_event {
+	display: none;
+}
+
+.event {
+	margin-bottom: 5px;
+}
+
+.event_title {
+	font-size: 11pt;
+	margin-left: 10px;
+}
+
+.event_add {
+	width: 143px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}

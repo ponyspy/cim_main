@@ -207,6 +207,15 @@ var scheduleSchema = new Schema({
   date: {type: Date, default: Date.now}
 });
 
+var scheduleSchemaM = new Schema({
+  meta: {
+    premiere: { type: Boolean, default: false },
+    banner: { type: Boolean, default: false }
+  },
+  event: { type: Schema.Types.ObjectId, ref: 'Event' },
+  date: { type: Date, required: true }
+});
+
 module.exports.User = mongoose.model('User', userSchema);
 module.exports.Member = mongoose.model('Member', memberSchema);
 module.exports.Event = mongoose.model('Event', eventSchema);
@@ -215,5 +224,6 @@ module.exports.Press = mongoose.model('Press', presSchema);
 module.exports.Partner = mongoose.model('Partner', partnerSchema);
 module.exports.Photo = mongoose.model('Photo', photoSchema);
 module.exports.Schedule = mongoose.model('Schedule', scheduleSchema);
+module.exports.ScheduleM = mongoose.model('ScheduleM', scheduleSchemaM);
 module.exports.Project = mongoose.model('Project', projectSchema);
 module.exports.Content = mongoose.model('Content', contentSchema);

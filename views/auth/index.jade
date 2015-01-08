@@ -77,8 +77,4 @@ block content
 		br
 		b Расписание:
 		br
-		- var date = new Date()
-		- for (var i = 2013; i <= date.getFullYear() + 1; i++) {
-			a(href='/auth/add/schedule/' + i)= ' ' + i + ' '
-			||
-		- }
+		a(href='/auth/schedule') Редактировать
