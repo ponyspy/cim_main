@@ -15,18 +15,11 @@ block content_scripts
 block content
 	.calendar
 	-	var now = new Date()
-	.schedule_title= 'События на: ' + now.getDate() + '-' + now.getMonth() + '-' + now.getFullYear()
+	.schedule_title= 'События на: ' + now.getFullYear() + '-' + now.getMonth() + '-' + now.getDate()
 	.events
 		each item in schedule
-			.event(class=item._id, class=item.date.getDate() + '-' + item.date.getMonth() + '-' + item.date.getFullYear())
-				button.event_delete удалить
-				button.event_transfer перенести
-				label
-					input(type='checkbox', checked=item.meta.banner==true, value='true')
-					span баннер
-				label
-					input(type='checkbox', checked=item.meta.premiere==true, value='true')
-					span премьера
+			.event(class=item._id)
+				input(type='checkbox').event_check
 				select.event_hours
 					option(value='') Часы
 					- for (var i=0; i<24; i++)
@@ -36,16 +29,22 @@ block content
 					- for (var i=0; i<=50; i+=10)
 						- var mm = (i == 0 ? '00' : i)
 						option(value=mm, selected=(item.date.getMinutes() == i))= mm
-				span.event_title= item.event.ru.title.length <= 43 ? item.event.ru.title : item.event.ru.title.slice(0, 43) + '...'
+				label
+					input.event_banner(type='checkbox', checked=item.meta.banner==true, value='true')
+					span б.
+				label
+					input.event_premiere(type='checkbox', checked=item.meta.premiere==true, value='true')
+					span п.
+				span.event_title= item.event.ru.title.length <= 50 ? item.event.ru.title : item.event.ru.title.slice(0, 50) + '...'
 
-	button.event_add Добавить событие
-	.new_event
-		label
-			input.new_event_banner(type='checkbox', value='true')
-			span баннер
-		label
-			input.new_event_premiere(type='checkbox', value='true')
-			span премьера
+	button.event_add Добавить
+	span.event_options
+		button.event_del Удалить
+		button.event_transfer Перенести
+
+	span.new_event
+		button.event_add_submit добавить
+		button.event_add_cancel отмена
 		select.new_event_hours
 			option(value='') Часы
 			- for (var i=0; i<24; i++)
@@ -55,9 +54,13 @@ block content
 			- for (var i=0; i<=50; i+=10)
 				- var mm = (i == 0 ? '00' : i)
 				option(value=mm, )= mm
+		label
+			input.new_event_banner(type='checkbox', value='true')
+			span б.
+		label
+			input.new_event_premiere(type='checkbox', value='true')
+			span п.
 		select.new_event_id
 			option(value='') -- События
 			each event in events
-				option(value=event._id)= event.ru.title.length <= 43 ? event.ru.title : event.ru.title.slice(0, 43) + '...'
-		br
-		button.event_add_submit добавить
+				option(value=event._id)= event.ru.title.length <= 45 ? event.ru.title : event.ru.title.slice(0, 45) + '...'

@@ -22,9 +22,9 @@ block content_right
 
 mixin getSchedule(date, out)
 	.afisha_item_block(class=out ? 'out' : '')
-		- var d = date.date.getDate()
+		- var d = date.show.date
 		- d = d < 10 ? '0' + d : d
-		.afisha_date_block= days[date.date.getDay()] + '.' + d
+		.afisha_date_block= days[date.show.day - 1] + '.' + d
 		.afisha_events_block
 			each event in date.events
 				.afisha_description_block
@@ -35,7 +35,7 @@ mixin getSchedule(date, out)
 							a.afisha_ticket(href=event.ticket, rel='nofollow', target='_blank') купить билет
 					.afisha_all_block
 						.afisha_tags_block
-							if (event.premiere == 'true')
+							if (event.meta.premiere == true)
 								.tag.premiere ПРЕМЬЕРА
 							each project in projects
 								each p_event in project.events
@@ -93,7 +93,7 @@ block content
 		- now.setDate(now.getDate()-1)
 		.afisha_actual_block
 			each date in schedule
-				if (date.date > now)
+				if (date.show.date > now.getDate())
 					+getSchedule(date, false)
 		.afisha_separator_block
 			//- a.separator_title(href='/afisha/archive') АРХИВ
@@ -101,5 +101,5 @@ block content
 			.separator_line
 		.afisha_archive_block
 			each date in schedule.reverse()
-				if (date.date < now)
+				if (date.show.date < now.getDate())
 					+getSchedule(date, true)

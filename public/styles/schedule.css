@@ -28,8 +28,16 @@
 	margin-left: 10px;
 }
 
+.event_options {
+	display: none;
+}
+
 .event_add {
-	width: 143px;
+	margin-left: 10px;
 	margin-top: 10px;
 	margin-bottom: 10px;
+}
+
+button {
+	font-size: 10pt;
 }

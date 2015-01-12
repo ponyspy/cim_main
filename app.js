@@ -326,15 +326,69 @@ app.get('/afisha/:year/:month', function (req, res) {
   var month = req.params.month - 1;
   var start = new Date(year, month, 1);
   var end = new Date(year, (month + 1), 0);
+  end.setHours(23, 59, 0);
 
-  Schedule.find().where('date').gte(start).lte(end).sort('date').populate('events.event').exec(function(err, schedule) {
-    Schedule.populate(schedule, {path:'events.event.members.m_id', model: 'Member'}, function(err, schedule) {
-      Project.find().exec(function(err, projects) {
-        res.render('afisha', {schedule: schedule, projects: projects, month: month});
+  ScheduleM.aggregate()
+    .match({
+      'date': {
+        $gte: start,
+        $lte: end
+      }
+    })
+    .sort({'date': -1})
+    .group({
+      '_id': {
+        date: { $dayOfMonth: '$date' },
+        day: { $dayOfWeek: '$date' }
+      },
+      'events': {
+        $push: {
+          _show_id: '$_id',
+          time: {
+            hours: { $hour: '$date' },
+            minutes: { $minute: '$date' }
+          },
+          meta: '$meta',
+          event: '$event'
+        }
+      }
+    })
+    .sort('_id.date')
+    .project({
+      '_id': 0,
+      'show': '$_id',
+      'events': '$events'
+    })
+    .exec(function(err, schedule) {
+      ScheduleM.populate(schedule, {path:'events.event', model: 'Event'}, function(err, schedule) {
+        ScheduleM.populate(schedule, {path:'events.event.members.m_id', model: 'Member'}, function(err, schedule) {
+          Project.find().exec(function(err, projects) {
+            res.render('afisha', {schedule: schedule, projects: projects, month: month});
+          });
+        });
       });
     });
-  });
+
 });
+
+
+// --- !!! ----
+
+
+// app.get('/afisha/:year/:month', function (req, res) {
+//   var year = req.params.year;
+//   var month = req.params.month - 1;
+//   var start = new Date(year, month, 1);
+//   var end = new Date(year, (month + 1), 0);
+
+//   Schedule.find().where('date').gte(start).lte(end).sort('date').populate('events.event').exec(function(err, schedule) {
+//     Schedule.populate(schedule, {path:'events.event.members.m_id', model: 'Member'}, function(err, schedule) {
+//       Project.find().exec(function(err, projects) {
+//         res.render('afisha', {schedule: schedule, projects: projects, month: month});
+//       });
+//     });
+//   });
+// });
 
 
 // ------------------------
@@ -817,11 +871,20 @@ app.post('/auth/schedule/add', checkAuth, function (req, res) {
   item.meta = post.meta;
 
   item.save(function(err, item) {
-    res.send(item._id);
+    Event.populate(item, {path:'event', model: 'Event'}, function(err, item) {
+      res.send(item);
+    });
   });
 });
 
 
+app.post('/auth/schedule/remove', checkAuth, function (req, res) {
+  var post = req.body;
+
+  ScheduleM.remove().where('_id').in(post.items).exec(function(err, items) {
+    res.send('ok');
+  });
+});
 
 
 
