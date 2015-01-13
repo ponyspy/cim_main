@@ -373,43 +373,6 @@ app.get('/afisha/:year/:month', function (req, res) {
 });
 
 
-// --- !!! ----
-
-
-// app.get('/afisha/:year/:month', function (req, res) {
-//   var year = req.params.year;
-//   var month = req.params.month - 1;
-//   var start = new Date(year, month, 1);
-//   var end = new Date(year, (month + 1), 0);
-
-//   Schedule.find().where('date').gte(start).lte(end).sort('date').populate('events.event').exec(function(err, schedule) {
-//     Schedule.populate(schedule, {path:'events.event.members.m_id', model: 'Member'}, function(err, schedule) {
-//       Project.find().exec(function(err, projects) {
-//         res.render('afisha', {schedule: schedule, projects: projects, month: month});
-//       });
-//     });
-//   });
-// });
-
-
-// ------------------------
-// *** Afisha Archive Block ***
-// ------------------------
-
-
-// app.get('/afisha/archive', function (req, res) {
-//   var year = 2014;
-//   var month = 2;
-
-//   var start = new Date(year, month, 0);
-//   var end = new Date(year, (month + 1), 0);
-
-//   Schedule.distinct('events.event', {'date': {'$gte': start, '$lte': end}}).exec(function(err, schedule) {
-//     res.render('afisha/archive.jade', {schedule: schedule});
-//   });
-// });
-
-
 // ------------------------
 // *** Event Block ***
 // ------------------------
@@ -422,11 +385,11 @@ app.get('/event/:id', photoStream, function (req, res, next) {
   start.setDate(start.getDate() - 1);
   end.setFullYear(end.getFullYear(), (end.getMonth()+3), 0);
 
-  Schedule.find({'date': {'$gte': start, '$lt': end}, 'events.event': id}, {'events.$': 1}).limit(10).select('date').sort('date').exec(function(err, schedule) {
+  ScheduleM.find({'date': {'$gte': start, '$lt': end}, 'event': id}).limit(10).sort('date').exec(function(err, schedule) {
     Press.find({'events': id}).sort('-date').exec(function(err, press) {
-      Event.find({'_id':id}).populate('members.m_id partners').exec(function(err, event) {
+      Event.findById(id).populate('members.m_id partners').exec(function(err, event) {
          if (!event) return next(err);
-        res.render('event', {event: event[0], schedule: schedule, press: press});
+        res.render('event', {event: event, schedule: schedule, press: press});
       });
     });
   });
@@ -884,75 +847,6 @@ app.post('/auth/schedule/remove', checkAuth, function (req, res) {
 
   ScheduleM.remove().where('_id').in(post.items).exec(function(err, items) {
     res.send('ok');
-  });
-});
-
-
-
-
-
-
-// ------ !!! --------
-
-app.get('/auth/add/schedule/:year', checkAuth, function (req, res) {
-  var year = req.params.year;
-  var start = new Date(year,0,1)
-  var end = new Date(year,11,31)
-
-  Schedule.find({'date': {'$gte': start, '$lte': end}}).sort('-date').populate('events.event').exec(function(err, schedule) {
-    res.render('auth/add/schedule/add.jade', {schedule: schedule, year: year});
-  });
-});
-
-app.post('/auth/add/schedule/:year', function (req, res) {
-  var post = req.body;
-
-  var schedule = new Schedule({
-    date: new Date(post.schedule.year, post.schedule.month, post.schedule.date)
-  });
-
-  schedule.save(function(err) {
-    res.redirect('back');
-  });
-});
-
-app.post('/rm_schedule', function (req, res) {
-  var id = req.body.id;
-
-  Schedule.findByIdAndRemove(id, function() {
-    res.send('ok');
-  });
-});
-
-app.get('/auth/add/schedule/:year/:id', checkAuth, function (req, res, next) {
-  var id = req.params.id;
-
-  Event.find(function(err, events) {
-    Schedule.find({'_id':id}).populate('events.event').exec(function(err, result) {
-      if (!result) return next(err);
-      res.render('auth/add/schedule/date.jade', {schedule: result[0], events: events});
-    });
-  });
-});
-
-app.post('/auth/add/schedule/:year/:id', function (req, res) {
-  var post = req.body;
-  var id = req.params.id;
-
-  Schedule.findById(id, function(err, date) {
-    date.events = post.events.sort(function (a, b) {
-      if (+a.time.hours < +b.time.hours) return -1;
-      if (+a.time.hours > +b.time.hours) return 1;
-
-      if (+a.time.minutes < +b.time.minutes) return -1;
-      if (+a.time.minutes > +b.time.minutes) return 1;
-
-      return 0;
-    });
-
-    date.save(function(err) {
-      res.redirect('back');
-    });
   });
 });
 
