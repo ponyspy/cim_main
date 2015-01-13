@@ -60,12 +60,17 @@ $(document).ready(function() {
 	});
 
 	$(document).on('change', '.event_check', function(event) {
-			$('.event_check:checked').length > 0
-				? $('.event_options').show()
-				: $('.event_options').hide();
+			if ($('.event_check:checked').length > 0) {
+				$('.event_options').show();
+				$('.event_add').show();
+				$('.new_event').hide();
+			}
+			else $('.event_options').hide();
 	});
 
 	$('.event_del').click(function(event) {
+		if (!confirm('Удалить?')) return false;
+
 		var items = [];
 		var checked_items = $('.event_check:checked').parent('.event');
 

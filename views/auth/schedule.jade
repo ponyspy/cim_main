@@ -22,11 +22,11 @@ block content
 				input(type='checkbox').event_check
 				select.event_hours
 					option(value='') Часы
-					- for (var i=0; i<24; i++)
+					- for (var i = 23; i >= 0; i--)
 						option(value=i, selected=(item.date.getHours() == i))= i
 				select.event_hours
 					option(value='') Минуты
-					- for (var i=0; i<=50; i+=10)
+					- for (var i = 0; i <= 50; i += 10)
 						- var mm = (i == 0 ? '00' : i)
 						option(value=mm, selected=(item.date.getMinutes() == i))= mm
 				label
@@ -42,16 +42,16 @@ block content
 		button.event_del Удалить
 		button.event_transfer Перенести
 
-	span.new_event
-		button.event_add_submit добавить
+	.new_event
+		button.event_add_submit Добавить
 		button.event_add_cancel отмена
 		select.new_event_hours
 			option(value='') Часы
-			- for (var i=0; i<24; i++)
+			- for (var i = 23; i >= 0; i--)
 				option(value=i,)= i
 		select.new_event_minutes
 			option(value='') Минуты
-			- for (var i=0; i<=50; i+=10)
+			- for (var i = 0; i <= 50; i += 10)
 				- var mm = (i == 0 ? '00' : i)
 				option(value=mm, )= mm
 		label
