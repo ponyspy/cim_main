@@ -327,6 +327,7 @@ app.get('/afisha/:year/:month', function (req, res) {
   var start = new Date(year, month, 1);
   var end = new Date(year, (month + 1), 0);
   end.setHours(23, 59, 0);
+  var time_zone = 3 * 60 * 60 * 1000;
 
   ScheduleM.aggregate()
     .match({
@@ -335,18 +336,18 @@ app.get('/afisha/:year/:month', function (req, res) {
         $lte: end
       }
     })
-    .sort({'date': -1})
+    .sort({'date': 1})
     .group({
       '_id': {
-        date: { $dayOfMonth: '$date' },
-        day: { $dayOfWeek: '$date' }
+        date: { $dayOfMonth: {$add: ['$date', time_zone]} },
+        day: { $dayOfWeek: {$add: ['$date', time_zone]} }
       },
       'events': {
         $push: {
           _show_id: '$_id',
           time: {
-            hours: { $hour: '$date' },
-            minutes: { $minute: '$date' }
+            hours: { $hour: {$add: ['$date', time_zone]} },
+            minutes: { $minute: {$add: ['$date', time_zone]} }
           },
           meta: '$meta',
           event: '$event'

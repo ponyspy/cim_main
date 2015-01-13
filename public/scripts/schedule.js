@@ -39,6 +39,7 @@ $(document).ready(function() {
 			clearFields();
 			$('.schedule_title').text('События на: ' + date_format);
 			$('.events').empty();
+			$('.event_options').hide();
 
 			var date = date_format.split('-');
 			date = new Date(+date[0], +date[1] - 1, +date[2]);
