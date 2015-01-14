@@ -22,14 +22,12 @@ block content_right
 
 mixin getSchedule(date, out)
 	.afisha_item_block(class=out ? 'out' : '')
-		- var d = date.show.date
-		- d = d < 10 ? '0' + d : d
-		.afisha_date_block= days[date.show.day - 1] + '.' + d
+		.afisha_date_block= days[date.show.day - 1] + '.' + ('0' + date.show.date).slice(-2)
 		.afisha_events_block
 			each event in date.events
 				.afisha_description_block
 					.afisha_schedule_block
-						.afisha_time= event.time.hours + ':' + event.time.minutes
+						.afisha_time= ('0' + event.time.hours).slice(-2) + ':' + ('0' + event.time.minutes).slice(-2)
 						.afisha_hall= hall[event.event.hall]
 						//- if (event.ticket && !out)
 							a.afisha_ticket(href=event.ticket, rel='nofollow', target='_blank') купить билет
@@ -51,25 +49,25 @@ mixin getSchedule(date, out)
 								if (member.c_status == 'lecturer')
 									if (!lecturer)
 										lecturer = true
-										|Лектор:&nbsp;
+										span= 'Лектор: '
 									a.member(href='/member/' + member.m_id._id)= member.m_id.ru.name + ' '
 									br
 								if (member.c_status == 'director')
 									if (!director)
 										director = true
-										|Режиссер:&nbsp;
+										span= 'Режиссер: '
 									a.member(href='/member/' + member.m_id._id)= member.m_id.ru.name + ' '
 									br
 								if (member.c_status == 'author')
 									if (!author)
 										author = true
-										|Автор:&nbsp;
+										span= 'Автор: '
 									a.member(href='/member/' + member.m_id._id)= member.m_id.ru.name + ' '
 									br
 								if (member.c_status == 'playwright')
 									if (!playwright)
 										playwright = true
-										|Драматург:&nbsp;
+										span= 'Драматург: '
 									a.member(href='/member/' + member.m_id._id)= member.m_id.ru.name + ' '
 
 						.actors
@@ -77,7 +75,7 @@ mixin getSchedule(date, out)
 								if (member.c_status == 'actor')
 									if (!actors)
 										actors = true
-										|Исполнители:
+										span= 'Исполнители: '
 										br
 									a.member(href='/member/' + member.m_id._id)= member.m_id.ru.name
 									br

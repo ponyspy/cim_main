@@ -798,6 +798,32 @@ app.get('/auth/edit/content/:id/content_edit', checkAuth, photoStream, function 
 // ------------------------
 
 
+app.get('/schedule/migrate', function (req, res) {
+  Schedule.find().exec(function(err, items) {
+    async.forEach(items, function(item, callback1) {
+      async.forEach(item.events, function(event, callback2) {
+        var item_m  = new ScheduleM();
+        var date = item.date;
+        date.setHours(event.time.hours, event.time.minutes, 0);
+
+        item_m.date = date;
+        item_m.event = event.event;
+        item_m.meta.banner = event.banner == 'true' ? true : false;
+        item_m.meta.premiere = event.premiere == 'true' ? true : false;
+
+        item_m.save(function() {
+          callback2();
+        });
+      }, function() {
+        callback1();
+      });
+    }, function() {
+      res.send('ok');
+    });
+  });
+});
+
+
 app.get('/auth/schedule', checkAuth, function (req, res) {
   var start = new Date();
   start = start.setHours(0, 0, 0);

@@ -44,12 +44,10 @@ mixin memberList(marker, status)
 
 
 mixin calItem(date)
-	- var d = date.date.getDate()
-	- d = d < 10 ? '0' + d : d
 	.cal_item
-		.cal_date= days[date.date.getDay()] + '.' + d
+		.cal_date= days[date.date.getDay()] + '.' + ('0' + date.date.getDate()).slice(-2)
 		.cal_schedule
-			.cal_time= date.date.getHours() + ':' + date.date.getMinutes()
+			.cal_time= ('0' + date.date.getHours()).slice(-2) + ':' + ('0' + date.date.getMinutes()).slice(-2)
 			.cal_hall= hall[event.hall]
 			//- if (date.events[0].ticket)
 				a.cal_ticket(href=date.events[0].ticket, rel='nofollow', target='_blank') купить билет
