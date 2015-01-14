@@ -28,14 +28,14 @@ block content
 					option(value='') Минуты
 					- for (var i = 0; i <= 50; i += 10)
 						- var mm = (i == 0 ? '00' : i)
-						option(value=mm, selected=(item.date.getMinutes() == i))= mm
+						option(value=i, selected=(item.date.getMinutes() == i))= mm
 				label
 					input.event_banner(type='checkbox', checked=item.meta.banner==true, value='true')
 					span б.
 				label
 					input.event_premiere(type='checkbox', checked=item.meta.premiere==true, value='true')
 					span п.
-				span.event_title= item.event.ru.title.length <= 50 ? item.event.ru.title : item.event.ru.title.slice(0, 50) + '...'
+				span.event_title= item.event.ru.title.length <= 45 ? item.event.ru.title : item.event.ru.title.slice(0, 45) + '...'
 
 	button.event_add Добавить
 	span.event_options
@@ -53,7 +53,7 @@ block content
 			option(value='') Минуты
 			- for (var i = 0; i <= 50; i += 10)
 				- var mm = (i == 0 ? '00' : i)
-				option(value=mm, )= mm
+				option(value=i, )= mm
 		label
 			input.new_event_banner(type='checkbox', value='true')
 			span б.
