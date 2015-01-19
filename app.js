@@ -876,6 +876,24 @@ app.post('/auth/schedule/remove', checkAuth, function (req, res) {
   });
 });
 
+app.post('/auth/schedule/edit', checkAuth, function (req, res) {
+  var post = req.body;
+
+  async.forEachSeries(post.items, function(item, callback) {
+    ScheduleM.findById(item.id).exec(function(err, sh) {
+
+      sh.date = new Date(sh.date.getFullYear(), sh.date.getMonth(), sh.date.getDate(), item.hours, item.minutes);
+      sh.meta = item.meta;
+
+      sh.save(function(err, sh) {
+        callback();
+      });
+    });
+  }, function() {
+    res.send('ok');
+  });
+});
+
 
 // ------------------------
 // *** Add News Block ***

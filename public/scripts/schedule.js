@@ -60,21 +60,50 @@ $(document).ready(function() {
 	});
 
 	$(document).on('change', '.event_check', function(event) {
-			if ($('.event_check:checked').length > 0) {
-				$('.event_options').show();
-				$('.event_add').show();
-				$('.new_event').hide();
-			}
-			else $('.event_options').hide();
+		if ($('.event_check:checked').length > 0) {
+			$('.event_options').show();
+			$('.event_add').show();
+			$('.new_event').hide();
+		}
+		else $('.event_options').hide();
+	});
+
+	$(document).on('change', '.event_hours, .event_minutes, .event_premiere, .event_banner', function(event) {
+		$(this).closest('.event').children('.event_check').prop('checked', true);
+		$('.event_options').show();
+	});
+
+	$('.event_edit').click(function(event) {
+		if (!confirm('Редактировать выбарннные элементы?')) return false;
+
+		var items = [];
+		var $checked_items = $('.event_check:checked').parent('.event');
+
+		$checked_items.each(function() {
+			items.push({
+				id: $(this).attr('class').split(' ')[1],
+				hours: $(this).children('.event_hours').val(),
+				minutes: $(this).children('.event_minutes').val(),
+				meta: {
+					banner: $(this).find('.event_banner').is(':checked'),
+					premiere: $(this).find('.event_premiere').is(':checked')
+				}
+			});
+		});
+
+		$.post('/auth/schedule/edit', {items: items}).done(function(items) {
+			$('.event_check:checked').prop('checked', false);
+			$('.event_options').hide();
+		});
 	});
 
 	$('.event_del').click(function(event) {
 		if (!confirm('Удалить?')) return false;
 
 		var items = [];
-		var checked_items = $('.event_check:checked').parent('.event');
+		var $checked_items = $('.event_check:checked').parent('.event');
 
-		checked_items.each(function(index, elem) {
+		$checked_items.each(function(index, elem) {
 			var item = $(this).attr('class').split(' ')[1];
 			items.push(item);
 		});

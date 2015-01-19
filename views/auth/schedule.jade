@@ -24,7 +24,7 @@ block content
 					option(value='') Часы
 					- for (var i = 23; i >= 0; i--)
 						option(value=i, selected=(item.date.getHours() == i))= i
-				select.event_hours
+				select.event_minutes
 					option(value='') Минуты
 					- for (var i = 0; i <= 50; i += 10)
 						- var mm = (i == 0 ? '00' : i)
@@ -40,6 +40,7 @@ block content
 	button.event_add Добавить
 	span.event_options
 		button.event_del Удалить
+		button.event_edit Сохранить
 		button.event_transfer Перенести
 
 	.new_event
