@@ -73,8 +73,8 @@ $(document).ready(function() {
 
 	$(document).on('change', '.event_hours, .event_minutes, .event_premiere, .event_banner', function(event) {
 		$('.event_add').hide();
-		$(this).closest('.event').children('.event_check').prop('checked', true);
 		$('.event_options').show();
+		$(this).closest('.event').children('.event_check').prop('checked', true);
 	});
 
 	$('.event_edit').click(function(event) {
@@ -98,6 +98,7 @@ $(document).ready(function() {
 		$.post('/auth/schedule/edit', {items: items}).done(function(items) {
 			$('.event_check:checked').prop('checked', false);
 			$('.event_options').hide();
+			$('.event_add').show();
 		});
 	});
 
@@ -115,8 +116,9 @@ $(document).ready(function() {
 		$.post('/auth/schedule/remove', {
 			items: items
 		}).done(function(items) {
-			checked_items.remove();
+			$checked_items.remove();
 			$('.event_options').hide();
+			$('.event_add').show();
 		});
 	});
 
