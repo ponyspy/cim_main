@@ -31,6 +31,7 @@
 
 .event_options {
 	display: none;
+	margin-left: 8px;
 }
 
 .event_add {

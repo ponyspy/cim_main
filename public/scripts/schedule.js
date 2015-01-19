@@ -62,13 +62,17 @@ $(document).ready(function() {
 	$(document).on('change', '.event_check', function(event) {
 		if ($('.event_check:checked').length > 0) {
 			$('.event_options').show();
-			$('.event_add').show();
 			$('.new_event').hide();
+			$('.event_add').hide();
 		}
-		else $('.event_options').hide();
+		else {
+			$('.event_options').hide();
+			$('.event_add').show();
+		}
 	});
 
 	$(document).on('change', '.event_hours, .event_minutes, .event_premiere, .event_banner', function(event) {
+		$('.event_add').hide();
 		$(this).closest('.event').children('.event_check').prop('checked', true);
 		$('.event_options').show();
 	});
