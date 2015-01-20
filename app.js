@@ -280,7 +280,7 @@ app.get('/', photoStream, function(req, res) {
   start.setDate(start.getDate() - 1);
   end.setFullYear(end.getFullYear(), (end.getMonth() + 1), 0);
 
-  Schedule.find().where('date').gte(start).lt(end).where('events.banner').equals('true').populate('events.event').exec(function(err, schedule) {
+  ScheduleM.find().where('date').gte(start).lt(end).where('meta.banner').equals(true).populate('event').exec(function(err, schedule) {
     News.find().where('date').lte(now).sort('-date').limit(6).exec(function(err, news) {
       News.find().sort('-date').where('status').equals('pin').exec(function(err, pins) {
         res.render('index', {news: news, schedule: schedule, pins: pins});

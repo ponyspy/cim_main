@@ -50,7 +50,7 @@ mixin infiniteItem(item)
 block content
 	.main_poster_block
 		.main_poster_img(style=schedule.length == 0 ? 'height: 700px;' : '')
-			if (schedule.length != 0)
+			if (schedule.length > 0)
 				img.layer.image(src='')
 			else
 				.layer
@@ -60,26 +60,22 @@ block content
 						- date.setMonth(date.getMonth() + i)
 						a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+1))
 							.cal_title.cal_title_big= months[date.getMonth()]
-			each date in schedule
-				each event in date.events
-					if (event.banner == 'true' && event.event.photos.length > 0)
-						img.hide(src=event.event.photos[0].path)
+			each event in schedule
+				if (event.event.photos.length > 0)
+					img.hide(src=event.event.photos[0].path)
 			.layer.round(style=schedule.length == 0 ? 'background-color: white;' : '')
-		if (schedule.length != 0)
-			each date in schedule
-				each event in date.events
-					if (event.banner == 'true' && event.event.photos.length > 0)
-						.main_poster_cal
-							- var d = date.date.getDate()
-							- d = d < 10 ? '0' + d : d
-							.cal_date= days[date.date.getDay()] + '.' + d
-							.cal_schedule
-								.cal_time= event.time.hours + ':' + event.time.minutes
-								.cal_hall= hall[event.event.hall]
-								//- if (event.ticket)
-									a.cal_ticket(href=event.ticket, rel='nofollow', target='_blank') купить билет
-							a(href='/event/' + event.event._id)
-								.cal_title(class=event.event.ru.title.length < 10 ? 'cal_title_big' : '')= event.event.ru.title.toUpperCase()
+		if (schedule.length > 0)
+			each event in schedule
+				if (event.event.photos.length > 0)
+					.main_poster_cal
+						.cal_date= days[event.date.getDay()] + '.' + ('0' + event.date.getDate()).slice(-2)
+						.cal_schedule
+							.cal_time= ('0' + event.date.getHours()).slice(-2) + ':' + ('0' + event.date.getMinutes()).slice(-2)
+							.cal_hall= hall[event.event.hall]
+							//- if (event.ticket)
+								a.cal_ticket(href=event.ticket, rel='nofollow', target='_blank') купить билет
+						a(href='/event/' + event.event._id)
+							.cal_title(class=event.event.ru.title.length < 10 ? 'cal_title_big' : '')= event.event.ru.title.toUpperCase()
 	.pin_news_block
 		.pin_news_scroll
 			each pin in pins
