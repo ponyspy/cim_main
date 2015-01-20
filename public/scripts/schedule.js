@@ -49,7 +49,9 @@ $(document).ready(function() {
 			$.post('/auth/schedule/get', {
 				date: date.getTime()
 			}).done(function(schedule) {
-				schedule.forEach(scheduleItem);
+				!!schedule
+					? schedule.forEach(scheduleItem)
+					: $('.connect_banner').show();
 			});
 		},
 		locale: {
@@ -59,6 +61,10 @@ $(document).ready(function() {
 			months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
 			monthsShort: ['Янв.', 'Фев.', 'Мар.', 'Апр.', 'Май', 'Июн.', 'Июл.', 'Авг.', 'Сен.', 'Окт.', 'Нояб.', 'Дек.']
 		}
+	});
+
+	$('.connect_reload').click(function(event) {
+		location.reload(true);
 	});
 
 	$(document).on('change', '.event_check', function(event) {

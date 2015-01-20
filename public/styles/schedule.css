@@ -42,3 +42,12 @@
 button {
 	font-size: 10pt;
 }
+
+.connect_banner {
+	position: absolute;
+	right: 20px;
+	background-color: yellow;
+	padding: 5px;
+	text-align: center;
+	display: none;
+}

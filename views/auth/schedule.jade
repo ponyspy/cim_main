@@ -12,6 +12,11 @@ block content_scripts
 	script(type='text/javascript', src='/scripts/jquery.pickmeup.min.js')
 	script(type='text/javascript', src='/scripts/schedule.js')
 
+block content_right
+	.connect_banner
+		.connect_banner_title Сбой соединения
+		button.connect_reload Обновить страницу
+
 block content
 	.calendar
 	-	var now = new Date()
