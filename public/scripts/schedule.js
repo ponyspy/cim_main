@@ -24,7 +24,8 @@ $(document).ready(function() {
 		var minutes = $('.new_event_minutes').clone(true, true).attr('class', 'event_minutes');
 		minutes.children('option').filter('[value="'+ item_date.getMinutes() +'"]').prop('selected', true);
 
-		var title = $('<span/>', {'class': 'event_title', 'text': item.event.ru.title});
+		var title_str = item.event.ru.title.length <= 45 ? item.event.ru.title : item.event.ru.title.slice(0, 45) + '...'
+		var title = $('<span/>', {'class': 'event_title', 'text': title_str});
 
 		$('.events').append(event.append(check, hours, minutes, banner, premiere, title));
 	}
@@ -35,14 +36,15 @@ $(document).ready(function() {
 		flat: true,
 		mode: 'single',
 		calendars: '3',
-		change: function(date_format) {
-			clearFields();
+		fill: function() {
+			var date_format = $('.calendar').pickmeup('get_date', 'Y-m-d');
+			var date = $('.calendar').pickmeup('get_date', false);
+
 			$('.schedule_title').text('События на: ' + date_format);
 			$('.events').empty();
 			$('.event_options').hide();
 
-			var date = date_format.split('-');
-			date = new Date(+date[0], +date[1] - 1, +date[2]);
+			clearFields();
 
 			$.post('/auth/schedule/get', {
 				date: date.getTime()
