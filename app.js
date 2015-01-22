@@ -543,7 +543,7 @@ app.post('/rm_event', function (req, res) {
   var id = req.body.id;
 
   Project.update({'events.event':id}, { $pull: { 'events': { event: id } } }, { multi: true }).exec(function() {
-    Schedule.update({'events.event':id}, { $pull: { 'events': { event: id } } }, { multi: true }).exec(function() {
+    ScheduleM.remove({'event': id}).exec(function() {
       Event.findByIdAndRemove(id, function() {
         deleteFolderRecursive(__dirname + '/public/images/events/' + id);
         res.send('ok');
