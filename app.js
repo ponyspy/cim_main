@@ -34,35 +34,35 @@ app.use(function(req, res, next) {
 app.use(app.router);
 
 
-// app.use(function(req, res, next) {
-//   res.status(404);
+app.use(function(req, res, next) {
+  res.status(404);
 
-//   // respond with html page
-//   if (req.accepts('html')) {
-//     res.render('error', { url: req.url, status: 404 });
-//     return;
-//   }
+  // respond with html page
+  if (req.accepts('html')) {
+    res.render('error', { url: req.url, status: 404 });
+    return;
+  }
 
-//   // respond with json
-//   if (req.accepts('json')) {
-//       res.send({
-//       error: {
-//         status: 'Not found'
-//       }
-//     });
-//     return;
-//   }
+  // respond with json
+  if (req.accepts('json')) {
+      res.send({
+      error: {
+        status: 'Not found'
+      }
+    });
+    return;
+  }
 
-//   // default to plain-text
-//   res.type('txt').send('Not found');
-// });
+  // default to plain-text
+  res.type('txt').send('Not found');
+});
 
-// app.use(function(err, req, res, next) {
-//   var status = err.status || 500;
+app.use(function(err, req, res, next) {
+  var status = err.status || 500;
 
-//   res.status(status);
-//   res.render('error', { error: err, status: status });
-// });
+  res.status(status);
+  res.render('error', { error: err, status: status });
+});
 
 
 // -------------------
@@ -235,15 +235,15 @@ app.get('/api/v1/:path', checkPartner, function(req, res) {
 
   else if (params.location == 'schedule') {
     var exclude = params.fields ? params.fields.replace(/\,/g,' ') : '-__v -events.banner';
-    var populated = params.populate == 'true' ? 'events.event' : '';
+    var populated = params.populate == 'true' ? 'event' : '';
     var def = new Date();
 
     var start = params.start ? new Date(+params.start) : new Date();
     var end = params.end ? new Date(+params.end) : new Date(def.setFullYear(def.getFullYear(), (def.getMonth()+1), 0));
 
     var Query = params.id ?
-      Schedule.findById(params.id, exclude).populate(populated) :
-      Schedule.find({}, exclude).populate(populated).sort(params.sort).where('date').gte(start).lte(end);
+      ScheduleM.findById(params.id, exclude).populate(populated) :
+      ScheduleM.find({}, exclude).populate(populated).sort(params.sort).where('date').gte(start).lte(end);
 
     Query.exec(function(err, schedule) {
       res.send(schedule);
