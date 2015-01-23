@@ -78,7 +78,6 @@ var Press = models.Press;
 var Partner = models.Partner;
 var Photo = models.Photo;
 var Schedule = models.Schedule;
-var ScheduleM = models.ScheduleM;
 var Project = models.Project;
 var Content = models.Content;
 
@@ -242,8 +241,8 @@ app.get('/api/v1/:path', checkPartner, function(req, res) {
     var end = params.end ? new Date(+params.end) : new Date(def.setFullYear(def.getFullYear(), (def.getMonth()+1), 0));
 
     var Query = params.id ?
-      ScheduleM.findById(params.id, exclude).populate(populated) :
-      ScheduleM.find({}, exclude).populate(populated).sort(params.sort).where('date').gte(start).lte(end);
+      Schedule.findById(params.id, exclude).populate(populated) :
+      Schedule.find({}, exclude).populate(populated).sort(params.sort).where('date').gte(start).lte(end);
 
     Query.exec(function(err, schedule) {
       res.send(schedule);
@@ -280,7 +279,7 @@ app.get('/', photoStream, function(req, res) {
   start.setDate(start.getDate() - 1);
   end.setFullYear(end.getFullYear(), (end.getMonth() + 1), 0);
 
-  ScheduleM.find().where('date').gte(start).lt(end).where('meta.banner').equals(true).populate('event').exec(function(err, schedule) {
+  Schedule.find().where('date').gte(start).lt(end).where('meta.banner').equals(true).populate('event').exec(function(err, schedule) {
     News.find().where('date').lte(now).sort('-date').limit(6).exec(function(err, news) {
       News.find().sort('-date').where('status').equals('pin').exec(function(err, pins) {
         res.render('index', {news: news, schedule: schedule, pins: pins});
@@ -329,7 +328,7 @@ app.get('/afisha/:year/:month', function (req, res) {
   end.setHours(23, 59, 0);
   var time_zone = 3 * 60 * 60 * 1000;
 
-  ScheduleM.aggregate()
+  Schedule.aggregate()
     .match({
       'date': {
         $gte: start,
@@ -361,8 +360,8 @@ app.get('/afisha/:year/:month', function (req, res) {
       'events': '$events'
     })
     .exec(function(err, schedule) {
-      ScheduleM.populate(schedule, {path:'events.event', model: 'Event'}, function(err, schedule) {
-        ScheduleM.populate(schedule, {path:'events.event.members.m_id', model: 'Member'}, function(err, schedule) {
+      Schedule.populate(schedule, {path:'events.event', model: 'Event'}, function(err, schedule) {
+        Schedule.populate(schedule, {path:'events.event.members.m_id', model: 'Member'}, function(err, schedule) {
           Project.find().exec(function(err, projects) {
             res.render('afisha', {schedule: schedule, projects: projects, month: month, year: year});
           });
@@ -385,7 +384,7 @@ app.get('/event/:id', photoStream, function (req, res, next) {
   start.setDate(start.getDate() - 1);
   end.setFullYear(end.getFullYear(), (end.getMonth()+3), 0);
 
-  ScheduleM.find({'date': {'$gte': start, '$lt': end}, 'event': id}).limit(10).sort('date').exec(function(err, schedule) {
+  Schedule.find({'date': {'$gte': start, '$lt': end}, 'event': id}).limit(10).sort('date').exec(function(err, schedule) {
     Press.find({'events': id}).sort('-date').exec(function(err, press) {
       Event.findById(id).populate('members.m_id partners').exec(function(err, event) {
          if (!event) return next(err);
@@ -543,7 +542,7 @@ app.post('/rm_event', function (req, res) {
   var id = req.body.id;
 
   Project.update({'events.event':id}, { $pull: { 'events': { event: id } } }, { multi: true }).exec(function() {
-    ScheduleM.remove({'event': id}).exec(function() {
+    Schedule.remove({'event': id}).exec(function() {
       Event.findByIdAndRemove(id, function() {
         deleteFolderRecursive(__dirname + '/public/images/events/' + id);
         res.send('ok');
@@ -798,39 +797,13 @@ app.get('/auth/edit/content/:id/content_edit', checkAuth, photoStream, function 
 // ------------------------
 
 
-app.get('/schedule/migrate', function (req, res) {
-  Schedule.find().exec(function(err, items) {
-    async.forEach(items, function(item, callback1) {
-      async.forEach(item.events, function(event, callback2) {
-        var item_m  = new ScheduleM();
-        var date = item.date;
-        date.setHours(event.time.hours, event.time.minutes, 0);
-
-        item_m.date = date;
-        item_m.event = event.event;
-        item_m.meta.banner = event.banner == 'true' ? true : false;
-        item_m.meta.premiere = event.premiere == 'true' ? true : false;
-
-        item_m.save(function() {
-          callback2();
-        });
-      }, function() {
-        callback1();
-      });
-    }, function() {
-      res.send('ok');
-    });
-  });
-});
-
-
 app.get('/auth/schedule', checkAuth, function (req, res) {
   var start = new Date();
   start = start.setHours(0, 0, 0);
   var end = new Date();
   end = end.setHours(23, 59, 0);
 
-  ScheduleM.find({'date': {'$gte': start, '$lte': end}}).sort('-date').populate('event').exec(function(err, schedule) {
+  Schedule.find({'date': {'$gte': start, '$lte': end}}).sort('-date').populate('event').exec(function(err, schedule) {
     Event.find().sort('-date').exec(function(err, events) {
       res.render('auth/schedule.jade', {schedule: schedule, events: events});
     });
@@ -846,7 +819,7 @@ app.post('/auth/schedule/get', checkAuth, function (req, res) {
   var end = new Date(+post.date);
   end = end.setHours(23, 59, 0);
 
-  ScheduleM.find({'date': {'$gte': start, '$lte': end}}).sort('-date').populate('event').exec(function(err, schedule) {
+  Schedule.find({'date': {'$gte': start, '$lte': end}}).sort('-date').populate('event').exec(function(err, schedule) {
     res.send(schedule);
   });
 });
@@ -854,7 +827,7 @@ app.post('/auth/schedule/get', checkAuth, function (req, res) {
 
 app.post('/auth/schedule/add', checkAuth, function (req, res) {
   var post = req.body;
-  var item = new ScheduleM();
+  var item = new Schedule();
 
   item.date = new Date(+post.date);
   item.event = post.event;
@@ -871,7 +844,7 @@ app.post('/auth/schedule/add', checkAuth, function (req, res) {
 app.post('/auth/schedule/remove', checkAuth, function (req, res) {
   var post = req.body;
 
-  ScheduleM.remove().where('_id').in(post.items).exec(function(err, items) {
+  Schedule.remove().where('_id').in(post.items).exec(function(err, items) {
     res.send('ok');
   });
 });
@@ -880,7 +853,7 @@ app.post('/auth/schedule/edit', checkAuth, function (req, res) {
   var post = req.body;
 
   async.forEachSeries(post.items, function(item, callback) {
-    ScheduleM.findById(item.id).exec(function(err, sh) {
+    Schedule.findById(item.id).exec(function(err, sh) {
 
       sh.date = new Date(sh.date.getFullYear(), sh.date.getMonth(), sh.date.getDate(), item.hours, item.minutes);
       sh.meta = item.meta;
