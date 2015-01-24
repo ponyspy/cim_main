@@ -272,9 +272,11 @@ app.get('/api/doc/:secret', photoStream, function (req, res, next) {
 
 
 app.get('/', photoStream, function(req, res) {
-  var start = new Date();
-  var end = new Date();
   var now = new Date();
+  var start = new Date();
+  var end = new Date()
+  start.setHours(0,0,0);
+  end.setHours(23, 59, 0);
 
   start.setDate(start.getDate() - 1);
   end.setFullYear(end.getFullYear(), (end.getMonth() + 1), 0);
