@@ -233,16 +233,16 @@ app.get('/api/v1/:path', checkPartner, function(req, res) {
   }
 
   else if (params.location == 'schedule') {
-    var exclude = params.fields ? params.fields.replace(/\,/g,' ') : '-__v -events.banner';
+    var exclude = params.fields ? params.fields.replace(/\,/g,' ') : '-__v -event.banner -event.__v';
     var populated = params.populate == 'true' ? 'event' : '';
     var def = new Date();
 
     var start = params.start ? new Date(+params.start) : new Date();
     var end = params.end ? new Date(+params.end) : new Date(def.setFullYear(def.getFullYear(), (def.getMonth()+1), 0));
 
-    var Query = params.id ?
-      Schedule.findById(params.id, exclude).populate(populated) :
-      Schedule.find({}, exclude).populate(populated).sort(params.sort).where('date').gte(start).lte(end);
+    var Query = params.id
+      ? Schedule.findById(params.id).select(exclude).populate(populated)
+      : Schedule.find().select(exclude).populate(populated).sort(params.sort).where('date').gte(start).lte(end);
 
     Query.exec(function(err, schedule) {
       res.send(schedule);

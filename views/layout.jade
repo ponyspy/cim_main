@@ -36,9 +36,9 @@ html
 						.menu_item= 'афиша' + (menu_afisha || '')
 							.menu_drop
 								- for (var i = 0; i <= 2; i++)
-									- var date = new Date()
-									- date.setMonth(date.getMonth() + i)
-									a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth() + 1))=  months[date.getMonth()].toLowerCase()
+									- var year = new Date().getFullYear()
+									- var date =  (new Date().getMonth() + i)%12
+									a(href='/afisha/' + year + '/' + (date + 1))=  months[date].toLowerCase()
 								//- hr
 								//- a(href='/afisha/' + (date.getFullYear()+1) + '/' + 1)= months[0].toLowerCase()
 								//- a(href='/afisha/archive') архив
