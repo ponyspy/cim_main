@@ -233,7 +233,7 @@ app.get('/api/v1/:path', checkPartner, function(req, res) {
   }
 
   else if (params.location == 'schedule') {
-    var exclude = params.fields ? params.fields.replace(/\,/g,' ') : '-__v -event.banner -event.__v';
+    var exclude = params.fields ? params.fields.replace(/\,/g,' ') : '-event.__v';
     var populated = params.populate == 'true' ? 'event' : '';
     var def = new Date();
 
