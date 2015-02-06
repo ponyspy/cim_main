@@ -292,7 +292,7 @@ a.head_culture_logo:hover {
 	width: 220px;
 	height: 105px;
 	margin-left: 33px;
-	margin-right: 80px;
+	margin-right: 90px;
 	padding-top: 15px;
 	float: left;
 	font: 8pt/11pt 'Pragmatica';
@@ -301,7 +301,7 @@ a.head_culture_logo:hover {
 .footer_column {
 	height: 105px;
 	float: left;
-	margin-left: 35px;
+	margin-left: 30px;
 	padding-top: 15px;
 	font: 8pt/11pt 'Pragmatica';
 }
