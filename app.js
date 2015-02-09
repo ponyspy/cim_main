@@ -240,9 +240,31 @@ app.get('/api/v1/:path', checkPartner, function(req, res) {
     var start = params.start ? new Date(+params.start) : new Date();
     var end = params.end ? new Date(+params.end) : new Date(def.setFullYear(def.getFullYear(), (def.getMonth()+1), 0));
 
+    var time_zone = 3 * 60 * 60 * 1000;
     var Query = params.id
       ? Schedule.findById(params.id).select(exclude).populate(populated)
-      : Schedule.find().select(exclude).populate(populated).sort(params.sort).where('date').gte(start).lte(end);
+      : Schedule.aggregate()
+          .match({
+            'date': {
+              $gte: start,
+              $lte: end
+            }
+          })
+          .sort({'date': 1})
+          .project({
+            '_id': 0,
+            '_show_id': '$_id',
+            '_event_id': '$event',
+            'schedule': {
+              'year': { $year: { $add: ['$date', time_zone] } },
+              'month': { $month: { $add: ['$date', time_zone] } },
+              'date': { $dayOfMonth: { $add: ['$date', time_zone] } }
+            },
+            'time': {
+              'hours': { $hour: { $add: ['$date', time_zone] } },
+              'minutes': { $minute: { $add: ['$date', time_zone] } },
+            }
+          });
 
     Query.exec(function(err, schedule) {
       res.send(schedule);
