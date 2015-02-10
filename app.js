@@ -233,7 +233,7 @@ app.get('/api/v1/:path', checkPartner, function(req, res) {
   }
 
   else if (params.location == 'schedule') {
-    var exclude = params.fields ? params.fields.replace(/\,/g,' ') : '-event.__v';
+    var exclude = params.fields ? params.fields.replace(/\,/g,' ') : '-__v';
     var populated = params.populate == 'true' ? 'event' : '';
     var def = new Date();
 
@@ -242,7 +242,7 @@ app.get('/api/v1/:path', checkPartner, function(req, res) {
 
     var time_zone = 3 * 60 * 60 * 1000;
     var Query = params.id
-      ? Schedule.findById(params.id).select(exclude).populate(populated)
+      ? Schedule.findById(params.id, exclude).populate(populated)
       : Schedule.aggregate()
           .match({
             'date': {
@@ -250,20 +250,29 @@ app.get('/api/v1/:path', checkPartner, function(req, res) {
               $lte: end
             }
           })
-          .sort({'date': 1})
+          .group({
+            '_id': {
+              year: { $year: { $add: ['$date', time_zone] } },
+              month: { $month: { $add: ['$date', time_zone] } },
+              date: { $dayOfMonth: { $add: ['$date', time_zone] } }
+            },
+            'events': {
+              $push: {
+                _show_id: '$_id',
+                _event_id: '$event',
+                time: {
+                  hours: { $hour: { $add: ['$date', time_zone] } },
+                  minutes: { $minute: { $add: ['$date', time_zone] } }
+                },
+                meta: '$meta'
+              }
+            }
+          })
+          .sort('_id.date')
           .project({
             '_id': 0,
-            '_show_id': '$_id',
-            '_event_id': '$event',
-            'schedule': {
-              'year': { $year: { $add: ['$date', time_zone] } },
-              'month': { $month: { $add: ['$date', time_zone] } },
-              'date': { $dayOfMonth: { $add: ['$date', time_zone] } }
-            },
-            'time': {
-              'hours': { $hour: { $add: ['$date', time_zone] } },
-              'minutes': { $minute: { $add: ['$date', time_zone] } },
-            }
+            'schedule': '$_id',
+            'events': '$events'
           });
 
     Query.exec(function(err, schedule) {
