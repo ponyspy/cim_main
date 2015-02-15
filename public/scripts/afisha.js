@@ -7,7 +7,12 @@ $(document).ready(function() {
 	var interval_start = $('.afisha_actual_block').attr('interval_start');
 	var interval_end = $('.afisha_actual_block').attr('interval_end');
 
-	$.get('https://tickets.meyerhold.ru/api/?secret=' + secret + '&d1=' + interval_start + '&d2=' + interval_end).done(function(data) {
+	$.ajax({
+	   url: 'https://tickets.meyerhold.ru/api/?secret=' + secret + '&d1=' + interval_start + '&d2=' + interval_end,
+	   xhrFields: {
+	      withCredentials: true
+	   }
+	}).done(function(data) {
 		console.log(data);
 	});
 
