@@ -10,9 +10,9 @@ $(document).ready(function() {
 	$.ajax({
 		dataType: 'json',
 	   url: 'https://tickets.meyerhold.ru/api/?secret=' + secret + '&d1=' + interval_start + '&d2=' + interval_end,
-	   xhrFields: {
-	      withCredentials: true
-	   }
+	   // xhrFields: {
+	   //    withCredentials: true
+	   // }
 	}).done(function(data) {
 		console.log(data);
 	});
