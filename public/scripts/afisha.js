@@ -8,7 +8,7 @@ $(document).ready(function() {
 	var interval_end = $('.afisha_actual_block').attr('interval_end');
 
 	$.ajax({
-		dataType: true,
+		dataType: 'json',
 	   url: 'https://tickets.meyerhold.ru/api/?secret=' + secret + '&d1=' + interval_start + '&d2=' + interval_end,
 	   xhrFields: {
 	      withCredentials: true
