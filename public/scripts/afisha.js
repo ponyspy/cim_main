@@ -1,6 +1,16 @@
 $(document).ready(function() {
 	var tags = [];
 	var $sort_items = $('.afisha_description_block, .afisha_item_block');
+	var $afisha_tickets = $('.afisha_ticket');
+
+	var secret = '532ae7e4ba662f1402000003';
+	var interval_start = $('.afisha_actual_block').attr('interval_start');
+	var interval_end = $('.afisha_actual_block').attr('interval_end');
+
+	$.get('https://tickets.meyerhold.ru/api/?secret=' + secret + '&d1=' + interval_start + '&d2=' + interval_end).done(function(data) {
+		console.log(data);
+	});
+
 
 	$('.tag').on({
 		mouseover: function() {

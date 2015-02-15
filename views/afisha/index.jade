@@ -29,8 +29,8 @@ mixin getSchedule(date, out)
 					.afisha_schedule_block
 						.afisha_time= ('0' + event.time.hours).slice(-2) + ':' + ('0' + event.time.minutes).slice(-2)
 						.afisha_hall= hall[event.event.hall]
-						//- if (event.ticket && !out)
-							a.afisha_ticket(href=event.ticket, rel='nofollow', target='_blank') купить билет
+						if (!out)
+							a.afisha_ticket(class=event._show_id, rel='nofollow', target='_blank') в кассе
 					.afisha_all_block
 						.afisha_tags_block
 							if (event.meta.premiere == true)
@@ -89,7 +89,10 @@ block content
 	else
 		- var now = new Date()
 		- now.setDate(now.getDate() - 1)
-		.afisha_actual_block
+		- start_month = ('0' + interval.start.getMonth()).slice(-2)
+		- end_month = ('0' + interval.end.getMonth()).slice(-2)
+		- end_date = ('0' + interval.end.getDate()).slice(-2)
+		.afisha_actual_block(interval_start= year + '-' + start_month + '-01', interval_end=year + '-' + end_month + '-' + end_date)
 			each date in schedule
 				- var current = new Date(year, month, date.show.date)
 				if (current > now)
