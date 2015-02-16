@@ -182,7 +182,18 @@ html, body, .maket {
 	z-index: 1;
 	background-color: white;
 	display: none;
+	background-color: red;
+	text-align: center;
 	font: 10pt/12pt 'Times';
+ }
+
+ .pay_drop a {
+ 	color: white;
+ 	font-weight: bold;
+ }
+
+ .pay_drop:hover {
+ 	background-color: red;
  }
 
  .locale {
@@ -339,13 +350,15 @@ a.head_culture_logo:hover {
 .banner_block {
 	margin-top: 2px;
 	float: left;
+	overflow: hidden;
 	/*border: 1px solid red;	*/
 }
 
 .banner_item {
-	width: 23px;
-	height: 23px;
+	/*width: 23px;*/
+	height: 22px;
 	margin-right: 20px;
+	float: left;
 	/*background-color: red;*/
 	/*border-radius: 46px;*/
 }

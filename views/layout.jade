@@ -30,9 +30,10 @@ html
 							.pay_title Купить БИЛЕТЫ
 							.pay_phone касса: (495) 363 10 48
 							.pay_drop
-								a(href='http://bigbilet.ru/company/card?id=A88F2473BE633D61E040115529B0081A#_', rel='nofollow', target='_blank') BIGBILET
-								!=' &nbsp;|&nbsp; '
-								a(href='http://www.ticketland.ru/buildinfo/1571/', rel='nofollow', target='_blank') TICKETLAND
+								a(href='http://tickets.meyerhold.ru/', target='_blank') ОНЛАЙН
+								//- a(href='http://bigbilet.ru/company/card?id=A88F2473BE633D61E040115529B0081A#_', rel='nofollow', target='_blank') BIGBILET
+								//- !=' &nbsp;|&nbsp; '
+								//- a(href='http://www.ticketland.ru/buildinfo/1571/', rel='nofollow', target='_blank') TICKETLAND
 						.menu_item= 'афиша' + (menu_afisha || '')
 							.menu_drop
 								- for (var i = 0; i <= 2; i++)
@@ -60,8 +61,10 @@ html
 						.banner_block
 							//- a(href='http://kudago.com/msk/', title='Афиша в Москве', target='_blank')
 								img.banner_item(src='/images/design/banners/banner.png')
-							a(href='http://www.ticketland.ru/buildinfo/1571/', title='Купить билет', target='_blank')
+							a(href='http://www.ticketland.ru/buildinfo/1571/', rel='nofollow', title='ticketland.ru', target='_blank')
 								img.banner_item(src='/images/design/banners/banner2.png')
+							a(href='http://bigbilet.ru/place/meyerhold', rel='nofollow', title='bigbilet.ru', target='_blank')
+								img.banner_item(src='/images/design/banners/banner3.png')
 						//- .locale eng
 						//- input.search(type='text')
 						//- .search_submit поиск
