@@ -189,19 +189,20 @@ html, body, .maket {
 	font-weight: bold;
  }
 
- .pay_phone {
- 	z-index: 99999999;
- 	position: relative;
- 	background-color: white;
- 	width: 160px;
- 	padding: 5px;
- 	padding-top: 6px;
- 	padding-bottom: 6px;
- 	text-align: center;
- 	background-color: white;
- }
+a.pay_phone {
+	z-index: 99999999;
+	position: relative;
+	background-color: white;
+	display: block;
+	width: 160px;
+	padding: 5px;
+	padding-top: 6px;
+	padding-bottom: 6px;
+	text-align: center;
+	background-color: white;
+}
 
- .locale {
+.locale {
 	width: 30px;
 	height: 14px;
 	/*margin-top: 5px;*/
@@ -216,7 +217,7 @@ html, body, .maket {
 	letter-spacing:0px;
 	padding: 5px;
 	display: none;
- }
+}
 
 .search {
 	width: 170px;
