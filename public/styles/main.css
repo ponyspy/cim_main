@@ -148,24 +148,26 @@ html, body, .maket {
 
  .pay_block {
 	width: 158px;
-	height: 14px;
+	height: 13px;
 	background-color: white;
 	border: 1px solid white;
-	/*margin-left: 104px;*/
 	margin-right: 20px;
 	float: left;
 	color: black;
-	font: 12pt/10pt 'Times';
-	letter-spacing:0px;
+	font: 12pt/11pt 'Times';
+	letter-spacing: 0px;
 	cursor: default;
 	padding: 5px;
+	padding-top: 6px
  }
 
- .pay_phone {
-	display: none;
- }
+	.pay_drop {
+		display: none;
+		margin-top: -7px;
+		margin-left: -6px;
+	}
 
- .pay_block:hover .pay_drop, .pay_block:hover .pay_phone {
+ .pay_block:hover .pay_drop {
 	display: block;
  }
 
@@ -173,27 +175,30 @@ html, body, .maket {
  	display: none;
  }
 
- .pay_drop {
-	margin-top: 7px;
-	margin-left: -6px;
+ a.pay_online {
 	padding: 5px;
+	padding-top: 6px;
+	height: 15px;
 	width: 160px;
 	position: relative;
-	z-index: 1;
-	background-color: white;
-	display: none;
+	display: block;
+	color: white;
 	background-color: red;
 	text-align: center;
 	font: 10pt/12pt 'Times';
+	font-weight: bold;
  }
 
- .pay_drop a {
- 	color: white;
- 	font-weight: bold;
- }
-
- .pay_drop:hover {
- 	background-color: red;
+ .pay_phone {
+ 	z-index: 99999999;
+ 	position: relative;
+ 	background-color: white;
+ 	width: 160px;
+ 	padding: 5px;
+ 	padding-top: 6px;
+ 	padding-bottom: 6px;
+ 	text-align: center;
+ 	background-color: white;
  }
 
  .locale {

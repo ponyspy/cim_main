@@ -28,12 +28,9 @@ html
 					.menu_block
 						.pay_block
 							.pay_title Купить БИЛЕТЫ
-							.pay_phone касса: (495) 363 10 48
 							.pay_drop
-								a(href='http://tickets.meyerhold.ru/', target='_blank') ОНЛАЙН
-								//- a(href='http://bigbilet.ru/company/card?id=A88F2473BE633D61E040115529B0081A#_', rel='nofollow', target='_blank') BIGBILET
-								//- !=' &nbsp;|&nbsp; '
-								//- a(href='http://www.ticketland.ru/buildinfo/1571/', rel='nofollow', target='_blank') TICKETLAND
+								a.pay_online(href='http://tickets.meyerhold.ru/', target='_blank') ОНЛАЙН
+								.pay_phone касса: (495) 363 10 48
 						.menu_item= 'афиша' + (menu_afisha || '')
 							.menu_drop
 								- for (var i = 0; i <= 2; i++)
