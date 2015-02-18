@@ -2,6 +2,17 @@ $(document).ready(function() {
 	var tags = [];
 	var $sort_items = $('.afisha_description_block, .afisha_item_block');
 
+	$.ajax({
+  	url: 'https://tickets.meyerhold.ru/api/?secret=532ae7e4ba662f1402000003&d1=2015-02-01&d2=2015-02-28',
+  	dataType: 'json',
+  	crossDomain: 'true',
+   	xhrFields: {
+			withCredentials: true
+   	}
+	}).done(function(data) {
+		console.log(data)
+	});
+
 	$('.tag').on({
 		mouseover: function() {
 			var tag = '.' + this.className.slice(4);
