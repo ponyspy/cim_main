@@ -3,12 +3,11 @@ $(document).ready(function() {
 	var $sort_items = $('.afisha_description_block, .afisha_item_block');
 
 	$.ajax({
-  	url: 'https://tickets.meyerhold.ru/api/?secret=532ae7e4ba662f1402000003&d1=2015-02-01&d2=2015-02-28',
-  	dataType: 'jsonp',
-  	jsonp: 'jsonp'
+		url: 'https://tickets.meyerhold.ru/api/?secret=532ae7e4ba662f1402000003&d1=2015-02-01&d2=2015-02-28',
+		dataType: 'jsonp',
+		jsonp: 'jsonp'
 	}).done(function(data) {
 		data.tickets.forEach(function(ticket) {
-			if (ticket.status == 'available') {};
 			switch (ticket.status) {
 				case 'available':
 					$('.' + ticket.show_id).text('купить билет').attr('href', data.turl + ticket.tid);
