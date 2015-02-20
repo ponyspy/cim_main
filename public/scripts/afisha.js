@@ -4,13 +4,12 @@ $(document).ready(function() {
 
 	$.ajax({
   	url: 'https://tickets.meyerhold.ru/api/?secret=532ae7e4ba662f1402000003&d1=2015-02-01&d2=2015-02-28',
-  	dataType: 'json',
-  	crossDomain: 'true',
-   	xhrFields: {
-			withCredentials: true
-   	}
+  	dataType: 'jsonp',
+  	jsonp: 'jsonp'
 	}).done(function(data) {
-		console.log(data)
+		data.tickets.forEach(function(ticket) {
+			$('.' + ticket.show_id).text('купить билет').attr('href', data.turl + ticket.tid);
+		});
 	});
 
 	$('.tag').on({
