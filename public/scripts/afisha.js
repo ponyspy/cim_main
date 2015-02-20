@@ -8,7 +8,15 @@ $(document).ready(function() {
   	jsonp: 'jsonp'
 	}).done(function(data) {
 		data.tickets.forEach(function(ticket) {
-			$('.' + ticket.show_id).text('купить билет').attr('href', data.turl + ticket.tid);
+			if (ticket.status == 'available') {};
+			switch (ticket.status) {
+				case 'available':
+					$('.' + ticket.show_id).text('купить билет').attr('href', data.turl + ticket.tid);
+				break;
+				case 'sold':
+					$('.' + ticket.show_id).text('проданны');
+				break;
+			}
 		});
 	});
 
