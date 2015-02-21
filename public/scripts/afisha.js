@@ -2,8 +2,12 @@ $(document).ready(function() {
 	var tags = [];
 	var $sort_items = $('.afisha_description_block, .afisha_item_block');
 
+	var interval_start = $('.afisha_actual_block').attr('interval_start');
+	var interval_end = $('.afisha_actual_block').attr('interval_end');
+	var secret = '532ae7e4ba662f1402000003';
+
 	$.ajax({
-		url: 'https://tickets.meyerhold.ru/api/?secret=532ae7e4ba662f1402000003&d1=2015-02-01&d2=2015-02-28',
+		url: 'https://tickets.meyerhold.ru/api/?secret=' + secret + '&d1=' + interval_start + '&d2=' + interval_end,
 		dataType: 'jsonp',
 		jsonp: 'jsonp'
 	}).done(function(data) {

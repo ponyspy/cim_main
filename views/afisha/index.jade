@@ -91,7 +91,7 @@ block content
 		- var first_date = now.getMonth() == month ? now.getDate() : '1'
 		- var last_date = new Date(year, (month+1), 0).getDate()
 		- now.setDate(now.getDate() - 1)
-		.afisha_actual_block(interval_start=year + '-' + ('0' + month).slice(-2) + '-' + ('0' + first_date).slice(-2), interval_end=year + '-' + ('0' + month).slice(-2) + '-' + ('0' + last_date).slice(-2))
+		.afisha_actual_block(interval_start=year + '-' + ('0' + (month + 1)).slice(-2) + '-' + ('0' + first_date).slice(-2), interval_end=year + '-' + ('0' + (month + 1)).slice(-2) + '-' + ('0' + last_date).slice(-2))
 			each date in schedule
 				- var current = new Date(year, month, date.show.date)
 				if (current > now)
