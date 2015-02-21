@@ -202,10 +202,6 @@ body {
 }
 
 
-/*
-	Ticket Broken
- */
-
 .afisha_ticket {
 	width: 90px;
 	display: block;
@@ -217,8 +213,18 @@ body {
 
 .afisha_ticket:hover {
 	border: 1px solid red;
+	text-decoration: none;
 	color: white;
 	background-color: red;
+}
+
+.ticket_none:hover {
+	color: white;
 	text-decoration: none;
-	cursor: pointer;
+	border: 1px solid black;
+	background-color: black;
+}
+
+.ticket_phone {
+	font: 8pt/12pt 'Pragmatica';
 }

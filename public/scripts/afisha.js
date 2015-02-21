@@ -6,6 +6,15 @@ $(document).ready(function() {
 	var interval_end = $('.afisha_actual_block').attr('interval_end');
 	var secret = '532ae7e4ba662f1402000003';
 
+	$(document)
+		.on('mouseenter', '.ticket_none', function() {
+			$(this).text('(495) 363 10 48').addClass('ticket_phone');
+		})
+		.on('mouseleave', '.ticket_none', function() {
+			$(this).text('в кассе').removeClass('ticket_phone');
+		});
+
+
 	$.ajax({
 		url: 'https://tickets.meyerhold.ru/api/?secret=' + secret + '&d1=' + interval_start + '&d2=' + interval_end,
 		dataType: 'jsonp',
@@ -14,7 +23,7 @@ $(document).ready(function() {
 		data.tickets.forEach(function(ticket) {
 			switch (ticket.status) {
 				case 'available':
-					$('.' + ticket.show_id).text('купить билет').attr('href', data.turl + ticket.tid);
+					$('.' + ticket.show_id).removeClass('ticket_none').text('купить билет').attr('href', data.turl + ticket.tid);
 				break;
 				case 'sold':
 					$('.' + ticket.show_id).text('проданны');

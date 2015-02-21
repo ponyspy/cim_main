@@ -30,7 +30,7 @@ mixin getSchedule(date, out)
 						.afisha_time= ('0' + event.time.hours).slice(-2) + ':' + ('0' + event.time.minutes).slice(-2)
 						.afisha_hall= hall[event.event.hall]
 						if (!out)
-							a.afisha_ticket(class=event._show_id, rel='nofollow', target='_blank') в кассе
+							a.afisha_ticket.ticket_none(href='tel:+7 (495) 363-10-48', class=event._show_id, rel='nofollow', target='_blank') в кассе
 					.afisha_all_block
 						.afisha_tags_block
 							if (event.meta.premiere == true)
