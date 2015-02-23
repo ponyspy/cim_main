@@ -7,10 +7,10 @@ $(document).ready(function() {
 	var secret = '532ae7e4ba662f1402000003';
 
 	$(document)
-		.on('mouseenter', '.ticket_none', function() {
+		.on('mouseover touchstart', '.ticket_none', function() {
 			$(this).text('(495) 363 10 48').addClass('ticket_phone');
 		})
-		.on('mouseleave', '.ticket_none', function() {
+		.on('mouseout touchend', '.ticket_none', function() {
 			$(this).text('в кассе').removeClass('ticket_phone');
 		});
 
@@ -23,7 +23,7 @@ $(document).ready(function() {
 		data.tickets.forEach(function(ticket) {
 			switch (ticket.status) {
 				case 'available':
-					$('.' + ticket.show_id).removeClass('ticket_none').text('купить билет').attr('href', data.turl + ticket.tid);
+					$('.' + ticket.show_id).removeClass('ticket_none').text('купить билет').attr({'href': data.turl + ticket.tid, 'target':'_blank'});
 				break;
 				case 'sold':
 					$('.' + ticket.show_id).text('проданны');
