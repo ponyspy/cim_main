@@ -154,7 +154,7 @@ html, body, .maket {
 	margin-right: 20px;
 	float: left;
 	color: black;
-	font: 12pt/11pt 'Times';
+	font: 12pt/10pt 'Times';
 	letter-spacing: 0px;
 	cursor: default;
 	padding: 5px;
@@ -376,23 +376,23 @@ a.head_culture_logo:hover {
 .photo_stream {
 	position: fixed;
 	cursor: pointer;
-	top: 95%;
-	left: 5px;
+	bottom: 15px;
+	left: 15px;
 	z-index: 90000;
 }
 
 .stream_title {
 	float: left;
 	color: white;
-	margin-top: 8px;
+	margin-top: 10px;
 	margin-left: 10px;
 	display: none;
 	font: 10pt/12pt 'PragmaticaB';
 }
 
 .stream_roller {
-	width: 35px;
-	height: 35px;
+	width: 36px;
+	height: 36px;
 	float: left;
 	background-image: url('/images/design/ps_w.png');
 	background-size: cover;
