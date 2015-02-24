@@ -371,6 +371,8 @@ app.get('/afisha/:year/:month', function (req, res) {
     .sort({'date': 1})
     .group({
       '_id': {
+        year: { $year: { $add: ['$date', time_zone] } },
+        month: { $month: { $add: ['$date', time_zone] } },
         date: { $dayOfMonth: {$add: ['$date', time_zone]} },
         day: { $dayOfWeek: {$add: ['$date', time_zone]} }
       },
