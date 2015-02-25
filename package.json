@@ -1,0 +1,30 @@
+{
+  "name": "cim_main",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "dependencies": {
+    "async": "^0.2.9",
+    "gm": "^1.13.3",
+    "express": "^3.3.2",
+    "mongoose": "^3.8.21",
+    "jade": "^0.32.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ponyspy/cim_main.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ponyspy/cim_main/issues"
+  },
+  "homepage": "https://github.com/ponyspy/cim_main"
+}
