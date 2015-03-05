@@ -67,6 +67,11 @@ $(document).ready(function() {
 		location.reload(true);
 	});
 
+	$('.schedule_now').click(function(event) {
+		var now = new Date();
+		$('.calendar').pickmeup('set_date', now);
+	});
+
 	$(document).on('change', '.event_check', function(event) {
 		if ($('.event_check:checked').length > 0) {
 			$('.event_options').show();

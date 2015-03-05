@@ -18,6 +18,9 @@ block content_right
 		button.connect_reload Обновить страницу
 
 block content
+	.schedule_nav
+		a(href='/auth') < Назад
+		.schedule_now Сегодня
 	.calendar
 	-	var now = new Date()
 	.schedule_title

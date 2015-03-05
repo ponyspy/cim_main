@@ -51,3 +51,22 @@ button {
 	text-align: center;
 	display: none;
 }
+
+.schedule_nav {
+	background-color: black;
+	border-bottom: 1px solid white;
+	padding: 5px 10px 5px 10px;
+}
+
+.schedule_nav div, a {
+	color: white;
+}
+
+.schedule_now {
+	float: right;
+	cursor: pointer;
+}
+
+.schedule_now:hover {
+	color: #88c5eb;
+}
