@@ -5,7 +5,7 @@ function getRand (arr) {
 }
 
 $(document).ready(function() {
-	var images = ['pink_love.jpg', 'angry.jpg', 'godzilla.png', 'ashtar.jpg', 'chen.jpg', 'su.gif', 'pos.jpg', 'gogol.jpg', 'mazo.jpg', 'omar.jpg'];
+	var images = ['pink_love.jpg', 'angry.jpg', 'flip.jpg', 'par.jpg', 'godzilla.png', 'ashtar.jpg', 'chen.jpg', 'su.gif', 'pos.jpg', 'gogol.jpg', 'mazo.jpg', 'omar.jpg'];
 	var texts = [
 	'Здравствуй Кирилл, ты сегодня слегка напряжен, не переживай, я очень умная система, я даже могу исцелять деревья.',
 	'Сегодня всю ночь вращала Эйлеровы углы и борясь с шарнирными замками мирилась с бессилием от глубины твоих глаз.',
