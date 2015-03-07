@@ -1,9 +1,12 @@
 var fs = require('fs');
 var gm = require('gm').subClass({ imageMagick: true });
-
-var express = require('express');
-    var app = express();
 var async = require('async');
+
+var express = require('express')
+    bodyParser = require('body-parser'),
+    methodOverride = require('method-override'),
+    multer = require('multer');
+    var app = express();
 
 var mongoose = require('mongoose');
   var models = require('./models/main.js');
@@ -13,9 +16,11 @@ app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
 app.locals.pretty = true;
 // app.use(express. favicon(__dirname + '/public/images/design/favicon.png'));
-app.use(express.bodyParser({ keepExtensions: true, uploadDir:__dirname + '/uploads' }));
-app.use(express.methodOverride());
-app.use(express.cookieParser());
+app.use(express.static(__dirname + '/public'));
+app.use(multer({ dest: __dirname + '/uploads'}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(methodOverride());
 
 app.use(express.session({
   key: 'cim.sess',
@@ -26,7 +31,6 @@ app.use(express.session({
   }
 }));
 
-app.use(express.static(__dirname + '/public'));
 app.use(function(req, res, next) {
   res.locals.session = req.session;
   next();
