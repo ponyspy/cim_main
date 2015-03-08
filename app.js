@@ -38,35 +38,35 @@ app.use(function(req, res, next) {
 app.use(app.router);
 
 
-app.use(function(req, res, next) {
-  res.status(404);
+// app.use(function(req, res, next) {
+//   res.status(404);
 
-  // respond with html page
-  if (req.accepts('html')) {
-    res.render('error', { url: req.url, status: 404 });
-    return;
-  }
+//   // respond with html page
+//   if (req.accepts('html')) {
+//     res.render('error', { url: req.url, status: 404 });
+//     return;
+//   }
 
-  // respond with json
-  if (req.accepts('json')) {
-      res.send({
-      error: {
-        status: 'Not found'
-      }
-    });
-    return;
-  }
+//   // respond with json
+//   if (req.accepts('json')) {
+//       res.send({
+//       error: {
+//         status: 'Not found'
+//       }
+//     });
+//     return;
+//   }
 
-  // default to plain-text
-  res.type('txt').send('Not found');
-});
+//   // default to plain-text
+//   res.type('txt').send('Not found');
+// });
 
-app.use(function(err, req, res, next) {
-  var status = err.status || 500;
+// app.use(function(err, req, res, next) {
+//   var status = err.status || 500;
 
-  res.status(status);
-  res.render('error', { error: err, status: status });
-});
+//   res.status(status);
+//   res.render('error', { error: err, status: status });
+// });
 
 
 // -------------------
@@ -942,7 +942,7 @@ app.post('/auth/add/news', function (req, res) {
 
   async.parallel({
     photo: function(callback) {
-      if (files.photo.size != 0) {
+      if (files.photo) {
         fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
           var newPath = __dirname + '/public/images/news/' + news._id + '/photo.jpg';
           gm(files.photo.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
@@ -954,11 +954,10 @@ app.post('/auth/add/news', function (req, res) {
       }
       else {
         callback(null, 0);
-        fs.unlink(files.photo.path);
       }
     },
     poster: function(callback) {
-      if (files.poster.size != 0) {
+      if (files.poster) {
         fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
           var newPath = __dirname + '/public/images/news/' + news._id + '/poster.jpg';
           gm(files.poster.path).resize(580, false).quality(60).noProfile().write(newPath, function() {
@@ -970,7 +969,6 @@ app.post('/auth/add/news', function (req, res) {
       }
       else {
         callback(null, 0);
-        fs.unlink(files.poster.path);
       }
     }
   },
@@ -1038,7 +1036,7 @@ app.post('/auth/edit/news/:id', function (req, res) {
 
     async.parallel({
       photo: function(callback) {
-        if (files.photo.size != 0) {
+        if (files.photo) {
           fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
             var newPath = __dirname + '/public/images/news/' + news._id + '/photo.jpg';
             gm(files.photo.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
@@ -1050,11 +1048,10 @@ app.post('/auth/edit/news/:id', function (req, res) {
         }
         else {
           callback(null, 0);
-          fs.unlink(files.photo.path);
         }
       },
       poster: function(callback) {
-        if (files.poster.size != 0) {
+        if (files.poster) {
           fs.mkdir(__dirname + '/public/images/news/' + news._id, function() {
             var newPath = __dirname + '/public/images/news/' + news._id + '/poster.jpg';
             gm(files.poster.path).resize(580, false).quality(60).noProfile().write(newPath, function() {
@@ -1066,7 +1063,6 @@ app.post('/auth/edit/news/:id', function (req, res) {
         }
         else {
           callback(null, 0);
-          fs.unlink(files.poster.path);
         }
       }
     },
@@ -1189,7 +1185,7 @@ app.post('/auth/add/partner', function (req, res) {
     partner.en.description = post.en.description;
   };
 
-  if (files.logo.size != 0) {
+  if (files.logo) {
     var newPath = __dirname + '/public/images/partners/' + partner._id + '.jpg';
     gm(files.logo.path).resize(220, false).noProfile().command('convert', 'JPG').write(newPath, function() {
       partner.logo = '/images/partners/' + partner._id + '.jpg';
@@ -1200,7 +1196,6 @@ app.post('/auth/add/partner', function (req, res) {
     });
   }
   else {
-    fs.unlink(files.logo.path);
     partner.save(function(err) {
       res.redirect('back');
     });
@@ -1258,7 +1253,7 @@ app.post('/auth/edit/partners/:id', function (req, res) {
       partner.en.description = post.en.description;
     };
 
-    if (files.logo.size != 0) {
+    if (files.logo) {
       var newPath = __dirname + '/public/images/partners/' + partner._id + '.jpg';
       gm(files.logo.path).resize(220, false).noProfile().command('convert', 'JPG').write(newPath, function() {
         partner.logo = '/images/partners/' + partner._id + '.jpg';
@@ -1269,7 +1264,6 @@ app.post('/auth/edit/partners/:id', function (req, res) {
       });
     }
     else {
-      fs.unlink(files.logo.path);
       partner.save(function(err) {
         res.redirect('back');
       });
@@ -1301,7 +1295,7 @@ app.post('/auth/add/member', function (req, res) {
     member.en.description = post.en.description;
   }
 
-  if (files.img.size != 0) {
+  if (files.img) {
     var newPath = __dirname + '/public/images/members/' + member._id + '.jpg';
     gm(files.img.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
       member.img = '/images/members/' + member._id + '.jpg';
@@ -1313,7 +1307,6 @@ app.post('/auth/add/member', function (req, res) {
   }
   else {
     member.save(function() {
-      fs.unlink(files.img.path);
       res.redirect('back');
     });
   }
@@ -1366,7 +1359,7 @@ app.post('/auth/edit/members/:id', function (req, res) {
       member.en.description = post.en.description;
     }
 
-    if (files.img.size != 0) {
+    if (files.img) {
       var newPath = __dirname + '/public/images/members/' + member._id + '.jpg';
       gm(files.img.path).resize(1120, false).quality(60).noProfile().write(newPath, function() {
         member.img = '/images/members/' + member._id + '.jpg';
@@ -1378,7 +1371,6 @@ app.post('/auth/edit/members/:id', function (req, res) {
     }
     else {
       member.save(function() {
-        fs.unlink(files.img.path);
         res.redirect('/auth/edit/members');
       });
     }
@@ -1410,7 +1402,7 @@ app.post('/auth/add/photo', function (req, res) {
     photo.en.author = post.en.author;
   }
 
-  if (files.img.size != 0) {
+  if (files.img) {
     var newPath = __dirname + '/public/images/photo_stream/' + photo._id + '.jpg';
     gm(files.img.path).resize(2200, false).quality(60).noProfile().write(newPath, function() {
       photo.image = '/images/photo_stream/' + photo._id + '.jpg';
@@ -1422,7 +1414,6 @@ app.post('/auth/add/photo', function (req, res) {
   }
   else {
     photo.save(function() {
-      fs.unlink(files.img.path);
       res.redirect('back');
     });
   }
@@ -1482,7 +1473,7 @@ app.post('/auth/edit/photos/:id', function (req, res) {
         photo.en.description = post.en.description;
       }
 
-      if (files.img.size != 0) {
+      if (files.img) {
         var newPath = __dirname + '/public/images/photo_stream/' + photo._id + '.jpg';
         gm(files.img.path).resize(2200, false).quality(60).noProfile().write(newPath, function() {
           photo.img = '/images/photo_stream/' + photo._id + '.jpg';
@@ -1494,7 +1485,6 @@ app.post('/auth/edit/photos/:id', function (req, res) {
       }
       else {
         photo.save(function() {
-          fs.unlink(files.img.path);
           res.redirect('/auth/edit/photos');
         });
       }
