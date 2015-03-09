@@ -361,7 +361,7 @@ a.head_culture_logo:hover {
 }
 
 .banner_item {
-	/*width: 23px;*/
+	width: auto;
 	height: 22px;
 	margin-right: 20px;
 	float: left;
