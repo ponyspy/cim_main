@@ -136,6 +136,15 @@ html, body, .maket {
 	z-index: 1;
  }
 
+ .menu_auth a {
+	display: inline!important;
+ }
+
+ .menu_auth span {
+ 	margin-left: 3px;
+ 	margin-right: 3px;
+ }
+
  .menu_drop a:hover {
 		text-decoration: underline;
  }

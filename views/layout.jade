@@ -43,7 +43,10 @@ html
 						.menu_item= 'цим' + (menu_cim || '')
 							.menu_drop
 								if (session.user_id)
-									a(href='/auth') звездочет
+									.menu_auth
+										a(href='/auth') звездочет
+										span /
+										a(href='/logout') выход
 								a(href='/') новости
 								a(href='/now') цим сегодня
 								//- a(href='/team') команда

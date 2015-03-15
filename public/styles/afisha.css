@@ -225,6 +225,14 @@ body {
 	background-color: black;
 }
 
+.ticket_sold:hover {
+	color: red;
+	text-decoration: none;
+	border: 1px solid red;
+	background-color: white;
+	cursor: default;
+}
+
 .ticket_phone {
 	font: 8pt/12pt 'Pragmatica';
 }

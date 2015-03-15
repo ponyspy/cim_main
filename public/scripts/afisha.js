@@ -26,7 +26,7 @@ $(document).ready(function() {
 					$('.' + ticket.show_id).removeClass('ticket_none').text('купить билет').attr({'href': data.turl + ticket.tid, 'target':'_blank'});
 				break;
 				case 'sold':
-					$('.' + ticket.show_id).text('проданны');
+					$('.' + ticket.show_id).removeClass('ticket_none').addClass('ticket_sold').removeAttr('href').text('проданны');
 				break;
 			}
 		});

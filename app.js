@@ -14,17 +14,23 @@ mongoose.connect('localhost', 'main');
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
-app.locals.pretty = true;
-// app.use(express. favicon(__dirname + '/public/images/design/favicon.png'));
-app.use(express.static(__dirname + '/public'));
+
 app.use(multer({ dest: __dirname + '/uploads'}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methodOverride());
 
+if (process.env.NODE_ENV != 'production') {
+  app.set('json spaces', 2);
+  app.locals.pretty = true;
+  app.use(express.static(__dirname + '/public'));
+}
+
 app.use(express.session({
-  key: 'cim.sess',
+  key: 'session',
   secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: false,
   cookie: {
     path: '/',
     maxAge: 1000 * 60 * 60 // 1 hour
@@ -1516,9 +1522,8 @@ app.post('/login', function(req, res) {
 
 
 app.get('/logout', function (req, res) {
-  delete req.session.user_id;
-  delete req.session.login;
-  delete req.session.status;
+  req.session.destroy();
+  res.clearCookie('session');
   res.redirect('back');
 });
 
