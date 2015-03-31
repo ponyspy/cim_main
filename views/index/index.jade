@@ -56,10 +56,10 @@ block content
 				.layer
 				.main_poster_skip
 					- for (var i = 0; i <= 2; i++)
-						- var date = new Date()
-						- date.setMonth(date.getMonth() + i)
-						a(href='/afisha/' + date.getFullYear() + '/' + (date.getMonth()+1))
-							.cal_title.cal_title_big= months[date.getMonth()]
+						- var year = new Date().getFullYear()
+						- var date =  (new Date().getMonth() + i)%12
+						a(href='/afisha/' + year + '/' + (date + 1))
+							.cal_title.cal_title_big= months[date]
 			each event in schedule
 				if (event.event.photos.length > 0)
 					img.hide(src=event.event.photos[0].path)
