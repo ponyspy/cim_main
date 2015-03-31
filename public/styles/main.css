@@ -366,16 +366,23 @@ a.head_culture_logo:hover {
 	margin-top: 2px;
 	float: left;
 	overflow: hidden;
-	/*border: 1px solid red;	*/
+}
+
+.banner_block a {
+	margin-right: 20px;
+	display: block;
+	float: left;
+}
+
+.banner_block a:last-child {
+	margin-right: 0px;
 }
 
 .banner_item {
 	width: auto;
 	height: 22px;
-	margin-right: 20px;
-	float: left;
-	/*background-color: red;*/
-	/*border-radius: 46px;*/
+	/*margin-right: 20px;*/
+	/*float: left;*/
 }
 
 /*
