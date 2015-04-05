@@ -184,7 +184,7 @@
 }
 
 .m_search {
-	width: 130px;
+	width: 126px;
 	height: 15px;
 	margin-left: 168px;
 	margin-top: -10px;
@@ -196,6 +196,27 @@
 	border: 0px;
 	padding-bottom: 3px;
 	box-shadow: 0;
+	padding-top: 1px;
+	padding-left: 5px;
+	padding-bottom: 5px;
+}
+
+.new_member {
+	position: absolute;
+	margin-top: -10px;
+	margin-left: 149px;
+	padding: 2px;
+	padding-left: 5px;
+	padding-right: 5px;
+	background-color: black;
+	color: white;
+}
+
+.new_member:hover {
+	background-color: red;
+	color: white;
+
+	cursor: pointer;
 }
 
 .column_placeholder {

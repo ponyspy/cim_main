@@ -218,6 +218,24 @@ $(document).ready(function() {
 		});
 	});
 
+	$(document).on('click', '.new_member', function() {
+		var name = $('.m_search').val();
+		var marker = $(this).closest('.add').prev('.marker').attr('class').slice(7);
+
+		$.post('/new_member', {ru: { name: name }, status: [marker]}).done(function(id) {
+
+			var member = $('<a />', {'id': id, 'href':'/member/' + id, 'target': '_blank', 'text': name});
+			var comment = $('<div />', {'class':'m_comment', 'text': 'описание', 'contenteditable':true});
+			var del = $('<div />', {'class':'m_del', 'text':'⊖'});
+
+			$('.' + marker + ' > .m_list').append(del, member, comment);
+			$('.' + marker + ' > .m_list > a').css('clear', 'none');
+			$('.' + marker + ' > .m_edit').trigger('click');
+
+			$('.m_search').val('');
+		});
+	});
+
 	$('.m_edit').click(function(event) {
 		var th = $(this);
 		var marker = $(this).closest('.marker').attr('class').slice(7);
@@ -238,14 +256,15 @@ $(document).ready(function() {
 		$.post('/mlist', {status: marker}).done(function(members) {
 			var add = $('<div />', {'class':'add'});
 			var search = $('<input />', {'class':'m_search', 'type':'text', 'placeholder':'поиск...'});
+			var new_member = $('<div />', {'class':'new_member', 'text': '+'});
 
 			$('.add').remove();
 			th.closest('.marker').after(add);
-			$('.add').append(search)
+			$('.add').append(new_member, search)
 
 			for (var i in members) {
 				var m_add = $('<div />', {'class':'m_add', 'text':'⊕'});
-				var add_member = $('<a />', {'href':'/member/' + members[i]._id, 'text': members[i].ru.name, 'id': members[i]._id});
+				var add_member = $('<a />', {'href':'/member/' + members[i]._id, 'target': '_blank', 'text': members[i].ru.name, 'id': members[i]._id});
 				$('.add').append(m_add, add_member);
 			}
 

@@ -195,6 +195,17 @@ app.post('/upload', function (req, res) {
   });
 });
 
+app.post('/new_member', function (req, res) {
+  var post = req.body;
+  var member = new Member();
+
+  member.ru.name = post.ru.name;
+  member.status = post.status;
+  member.save(function(err, member) {
+    res.send(member._id);
+  });
+});
+
 app.post('/photo_remove', function (req, res) {
   fs.unlink(__dirname + '/public' + req.body.path, function() {
     res.send(req.body.path);
