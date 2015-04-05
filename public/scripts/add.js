@@ -62,6 +62,16 @@ $('textarea').bind('keyup', function() {
 // *** Constructors Block ***
 // ------------------------
 
+	function snakePlus () {
+		var elem = $('.snake').first().clone();
+		elem.find('option').eq(0).attr('selected', true);
+		$('.snake').last().after(elem);
+	}
+
+	function snakeMinus () {
+		$(this).parent('.snake').remove();
+	}
+
 
 	function snakeForward () {
 		var elem = $(this).parent().find('select');
@@ -90,6 +100,9 @@ $('textarea').bind('keyup', function() {
 	$('.toggle_eng').on('click', toggleEnglish);
 	$('.back').on('click', snakeBack);
 	$('.forward').on('click', snakeForward);
+
+	$('.plus').on('click', snakePlus);
+	$(document).on('click', '.minus', snakeMinus);
 
 	$('.form_submit').click(function() {
 		var areas = $('textarea');
