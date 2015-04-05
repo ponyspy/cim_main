@@ -222,6 +222,8 @@ $(document).ready(function() {
 		var name = $('.m_search').val();
 		var marker = $(this).closest('.add').prev('.marker').attr('class').slice(7);
 
+		if (name == '') return false;
+
 		$.post('/new_member', {ru: { name: name }, status: [marker]}).done(function(id) {
 
 			var member = $('<a />', {'id': id, 'href':'/member/' + id, 'target': '_blank', 'text': name});
