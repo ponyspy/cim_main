@@ -33,12 +33,9 @@ html
 								a.pay_phone(href='tel:+7 (495) 363-10-48') касса: (495) 363 10 48
 						.menu_item= 'афиша' + (menu_afisha || '')
 							.menu_drop
-								- for (var i = 0; i <= 2; i++)
-									- var year = new Date().getFullYear()
-									- var date =  (new Date().getMonth() + i)%12
-									a(href='/afisha/' + year + '/' + (date + 1))=  months[date].toLowerCase()
-								hr
-								a(href='/afisha/' + 2015 + '/' + 9)= months[8].toLowerCase()
+								each item in afisha_items
+									a(href='/afisha/' + item.year + '/' + item.month)=  months[item.month - 1].toLowerCase()
+								//- hr
 								//- a(href='/afisha/archive') архив
 						.menu_item= 'цим' + (menu_cim || '')
 							.menu_drop

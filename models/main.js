@@ -200,7 +200,7 @@ var scheduleSchema = new Schema({
     banner: { type: Boolean, default: false }
   },
   event: { type: Schema.Types.ObjectId, ref: 'Event' },
-  date: { type: Date, required: true }
+  date: { type: Date, required: true, index: true }
 });
 
 module.exports.User = mongoose.model('User', userSchema);

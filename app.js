@@ -41,8 +41,40 @@ app.use(function(req, res, next) {
   res.locals.session = req.session;
   next();
 });
-app.use(app.router);
 
+app.use(function(req, res, next) {
+  if (req.accepted[0].type == 'text') {
+    var start = new Date();
+        start.setDate(1);
+    var time_zone = 3 * 60 * 60 * 1000;
+
+    Schedule.aggregate()
+      .match({
+        'date': { $gte: start }
+      })
+      .group({
+        '_id': {
+          year: { $year: { $add: ['$date', time_zone] } },
+          month: { $month: { $add: ['$date', time_zone] } }
+        }
+      })
+      .sort('_id.year _id.month')
+      .project({
+        _id: 0,
+        month: '$_id.month',
+        year: '$_id.year'
+      })
+      .exec(function(err, items) {
+        res.locals.afisha_items = items;
+        next();
+      });
+  } else {
+    res.locals.afisha_items = [];
+    next();
+  }
+});
+
+app.use(app.router);
 
 app.use(function(req, res, next) {
   res.status(404);
