@@ -55,11 +55,9 @@ block content
 			else
 				.layer
 				.main_poster_skip
-					- for (var i = 0; i <= 2; i++)
-						- var year = new Date().getFullYear()
-						- var date =  (new Date().getMonth() + i)%12
-						a(href='/afisha/' + year + '/' + (date + 1))
-							.cal_title.cal_title_big= months[date]
+					each item in afisha_items
+						a(href='/afisha/' + item.year + '/' + item.month)
+							.cal_title.cal_title_big= months[item.month - 1]
 			each event in schedule
 				if (event.event.photos.length > 0)
 					img.hide(src=event.event.photos[0].path)
